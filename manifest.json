@@ -1,6 +1,7 @@
 {
   "name": "MicroTask Accounting",
   "short_name": "MicroTask",
+  "description": "Application de gestion MicroTask Accounting",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0B0F19",
@@ -18,3 +19,5 @@
     }
   ]
 }
+
+  
