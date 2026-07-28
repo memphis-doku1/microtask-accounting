@@ -1,841 +1,726 @@
 <!DOCTYPE html>
 <html lang="fr" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MicroTask Accounting - Hub des Missions</title>
-
-    <!-- Icône d'application pour iOS (iPhone / iPad) -->
-    <link rel="apple-touch-icon" href="icon1.png">
-
-    <!-- Fichier Manifest pour l'installation Web App / PWA (Android / Chrome) -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- Favicon standard -->
-    <link rel="icon" type="image/png" href="icon1.png">
-
-    <!-- Inclusion de Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#0B0F19',
-                        cardbg: '#111827',
-                        bordercolor: '#1F2937',
-                        neonblue: '#00F0FF',
-                        neongreen: '#10B981',
-                        neonpurple: '#8B5CF6'
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MicroTask Accounting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: '#10b981',
+            darkbg: '#0f172a',
+            cardbg: '#1e293b'
+          }
         }
-    </script>
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+  </style>
 </head>
-<body class="bg-darkbg text-gray-100 min-h-screen font-sans flex flex-col justify-between">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-16">
 
-    <!-- Navbar -->
-    <header class="border-b border-bordercolor bg-cardbg/80 backdrop-blur sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-emerald-400 flex items-center justify-center font-bold text-black shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-                μ
-            </div>
-            <h1 class="text-xl font-bold tracking-wide bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                MicroTask Accounting
-            </h1>
+  <!-- EN-TÊTE / DASHBOARD -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-xl shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          📊
         </div>
-        <div class="flex items-center space-x-4">
-            <span class="text-sm text-gray-400 hidden sm:inline">Solde: <strong id="user-balance" class="text-neongreen">$0.00</strong></span>
-            <button id="espace-btn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-cyan-500/10 text-neonblue border border-cyan-500/30 hover:bg-cyan-500/25 transition-all shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-                Mon Espace
+        <div>
+          <h1 class="text-xl font-bold tracking-wide text-white">MicroTask <span class="text-emerald-400">Accounting</span></h1>
+          <p class="text-xs text-slate-400">Gestion & Missions de Calcul Comptable</p>
+        </div>
+      </div>
+
+      <!-- CARTE SOLDE, STATS ET RETRAIT -->
+      <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap justify-center sm:justify-end">
+        <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-center">
+          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Missions Complétées</span>
+          <span id="completedNewCount" class="text-lg font-bold text-emerald-400">0/30</span>
+        </div>
+
+        <div class="bg-slate-900 border border-emerald-500/30 px-5 py-2 rounded-xl text-right shadow-[0_0_20px_rgba(16,185,129,0.1)] min-w-[220px]">
+          <div class="border-b border-slate-800 pb-1 mb-1 flex justify-between items-center gap-3">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
+              <span id="soldeDisplay" class="text-xl font-black text-emerald-400">0,00 $</span>
+            </div>
+            <!-- BOUTON RETIRER -->
+            <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
+              💸 Retirer
             </button>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase tracking-wider text-amber-400/90 font-bold block">Solde en Attente</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm font-bold text-amber-400">0,00 $</span>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        
-        <!-- Hero Banner -->
-        <section class="mb-10 text-center sm:text-left p-8 rounded-2xl bg-gradient-to-r from-cardbg via-cardbg to-bordercolor border border-bordercolor shadow-xl relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl"></div>
-            <div class="relative z-10 max-w-2xl">
-                <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-3">
-                    Tableau de Bord
-                </span>
-                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                    20 Missions aux Domaines Variés
-                </h2>
-                <p class="mt-3 text-gray-400 text-base">
-                    Chaque mission propose ses propres données sectorielles (Café, Boulangerie, E-commerce, Coiffure...). Analysez, remplissez les 5 champs et soumettez !
-                </p>
-            </div>
-        </section>
-
-        <!-- Grille des 20 Missions -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- Mission 1 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="1" data-title="Clôture de caisse - Café Le Parisien" data-price="30" data-cat="Cafés & Restos">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Cafés & Restos</span>
-                        <span class="text-lg font-bold text-neongreen">$30</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Clôture de caisse - Café Le Parisien</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de café en grains, sucre, hygiène et salaire du barista.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 2 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="2" data-title="Bilan Fournisseurs - Épicerie Bio" data-price="40" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$40</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Bilan Fournisseurs - Épicerie Bio</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de fruits secs, farines bio, produits d'entretien et salaires.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 3 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="3" data-title="Coût de Production - Boulangerie Doré" data-price="45" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$45</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Coût de Production - Boulangerie Doré</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de farine, sucre, levure, électricité des fours et salaires.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 4 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="4" data-title="Point d'équilibre - Salon de Coiffure Chic" data-price="50" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$50</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Point d'équilibre - Salon de Coiffure Chic</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de shampooings, colorations, serviettes et salaires coiffeurs.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 5 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="5" data-title="Comptabilité - E-commerce Mode & Accessoires" data-price="60" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$60</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Comptabilité - E-commerce Mode</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de cartons d'emballage, frais de publicité, salaires logistique.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 6 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="6" data-title="Gestion stock - Pharmacie du Centre" data-price="55" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$55</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Gestion stock - Pharmacie du Centre</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de parapharmacie, masques, produits d'hygiène et salaires pharmaciens.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 7 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="7" data-title="Audit - Fast Food Burger King's Local" data-price="50" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$50</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Audit - Fast Food Local</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de viandes, frites, sauces, emballages jetables et salaires équipiers.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 8 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="8" data-title="Clôture - Garage Automobile Réparation" data-price="70" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$70</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Clôture - Garage Automobile</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de pièces détachées, huiles, chiffons d'atelier et salaires mécaniciens.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 9 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="9" data-title="Bilan - Hôtel & Restauration Le Rivage" data-price="80" data-cat="Synthèse / Bilan">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Synthèse / Bilan</span>
-                        <span class="text-lg font-bold text-neongreen">$80</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Bilan - Hôtel & Restauration Le Rivage</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de literie, produits d'accueil, denrées alimentaires et masse salariale.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 10 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="10" data-title="Analyse - Librairie & Papeterie Mots d'Art" data-price="40" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$40</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Analyse - Librairie & Papeterie</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de livres, cahiers, stylos, sacs en papier et salaire du libraire.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 11 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="11" data-title="Comptabilité - Salle de Sport FitGym" data-price="65" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$65</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Comptabilité - Salle de Sport FitGym</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de boissons énergétiques, produits d'entretien machines et coachs.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 12 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="12" data-title="Gestion - Pressing & Blanchisserie Net+" data-price="45" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$45</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Gestion - Pressing & Blanchisserie</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de solvants écologiques, cintres, housses plastiques et salaires.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 13 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="13" data-title="Bilan - Superette de Quartier Proxi" data-price="55" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$55</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Bilan - Superette de Quartier</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de produits frais, boissons, sacs plastiques et salaires caissiers.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 14 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="14" data-title="Audit - Clinique Vétérinaire des Pattes" data-price="75" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$75</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Audit - Clinique Vétérinaire</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de vaccins, matériel stérile, nourriture spécialisée et salaires asv.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 15 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="15" data-title="Comptabilité - Pizzeria Napoli" data-price="50" data-cat="Cafés & Restos">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Cafés & Restos</span>
-                        <span class="text-lg font-bold text-neongreen">$50</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Comptabilité - Pizzeria Napoli</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de mozzarella, farine à pizza, boîtes à emporter et livreurs.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 16 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="16" data-title="Journal TVA - Agence de Voyage Horizon" data-price="70" data-cat="Synthèse / Bilan">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Synthèse / Bilan</span>
-                        <span class="text-lg font-bold text-neongreen">$70</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Journal TVA - Agence de Voyage</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de abonnements logiciels, matériel informatique et conseillers.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 17 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="17" data-title="Trésorerie - Fleuriste L'Éden Floral" data-price="45" data-cat="Magasins">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Magasins</span>
-                        <span class="text-lg font-bold text-neongreen">$45</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Trésorerie - Fleuriste L'Éden</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de fleurs fraîches, terreau, rubans d'emballage et salaire.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 18 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="18" data-title="Audit - Dark Kitchen 'Wok Express'" data-price="90" data-cat="Synthèse / Bilan">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Synthèse / Bilan</span>
-                        <span class="text-lg font-bold text-neongreen">$90</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Audit - Dark Kitchen Wok</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de nouilles, légumes asiatiques, commissions plateformes livraison.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 19 -->
-            <div class="mission-card bg-cardbg border border-bordercolor hover:border-cyan-500/50 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] group" data-id="19" data-title="Comparatif - Institut de Beauté Douceur" data-price="60" data-cat="Services & Fast-Food">
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Services & Fast-Food</span>
-                        <span class="text-lg font-bold text-neongreen">$60</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Comparatif - Institut de Beauté</h3>
-                    <p class="text-sm text-gray-400 mt-2">Achats de crèmes, huiles essentielles, lingettes et salaires esthéticiennes.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors shadow-[0_0_10px_rgba(0,240,255,0.3)]">Postuler</button>
-                </div>
-            </div>
-
-            <!-- Mission 20 -->
-            <div class="mission-card bg-cardbg border border-cyan-500/40 hover:border-cyan-500 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] relative overflow-hidden group" data-id="20" data-title="Dossier Trimestriel - Co-working Space" data-price="100" data-cat="Rapport Expert">
-                <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-500/10 rounded-bl-full pointer-events-none"></div>
-                <div>
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Rapport Expert</span>
-                        <span class="text-lg font-bold text-neongreen">$100</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-neonblue transition-colors">Dossier Trimestriel - Co-working</h3>
-                    <p class="text-sm text-gray-400 mt-2">Dossier expert consolidé : consommables café, abonnements, salaires accueil.</p>
-                </div>
-                <div class="mt-6 pt-4 border-t border-bordercolor/60 flex justify-between items-center gap-2">
-                    <button class="info-btn px-2.5 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-bordercolor transition-colors">📌 Remarques</button>
-                    <button class="apply-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-400 text-black font-bold hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(0,240,255,0.4)]">Postuler</button>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Modal Pop-up : Soumission de Travail -->
-    <div id="mission-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg border border-cyan-500/40 rounded-2xl max-w-2xl w-full p-6 shadow-[0_0_30px_rgba(0,240,255,0.2)] relative max-h-[90vh] overflow-y-auto">
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <span id="modal-cat" class="text-xs px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Catégorie</span>
-            <h3 id="modal-title" class="text-2xl font-bold text-white mt-3">Titre de la mission</h3>
-            <p class="text-gray-400 text-sm mt-1">Récompense : <strong id="modal-price" class="text-neongreen text-lg">0$</strong></p>
-            
-            <div class="mt-5">
-                <label class="block text-xs uppercase tracking-wider text-cyan-400 mb-2 font-semibold flex items-center gap-2">
-                    📊 Données comptables brutes (À analyser) :
-                </label>
-                <div id="modal-data-container" class="space-y-4 bg-darkbg border border-bordercolor rounded-xl p-4 text-sm text-gray-300 font-mono overflow-x-auto"></div>
-            </div>
-
-            <div class="mt-6 border-t border-bordercolor/80 pt-5">
-                <label class="block text-xs uppercase tracking-wider text-cyan-400 mb-4 font-semibold">
-                    ✍️ Saisissez vos calculs & votre remarque :
-                </label>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs text-gray-300 mb-1 font-medium">1. Total des charges ($)</label>
-                        <input type="number" id="input-charges" placeholder="Ex: 950" class="w-full bg-darkbg border border-bordercolor rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 font-mono disabled:opacity-60 disabled:cursor-not-allowed">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-300 mb-1 font-medium">2. Recette totale ($)</label>
-                        <input type="number" id="input-recette" placeholder="Ex: 1450" class="w-full bg-darkbg border border-bordercolor rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 font-mono disabled:opacity-60 disabled:cursor-not-allowed">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-300 mb-1 font-medium">3. TVA (20%) ($)</label>
-                        <input type="number" id="input-tva" placeholder="Ex: 290" class="w-full bg-darkbg border border-bordercolor rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 font-mono disabled:opacity-60 disabled:cursor-not-allowed">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-300 mb-1 font-medium">4. Revenus nets ($)</label>
-                        <input type="number" id="input-revenu-net" placeholder="Ex: 500" class="w-full bg-darkbg border border-bordercolor rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 font-mono disabled:opacity-60 disabled:cursor-not-allowed">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-300 mb-1 font-medium">5. Remarque sur la gestion</label>
-                        <textarea id="input-remarque" rows="3" placeholder="Ex: Bonne gestion globale, attention toutefois..." class="w-full bg-darkbg border border-bordercolor rounded-lg p-3 text-sm text-white focus:outline-none focus:border-cyan-500 font-sans disabled:opacity-60 disabled:cursor-not-allowed"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 flex space-x-3">
-                <button id="submit-work" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-black font-bold hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(0,240,255,0.4)] disabled:opacity-50 disabled:cursor-not-allowed">Soumettre le travail</button>
-                <button id="cancel-modal" class="px-5 py-3 rounded-xl bg-bordercolor text-gray-300 hover:bg-gray-800 transition-colors">Annuler</button>
-            </div>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <!-- Modal Pop-up : Remarques & Contexte Entreprise -->
-    <div id="info-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg border border-purple-500/40 rounded-2xl max-w-lg w-full p-6 shadow-[0_0_30px_rgba(139,92,246,0.2)] relative max-h-[90vh] overflow-y-auto">
-            <button id="close-info-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20">Fiche Contexte</span>
-            <h3 id="info-modal-title" class="text-xl font-bold text-white mt-3">Nom de l'entreprise</h3>
-            
-            <div class="mt-4 bg-darkbg border border-bordercolor rounded-xl p-4">
-                <h4 class="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2">📌 Remarques & Conseils du Gérant :</h4>
-                <p id="info-modal-text" class="text-sm text-gray-300 leading-relaxed font-sans"></p>
-            </div>
+  <!-- CONTENU PRINCIPAL -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-8 flex-1 w-full space-y-12">
 
-            <div class="mt-6 flex justify-end">
-                <button id="ok-info-modal" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-medium hover:bg-purple-500 transition-colors">Fermer</button>
-            </div>
+    <!-- HISTORIQUE DES RETRAITS -->
+    <section id="withdrawHistorySection" class="hidden bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
+      <h2 class="text-base font-bold text-white flex items-center gap-2">
+        <span>🧾</span> Historique des Demandes de Retrait
+      </h2>
+      <div id="withdrawHistoryList" class="space-y-2 text-xs">
+        <!-- Historique dynamique -->
+      </div>
+    </section>
+
+    <!-- SECTION 1 : 20 MISSIONS INITIALES -->
+    <section class="space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>📋</span> Missions Comptables Globales (20)
+          </h2>
+          <p class="text-xs text-slate-400">Suivi des travaux de gestion (Cafés, Restaurants, E-commerce, Magasins)</p>
         </div>
-    </div>
 
-    <!-- MODAL "MON ESPACE" -->
-    <div id="espace-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-cardbg border border-cyan-500/40 rounded-t-2xl sm:rounded-2xl max-w-md w-full p-6 shadow-[0_0_30px_rgba(0,240,255,0.2)] relative animate-slide-up sm:animate-none">
-            <button id="close-espace-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Profil & Compte</span>
-            <h3 class="text-xl font-bold text-white mt-3">Mon Espace Personnel</h3>
-            
-            <div class="mt-4 space-y-3 bg-darkbg border border-bordercolor rounded-xl p-4 text-sm text-gray-300">
-                <div class="flex justify-between items-center">
-                    <span>Solde actuel :</span>
-                    <strong id="espace-balance" class="text-neongreen text-base">$0.00</strong>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span>Statut du compte :</span>
-                    <span class="px-2 py-0.5 text-xs rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">● Actif</span>
-                </div>
-            </div>
-
-            <!-- BOUTONS D'INFORMATIONS DANS L'ESPACE -->
-            <div class="mt-5 space-y-3">
-                <button id="btn-info-perso" class="w-full py-3 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-cyan-400 font-semibold border border-cyan-500/30 transition-all text-left flex justify-between items-center">
-                    <span>👤 Informations personnelles</span>
-                    <span class="text-xs text-gray-400">➔</span>
-                </button>
-                <button id="btn-info-finances" class="w-full py-3 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-neongreen font-semibold border border-emerald-500/30 transition-all text-left flex justify-between items-center">
-                    <span>💳 Informations financières</span>
-                    <span class="text-xs text-gray-400">➔</span>
-                </button>
-            </div>
-
-            <div class="mt-6 flex justify-end">
-                <button id="ok-espace-modal" class="w-full py-2.5 rounded-xl bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition-colors">Fermer</button>
-            </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterMissions('all')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
+          <button onclick="filterMissions('Terminée')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
+          <button onclick="filterMissions('En attente')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
         </div>
-    </div>
+      </div>
 
-    <!-- MODAL DÉTAILS : INFORMATIONS PERSONNELLES -->
-    <div id="perso-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg border border-cyan-500/40 rounded-2xl max-w-md w-full p-6 shadow-[0_0_30px_rgba(0,240,255,0.2)] relative">
-            <button id="close-perso-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Détails Profil</span>
-            <h3 class="text-xl font-bold text-white mt-3 mb-4">Informations Personnelles</h3>
-            
-            <div class="space-y-3 bg-darkbg border border-bordercolor rounded-xl p-4 text-sm text-gray-300">
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">Nom :</span>
-                    <span class="font-medium text-white">ABALLAGH</span>
-                </div>
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">Prénom :</span>
-                    <span class="font-medium text-white">ABDERRAHIM</span>
-                </div>
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">Localisation :</span>
-                    <span class="font-medium text-white">Marrakech, Maroc</span>
-                </div>
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">ID :</span>
-                    <span class="font-medium text-white">I90609</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Adresse :</span>
-                    <span class="font-medium text-cyan-400">Dar saada 1 imm 79 étage2 num 2 Marrakech </span>
-                </div>
-            </div>
+      <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Injecté dynamiquement -->
+      </div>
+    </section>
 
-            <div class="mt-6 flex justify-end">
-                <button id="ok-perso-modal" class="w-full py-2.5 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition-colors">Retour</button>
-            </div>
+    <hr class="border-slate-800 my-8">
+
+    <!-- SECTION 2 : 30 NOUVELLES MISSIONS DE CALCUL ET SAISIE -->
+    <section class="space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>🧮</span> Missions Pratiques : Calculs Recettes, Charges & TVA (30)
+          </h2>
+          <p class="text-xs text-slate-300 mt-1">
+            Remplissez les informations et enregistrez la mission pour ajouter sa rémunération (30 $ à 100 $) à votre <strong>Solde en attente</strong>.
+          </p>
         </div>
+      </div>
+
+      <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Injecté dynamiquement -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODALE : CHOIX DU MODE DE RETRAIT -->
+  <div id="withdrawChoiceModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-5">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-white">Sélectionner la méthode de retrait</h3>
+        <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
+
+      <p class="text-xs text-slate-300">Choisissez comment vous souhaitez recevoir vos fonds (Montant minimum de retrait : <strong>100 $</strong>).</p>
+
+      <div class="grid grid-cols-1 gap-3 pt-2">
+        <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">🏦</span>
+            <div>
+              <div class="text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire</div>
+              <div class="text-[11px] text-slate-400">Virement directement au Maroc</div>
+            </div>
+          </div>
+          <span class="text-slate-500 group-hover:text-emerald-400 font-bold">→</span>
+        </button>
+
+        <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">🅿️</span>
+            <div>
+              <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
+              <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
+            </div>
+          </div>
+          <span class="text-slate-500 group-hover:text-emerald-400 font-bold">→</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <!-- MODAL DÉTAILS : INFORMATIONS FINANCIÈRES -->
-    <div id="finances-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg border border-emerald-500/40 rounded-2xl max-w-md w-full p-6 shadow-[0_0_30px_rgba(16,185,129,0.2)] relative">
-            <button id="close-finances-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Portefeuille</span>
-            <h3 class="text-xl font-bold text-white mt-3 mb-4">Informations Financières</h3>
-            
-            <div class="space-y-3 bg-darkbg border border-bordercolor rounded-xl p-4 text-sm text-gray-300">
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">Solde disponible :</span>
-                    <strong id="finances-balance" class="text-neongreen font-bold text-base">$0.00</strong>
-                </div>
-                <div class="flex justify-between border-b border-bordercolor/50 pb-2">
-                    <span class="text-gray-400">Devise principale :</span>
-                    <span class="font-medium text-white">USD ($)</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Méthode de retrait :</span>
-                    <span class="font-medium text-white">Virement bancaire / Paypal</span>
-                </div>
-            </div>
+  <!-- MODALE : FORMULAIRE BANQUE MAROC -->
+  <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
+        <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
 
-            <div class="mt-6 flex justify-end">
-                <button id="ok-finances-modal" class="w-full py-2.5 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 font-semibold transition-colors">Retour</button>
-            </div>
+      <form id="bankForm" onsubmit="confirmBankWithdraw(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-400 font-semibold block mb-1">Pays</label>
+          <input type="text" value="Maroc" disabled class="w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 font-semibold cursor-not-allowed">
         </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-slate-400 font-semibold block mb-1">Nom</label>
+            <input type="text" value="Aballagh" disabled class="w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 font-semibold cursor-not-allowed">
+          </div>
+          <div>
+            <label class="text-slate-400 font-semibold block mb-1">Prénom</label>
+            <input type="text" value="Abderrahim" disabled class="w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 font-semibold cursor-not-allowed">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-slate-300 font-semibold block mb-1">Banque du Maroc *</label>
+          <select id="bankSelect" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+            <option value="">-- Sélectionnez votre banque --</option>
+            <option value="Attijariwafa Bank">Attijariwafa Bank</option>
+            <option value="Banque Populaire (BP)">Banque Populaire (BP)</option>
+            <option value="BMCE Bank of Africa">BMCE Bank of Africa</option>
+            <option value="CIH Bank">CIH Bank</option>
+            <option value="Crédit du Maroc (CDM)">Crédit du Maroc</option>
+            <option value="BMCI">BMCI</option>
+            <option value="Société Générale Maroc (SGMB)">Société Générale Maroc</option>
+            <option value="Al Barid Bank">Al Barid Bank</option>
+            <option value="CFG Bank">CFG Bank</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-slate-300 font-semibold block mb-1">RIB (24 chiffres) *</label>
+          <input type="text" id="bankRib" placeholder="Ex: 230780000000000000000000" required maxlength="24" pattern="[0-9]{24}" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
+          <input type="number" id="bankAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('bankModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition">Confirmer le retrait</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-bordercolor bg-cardbg/40 mt-12 py-6 text-center text-sm text-gray-500">
-        <p>© MicroTask Accounting. Tous droits réservés.</p>
-    </footer>
+  <!-- MODALE : FORMULAIRE PAYPAL -->
+  <div id="paypalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">🅿️ Retrait par PayPal</h3>
+        <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
 
-    <!-- JavaScript -->
-    <script>
-        const companyRemarks = {
-            1: "Le Café Le Parisien enregistre une forte affluence matinale. Notez une hausse sur les achats de café en grains due aux prix d'importation. La rentabilité globale reste très solide.",
-            2: "L'Épicerie Bio privilégie les circuits courts. Attention aux marges faibles sur le vrac et aux pertes sur le périssable. Pensez à vérifier le poids de la masse salariale.",
-            3: "La Boulangerie Doré fait face à une augmentation marquée du coût de l'électricité des fours. L'impact sur la marge brute doit être surveillé de près.",
-            4: "Le Salon de Coiffure Chic dégage une excellente marge sur les soins à forte valeur ajoutée. Les achats de stock restant stables, le résultat net est confortable.",
-            5: "Cette boutique E-commerce investit lourdement en publicité sociale (Facebook/TikTok Ads). Le coût d'acquisition client pèse fortement sur les charges globales.",
-            6: "La Pharmacie du Centre affiche une grande régularité de flux. Les stocks de parapharmacie représentent une part importante de la trésorerie engagée.",
-            7: "Fast Food à fort volume d'activité. La gestion des matières premières (emballages et produits frais) demande un suivi strict pour éviter les pertes d'inventaire.",
-            8: "Garage mécanique spécialisé. Les pièces détachées sont facturées avec une marge directe. Les salaires qualifiés constituent le principal poste de dépenses.",
-            9: "Établissement mixte Hôtel & Restauration. Les variations saisonnières exigent une anticipation stricte sur la trésorerie et la masse salariale.",
-            10: "Librairie indépendante avec marges encadrées. La vente d'articles de papeterie permet de dégager de meilleures rentabilités complémentaires.",
-            11: "Modèle basé sur les abonnements récurrents. Excellente prévisibilité du chiffre d'affaires, avec un investissement récurrent dans l'entretien du parc machines.",
-            12: "Pressing écologique avec des consommables spécifiques. Les charges fixes d'énergie et de solvants doivent être mises en rapport avec le volume de linge traité.",
-            13: "Supérette de proximité fonctionnant sur des marges réduites mais avec une rotation rapide des stocks de produits frais.",
-            14: "Clinique vétérinaire demandant des consommables médicaux coûteux. Les actes spécialisés assurent toutefois un revenu net élevé.",
-            15: "Pizzeria axée sur la vente à emporter et la livraison. Les coûts de livraison externe réduisent légèrement la marge nette globale.",
-            16: "Agence de voyages digitale travaillant avec des abonnements logiciels SaaS. Les frais généraux sont bas mais le chiffre d'affaires dépend du volume de commissions.",
-            17: "Fleuriste avec risque d'invendus élevé. L'optimisation des achats de fleurs fraîches est déterminante pour préserver le résultat net.",
-            18: "Dark Kitchen à fort volume de commandes. Attention au précompte des commissions prélevées par les plateformes de livraison qui pèsent lourdement sur la marge.",
-            19: "Institut de beauté axé sur des prestations personnalisées. Faibles charges de matières premières par rapport aux revenus générés par le temps passé.",
-            20: "Espace de Co-working haut de gamme. Les charges sont principalement immobilières et salariales, assurant un résultat net important dès que le taux d'occupation dépasse 80%."
+      <form id="paypalForm" onsubmit="confirmPaypalWithdraw(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-300 font-semibold block mb-1">Email PayPal *</label>
+          <input type="email" id="paypalEmail" placeholder="votre.email@exemple.com" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
+          <input type="number" id="paypalAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('paypalModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition">Confirmer le retrait</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODALE DÉTAILS DES MISSIONS 20 -->
+  <div id="missionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+      <div class="p-6 space-y-4">
+        <div class="flex justify-between items-start">
+          <span id="modalCategory" class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Plateforme
+          </span>
+          <button onclick="closeModal('missionModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+        </div>
+
+        <h3 id="modalTitle" class="text-xl font-bold text-white">Titre</h3>
+        <p id="modalDescription" class="text-sm text-slate-300 leading-relaxed">Description...</p>
+
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 uppercase font-bold block">Gain</span>
+            <span id="modalGain" class="text-lg font-bold text-emerald-400">+0,00 $</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] text-slate-500 uppercase font-bold block">Statut</span>
+            <span id="modalStatut" class="text-sm font-semibold text-slate-200">En attente</span>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <label class="text-xs font-semibold text-slate-400 block">Note / Validation :</label>
+          <input type="text" id="proofInput" placeholder="Ex: Journal validé N° 8492" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+        </div>
+      </div>
+
+      <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 flex justify-end gap-3">
+        <button onclick="closeModal('missionModal')" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition">Fermer</button>
+        <button id="toggleStatusBtn" onclick="toggleMissionStatus()" class="px-5 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition">
+          Valider
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentFilter = 'all';
+    let selectedMissionId = null;
+
+    const defaultMissions = [
+      { id: 1, nom: "Rapprochement bancaire journalier", plateforme: "Café Caféine", gain: 4.50, statut: "Terminée", date: "2026-07-28", desc: "Saisie et vérification des z de caisse et tickets TPE de la journée." },
+      { id: 2, nom: "Calcul du Food Cost & marges", plateforme: "Resto L'Olivier", gain: 6.20, statut: "Terminée", date: "2026-07-28", desc: "Inventaire des ingrédients en cuisine et calcul des coûts par plat." },
+      { id: 3, nom: "Comptabilisation factures fournisseurs", plateforme: "E-shop TrendMode", gain: 5.00, statut: "En attente", date: "2026-07-27", desc: "Enregistrement des factures d'achat de stock de vêtements." },
+      { id: 4, nom: "Inventaire et bilan de stock", plateforme: "Boutique Le Style", gain: 4.80, statut: "Terminée", date: "2026-07-27", desc: "Saisie de l'état des stocks mensuel et écarts d'inventaire." },
+      { id: 5, nom: "Préparation des bulletins de paie", plateforme: "Café Gourmet", gain: 5.50, statut: "Terminée", date: "2026-07-27", desc: "Calcul des heures supplémentaires et primes des serveurs." },
+      { id: 6, nom: "Suivi des commissions Stripe/PayPal", plateforme: "E-com ElectroShop", gain: 3.90, statut: "Terminée", date: "2026-07-26", desc: "Exportation et intégration des frais de transaction d'achat en ligne." },
+      { id: 7, nom: "Classement et saisie des notes de frais", plateforme: "Resto La Mama", gain: 4.20, statut: "Terminée", date: "2026-07-26", desc: "Saisie des achats en espèces et reçus de caisse carburant/fournitures." },
+      { id: 8, nom: "Déclaration TVA trimestrielle", plateforme: "Boutique BioNature", gain: 7.50, statut: "Terminée", date: "2026-07-26", desc: "Préparation de la synthèse TVA collectée et TVA déductible." },
+      { id: 9, nom: "Analyse des pertes et démarque", plateforme: "Snack Express", gain: 3.80, statut: "En attente", date: "2026-07-25", desc: "Analyse des pertes de produits périssables et boissons de la semaine." },
+      { id: 10, nom: "Pointage des encaissements par carte", plateforme: "Café Floral", gain: 4.00, statut: "Terminée", date: "2026-07-25", desc: "Vérification de la télécollecte TPE avec le relevé bancaire." },
+      { id: 11, nom: "Gestion des factures d'avoir clients", plateforme: "E-com Cosmétique Pro", gain: 5.10, statut: "Terminée", date: "2026-07-25", desc: "Comptabilisation des retours de produits et remboursement des clients." },
+      { id: 12, nom: "Saisie de la caisse espèces", plateforme: "Épicerie Du Coin", gain: 3.50, statut: "Terminée", date: "2026-07-24", desc: "Contrôle du fond de caisse et écriture du livre de caisse." },
+      { id: 13, nom: "Rapprochement des dépenses pub Meta", plateforme: "E-com SportWear", gain: 4.60, statut: "Terminée", date: "2026-07-24", desc: "Saisie des factures Facebook Ads/Instagram dans les charges marketing." },
+      { id: 14, nom: "Calcul du seuil de rentabilité", plateforme: "Pizzeria Bellissimo", gain: 6.80, statut: "Terminée", date: "2026-07-24", desc: "Analyse des charges fixes vs variables pour fixer l'objectif journalier." },
+      { id: 15, nom: "Vérification des factures de livraison", plateforme: "Resto Le Mékong", gain: 4.10, statut: "Terminée", date: "2026-07-23", desc: "Rapprochement des commandes avec les factures Glovo / UberEats." },
+      { id: 16, nom: "Bilan mensuel des ventes d'accessoires", plateforme: "Boutique Optique", gain: 5.30, statut: "En attente", date: "2026-07-23", desc: "Saisie du journal des ventes et répartition par catégorie d'articles." },
+      { id: 17, nom: "Comptabilisation de loyer et charges", plateforme: "Café Central", gain: 4.70, statut: "Terminée", date: "2026-07-23", desc: "Saisie des quittances de loyer, factures d'eau et d'électricité." },
+      { id: 18, nom: "Analyse de la trésorerie prévisionnelle", plateforme: "E-com DecoMaison", gain: 5.90, statut: "Terminée", date: "2026-07-22", desc: "Projection des flux d'entrée/sortie à 30 jours." },
+      { id: 19, nom: "Inventaire fin de mois des emballages", plateforme: "Burger House", gain: 3.40, statut: "Terminée", date: "2026-07-22", desc: "Comptage des stocks de sachets, boîtes et gobelets." },
+      { id: 20, nom: "Clôture comptable mensuelle", plateforme: "Librairie Mots & Pages", gain: 4.04, statut: "Terminée", date: "2026-07-22", desc: "Vérification globale des équilibres Débit/Crédit du mois." }
+    ];
+
+    const defaultCalcMissions = Array.from({ length: 30 }, (_, i) => {
+      const id = i + 1;
+      const types = ['Café', 'Restaurant', 'E-commerce', 'Boutique', 'Magasin'];
+      const type = types[i % types.length];
+      const names = ['Atlas', 'Nectar', 'Oasis', 'LuxeStyle', 'UrbanShop', 'Sabor', 'Gourmet', 'Verde', 'TechZone', 'ModePlus'];
+      const projet = `${type} ${names[i % names.length]} #${id}`;
+      
+      const recetteBrute = (1200 + (id * 350)).toFixed(2);
+      const salaires = (300 + (id * 80)).toFixed(2);
+      const achats = (400 + (id * 110)).toFixed(2);
+      const loyerEtEnergie = (150 + (id * 25)).toFixed(2);
+
+      const gainMission = Math.floor(30 + ((id * 7.3) % 71)); 
+
+      return {
+        id: id,
+        projet: projet,
+        reward: gainMission,
+        donnees: {
+          recetteProposee: recetteBrute,
+          salaires: salaires,
+          achatsStock: achats,
+          loyerAutres: loyerEtEnergie
+        },
+        userInputs: {
+          recette: '',
+          charges: '',
+          tva: '',
+          benefice: '',
+          remarque: ''
+        },
+        locked: false
+      };
+    });
+
+    let missions = JSON.parse(localStorage.getItem('microtask_accounting_20')) || defaultMissions;
+    let calcMissions = JSON.parse(localStorage.getItem('microtask_calc_missions_30')) || defaultCalcMissions;
+    let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals')) || [];
+    let savedBankDetails = JSON.parse(localStorage.getItem('microtask_saved_bank')) || null;
+
+    function init() {
+      updateHeader();
+      renderGrid();
+      renderCalcGrid();
+      renderWithdrawHistory();
+    }
+
+    function getSoldeValide() {
+      const initialGains = missions.filter(m => m.statut === 'Terminée').reduce((acc, m) => acc + m.gain, 0);
+      const totalRetire = withdrawals.reduce((acc, w) => acc + w.montant, 0);
+      return Math.max(0, initialGains - totalRetire);
+    }
+
+    function updateHeader() {
+      const soldeValide = getSoldeValide();
+      document.getElementById('soldeDisplay').textContent = `${soldeValide.toFixed(2).replace('.', ',')} $`;
+
+      const soldeEnAttente = calcMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
+      document.getElementById('soldeEnAttenteDisplay').textContent = `${soldeEnAttente.toFixed(2).replace('.', ',')} $`;
+
+      const completedNew = calcMissions.filter(m => m.locked).length;
+      document.getElementById('completedNewCount').textContent = `${completedNew}/30`;
+    }
+
+    // --- MODALES & RETRAITS ---
+    function openWithdrawChoiceModal() {
+      document.getElementById('withdrawChoiceModal').classList.remove('hidden');
+    }
+
+    function openBankWithdrawModal() {
+      closeModal('withdrawChoiceModal');
+      
+      // Si déjà enregistré, préremplir et verrouiller
+      if (savedBankDetails) {
+        document.getElementById('bankSelect').value = savedBankDetails.bank;
+        document.getElementById('bankSelect').disabled = true;
+        document.getElementById('bankRib').value = savedBankDetails.rib;
+        document.getElementById('bankRib').disabled = true;
+      }
+      
+      document.getElementById('bankModal').classList.remove('hidden');
+    }
+
+    function openPaypalWithdrawModal() {
+      closeModal('withdrawChoiceModal');
+      document.getElementById('paypalModal').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function confirmBankWithdraw(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('bankAmount').value);
+      const bank = document.getElementById('bankSelect').value;
+      const rib = document.getElementById('bankRib').value;
+
+      const soldeDispo = getSoldeValide();
+
+      if (amount < 100) {
+        alert("Le montant minimum de retrait est de 100 $.");
+        return;
+      }
+
+      if (amount > soldeDispo) {
+        alert(`Solde insuffisant ! Votre solde validé actuel est de ${soldeDispo.toFixed(2)} $.`);
+        return;
+      }
+
+      // Sauvegarde des coordonnées (deviennent inchangables)
+      if (!savedBankDetails) {
+        savedBankDetails = { bank, rib };
+        localStorage.setItem('microtask_saved_bank', JSON.stringify(savedBankDetails));
+      }
+
+      const newWithdrawal = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        montant: amount,
+        moyen: 'Compte Bancaire (Maroc)',
+        details: `${bank} - RIB: ****${rib.slice(-4)}`
+      };
+
+      withdrawals.push(newWithdrawal);
+      localStorage.setItem('microtask_withdrawals', JSON.stringify(withdrawals));
+
+      alert(`Demande de retrait de ${amount} $ par virement bancaire enregistrée avec succès !`);
+      
+      closeModal('bankModal');
+      document.getElementById('bankForm').reset();
+      updateHeader();
+      renderWithdrawHistory();
+    }
+
+    function confirmPaypalWithdraw(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('paypalAmount').value);
+      const email = document.getElementById('paypalEmail').value;
+
+      const soldeDispo = getSoldeValide();
+
+      if (amount < 100) {
+        alert("Le montant minimum de retrait est de 100 $.");
+        return;
+      }
+
+      if (amount > soldeDispo) {
+        alert(`Solde insuffisant ! Votre solde validé actuel est de ${soldeDispo.toFixed(2)} $.`);
+        return;
+      }
+
+      const newWithdrawal = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        montant: amount,
+        moyen: 'PayPal',
+        details: email
+      };
+
+      withdrawals.push(newWithdrawal);
+      localStorage.setItem('microtask_withdrawals', JSON.stringify(withdrawals));
+
+      alert(`Demande de retrait PayPal de ${amount} $ envoyée à ${email} !`);
+
+      closeModal('paypalModal');
+      document.getElementById('paypalForm').reset();
+      updateHeader();
+      renderWithdrawHistory();
+    }
+
+    function renderWithdrawHistory() {
+      const section = document.getElementById('withdrawHistorySection');
+      const list = document.getElementById('withdrawHistoryList');
+
+      if (withdrawals.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+
+      section.classList.remove('hidden');
+      list.innerHTML = '';
+
+      withdrawals.forEach(w => {
+        const item = document.createElement('div');
+        item.className = "flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs";
+        item.innerHTML = `
+          <div>
+            <div class="font-bold text-white">${w.moyen} <span class="text-slate-500 font-normal">(${w.details})</span></div>
+            <div class="text-[10px] text-slate-400">${w.date}</div>
+          </div>
+          <div class="text-right">
+            <span class="font-black text-amber-400 text-sm">-${w.montant.toFixed(2)} $</span>
+            <span class="block text-[10px] text-emerald-400 font-semibold">⏳ En cours de traitement</span>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    // --- RENDU SECTION 1 ---
+    function renderGrid() {
+      const grid = document.getElementById('missionsGrid');
+      grid.innerHTML = '';
+
+      const filtered = missions.filter(m => currentFilter === 'all' || m.statut === currentFilter);
+
+      filtered.forEach(m => {
+        const isDone = m.statut === 'Terminée';
+        const card = document.createElement('div');
+        card.className = `bg-slate-900 border rounded-2xl p-5 hover:border-emerald-500/50 transition cursor-pointer flex flex-col justify-between space-y-4 shadow-lg group relative overflow-hidden ${
+          isDone ? 'border-slate-800/80 bg-slate-900/40' : 'border-slate-800'
+        }`;
+        card.onclick = () => openModal(m.id);
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-emerald-400 border border-slate-700">
+                ${m.plateforme}
+              </span>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${
+                isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+              }">
+                ${m.statut}
+              </span>
+            </div>
+            <h3 class="font-bold text-white text-base group-hover:text-emerald-400 transition">${m.nom}</h3>
+            <p class="text-xs text-slate-400 line-clamp-2">${m.desc}</p>
+          </div>
+          <div class="flex justify-between items-center pt-3 border-t border-slate-800/60 text-xs">
+            <span class="text-slate-500">${m.date}</span>
+            <span class="font-black text-emerald-400 text-sm">+${m.gain.toFixed(2).replace('.', ',')} $</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // --- RENDU SECTION 2 ---
+    function renderCalcGrid() {
+      const grid = document.getElementById('calcMissionsGrid');
+      grid.innerHTML = '';
+
+      calcMissions.forEach(m => {
+        const isLocked = m.locked;
+        const totalChargesEstimees = (parseFloat(m.donnees.salaires) + parseFloat(m.donnees.achatsStock) + parseFloat(m.donnees.loyerAutres)).toFixed(2);
+
+        const card = document.createElement('div');
+        card.className = `bg-slate-900 border ${isLocked ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'} rounded-2xl p-5 shadow-xl space-y-4 relative`;
+
+        card.innerHTML = `
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="font-bold text-emerald-400 text-sm">Mission #${m.id} — ${m.projet}</h3>
+              <span class="text-xs font-black text-amber-400">Rémunération : +${m.reward} $</span>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-1 rounded ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-800 text-slate-400'}">
+              ${isLocked ? 'En attente' : 'À remplir'}
+            </span>
+          </div>
+
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
+            <div class="font-semibold text-slate-200">📌 Données brutes du projet :</div>
+            <div class="flex justify-between"><span>• Recette brute globale :</span> <strong class="text-white">${m.donnees.recetteProposee} $</strong></div>
+            <div class="flex justify-between"><span>• Salaires versés :</span> <span>${m.donnees.salaires} $</span></div>
+            <div class="flex justify-between"><span>• Achats de stock :</span> <span>${m.donnees.achatsStock} $</span></div>
+            <div class="flex justify-between"><span>• Loyer & Énergie :</span> <span>${m.donnees.loyerAutres} $</span></div>
+            <div class="text-[10px] text-slate-500 pt-1 italic">* Total charges cumulées = ${totalChargesEstimees} $</div>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">Recette ($)</label>
+                <input type="number" step="0.01" id="recette_${m.id}" value="${m.userInputs.recette}" ${isLocked ? 'disabled' : ''} 
+                       placeholder="Ex: ${m.donnees.recetteProposee}" 
+                       class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white disabled:opacity-60 disabled:bg-slate-900 border-slate-700">
+              </div>
+              <div>
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">Total Charges ($)</label>
+                <input type="number" step="0.01" id="charges_${m.id}" value="${m.userInputs.charges}" ${isLocked ? 'disabled' : ''} 
+                       placeholder="Ex: ${totalChargesEstimees}" 
+                       class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white disabled:opacity-60 disabled:bg-slate-900 border-slate-700">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">TVA (20%) ($)</label>
+                <input type="number" step="0.01" id="tva_${m.id}" value="${m.userInputs.tva}" ${isLocked ? 'disabled' : ''} 
+                       placeholder="TVA estimée" 
+                       class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white disabled:opacity-60 disabled:bg-slate-900 border-slate-700">
+              </div>
+              <div>
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">Bénéfice Net ($)</label>
+                <input type="number" step="0.01" id="benefice_${m.id}" value="${m.userInputs.benefice}" ${isLocked ? 'disabled' : ''} 
+                       placeholder="Recette - Charges" 
+                       class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-emerald-400 font-bold disabled:opacity-60 disabled:bg-slate-900 border-slate-700">
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-1">Remarque & Observation</label>
+              <textarea id="remarque_${m.id}" ${isLocked ? 'disabled' : ''} rows="2" 
+                        placeholder="Ex: Marge bénéficiaire satisfaisante..." 
+                        class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white text-xs disabled:opacity-60 disabled:bg-slate-900 border-slate-700">${m.userInputs.remarque}</textarea>
+            </div>
+          </div>
+
+          ${!isLocked ? `
+            <button onclick="saveAndLockCalcMission(${m.id})" class="w-full mt-2 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+              💾 Enregistrer & Envoyer en Attente (+${m.reward} $)
+            </button>
+          ` : `
+            <div class="text-center py-2 text-[11px] font-semibold text-amber-300 bg-amber-500/10 rounded-xl border border-amber-500/20">
+              ⏳ Rémunération en attente (+${m.reward} $)
+            </div>
+          `}
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function saveAndLockCalcMission(id) {
+      const recetteVal = document.getElementById(`recette_${id}`).value;
+      const chargesVal = document.getElementById(`charges_${id}`).value;
+      const tvaVal = document.getElementById(`tva_${id}`).value;
+      const beneficeVal = document.getElementById(`benefice_${id}`).value;
+      const remarqueVal = document.getElementById(`remarque_${id}`).value;
+
+      if (!recetteVal || !chargesVal) {
+        alert("Veuillez remplir au moins la Recette et les Charges avant d'enregistrer.");
+        return;
+      }
+
+      const m = calcMissions.find(item => item.id === id);
+      if (m) {
+        m.userInputs = {
+          recette: recetteVal,
+          charges: chargesVal,
+          tva: tvaVal,
+          benefice: beneficeVal,
+          remarque: remarqueVal
         };
+        m.locked = true;
 
-        const missionDataContent = {
-            1: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Café & Boissons</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">1,450.00 $</td></tr><tr><td class="p-2">Achat café en grains</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">180.00 $</td></tr><tr><td class="p-2">Achat sucre & tasses</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">65.00 $</td></tr><tr><td class="p-2">Produits d'hygiène bar</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">75.00 $</td></tr><tr><td class="p-2">Salaire Barista</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">450.00 $</td></tr></tbody></table>`,
-            2: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Épicerie Bio</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">2,300.00 $</td></tr><tr><td class="p-2">Achat fruits secs & vrac</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">620.00 $</td></tr><tr><td class="p-2">Sacs papier & hygiène rayon</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">90.00 $</td></tr><tr><td class="p-2">Salaire Employé rayon</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">700.00 $</td></tr></tbody></table>`,
-            3: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Pain & Viennoiseries</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">1,900.00 $</td></tr><tr><td class="p-2">Achat Farine & Sucre</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">400.00 $</td></tr><tr><td class="p-2">Achat Levure & Beurre</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">250.00 $</td></tr><tr><td class="p-2">Électricité Fours</td><td class="p-2 text-amber-400">Charge fixe</td><td class="p-2 text-right">150.00 $</td></tr><tr><td class="p-2">Salaire Boulanger</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">600.00 $</td></tr></tbody></table>`,
-            4: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Prestations Coiffure & Soins</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">2,500.00 $</td></tr><tr><td class="p-2">Achat Shampooings & Colorations</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">350.00 $</td></tr><tr><td class="p-2">Achat Serviettes & hygiène</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">80.00 $</td></tr><tr><td class="p-2">Salaire Coiffeurs</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">950.00 $</td></tr></tbody></table>`,
-            5: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes en ligne E-commerce</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">4,200.00 $</td></tr><tr><td class="p-2">Achat Cartons & Rubans</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">300.00 $</td></tr><tr><td class="p-2">Frais de Publicité digitale</td><td class="p-2 text-amber-400">Charge pub</td><td class="p-2 text-right">800.00 $</td></tr><tr><td class="p-2">Salaire Logisticien</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,100.00 $</td></tr></tbody></table>`,
-            6: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Pharmacie</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">5,100.00 $</td></tr><tr><td class="p-2">Achat Parapharmacie & Hygiène</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,600.00 $</td></tr><tr><td class="p-2">Sacs & Consommables caisse</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">120.00 $</td></tr><tr><td class="p-2">Masse salariale Pharmaciens</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,800.00 $</td></tr></tbody></table>`,
-            7: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Fast-Food (Burgers)</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">3,100.00 $</td></tr><tr><td class="p-2">Achat Viandes & Frites</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">900.00 $</td></tr><tr><td class="p-2">Achat Emballages & Sauces</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">250.00 $</td></tr><tr><td class="p-2">Salaires Équipiers</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,050.00 $</td></tr></tbody></table>`,
-            8: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Facturation Réparations Auto</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">3,800.00 $</td></tr><tr><td class="p-2">Achat Pièces & Huiles moteur</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,200.00 $</td></tr><tr><td class="p-2">Chiffons & Nettoyants atelier</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">100.00 $</td></tr><tr><td class="p-2">Salaires Mécaniciens</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,400.00 $</td></tr></tbody></table>`,
-            9: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Hôtel & Resto</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">6,500.00 $</td></tr><tr><td class="p-2">Achat Literie & Produits accueil</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">700.00 $</td></tr><tr><td class="p-2">Achat Denrées restaurant</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,500.00 $</td></tr><tr><td class="p-2">Masse salariale complète</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">2,500.00 $</td></tr></tbody></table>`,
-            10: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Librairie & Papeterie</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">1,650.00 $</td></tr><tr><td class="p-2">Achat Livres & Cahiers</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">600.00 $</td></tr><tr><td class="p-2">Achat Sacs papier & stylos</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">80.00 $</td></tr><tr><td class="p-2">Salaire Libraire</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">550.00 $</td></tr></tbody></table>`,
-            11: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Abonnements Gym</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">4,000.00 $</td></tr><tr><td class="p-2">Achat Boissons énergétiques & bar</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">300.00 $</td></tr><tr><td class="p-2">Produits d'entretien machines</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">200.00 $</td></tr><tr><td class="p-2">Salaires Coachs & Accueil</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,600.00 $</td></tr></tbody></table>`,
-            12: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Pressing</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">1,800.00 $</td></tr><tr><td class="p-2">Achat Solvants & Détachants</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">250.00 $</td></tr><tr><td class="p-2">Achat Cintres & Housses</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">90.00 $</td></tr><tr><td class="p-2">Salaire Employé pressing</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">750.00 $</td></tr></tbody></table>`,
-            13: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Superette Proxi</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">3,400.00 $</td></tr><tr><td class="p-2">Achat Produits frais & épicerie</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,500.00 $</td></tr><tr><td class="p-2">Achat Sacs & hygiène magasin</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">110.00 $</td></tr><tr><td class="p-2">Salaires Caissiers</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,000.00 $</td></tr></tbody></table>`,
-            14: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Consultations & Soins</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">4,500.00 $</td></tr><tr><td class="p-2">Achat Vaccins & Médicaments</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,200.00 $</td></tr><tr><td class="p-2">Matériel stérile & croquettes</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">350.00 $</td></tr><tr><td class="p-2">Salaires ASV & Vétérinaire</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,800.00 $</td></tr></tbody></table>`,
-            15: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Pizzeria Napoli</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">2,200.00 $</td></tr><tr><td class="p-2">Achat Mozzarella & Farine</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">500.00 $</td></tr><tr><td class="p-2">Boîtes à pizza & emballages</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">120.00 $</td></tr><tr><td class="p-2">Salaires Pizzaiolo & Livreur</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">800.00 $</td></tr></tbody></table>`,
-            16: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Chiffre d'affaires Agence Voyage</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">3,000.00 $</td></tr><tr><td class="p-2">Abonnements logiciels résa</td><td class="p-2 text-amber-400">Charge fixe</td><td class="p-2 text-right">400.00 $</td></tr><tr><td class="p-2">Fournitures bureau & hygiène</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">90.00 $</td></tr><tr><td class="p-2">Salaires Conseillers</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,200.00 $</td></tr></tbody></table>`,
-            17: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Ventes Bouquets & Plantes</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">1,700.00 $</td></tr><tr><td class="p-2">Achat Fleurs fraîches & terreau</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">450.00 $</td></tr><tr><td class="p-2">Achat Rubans & Papiers cadeaux</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">60.00 $</td></tr><tr><td class="p-2">Salaire Fleuriste</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">600.00 $</td></tr></tbody></table>`,
-            18: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Dark Kitchen Wok</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">4,800.00 $</td></tr><tr><td class="p-2">Achat Nouilles, Légumes & Viandes</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">1,100.00 $</td></tr><tr><td class="p-2">Commissions Plateformes livraison</td><td class="p-2 text-amber-400">Charge variable</td><td class="p-2 text-right">950.00 $</td></tr><tr><td class="p-2">Salaires Cuisiniers</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">1,500.00 $</td></tr></tbody></table>`,
-            19: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes Soins Institut</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">2,400.00 $</td></tr><tr><td class="p-2">Achat Crèmes & Huiles</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">380.00 $</td></tr><tr><td class="p-2">Lingettes & Désinfectants</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">70.00 $</td></tr><tr><td class="p-2">Salaires Esthéticiennes</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">900.00 $</td></tr></tbody></table>`,
-            20: `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-bordercolor text-cyan-400"><th class="p-2">Poste</th><th class="p-2">Type</th><th class="p-2 text-right">Montant</th></tr></thead><tbody class="divide-y divide-bordercolor/50"><tr><td class="p-2">Recettes globales Co-working</td><td class="p-2 text-emerald-400">Recette</td><td class="p-2 text-right">8,000.00 $</td></tr><tr><td class="p-2">Achats Café, sucre & fontaine eau</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">400.00 $</td></tr><tr><td class="p-2">Consommables hygiène & entretien</td><td class="p-2 text-amber-400">Achat produit</td><td class="p-2 text-right">250.00 $</td></tr><tr><td class="p-2">Masse salariale Community managers</td><td class="p-2 text-amber-400">Salaire</td><td class="p-2 text-right">2,800.00 $</td></tr></tbody></table>`
-        };
+        localStorage.setItem('microtask_calc_missions_30', JSON.stringify(calcMissions));
 
-        // Elements de l'application
-        const modal = document.getElementById('mission-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        const cancelModalBtn = document.getElementById('cancel-modal');
-        const submitWorkBtn = document.getElementById('submit-work');
-        
-        const modalTitle = document.getElementById('modal-title');
-        const modalPrice = document.getElementById('modal-price');
-        const modalCat = document.getElementById('modal-cat');
-        const modalDataContainer = document.getElementById('modal-data-container');
-        const userBalance = document.getElementById('user-balance');
+        updateHeader();
+        renderCalcGrid();
+      }
+    }
 
-        const infoModal = document.getElementById('info-modal');
-        const closeInfoModalBtn = document.getElementById('close-info-modal');
-        const okInfoModalBtn = document.getElementById('ok-info-modal');
-        const infoModalTitle = document.getElementById('info-modal-title');
-        const infoModalText = document.getElementById('info-modal-text');
+    function filterMissions(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.className = btn.dataset.filter === filter
+          ? "filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition"
+          : "filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition";
+      });
+      renderGrid();
+    }
 
-        const espaceBtn = document.getElementById('espace-btn');
-        const espaceModal = document.getElementById('espace-modal');
-        const closeEspaceModalBtn = document.getElementById('close-espace-modal');
-        const okEspaceModalBtn = document.getElementById('ok-espace-modal');
-        const espaceBalance = document.getElementById('espace-balance');
+    function openModal(id) {
+      selectedMissionId = id;
+      const m = missions.find(item => item.id === id);
+      if (!m) return;
 
-        const persoModal = document.getElementById('perso-modal');
-        const closePersoModalBtn = document.getElementById('close-perso-modal');
-        const okPersoModalBtn = document.getElementById('ok-perso-modal');
-        const btnInfoPerso = document.getElementById('btn-info-perso');
+      document.getElementById('modalCategory').textContent = m.plateforme;
+      document.getElementById('modalTitle').textContent = m.nom;
+      document.getElementById('modalDescription').textContent = m.desc;
+      document.getElementById('modalGain').textContent = `+${m.gain.toFixed(2).replace('.', ',')} $`;
+      document.getElementById('modalStatut').textContent = m.statut;
+      document.getElementById('proofInput').value = m.preuve || '';
 
-        const financesModal = document.getElementById('finances-modal');
-        const closeFinancesModalBtn = document.getElementById('close-finances-modal');
-        const okFinancesModalBtn = document.getElementById('ok-finances-modal');
-        const btnInfoFinances = document.getElementById('btn-info-finances');
-        const financesBalance = document.getElementById('finances-balance');
+      const btn = document.getElementById('toggleStatusBtn');
+      btn.textContent = m.statut === 'Terminée' ? "Marquer En attente" : "Valider la mission";
 
-        const inputCharges = document.getElementById('input-charges');
-        const inputRecette = document.getElementById('input-recette');
-        const inputTva = document.getElementById('input-tva');
-        const inputRevenuNet = document.getElementById('input-revenu-net');
-        const inputRemarque = document.getElementById('input-remarque');
+      document.getElementById('missionModal').classList.remove('hidden');
+    }
 
-        let currentReward = 0;
-        let currentMissionId = null;
+    function toggleMissionStatus() {
+      if (selectedMissionId === null) return;
+      const m = missions.find(item => item.id === selectedMissionId);
+      if (m) {
+        m.statut = m.statut === 'Terminée' ? 'En attente' : 'Terminée';
+        m.preuve = document.getElementById('proofInput').value;
+        localStorage.setItem('microtask_accounting_20', JSON.stringify(missions));
+        updateHeader();
+        renderGrid();
+        closeModal('missionModal');
+      }
+    }
 
-        // Fonction d'aide pour charger la sauvegarde globale
-        function getSavedSubmissions() {
-            return JSON.parse(localStorage.getItem('microtask_saved_missions') || '{}');
-        }
-
-        // Mise à jour du solde global
-        function updateBalanceUI() {
-            const saved = getSavedSubmissions();
-            let total = 0;
-            Object.values(saved).forEach(item => {
-                if(item.reward) total += parseFloat(item.reward);
-            });
-            const formatted = `$${total.toFixed(2)}`;
-            if(userBalance) userBalance.textContent = formatted;
-            if(espaceBalance) espaceBalance.textContent = formatted;
-            if(financesBalance) financesBalance.textContent = formatted;
-        }
-
-        // Appliquer l'état des missions complétées sur l'interface
-        function updateCardsUI() {
-            const saved = getSavedSubmissions();
-            document.querySelectorAll('.mission-card').forEach(card => {
-                const id = card.getAttribute('data-id');
-                const btn = card.querySelector('.apply-btn');
-                if(saved[id]) {
-                    btn.textContent = "✓ Complétée";
-                    btn.classList.remove('bg-cyan-500', 'hover:bg-cyan-400', 'bg-gradient-to-r', 'from-cyan-500', 'to-emerald-400');
-                    btn.classList.add('bg-emerald-600/30', 'text-emerald-400', 'border', 'border-emerald-500/30');
-                }
-            });
-        }
-
-        // Modals Espace & Profils
-        if (espaceBtn) {
-            espaceBtn.addEventListener('click', () => {
-                updateBalanceUI();
-                espaceModal.classList.remove('hidden');
-            });
-        }
-        function closeEspaceModal() { espaceModal.classList.add('hidden'); }
-        if (closeEspaceModalBtn) closeEspaceModalBtn.addEventListener('click', closeEspaceModal);
-        if (okEspaceModalBtn) okEspaceModalBtn.addEventListener('click', closeEspaceModal);
-
-        if (btnInfoPerso) btnInfoPerso.addEventListener('click', () => persoModal.classList.remove('hidden'));
-        if (closePersoModalBtn) closePersoModalBtn.addEventListener('click', () => persoModal.classList.add('hidden'));
-        if (okPersoModalBtn) okPersoModalBtn.addEventListener('click', () => persoModal.classList.add('hidden'));
-
-        if (btnInfoFinances) {
-            btnInfoFinances.addEventListener('click', () => {
-                updateBalanceUI();
-                financesModal.classList.remove('hidden');
-            });
-        }
-        if (closeFinancesModalBtn) closeFinancesModalBtn.addEventListener('click', () => financesModal.classList.add('hidden'));
-        if (okFinancesModalBtn) okFinancesModalBtn.addEventListener('click', () => financesModal.classList.add('hidden'));
-
-        // Action sur les cartes de missions
-        document.querySelectorAll('.mission-card').forEach(card => {
-            const id = card.getAttribute('data-id');
-            const title = card.getAttribute('data-title');
-            const price = card.getAttribute('data-price');
-            const cat = card.getAttribute('data-cat');
-
-            const infoBtn = card.querySelector('.info-btn');
-            const applyBtn = card.querySelector('.apply-btn');
-
-            if(infoBtn) {
-                infoBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    infoModalTitle.textContent = title;
-                    infoModalText.textContent = companyRemarks[id] || "Aucune remarque spécifique pour cette entreprise.";
-                    infoModal.classList.remove('hidden');
-                });
-            }
-
-            if(applyBtn) {
-                applyBtn.addEventListener('click', () => {
-                    currentMissionId = id;
-                    currentReward = parseFloat(price);
-                    modalTitle.textContent = title;
-                    modalPrice.textContent = `$${price}`;
-                    modalCat.textContent = cat;
-                    modalDataContainer.innerHTML = missionDataContent[id] || "Données indisponibles.";
-
-                    const saved = getSavedSubmissions();
-                    const submission = saved[id];
-
-                    if (submission) {
-                        // Charger les données sauvegardées et verrouiller
-                        inputCharges.value = submission.charges;
-                        inputRecette.value = submission.recette;
-                        inputTva.value = submission.tva;
-                        inputRevenuNet.value = submission.revenuNet;
-                        inputRemarque.value = submission.remarque;
-
-                        inputCharges.disabled = true;
-                        inputRecette.disabled = true;
-                        inputTva.disabled = true;
-                        inputRevenuNet.disabled = true;
-                        inputRemarque.disabled = true;
-
-                        submitWorkBtn.disabled = true;
-                        submitWorkBtn.textContent = "Mission déjà enregistrée";
-                    } else {
-                        // Re-déverrouiller si mission non faite
-                        inputCharges.value = '';
-                        inputRecette.value = '';
-                        inputTva.value = '';
-                        inputRevenuNet.value = '';
-                        inputRemarque.value = '';
-
-                        inputCharges.disabled = false;
-                        inputRecette.disabled = false;
-                        inputTva.disabled = false;
-                        inputRevenuNet.disabled = false;
-                        inputRemarque.disabled = false;
-
-                        submitWorkBtn.disabled = false;
-                        submitWorkBtn.textContent = "Soumettre le travail";
-                    }
-
-                    modal.classList.remove('hidden');
-                });
-            }
-        });
-
-        function closeModal() { modal.classList.add('hidden'); }
-        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-        if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeModal);
-
-        function closeInfoModal() { infoModal.classList.add('hidden'); }
-        if (closeInfoModalBtn) closeInfoModalBtn.addEventListener('click', closeInfoModal);
-        if (okInfoModalBtn) okInfoModalBtn.addEventListener('click', closeInfoModal);
-
-        // Soumettre le travail & Sauvegarder sur LocalStorage
-        if (submitWorkBtn) {
-            submitWorkBtn.addEventListener('click', () => {
-                if(!currentMissionId) return;
-
-                if (!inputCharges.value || !inputRecette.value || !inputTva.value || !inputRevenuNet.value || !inputRemarque.value) {
-                    alert("Veuillez remplir les 5 champs avant de soumettre.");
-                    return;
-                }
-
-                const saved = getSavedSubmissions();
-                saved[currentMissionId] = {
-                    charges: inputCharges.value,
-                    recette: inputRecette.value,
-                    tva: inputTva.value,
-                    revenuNet: inputRevenuNet.value,
-                    remarque: inputRemarque.value,
-                    reward: currentReward
-                };
-
-                // Sauvegarde permanente dans le navigateur
-                localStorage.setItem('microtask_saved_missions', JSON.stringify(saved));
-
-                updateBalanceUI();
-                updateCardsUI();
-
-                alert("Travail soumis avec succès ! Vos données sont définitivement enregistrées.");
-                closeModal();
-            });
-        }
-
-        // Initialisation automatique au chargement de la page
-        window.addEventListener('DOMContentLoaded', () => {
-            updateBalanceUI();
-            updateCardsUI();
-        });
-    </script>
+    window.onload = init;
+  </script>
 </body>
 </html>
+
