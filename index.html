@@ -37,32 +37,36 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-16">
 
-  <!-- EN-TÊTE / DASHBOARD -->
+  <!-- EN-TÊTE / DASHBOARD AVEC LOGO MICROTASK -->
   <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="flex items-center space-x-3">
-        <!-- LOGO D'ORIGINE -->
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-          M
-        </div>
-        <div>
-          <h1 class="text-xl font-bold tracking-wide text-white">MicroTask <span class="text-emerald-400">Accounting</span></h1>
-          <p class="text-xs text-slate-400">Analyse & Diagnostic Financier de Sociétés Européennes</p>
+      <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+        <div class="flex items-center space-x-3">
+          
+          <!-- LOGO MICROTASK ORIGINAL (M DYNAMIQUE) -->
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] shrink-0">
+            M
+          </div>
+
+          <div>
+            <h1 class="text-lg sm:text-xl font-bold tracking-wide text-white">MicroTask <span class="text-emerald-400">Accounting</span></h1>
+            <p class="text-[10px] sm:text-xs text-slate-400">Analyse & Diagnostic Financier de Sociétés Européennes</p>
+          </div>
         </div>
       </div>
 
       <!-- CARTE SOLDE, STATS ET RETRAIT -->
-      <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap justify-center sm:justify-end">
-        <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-center">
-          <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Analyses Validées</span>
-          <span id="completedNewCount" class="text-lg font-bold text-emerald-400">0/30</span>
+      <div class="flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap justify-center sm:justify-end w-full sm:w-auto">
+        <div class="bg-slate-900 border border-slate-800 px-3 sm:px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
+          <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Analyses Validées</span>
+          <span id="completedNewCount" class="text-base sm:text-lg font-bold text-emerald-400">0/30</span>
         </div>
 
-        <div class="bg-slate-900 border border-emerald-500/30 px-5 py-2 rounded-xl text-right shadow-[0_0_20px_rgba(16,185,129,0.1)] min-w-[220px]">
+        <div class="bg-slate-900 border border-emerald-500/30 px-4 sm:px-5 py-2 rounded-xl text-right shadow-[0_0_20px_rgba(16,185,129,0.1)] w-full sm:w-auto min-w-[200px] sm:min-w-[220px]">
           <div class="border-b border-slate-800 pb-1 mb-1 flex justify-between items-center gap-3">
             <div>
-              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
-              <span id="soldeDisplay" class="text-xl font-black text-emerald-400">149,34 $</span>
+              <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
+              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">149,34 $</span>
             </div>
             <!-- BOUTON RETIRER -->
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
@@ -70,8 +74,8 @@
             </button>
           </div>
           <div>
-            <span class="text-[10px] uppercase tracking-wider text-amber-400/90 font-bold block">Solde en Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm font-bold text-amber-400">0,00 $</span>
+            <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-amber-400/90 font-bold block">Solde en Attente</span>
+            <span id="soldeEnAttenteDisplay" class="text-xs sm:text-sm font-bold text-amber-400">0,00 $</span>
           </div>
         </div>
       </div>
@@ -79,11 +83,11 @@
   </header>
 
   <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-8 flex-1 w-full space-y-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full space-y-8 sm:space-y-12">
 
     <!-- HISTORIQUE DES RETRAITS -->
-    <section id="withdrawHistorySection" class="hidden bg-slate-900/60 p-5 rounded-2xl border border-slate-800 space-y-4">
-      <h2 class="text-base font-bold text-white flex items-center gap-2">
+    <section id="withdrawHistorySection" class="hidden bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
+      <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
         <span>📜</span> Historique des Demandes de Retrait
       </h2>
       <div id="withdrawHistoryList" class="space-y-2 text-xs">
@@ -92,34 +96,34 @@
     </section>
 
     <!-- SECTION 1 : 20 MISSIONS D'AUDIT -->
-    <section class="space-y-6">
+    <section class="space-y-4 sm:space-y-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
         <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
             <span>🏢</span> Audits & Revues Financières de Sociétés Européennes (20)
           </h2>
           <p class="text-xs text-slate-400">Vérification comptable & validation des comptes de résultat (PME & Groupe UE)</p>
         </div>
 
-        <div class="flex flex-wrap gap-2">
-          <button onclick="filterMissions('all')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
-          <button onclick="filterMissions('Terminée')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
-          <button onclick="filterMissions('En attente')" class="filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
+        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+          <button onclick="filterMissions('all')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
+          <button onclick="filterMissions('Terminée')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
+          <button onclick="filterMissions('En attente')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
         </div>
       </div>
 
-      <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         <!-- Injecté dynamiquement -->
       </div>
     </section>
 
-    <hr class="border-slate-800 my-8">
+    <hr class="border-slate-800 my-6 sm:my-8">
 
     <!-- SECTION 2 : 30 MISSIONS AVEC CALCULS -->
-    <section class="space-y-6">
-      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <section class="space-y-4 sm:space-y-6">
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
             <span>📈</span> Saisie Financière : Entreprises & Multinationales Européennes (30)
           </h2>
           <p class="text-xs text-slate-300 mt-1">
@@ -128,7 +132,7 @@
         </div>
       </div>
 
-      <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <!-- Injecté dynamiquement -->
       </div>
     </section>
@@ -137,9 +141,9 @@
 
   <!-- MODALE : CHOIX DU MODE DE RETRAIT -->
   <div id="withdrawChoiceModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-5">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-5">
       <div class="flex justify-between items-center">
-        <h3 class="text-lg font-bold text-white">Sélectionner la méthode de retrait</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white">Sélectionner la méthode de retrait</h3>
         <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -173,9 +177,9 @@
 
   <!-- MODALE : FORMULAIRE BANQUE MAROC -->
   <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
         <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -232,9 +236,9 @@
 
   <!-- MODALE : FORMULAIRE PAYPAL -->
   <div id="paypalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-6 space-y-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">🟦 Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🟦 Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -260,7 +264,7 @@
   <!-- MODALE DÉTAILS DES MISSIONS 20 -->
   <div id="missionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
-      <div class="p-6 space-y-4">
+      <div class="p-5 sm:p-6 space-y-4">
         <div class="flex justify-between items-start">
           <span id="modalCategory" class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             Société Européenne
@@ -268,27 +272,27 @@
           <button onclick="closeModal('missionModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
         </div>
 
-        <h3 id="modalTitle" class="text-xl font-bold text-white">Titre</h3>
-        <p id="modalDescription" class="text-sm text-slate-300 leading-relaxed">Description...</p>
+        <h3 id="modalTitle" class="text-lg sm:text-xl font-bold text-white">Titre</h3>
+        <p id="modalDescription" class="text-xs sm:text-sm text-slate-300 leading-relaxed">Description...</p>
 
         <div class="grid grid-cols-2 gap-3 pt-2">
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
             <span class="text-[10px] text-slate-500 uppercase font-bold block">Honoraires</span>
-            <span id="modalGain" class="text-lg font-bold text-emerald-400">+0,00 $</span>
+            <span id="modalGain" class="text-base sm:text-lg font-bold text-emerald-400">+0,00 $</span>
           </div>
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
             <span class="text-[10px] text-slate-500 uppercase font-bold block">Statut</span>
-            <span id="modalStatut" class="text-sm font-semibold text-slate-200">En attente</span>
+            <span id="modalStatut" class="text-xs sm:text-sm font-semibold text-slate-200">En attente</span>
           </div>
         </div>
 
         <div class="space-y-2 pt-2">
           <label class="text-xs font-semibold text-slate-400 block">Référence du Rapport d'Audit :</label>
-          <input type="text" id="proofInput" placeholder="Ex: AUDIT-EU-2026-N890" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+          <input type="text" id="proofInput" placeholder="Ex: AUDIT-EU-2026-N890" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition">
         </div>
       </div>
 
-      <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 flex justify-end gap-3">
+      <div class="bg-slate-950 px-5 sm:px-6 py-4 border-t border-slate-800 flex justify-end gap-3">
         <button onclick="closeModal('missionModal')" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition">Fermer</button>
         <button id="toggleStatusBtn" onclick="toggleMissionStatus()" class="px-5 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition">
           Valider
@@ -298,16 +302,11 @@
   </div>
 
   <script>
-    // EFFACEMENT DES ANCIENNES SAUVEGARDES POUR RÉINITIALISER PROPREMENT
-    localStorage.removeItem('microtask_accounting_20_eu');
-    localStorage.removeItem('microtask_calc_missions_30_eu');
-    localStorage.removeItem('microtask_withdrawals');
-
     const BASE_SOLDE_VALIDE = 149.34;
     let currentFilter = 'all';
     let selectedMissionId = null;
 
-    // SECTION 1 (20 AUDITS EUROPÉENS) - Statut initial réinitialisé
+    // SECTION 1 (20 AUDITS EUROPÉENS)
     const defaultMissions = [
       { id: 1, nom: "Airbus Group SE — Audit Créances & Postes Clients", plateforme: "France / UE", gain: 4.50, statut: "En attente", date: "2026-07-28", desc: "Vérification des délais de paiement clients et calcul des provisions pour créances sur le secteur Aéronautique." },
       { id: 2, nom: "SAP SE — Analyse du Seuil de Rentabilité SaaS", plateforme: "Allemagne", gain: 6.20, statut: "En attente", date: "2026-07-28", desc: "Calcul du point mort opérationnel et répartition des coûts d'infrastructure Cloud." },
@@ -390,7 +389,6 @@
       const soldeValide = getSoldeValide();
       document.getElementById('soldeDisplay').textContent = `${soldeValide.toFixed(2).replace('.', ',')} $`;
 
-      // CUMUL EN SOLDE EN ATTENTE : additionne la rémunération des 30 missions validées + missions 20 validées
       const soldeEnAttenteCalc = calcMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
       const soldeEnAttenteAudits = missions.filter(m => m.statut === 'Terminée').reduce((acc, m) => acc + m.gain, 0);
       const soldeEnAttenteTotal = soldeEnAttenteCalc + soldeEnAttenteAudits;
@@ -536,7 +534,7 @@
       filtered.forEach(m => {
         const isDone = m.statut === 'Terminée';
         const card = document.createElement('div');
-        card.className = `bg-slate-900 border rounded-2xl p-5 hover:border-emerald-500/50 transition cursor-pointer flex flex-col justify-between space-y-4 shadow-lg group relative overflow-hidden ${
+        card.className = `bg-slate-900 border rounded-2xl p-4 sm:p-5 hover:border-emerald-500/50 transition cursor-pointer flex flex-col justify-between space-y-4 shadow-lg group relative overflow-hidden ${
           isDone ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'
         }`;
         card.onclick = () => openModal(m.id);
@@ -553,7 +551,7 @@
                 ${m.statut}
               </span>
             </div>
-            <h3 class="font-bold text-white text-base group-hover:text-emerald-400 transition">${m.nom}</h3>
+            <h3 class="font-bold text-white text-sm sm:text-base group-hover:text-emerald-400 transition">${m.nom}</h3>
             <p class="text-xs text-slate-400 line-clamp-2">${m.desc}</p>
           </div>
           <div class="flex justify-between items-center pt-3 border-t border-slate-800/60 text-xs">
@@ -574,12 +572,12 @@
         const isLocked = m.locked;
 
         const card = document.createElement('div');
-        card.className = `bg-slate-900 border ${isLocked ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'} rounded-2xl p-5 shadow-xl space-y-4 relative`;
+        card.className = `bg-slate-900 border ${isLocked ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'} rounded-2xl p-4 sm:p-5 shadow-xl space-y-4 relative`;
 
         card.innerHTML = `
           <div class="flex justify-between items-center border-b border-slate-800 pb-3">
             <div>
-              <h3 class="font-bold text-emerald-400 text-sm">Mission #${m.id} — ${m.projet}</h3>
+              <h3 class="font-bold text-emerald-400 text-xs sm:text-sm">Mission #${m.id} — ${m.projet}</h3>
               <span class="text-xs font-black text-amber-400">Rémunération : +${m.reward} $</span>
             </div>
             <span class="text-[10px] font-bold px-2 py-1 rounded ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-800 text-slate-400'}">
@@ -590,7 +588,7 @@
           <!-- 6 DONNÉES FINANCIÈRES BRUTES -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
             <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📊 6 Données Financières de la Société :</div>
-            <div class="grid grid-cols-2 gap-x-2 gap-y-1">
+            <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
               <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
               <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
               <div>• Masse Salariale : <span class="text-slate-300">${m.donnees.salaires} $</span></div>
@@ -708,8 +706,8 @@
       currentFilter = filter;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.className = btn.dataset.filter === filter
-          ? "filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition"
-          : "filter-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition";
+          ? "filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition"
+          : "filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition";
       });
       renderGrid();
     }
@@ -748,5 +746,6 @@
   </script>
 </body>
 </html>
+
 
 
