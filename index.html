@@ -37,22 +37,31 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-16">
 
-  <!-- EN-TÊTE / DASHBOARD AVEC LOGO MICROTASK -->
+  <!-- EN-TÊTE / DASHBOARD AVEC NAVIGATION -->
   <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+      
+      <div class="flex items-center space-x-6 w-full sm:w-auto justify-between sm:justify-start">
         <div class="flex items-center space-x-3">
-          
-          <!-- LOGO MICROTASK ORIGINAL (M DYNAMIQUE) -->
+          <!-- LOGO MICROTASK -->
           <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] shrink-0">
             M
           </div>
-
           <div>
             <h1 class="text-lg sm:text-xl font-bold tracking-wide text-white">MicroTask <span class="text-emerald-400">Accounting</span></h1>
             <p class="text-[10px] sm:text-xs text-slate-400">Analyse & Diagnostic Financier de Sociétés Européennes</p>
           </div>
         </div>
+
+        <!-- NAVIGATION PAR ONGLETS -->
+        <nav class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950">
+            📊 Missions
+          </button>
+          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
+            💸 Transactions
+          </button>
+        </nav>
       </div>
 
       <!-- CARTE SOLDE, STATS ET RETRAIT -->
@@ -66,16 +75,16 @@
           <div class="border-b border-slate-800 pb-1 mb-1 flex justify-between items-center gap-3">
             <div>
               <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
-              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">149,34 $</span>
+              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">49,34 $</span>
             </div>
             <!-- BOUTON RETIRER -->
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
-              💳 Retirer
+              💸 Retirer
             </button>
           </div>
           <div>
             <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-amber-400/90 font-bold block">Solde en Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-xs sm:text-sm font-bold text-amber-400">0,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-xs sm:text-sm font-bold text-amber-400">340,00 $</span>
           </div>
         </div>
       </div>
@@ -83,59 +92,113 @@
   </header>
 
   <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full space-y-8 sm:space-y-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full">
 
-    <!-- HISTORIQUE DES RETRAITS -->
-    <section id="withdrawHistorySection" class="hidden bg-slate-900/60 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
-      <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-        <span>📜</span> Historique des Demandes de Retrait
-      </h2>
-      <div id="withdrawHistoryList" class="space-y-2 text-xs">
-        <!-- Historique dynamique -->
-      </div>
-    </section>
+    <!-- VUE 1 : DASHBOARD MISSIONS -->
+    <div id="dashboardView" class="space-y-8 sm:space-y-12">
+      <!-- SECTION 1 : MISSIONS D'AUDIT -->
+      <section class="space-y-4 sm:space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>📋</span> Audits & Revues Financières de Sociétés Européennes (10)
+            </h2>
+            <p class="text-xs text-slate-400">Vérification comptable & validation des comptes de résultat (PME & Groupes UE)</p>
+          </div>
 
-    <!-- SECTION 1 : 20 MISSIONS D'AUDIT -->
-    <section class="space-y-4 sm:space-y-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
-        <div>
-          <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <span>🏢</span> Audits & Revues Financières de Sociétés Européennes (20)
-          </h2>
-          <p class="text-xs text-slate-400">Vérification comptable & validation des comptes de résultat (PME & Groupe UE)</p>
+          <div class="flex flex-wrap gap-2 w-full md:w-auto">
+            <button onclick="filterMissions('all')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
+            <button onclick="filterMissions('Terminée')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
+            <button onclick="filterMissions('En attente')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
+          </div>
         </div>
 
-        <div class="flex flex-wrap gap-2 w-full md:w-auto">
-          <button onclick="filterMissions('all')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
-          <button onclick="filterMissions('Terminée')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
-          <button onclick="filterMissions('En attente')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
+        <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Injecté dynamiquement -->
         </div>
-      </div>
+      </section>
 
-      <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        <!-- Injecté dynamiquement -->
-      </div>
-    </section>
+      <hr class="border-slate-800 my-6 sm:my-8">
 
-    <hr class="border-slate-800 my-6 sm:my-8">
+      <!-- SECTION 2 : 30 MISSIONS AVEC CALCULS -->
+      <section class="space-y-4 sm:space-y-6">
+        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <span>🧮</span> Saisie Financière : Entreprises & Multinationales Européennes (30)
+            </h2>
+            <p class="text-xs text-slate-300 mt-1">
+              À partir des <strong>6 données financières</strong> fournies, évaluez les <strong>6 résultats</strong> clés de la société et rédigez vos remarques.
+            </p>
+          </div>
+        </div>
 
-    <!-- SECTION 2 : 30 MISSIONS AVEC CALCULS -->
-    <section class="space-y-4 sm:space-y-6">
-      <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <!-- Injecté dynamiquement -->
+        </div>
+      </section>
+    </div>
+
+    <!-- VUE 2 : PAGE DE TRANSACTIONS & HISTORIQUE DÉTAILLÉ -->
+    <div id="transactionsView" class="hidden space-y-6">
+      
+      <!-- EN-TÊTE PAGE TRANSACTIONS -->
+      <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <span>📈</span> Saisie Financière : Entreprises & Multinationales Européennes (30)
+            <span>💸</span> Historique Général des Transactions & Retraits
           </h2>
-          <p class="text-xs text-slate-300 mt-1">
-            À partir des <strong>6 données financières</strong> fournies, évaluez les <strong>6 résultats</strong> clés de la société et rédigez vos remarques.
-          </p>
+          <p class="text-xs text-slate-400 mt-1">Suivi en temps réel de vos virements bancaires et demandes de règlement.</p>
+        </div>
+        <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">
+          + Effectuer un retrait
+        </button>
+      </div>
+
+      <!-- STATISTIQUES TRANSACTIONS -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-semibold block">Total Demandé / Retiré</span>
+          <span id="txTotalAmount" class="text-xl font-black text-amber-400 mt-1 block">100,00 $</span>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-semibold block">Dernière Banque Utilisée</span>
+          <span id="txLastBank" class="text-base font-bold text-emerald-400 mt-1 block">Attijariwafa Bank</span>
+        </div>
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-semibold block">Statut du Compte</span>
+          <span class="text-base font-bold text-white mt-1 block flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Vérifié (Maroc)
+          </span>
         </div>
       </div>
 
-      <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <!-- Injecté dynamiquement -->
+      <!-- TABLEAU DES TRANSACTIONS -->
+      <div class="bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-sm font-bold text-white">Journal des Opérations</h3>
+          <span class="text-xs text-slate-400">Devise principale : USD ($)</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider">
+                <th class="py-3 px-3">Date</th>
+                <th class="py-3 px-3">Méthode</th>
+                <th class="py-3 px-3">Détails Compte / RIB</th>
+                <th class="py-3 px-3">Montant</th>
+                <th class="py-3 px-3 text-right">Statut</th>
+              </tr>
+            </thead>
+            <tbody id="fullTransactionTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+              <!-- Injecté dynamiquement -->
+            </tbody>
+          </table>
+        </div>
       </div>
-    </section>
+
+    </div>
 
   </main>
 
@@ -152,7 +215,7 @@
       <div class="grid grid-cols-1 gap-3 pt-2">
         <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">🏦</span>
+            <span class="text-2xl">🏛️</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire</div>
               <div class="text-[11px] text-slate-400">Virement directement au Maroc</div>
@@ -163,7 +226,7 @@
 
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">🟦</span>
+            <span class="text-2xl">💳</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
               <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
@@ -179,7 +242,7 @@
   <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏛️ Retrait par Virement Bancaire</h3>
         <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -218,7 +281,7 @@
 
         <div>
           <label class="text-slate-300 font-semibold block mb-1">RIB (24 chiffres) *</label>
-          <input type="text" id="bankRib" placeholder="Ex: 230780000000000000000000" required maxlength="24" pattern="[0-9]{24}" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+          <input type="text" id="bankRib" placeholder="Ex: 230780000000000000008206" required maxlength="24" pattern="[0-9]{24}" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
 
         <div>
@@ -238,7 +301,7 @@
   <div id="paypalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🟦 Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💳 Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -261,7 +324,7 @@
     </div>
   </div>
 
-  <!-- MODALE DÉTAILS DES MISSIONS 20 -->
+  <!-- MODALE DÉTAILS DES MISSIONS -->
   <div id="missionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
       <div class="p-5 sm:p-6 space-y-4">
@@ -302,52 +365,45 @@
   </div>
 
   <script>
-    const BASE_SOLDE_VALIDE = 149.34;
+    // DEFAULTS SOLDE: 149.34 $ Validé et 340.00 $ en attente de base
+    const BASE_SOLDE_VALIDE = 149.34; 
+    const BASE_SOLDE_EN_ATTENTE = 340.00; 
+
     let currentFilter = 'all';
     let selectedMissionId = null;
 
-    // SECTION 1 (20 AUDITS EUROPÉENS)
+    // 10 NOUVELLES SOCIÉTÉS EUROPÉENNES MAJEURES POUR LES AUDITS
     const defaultMissions = [
-      { id: 1, nom: "Airbus Group SE — Audit Créances & Postes Clients", plateforme: "France / UE", gain: 4.50, statut: "En attente", date: "2026-07-28", desc: "Vérification des délais de paiement clients et calcul des provisions pour créances sur le secteur Aéronautique." },
-      { id: 2, nom: "SAP SE — Analyse du Seuil de Rentabilité SaaS", plateforme: "Allemagne", gain: 6.20, statut: "En attente", date: "2026-07-28", desc: "Calcul du point mort opérationnel et répartition des coûts d'infrastructure Cloud." },
-      { id: 3, nom: "ASML Holding NV — Revue Amortissements Équipements", plateforme: "Pays-Bas", gain: 5.00, statut: "En attente", date: "2026-07-27", desc: "Contrôle des tableaux d'amortissement du matériel de lithographie et R&D." },
-      { id: 4, nom: "L'Oréal SA — Contrôle du BFR & Trésorerie Globale", plateforme: "France", gain: 4.80, statut: "En attente", date: "2026-07-27", desc: "Évaluation du besoin en fonds de roulement net de la division Beauté & Cosmétiques." },
-      { id: 5, nom: "Siemens AG — Audit de la Masse Salariale & Charges", plateforme: "Allemagne", gain: 5.50, statut: "En attente", date: "2026-07-27", desc: "Audit des charges sociales patronales et cotisations sur les sites industriels." },
-      { id: 6, nom: "LVMH Moët Hennessy — Audit Portefeuille Emprunts", plateforme: "France", gain: 3.90, statut: "En attente", date: "2026-07-26", desc: "Vérification des taux d'intérêt et échéanciers des obligations d'entreprise à long terme." },
-      { id: 7, nom: "Banco Santander SL — Ratios de Solvabilité & Fonds Propres", plateforme: "Espagne", gain: 4.20, statut: "En attente", date: "2026-07-26", desc: "Analyse des ratios de fonds propres CET1 et capacité de couverture du risque." },
-      { id: 8, nom: "Enel SpA — Clôture Fiscale & Consolidation IS", plateforme: "Italie", gain: 7.50, statut: "En attente", date: "2026-07-26", desc: "Passage du résultat comptable au résultat fiscal imposable sur le secteur Énergie." },
-      { id: 9, nom: "Bayer AG — Analyse de la Valeur Ajoutée & EBE", plateforme: "Allemagne", gain: 3.80, statut: "En attente", date: "2026-07-25", desc: "Décomposition des soldes intermédiaires de gestion de la division Pharma." },
-      { id: 10, nom: "Stellantis NV — Vérification des Stocks & Logistique", plateforme: "Pays-Bas / UE", gain: 4.00, statut: "En attente", date: "2026-07-25", desc: "Audit de la valorisation des stocks de pièces détachées et véhicules finis." },
-      { id: 11, nom: "Schneider Electric SE — Honoraires & Frais Généraux", plateforme: "France", gain: 5.10, statut: "En attente", date: "2026-07-25", desc: "Contrôle de déductibilité fiscale des dépenses de sous-traitance ingénierie." },
-      { id: 12, nom: "TotalEnergies SE — Audit du Fonds de Roulement (FRNG)", plateforme: "France", gain: 3.50, statut: "En attente", date: "2026-07-24", desc: "Calcul de l'équilibre financier du haut de bilan sur les projets renouvelables." },
-      { id: 13, nom: "AB InBev NV — Contrôle Interne des Caisses & Trésorerie", plateforme: "Belgique", gain: 4.60, statut: "En attente", date: "2026-07-24", desc: "Rapprochements bancaires multi-devises pour la filiale européenne de distribution." },
-      { id: 14, nom: "Volvo Group AB — Diagnostic Rentabilité Économique", plateforme: "Suède", gain: 6.80, statut: "En attente", date: "2026-07-24", desc: "Évaluation du retour sur capitaux investis (ROCE) de la branche Poids Lourds." },
-      { id: 15, nom: "Inditex SA (Zara) — Rapprochements Inter-Filiales", plateforme: "Espagne", gain: 4.10, statut: "En attente", date: "2026-07-23", desc: "Revue des transactions intragroupe et élimination des doubles comptes de stock." },
-      { id: 16, nom: "Nokia Oyj — Audit des Subventions & Aides R&D", plateforme: "Finlande", gain: 5.30, statut: "En attente", date: "2026-07-23", desc: "Comptabilisation des aides européennes à l'innovation 5G/6G et étalement." },
-      { id: 17, nom: "Danone SA — Analyse des Marges Commerciales", plateforme: "France", gain: 4.70, statut: "En attente", date: "2026-07-23", desc: "Calcul du taux de marque et marges brutes sur les lignes Produits Laitiers." },
-      { id: 18, nom: "Philips NV — Synthèse des Investissements (CAPEX)", plateforme: "Pays-Bas", gain: 5.90, statut: "En attente", date: "2026-07-22", desc: "Suivi des acquisitions d'équipements imagerie médicale et brevets." },
-      { id: 19, nom: "Michelin SCA — Capacité d'Autofinancement (CAF)", plateforme: "France", gain: 3.40, statut: "En attente", date: "2026-07-22", desc: "Calcul de la CAF à partir du résultat net et dotations aux amortissements." },
-      { id: 20, nom: "Deutsche Post DHL — Revue du Bilan Financier Annuel", plateforme: "Allemagne", gain: 33.86, statut: "En attente", date: "2026-07-22", desc: "Clôture globale des comptes et consolidation de la synthèse réseau Express." }
+      { id: 11, nom: "Air Liquide SA — Audit des Actifs Immo & Frais Généraux", plateforme: "France", gain: 5.10, statut: "En attente", date: "2026-07-25", desc: "Vérification des amortissements d'unités de production de gaz industriels." },
+      { id: 12, nom: "Siemens Healthineers AG — Contrôle du Bilan & Trésorerie", plateforme: "Allemagne", gain: 3.50, statut: "En attente", date: "2026-07-24", desc: "Rapprochement des créances clients et évaluation de la liquidité à court terme." },
+      { id: 13, nom: "BNP Paribas SA — Audit de Conformité Prêts & Provisions", plateforme: "France", gain: 4.60, statut: "En attente", date: "2026-07-24", desc: "Revue des provisions pour créances douteuses du pôle Banque de Détail Europe." },
+      { id: 14, nom: "Mercedes-Benz Group AG — Analyse Marge & Coûts Fixes", plateforme: "Allemagne", gain: 6.80, statut: "En attente", date: "2026-07-24", desc: "Évaluation du coût de revient unitaire des modèles électriques et hybrides." },
+      { id: 15, nom: "Eni SpA — Diagnostic des Investissements Énergétiques", plateforme: "Italie", gain: 4.10, statut: "En attente", date: "2026-07-23", desc: "Contrôle d'imputation des dépenses d'exploration et de transition décarbonée." },
+      { id: 16, nom: "DSM-Firmenich AG — Audit Interne des Comptes Consolidation", plateforme: "Suisse/Pays-Bas", gain: 5.30, statut: "En attente", date: "2026-07-23", desc: "Harmonisation des bilans filiales Santé & Nutrition selon les normes IFRS." },
+      { id: 17, nom: "EDP Energias de Portugal — Revue du Fonds de Roulement", plateforme: "Portugal", gain: 4.70, statut: "En attente", date: "2026-07-23", desc: "Calcul du BFR opérationnel sur les parcs d'énergie renouvelable du groupe." },
+      { id: 18, nom: "CRH Plc — Contrôle des Stocks & Approvisionnements", plateforme: "Irlande", gain: 5.90, statut: "En attente", date: "2026-07-22", desc: "Inventaire physique et dépréciation des stocks de matériaux de construction." },
+      { id: 19, nom: "Kone Oyj — Analyse Rentabilité Contrats d'Entretien", plateforme: "Finlande", gain: 3.40, statut: "En attente", date: "2026-07-22", desc: "Audit des marges générées par le parc d'ascenseurs et systèmes de mobilité." },
+      { id: 20, nom: "BBVA SA — Synthèse Financière & Ratio de Solvabilité", plateforme: "Espagne", gain: 33.86, statut: "En attente", date: "2026-07-22", desc: "Validation de la structure des fonds propres et des capitaux permanents." }
     ];
 
-    // NOMS DE SOCIÉTÉS EUROPÉENNES (SECTION 2)
+    // NOUVELLE LISTE DE 30 ENTREPRISES EUROPÉENNES POUR LES CALCULS
     const europeanCompanies = [
-      "Valorem Finance SAS (France)", "Krupp & Weber Maschinenbau (Allemagne)", "Iberia Logística & Distribución (Espagne)",
-      "Milano Fashion Logistics SRL (Italie)", "Amstel Maritime Logistics BV (Pays-Bas)", "Novatech Solutions SA (Belgique)",
-      "Solaria Energías Renovables (Espagne)", "Rheinland Elektronik AG (Allemagne)", "Nordic Cloud Systems AB (Suède)",
-      "Benelux Trading Group NV (Belgique)", "Lombardia Meccanica SpA (Italie)", "Bavaria Solar Technologie (Allemagne)",
-      "LogiTrans Europe Express (France)", "Toscana Food Export SRL (Italie)", "Hansa Chemikalien GmbH (Allemagne)",
-      "Flanders Biotech NV (Belgique)", "Baltic Freight Services (Estonie)", "Construcciones del Norte SA (Espagne)",
-      "Vienna Automation AG (Autriche)", "Iberian Energy Solutions (Portugal)", "Altima Agroalimentaire SA (France)",
-      "Emilia Componenti SpA (Italie)", "Zurich Tech Consulting (Suisse)", "Danube Industrial Group (Hongrie)",
-      "Bâtiment Patrimoine Européen (France)", "Warsaw Software House (Pologne)", "Athens Maritime Agency (Grèce)",
-      "Dublin Pharma Labs (Irlande)", "Copenhagen Green Power (Danemark)", "Prague Precision Tools (Tchéquie)"
+      "LVMH Moët Hennessy (France)", "Allianz SE (Allemagne)", "AstraZeneca PLC (Royaume-Uni/Suède)", 
+      "Air Liquide SA (France)", "Deutsche Telekom AG (Allemagne)", "Schneider Electric SE (France)", 
+      "Enel SpA (Italie)", "Equinor ASA (Norvège)", "UBS Group AG (Suisse)", 
+      "TotalEnergies SE (France)", "BNP Paribas SA (France)", "Mercedes-Benz Group (Allemagne)", 
+      "Inditex SA (Espagne)", "ABB Ltd (Suisse)", "Anheuser-Busch InBev (Belgique)", 
+      "Safran SA (France)", "Siemens Energy AG (Allemagne)", "Intesa Sanpaolo SpA (Italie)", 
+      "Repsol SA (Espagne)", "NXP Semiconductors NV (Pays-Bas)", "EssilorLuxottica SA (France)", 
+      "Henkel AG & Co. KGaA (Allemagne)", "EDP Energias (Portugal)", "Volvo Group AB (Suède)", 
+      "Nordea Bank Abp (Finlande)", "Capgemini SE (France)", "Generali Group (Italie)", 
+      "CRH Plc (Irlande)", "Holcim Ltd (Suisse)", "Smurfit Kappa Group (Irlande)"
     ];
 
     const defaultCalcMissions = Array.from({ length: 30 }, (_, i) => {
       const id = i + 1;
       const companyName = europeanCompanies[i % europeanCompanies.length];
-      const projet = `${companyName} #${id}`;
+      const projet = `${companyName}`;
       
       const caHT = (28000 + (id * 4350)).toFixed(2);
       const achatsStock = (9200 + (id * 1350)).toFixed(2);
@@ -368,16 +424,61 @@
       };
     });
 
-    let missions = defaultMissions;
-    let calcMissions = defaultCalcMissions;
-    let withdrawals = [];
-    let savedBankDetails = null;
+    const defaultWithdrawals = [
+      {
+        id: 1785234000000,
+        date: "29/07/2026 à 16:45",
+        montant: 100.00,
+        moyen: "Compte Bancaire (Maroc)",
+        details: "Attijariwafa Bank - RIB: ****8206",
+        statut: "En cours de traitement"
+      }
+    ];
+
+    const defaultSavedBankDetails = {
+      bank: "Attijariwafa Bank",
+      rib: "230780000000000000008206"
+    };
+
+    // CHARGEMENT LOCALSTORAGE AVEC HISTORIQUE
+    let missions = JSON.parse(localStorage.getItem('microtask_missions')) || defaultMissions;
+    let calcMissions = JSON.parse(localStorage.getItem('microtask_calcMissions')) || defaultCalcMissions;
+    let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals')) || defaultWithdrawals;
+    let savedBankDetails = JSON.parse(localStorage.getItem('microtask_savedBankDetails')) || defaultSavedBankDetails;
+
+    function saveState() {
+      localStorage.setItem('microtask_missions', JSON.stringify(missions));
+      localStorage.setItem('microtask_calcMissions', JSON.stringify(calcMissions));
+      localStorage.setItem('microtask_withdrawals', JSON.stringify(withdrawals));
+      localStorage.setItem('microtask_savedBankDetails', JSON.stringify(savedBankDetails));
+    }
 
     function init() {
       updateHeader();
       renderGrid();
       renderCalcGrid();
       renderWithdrawHistory();
+    }
+
+    // NAVIGATION ENTRE ONGLETS
+    function switchTab(tab) {
+      const dashView = document.getElementById('dashboardView');
+      const txView = document.getElementById('transactionsView');
+      const dashBtn = document.getElementById('navDashboardBtn');
+      const txBtn = document.getElementById('navTransactionsBtn');
+
+      if (tab === 'dashboard') {
+        dashView.classList.remove('hidden');
+        txView.classList.add('hidden');
+        dashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950";
+        txBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+      } else {
+        dashView.classList.add('hidden');
+        txView.classList.remove('hidden');
+        txBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950";
+        dashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+        renderWithdrawHistory();
+      }
     }
 
     function getSoldeValide() {
@@ -389,9 +490,10 @@
       const soldeValide = getSoldeValide();
       document.getElementById('soldeDisplay').textContent = `${soldeValide.toFixed(2).replace('.', ',')} $`;
 
+      // SOLDE EN ATTENTE PAR DÉFAUT (340 $) + REMUNERATION DES MISSIONS VERROUILLEES / VALIDEES
       const soldeEnAttenteCalc = calcMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
       const soldeEnAttenteAudits = missions.filter(m => m.statut === 'Terminée').reduce((acc, m) => acc + m.gain, 0);
-      const soldeEnAttenteTotal = soldeEnAttenteCalc + soldeEnAttenteAudits;
+      const soldeEnAttenteTotal = BASE_SOLDE_EN_ATTENTE + soldeEnAttenteCalc + soldeEnAttenteAudits;
 
       document.getElementById('soldeEnAttenteDisplay').textContent = `${soldeEnAttenteTotal.toFixed(2).replace('.', ',')} $`;
 
@@ -450,10 +552,13 @@
         date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
         montant: amount,
         moyen: 'Compte Bancaire (Maroc)',
-        details: `${bank} - RIB: ****${rib.slice(-4)}`
+        details: `${bank} - RIB: ****${rib.slice(-4)}`,
+        statut: 'En cours de traitement'
       };
 
       withdrawals.push(newWithdrawal);
+      saveState();
+      
       alert(`Demande de retrait de ${amount} $ par virement bancaire enregistrée avec succès !`);
       
       closeModal('bankModal');
@@ -483,10 +588,13 @@
         date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
         montant: amount,
         moyen: 'PayPal',
-        details: email
+        details: email,
+        statut: 'En cours de traitement'
       };
 
       withdrawals.push(newWithdrawal);
+      saveState();
+
       alert(`Demande de retrait PayPal de ${amount} $ envoyée à ${email} !`);
 
       closeModal('paypalModal');
@@ -496,32 +604,40 @@
     }
 
     function renderWithdrawHistory() {
-      const section = document.getElementById('withdrawHistorySection');
-      const list = document.getElementById('withdrawHistoryList');
+      const tableBody = document.getElementById('fullTransactionTableBody');
+      const txTotalAmount = document.getElementById('txTotalAmount');
+      const txLastBank = document.getElementById('txLastBank');
 
-      if (withdrawals.length === 0) {
-        section.classList.add('hidden');
-        return;
-      }
+      if (!tableBody) return;
 
-      section.classList.remove('hidden');
-      list.innerHTML = '';
+      tableBody.innerHTML = '';
+      let totalRetire = 0;
 
       withdrawals.forEach(w => {
-        const item = document.createElement('div');
-        item.className = "flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs";
-        item.innerHTML = `
-          <div>
-            <div class="font-bold text-white">${w.moyen} <span class="text-slate-500 font-normal">(${w.details})</span></div>
-            <div class="text-[10px] text-slate-400">${w.date}</div>
-          </div>
-          <div class="text-right">
-            <span class="font-black text-amber-400 text-sm">-${w.montant.toFixed(2)} $</span>
-            <span class="block text-[10px] text-emerald-400 font-semibold">⏳ En cours de traitement</span>
-          </div>
+        totalRetire += w.montant;
+        const statusText = w.statut || 'En cours de traitement';
+        const isDone = statusText.includes('Effectué');
+
+        const row = document.createElement('tr');
+        row.className = "hover:bg-slate-950/50 transition";
+        row.innerHTML = `
+          <td class="py-3 px-3 font-mono text-slate-400">${w.date}</td>
+          <td class="py-3 px-3 font-semibold text-white">${w.moyen}</td>
+          <td class="py-3 px-3 text-slate-300 font-mono">${w.details}</td>
+          <td class="py-3 px-3 font-black text-amber-400">-${w.montant.toFixed(2)} $</td>
+          <td class="py-3 px-3 text-right">
+            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
+              isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+            }">
+              ${isDone ? '✔ ' : '⏳ '}${statusText}
+            </span>
+          </td>
         `;
-        list.appendChild(item);
+        tableBody.appendChild(row);
       });
+
+      if (txTotalAmount) txTotalAmount.textContent = `${totalRetire.toFixed(2).replace('.', ',')} $`;
+      if (txLastBank && savedBankDetails) txLastBank.textContent = savedBankDetails.bank;
     }
 
     // --- RENDU SECTION 1 ---
@@ -563,7 +679,7 @@
       });
     }
 
-    // --- RENDU SECTION 2 (30 SOCIÉTÉS) ---
+    // --- RENDU SECTION 2 ---
     function renderCalcGrid() {
       const grid = document.getElementById('calcMissionsGrid');
       grid.innerHTML = '';
@@ -585,9 +701,8 @@
             </span>
           </div>
 
-          <!-- 6 DONNÉES FINANCIÈRES BRUTES -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
-            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📊 6 Données Financières de la Société :</div>
+            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📋 6 Données Financières de la Société :</div>
             <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
               <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
               <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
@@ -598,9 +713,8 @@
             </div>
           </div>
 
-          <!-- 6 CALCULS À SAISIR + REMARQUE -->
           <div class="space-y-2.5 text-xs">
-            <div class="font-semibold text-slate-300">✏️ 6 Résultats Financiers à Calculer :</div>
+            <div class="font-semibold text-slate-300">📊 6 Résultats Financiers à Calculer :</div>
             
             <div class="grid grid-cols-2 gap-2">
               <div>
@@ -657,7 +771,7 @@
 
           ${!isLocked ? `
             <button onclick="saveAndLockCalcMission(${m.id})" class="w-full mt-2 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              💾 Enregistrer & Envoyer (+${m.reward} $ en attente)
+              🚀 Enregistrer & Envoyer (+${m.reward} $ en attente)
             </button>
           ` : `
             <div class="text-center py-2 text-[11px] font-semibold text-amber-300 bg-amber-500/10 rounded-xl border border-amber-500/20">
@@ -697,6 +811,7 @@
         };
         m.locked = true;
 
+        saveState();
         updateHeader();
         renderCalcGrid();
       }
@@ -736,6 +851,8 @@
       if (m) {
         m.statut = m.statut === 'Terminée' ? 'En attente' : 'Terminée';
         m.preuve = document.getElementById('proofInput').value;
+        
+        saveState();
         updateHeader();
         renderGrid();
         closeModal('missionModal');
@@ -746,6 +863,7 @@
   </script>
 </body>
 </html>
+
 
 
 
