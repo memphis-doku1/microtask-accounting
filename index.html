@@ -33,17 +33,24 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #10b981;
     }
+    
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal-pop {
+      animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-16">
 
-  <!-- EN-TÊTE / DASHBOARD AVEC NAVIGATION -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-30">
+  <!-- EN-TÊTE : sticky et top-0 retirés pour permettre le défilement normal -->
+  <header class="bg-slate-900/90 border-b border-slate-800 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
       
       <div class="flex items-center space-x-6 w-full sm:w-auto justify-between sm:justify-start">
         <div class="flex items-center space-x-3">
-          <!-- LOGO MICROTASK -->
           <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] shrink-0">
             M
           </div>
@@ -53,7 +60,6 @@
           </div>
         </div>
 
-        <!-- NAVIGATION PAR ONGLETS -->
         <nav class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
           <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950">
             Missions
@@ -64,7 +70,6 @@
         </nav>
       </div>
 
-      <!-- CARTE SOLDE, STATS ET RETRAIT -->
       <div class="flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap justify-center sm:justify-end w-full sm:w-auto">
         <div class="bg-slate-900 border border-slate-800 px-3 sm:px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
           <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Analyses Validées</span>
@@ -77,7 +82,6 @@
               <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
               <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">178,34 $</span>
             </div>
-            <!-- BOUTON RETIRER -->
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
               Retirer
             </button>
@@ -94,17 +98,13 @@
   <!-- CONTENU PRINCIPAL -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full">
 
-    <!-- VUE 1 : DASHBOARD MISSIONS -->
     <div id="dashboardView" class="space-y-8 sm:space-y-12">
 
-      <!-- NOUVELLE SECTION : MISSION SPÉCIALE VIP COMPTABILITÉ GÉNÉRALE (200 $) -->
       <section id="specialMissionContainer">
-        <!-- Injecté dynamiquement par JavaScript -->
       </section>
 
       <hr class="border-slate-800 my-6 sm:my-8">
 
-      <!-- SECTION 1 : MISSIONS D'AUDIT -->
       <section class="space-y-4 sm:space-y-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
           <div>
@@ -122,13 +122,11 @@
         </div>
 
         <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          <!-- Injecté dynamiquement -->
         </div>
       </section>
 
       <hr class="border-slate-800 my-6 sm:my-8">
 
-      <!-- SECTION 2 : 30 NOUVELLES MISSIONS AVEC CALCULS -->
       <section class="space-y-4 sm:space-y-6">
         <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
@@ -142,15 +140,11 @@
         </div>
 
         <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <!-- Injecté dynamiquement -->
         </div>
       </section>
     </div>
 
-    <!-- VUE 2 : PAGE DE TRANSACTIONS & HISTORIQUE DÉTAILLÉ -->
     <div id="transactionsView" class="hidden space-y-6">
-      
-      <!-- EN-TÊTE PAGE TRANSACTIONS -->
       <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
@@ -163,7 +157,6 @@
         </button>
       </div>
 
-      <!-- STATISTIQUES TRANSACTIONS -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
           <span class="text-xs text-slate-400 font-semibold block">Total Demandé / Retiré</span>
@@ -181,7 +174,6 @@
         </div>
       </div>
 
-      <!-- TABLEAU DES TRANSACTIONS -->
       <div class="bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h3 class="text-sm font-bold text-white">Journal des Opérations</h3>
@@ -200,26 +192,22 @@
               </tr>
             </thead>
             <tbody id="fullTransactionTableBody" class="divide-y divide-slate-800/60 text-slate-300">
-              <!-- Injecté dynamiquement -->
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
 
   </main>
 
-  <!-- MODALE : CHOIX DU MODE DE RETRAIT -->
-  <div id="withdrawChoiceModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-5">
+  <!-- MODALES -->
+  <div id="withdrawChoiceModal" onclick="handleBackdropClick(event, 'withdrawChoiceModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-5 animate-modal-pop">
       <div class="flex justify-between items-center">
         <h3 class="text-base sm:text-lg font-bold text-white">Sélectionner la méthode de retrait</h3>
-        <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+        <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
-
       <p class="text-xs text-slate-300">Choisissez comment vous souhaitez recevoir vos fonds (Montant minimum de retrait : <strong>100 $</strong>).</p>
-
       <div class="grid grid-cols-1 gap-3 pt-2">
         <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
@@ -231,7 +219,6 @@
           </div>
           <span class="text-slate-500 group-hover:text-emerald-400 font-bold">➔</span>
         </button>
-
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
             <span class="text-2xl">💙</span>
@@ -246,20 +233,17 @@
     </div>
   </div>
 
-  <!-- MODALE : FORMULAIRE BANQUE MAROC -->
-  <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
+  <div id="bankModal" onclick="handleBackdropClick(event, 'bankModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
         <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
-        <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+        <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
-
       <form id="bankForm" onsubmit="confirmBankWithdraw(event)" class="space-y-3 text-xs">
         <div>
           <label class="text-slate-400 font-semibold block mb-1">Pays</label>
           <input type="text" value="Maroc" disabled class="w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 font-semibold cursor-not-allowed">
         </div>
-
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="text-slate-400 font-semibold block mb-1">Nom</label>
@@ -270,7 +254,6 @@
             <input type="text" value="Abderrahim" disabled class="w-full bg-slate-950/70 border border-slate-800 text-slate-400 rounded-xl px-3 py-2 font-semibold cursor-not-allowed">
           </div>
         </div>
-
         <div>
           <label class="text-slate-300 font-semibold block mb-1">Banque du Maroc *</label>
           <select id="bankSelect" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
@@ -286,17 +269,14 @@
             <option value="CFG Bank">CFG Bank</option>
           </select>
         </div>
-
         <div>
           <label class="text-slate-300 font-semibold block mb-1">RIB (24 chiffres) *</label>
           <input type="text" id="bankRib" placeholder="Ex: 230780000000000000008206" required maxlength="24" pattern="[0-9]{24}" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
-
         <div>
           <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
           <input type="number" id="bankAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
-
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeModal('bankModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
           <button type="submit" class="px-5 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition">Confirmer le retrait</button>
@@ -305,25 +285,21 @@
     </div>
   </div>
 
-  <!-- MODALE : FORMULAIRE PAYPAL -->
-  <div id="paypalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
+  <div id="paypalModal" onclick="handleBackdropClick(event, 'paypalModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
         <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💙 Retrait par PayPal</h3>
-        <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+        <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
-
       <form id="paypalForm" onsubmit="confirmPaypalWithdraw(event)" class="space-y-3 text-xs">
         <div>
           <label class="text-slate-300 font-semibold block mb-1">Email PayPal *</label>
           <input type="email" id="paypalEmail" placeholder="votre.email@exemple.com" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
-
         <div>
           <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
           <input type="number" id="paypalAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
-
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeModal('paypalModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
           <button type="submit" class="px-5 py-2 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition">Confirmer le retrait</button>
@@ -332,40 +308,52 @@
     </div>
   </div>
 
-  <!-- MODALE DÉTAILS DES MISSIONS -->
-  <div id="missionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
-      <div class="p-5 sm:p-6 space-y-4">
-        <div class="flex justify-between items-start">
-          <span id="modalCategory" class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+  <div id="missionModal" onclick="handleBackdropClick(event, 'missionModal')" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700/80 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[88vh] animate-modal-pop relative">
+      <div class="px-5 py-4 border-b border-slate-800/90 flex justify-between items-center bg-slate-900/90 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="modalCategory" class="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
             Société Européenne
           </span>
-          <button onclick="closeModal('missionModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+        </div>
+        <button onclick="closeModal('missionModal')" class="text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg w-8 h-8 flex items-center justify-center text-xl font-bold transition">
+          &times;
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 text-left flex-1">
+        <div>
+          <h3 id="modalTitle" class="text-lg sm:text-xl font-black text-white tracking-tight leading-snug">Titre de la mission</h3>
         </div>
 
-        <h3 id="modalTitle" class="text-lg sm:text-xl font-bold text-white">Titre</h3>
-        <p id="modalDescription" class="text-xs sm:text-sm text-slate-300 leading-relaxed">Description...</p>
+        <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Objectif de la revue</p>
+          <p id="modalDescription" class="text-xs sm:text-sm text-slate-200 leading-relaxed">Description de la mission...</p>
+        </div>
 
-        <div class="grid grid-cols-2 gap-3 pt-2">
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <span class="text-[10px] text-slate-500 uppercase font-bold block">Honoraires</span>
-            <span id="modalGain" class="text-base sm:text-lg font-bold text-emerald-400">+0,00 $</span>
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-center">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block tracking-wider">Rémunération</span>
+            <span id="modalGain" class="text-lg sm:text-xl font-black text-emerald-400">+0,00 $</span>
           </div>
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <span class="text-[10px] text-slate-500 uppercase font-bold block">Statut</span>
-            <span id="modalStatut" class="text-xs sm:text-sm font-semibold text-slate-200">En attente</span>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-center">
+            <span class="text-[10px] text-slate-400 uppercase font-bold block tracking-wider">Statut Actuel</span>
+            <span id="modalStatut" class="text-xs sm:text-sm font-bold text-slate-100 mt-0.5">En attente</span>
           </div>
         </div>
 
-        <div class="space-y-2 pt-2">
-          <label class="text-xs font-semibold text-slate-400 block">Référence du Rapport d'Audit :</label>
-          <input type="text" id="proofInput" placeholder="Ex: AUDIT-EU-2026-N890" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+        <div class="space-y-1.5 pt-1">
+          <label class="text-xs font-bold text-slate-300 block">Référence / Matricule de l'Audit :</label>
+          <input type="text" id="proofInput" placeholder="Ex: AUDIT-EU-2026-N890" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition shadow-inner">
         </div>
       </div>
 
-      <div class="bg-slate-950 px-5 sm:px-6 py-4 border-t border-slate-800 flex justify-end gap-3">
-        <button onclick="closeModal('missionModal')" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white transition">Fermer</button>
-        <button id="toggleStatusBtn" onclick="toggleMissionStatus()" class="px-5 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition">
+      <div class="bg-slate-950/90 px-5 py-3.5 border-t border-slate-800/90 flex justify-end items-center gap-3 shrink-0">
+        <button onclick="closeModal('missionModal')" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition">
+          Fermer
+        </button>
+        <button id="toggleStatusBtn" onclick="toggleMissionStatus()" class="px-5 py-2.5 text-xs font-black rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-95 transition shadow-lg shadow-emerald-500/20">
           Valider
         </button>
       </div>
@@ -373,14 +361,12 @@
   </div>
 
   <script>
-    // SOLDE BASE : 278.34 $ (278,34 $ - 100,00 $ retrait effectué = 178,34 $ DISPONIBLE)
     const BASE_SOLDE_VALIDE = 278.34; 
     const BASE_SOLDE_EN_ATTENTE = 0.00;
 
     let currentFilter = 'all';
     let selectedMissionId = null;
 
-    // OBJECT CONTIENT LA GRANDE MISSION SPÉCIALE (200 $) AVEC +20 DONNÉES
     const defaultSpecialMission = {
       id: "SPECIAL_200",
       societe: "EuroTech Dynamics Group SA (Luxembourg / France)",
@@ -388,36 +374,27 @@
       reward: 200,
       locked: false,
       donnees: {
-        // REVENUS DÉTAILLÉS (4)
         revVenteMarchandises: 450000.00,
         revPrestationsSaaS: 280000.00,
         revLicencesLogiciels: 125000.00,
         revSubventionsUE: 45000.00,
-
-        // SALAIRES & CHARGES SOCIALES (4)
         salairesCadresDev: 185000.00,
         salairesEquipeCommerciale: 92000.00,
         salairesAdminRH: 48000.00,
         chargesSocialesPatronales: 114000.00,
-
-        // CHARGES D'EXPLOITATION (6)
         achatsComposantsTech: 165000.00,
         loyerSiegeCloudData: 42000.00,
         fraisMarketingGoogleMeta: 38000.00,
         honorairesAvocatsAuditeurs: 18500.00,
         fraisDeplacementMissions: 14200.00,
         assurancesEtDiverses: 9800.00,
-
-        // DONNÉES FINANCIÈRES & FISCALES (4)
         dotationsAmortissementsMat: 34000.00,
         intetetsEmpruntsBancaires: 12400.00,
         creancesDouteusesClient: 8600.00,
-        tauxImpotsSocietes: 15, // 15%
-
-        // SEGMENTATION & REPARTITION CLIENTS (3)
-        clientsGrandsComptes: 55, // % du CA
-        clientsPME: 35,          // % du CA
-        clientsParticuliers: 10  // % du CA
+        tauxImpotsSocietes: 15,
+        clientsGrandsComptes: 55,
+        clientsPME: 35,
+        clientsParticuliers: 10
       },
       userInputs: {
         totalRevenus: '',
@@ -435,7 +412,6 @@
       }
     };
 
-    // 10 SOCIÉTÉS EUROPÉENNES MAJEURES POUR LES AUDITS
     const defaultMissions = [
       { id: 11, nom: "Air Liquide SA — Audit des Actifs Immo & Frais Généraux", plateforme: "France", gain: 5.10, statut: "En attente", date: "2026-07-25", desc: "Vérification des amortissements d'unités de production de gaz industriels." },
       { id: 12, nom: "Siemens Healthineers AG — Contrôle du Bilan & Trésorerie", plateforme: "Allemagne", gain: 3.50, statut: "En attente", date: "2026-07-24", desc: "Rapprochement des créances clients et évaluation de la liquidité à court terme." },
@@ -449,7 +425,6 @@
       { id: 20, nom: "BBVA SA — Synthèse Financière & Ratio de Solvabilité", plateforme: "Espagne", gain: 33.86, statut: "En attente", date: "2026-07-22", desc: "Validation de la structure des fonds propres et des capitaux permanents." }
     ];
 
-    // 30 NOUVELLES ENTREPRISES EUROPÉENNES (BATCH DE NOUVELLES MISSIONS DE SAISIE)
     const newEuropeanCompanies = [
       "Inditex SA (Espagne)", "Sanofi SA (France)", "SAP SE (Allemagne)", 
       "ASML Holding NV (Pays-Bas)", "Stellantis NV (Pays-Bas/France)", "Shell plc (Royaume-Uni)", 
@@ -487,7 +462,6 @@
       };
     });
 
-    // MISE À JOUR DU STATUT DU RETRAIT DANS LES DONNÉES PAR DÉFAUT
     const defaultWithdrawals = [
       {
         id: 1785234000000,
@@ -504,7 +478,6 @@
       rib: "230780000000000000008206"
     };
 
-    // CHARGEMENT LOCALSTORAGE
     let specialMission = JSON.parse(localStorage.getItem('microtask_special_v1')) || defaultSpecialMission;
     let missions = JSON.parse(localStorage.getItem('microtask_missions_v3')) || defaultMissions;
     let calcMissions = JSON.parse(localStorage.getItem('microtask_calcMissions_v3')) || defaultCalcMissions;
@@ -525,9 +498,62 @@
       renderGrid();
       renderCalcGrid();
       renderWithdrawHistory();
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal('missionModal');
+          closeModal('withdrawChoiceModal');
+          closeModal('bankModal');
+          closeModal('paypalModal');
+        }
+      });
     }
 
-    // NAVIGATION ENTRE ONGLETS
+    function openModal(id) {
+      selectedMissionId = id;
+      const m = missions.find(item => item.id === id);
+      if (!m) return;
+
+      document.getElementById('modalCategory').textContent = m.plateforme;
+      document.getElementById('modalTitle').textContent = m.nom;
+      document.getElementById('modalDescription').textContent = m.desc;
+      document.getElementById('modalGain').textContent = `+${m.gain.toFixed(2).replace('.', ',')} $`;
+      
+      const isDone = m.statut === 'Terminée';
+      const statutEl = document.getElementById('modalStatut');
+      statutEl.textContent = m.statut;
+      statutEl.className = isDone 
+        ? "text-xs sm:text-sm font-bold text-amber-400" 
+        : "text-xs sm:text-sm font-bold text-slate-200";
+
+      document.getElementById('proofInput').value = m.preuve || '';
+
+      const btn = document.getElementById('toggleStatusBtn');
+      btn.textContent = isDone ? "Marquer En attente" : "Valider l'audit";
+
+      const modal = document.getElementById('missionModal');
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('hidden');
+      }
+      
+      const openModals = document.querySelectorAll('.fixed:not(.hidden)');
+      if (openModals.length === 0) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    function handleBackdropClick(event, modalId) {
+      if (event.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
     function switchTab(tab) {
       const dashView = document.getElementById('dashboardView');
       const txView = document.getElementById('transactionsView');
@@ -557,7 +583,6 @@
       const soldeValide = getSoldeValide();
       document.getElementById('soldeDisplay').textContent = `${soldeValide.toFixed(2).replace('.', ',')} $`;
 
-      // RECALCUL DU SOLDE EN ATTENTE
       const soldeEnAttenteCalc = calcMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
       const soldeEnAttenteAudits = missions.filter(m => m.statut === 'Terminée').reduce((acc, m) => acc + m.gain, 0);
       const soldeEnAttenteSpecial = specialMission.locked ? specialMission.reward : 0;
@@ -570,7 +595,6 @@
       document.getElementById('completedNewCount').textContent = `${completedNew}/30`;
     }
 
-    // --- RENDU MISSION SPÉCIALE VIP (200 $) ---
     function renderSpecialMission() {
       const container = document.getElementById('specialMissionContainer');
       if (!container) return;
@@ -581,11 +605,8 @@
 
       container.innerHTML = `
         <div class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 ${isLocked ? 'border-amber-500/50' : 'border-emerald-500/60'} rounded-3xl p-5 sm:p-7 shadow-[0_0_30px_rgba(16,185,129,0.15)] relative overflow-hidden space-y-6">
-          
-          <!-- ACCENT DÉCORATIF EN ARRIÈRE PLAN -->
           <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-          <!-- EN-TÊTE GRANDE MISSION -->
           <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-800 pb-5">
             <div class="space-y-1">
               <div class="flex items-center gap-2 flex-wrap">
@@ -604,23 +625,20 @@
                 <span class="text-2xl sm:text-3xl font-black text-emerald-400">+200,00 $</span>
               </div>
               <span class="px-3 py-1.5 rounded-xl text-xs font-bold ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
-                ${isLocked ? '⏳ En attente de validation' : '🟢 Disponible'}
+                ${isLocked ? '⏳ En attente' : '🟢 Disponible'}
               </span>
             </div>
           </div>
 
-          <!-- TABLEAU DES +20 DONNÉES COMPTABLES FOURNIES -->
           <div class="space-y-3">
             <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
               <span>📋</span> Données Comptables & Financières de l'Exercice (21 Indicateurs)
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              
-              <!-- 1. REVENUS DÉTAILLÉS -->
               <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
                 <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>1. Chiffre d'Affaires & Revenus</span>
+                  <span>1. Chiffre d'Affaires</span>
                   <span>(4)</span>
                 </div>
                 <ul class="space-y-1 text-[11px] text-slate-300">
@@ -631,10 +649,9 @@
                 </ul>
               </div>
 
-              <!-- 2. MASSE SALARIALE & RH -->
               <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
                 <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>2. Salaires & Charges RH</span>
+                  <span>2. Salaires & RH</span>
                   <span>(4)</span>
                 </div>
                 <ul class="space-y-1 text-[11px] text-slate-300">
@@ -645,7 +662,6 @@
                 </ul>
               </div>
 
-              <!-- 3. CHARGES D'EXPLOITATION -->
               <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
                 <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
                   <span>3. Charges Générales</span>
@@ -661,126 +677,96 @@
                 </ul>
               </div>
 
-              <!-- 4. DONNÉES FINANCIÈRES & CLIENTS -->
               <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
                 <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>4. Amort., Finance & Clients</span>
+                  <span>4. Amort. & Finance</span>
                   <span>(7)</span>
                 </div>
                 <ul class="space-y-1 text-[11px] text-slate-300">
-                  <li class="flex justify-between"><span>Amortissements Matériel :</span> <span class="text-slate-200">${d.dotationsAmortissementsMat.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Amortissements Mat. :</span> <span class="text-slate-200">${d.dotationsAmortissementsMat.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Intérêts Emprunts :</span> <span class="text-slate-200">${d.intetetsEmpruntsBancaires.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Créances Douteuses :</span> <span class="text-slate-200">${d.creancesDouteusesClient.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Taux Impôt (IS) :</span> <strong class="text-amber-400">${d.tauxImpotsSocietes} %</strong></li>
-                  <li class="flex justify-between border-t border-slate-800/80 pt-1 text-[10px]"><span>Grands Comptes :</span> <span class="text-slate-200">${d.clientsGrandsComptes}% du CA</span></li>
-                  <li class="flex justify-between text-[10px]"><span>PME & Mid-Market :</span> <span class="text-slate-200">${d.clientsPME}% du CA</span></li>
-                  <li class="flex justify-between text-[10px]"><span>B2C / Particuliers :</span> <span class="text-slate-200">${d.clientsParticuliers}% du CA</span></li>
+                  <li class="flex justify-between border-t border-slate-800/80 pt-1 text-[10px]"><span>Grands Comptes :</span> <span class="text-slate-200">${d.clientsGrandsComptes}% CA</span></li>
+                  <li class="flex justify-between text-[10px]"><span>PME & Mid-Market :</span> <span class="text-slate-200">${d.clientsPME}% CA</span></li>
+                  <li class="flex justify-between text-[10px]"><span>Particuliers :</span> <span class="text-slate-200">${d.clientsParticuliers}% CA</span></li>
                 </ul>
               </div>
-
             </div>
           </div>
 
-          <!-- FORMULAIRE COMPTABILITÉ GÉNÉRALE A COMPLÉTER PAR L'UTILISATEUR -->
           <div class="space-y-4 pt-2">
             <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span>🧮</span> Formulaire de Synthèse Comptable à Remplir (12 Résultats à Déterminer)
+              <span>🧮</span> Formulaire de Synthèse Comptable (12 Résultats)
             </h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-              
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">1. Total Revenus Brut ($)</label>
-                <input type="number" step="0.01" id="sp_totalRevenus" value="${u.totalRevenus}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Somme des 4 revenus" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_totalRevenus" value="${u.totalRevenus}" ${isLocked ? 'disabled' : ''} placeholder="Somme des 4 revenus" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">2. Total Masse Salariale ($)</label>
-                <input type="number" step="0.01" id="sp_totalMasseSalariale" value="${u.totalMasseSalariale}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Salaires + Charges Sociales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_totalMasseSalariale" value="${u.totalMasseSalariale}" ${isLocked ? 'disabled' : ''} placeholder="Salaires + Charges Sociales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">3. Total Charges Exploitation ($)</label>
-                <input type="number" step="0.01" id="sp_totalChargesExploit" value="${u.totalChargesExploit}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Somme des 6 charges générales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_totalChargesExploit" value="${u.totalChargesExploit}" ${isLocked ? 'disabled' : ''} placeholder="Somme des 6 charges générales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">4. EBITDA / EBE ($)</label>
-                <input type="number" step="0.01" id="sp_ebitdaSpecial" value="${u.ebitdaSpecial}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Revenus - Masse Sal. - Charges Expl." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_ebitdaSpecial" value="${u.ebitdaSpecial}" ${isLocked ? 'disabled' : ''} placeholder="Revenus - Masse Sal. - Charges Expl." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">5. Marge Brute (%)</label>
-                <input type="number" step="0.01" id="sp_margeBrutePct" value="${u.margeBrutePct}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="(EBITDA / Total Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_margeBrutePct" value="${u.margeBrutePct}" ${isLocked ? 'disabled' : ''} placeholder="(EBITDA / Total Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">6. Résultat d'Exploitation ($)</label>
-                <input type="number" step="0.01" id="sp_resultatExploitation" value="${u.resultatExploitation}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="EBITDA - Amort. - Créances Douteuses" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_resultatExploitation" value="${u.resultatExploitation}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA - Amort. - Créances" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">7. Résultat Avant Impôt (RAI) ($)</label>
-                <input type="number" step="0.01" id="sp_raiSpecial" value="${u.raiSpecial}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Res. Exploitation - Intérêts Emprunts" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">7. Résultat Avant Impôt ($)</label>
+                <input type="number" step="0.01" id="sp_raiSpecial" value="${u.raiSpecial}" ${isLocked ? 'disabled' : ''} placeholder="Res. Exploitation - Intérêts" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">8. Impôt Sociétés (IS 15%) ($)</label>
-                <input type="number" step="0.01" id="sp_impotSocieteSpecial" value="${u.impotSocieteSpecial}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="RAI x 15%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_impotSocieteSpecial" value="${u.impotSocieteSpecial}" ${isLocked ? 'disabled' : ''} placeholder="RAI x 15%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">9. Résultat Net Comptable ($)</label>
-                <input type="number" step="0.01" id="sp_resultatNetSpecial" value="${u.resultatNetSpecial}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="RAI - Impôt Sociétés" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-extrabold text-sm focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">9. Résultat Net ($)</label>
+                <input type="number" step="0.01" id="sp_resultatNetSpecial" value="${u.resultatNetSpecial}" ${isLocked ? 'disabled' : ''} placeholder="RAI - Impôt Sociétés" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-extrabold text-sm focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">10. CA Segment Grands Comptes ($)</label>
-                <input type="number" step="0.01" id="sp_caGrandsComptes" value="${u.caGrandsComptes}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Total Revenus x 55%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[10px] text-slate-400 font-semibold block mb-1">10. CA Grands Comptes ($)</label>
+                <input type="number" step="0.01" id="sp_caGrandsComptes" value="${u.caGrandsComptes}" ${isLocked ? 'disabled' : ''} placeholder="Total Revenus x 55%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-1">11. Marge Nette Globale (%)</label>
-                <input type="number" step="0.01" id="sp_margeNettePct" value="${u.margeNettePct}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="(Résultat Net / Total Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="sp_margeNettePct" value="${u.margeNettePct}" ${isLocked ? 'disabled' : ''} placeholder="(Résultat Net / Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
             </div>
 
             <div>
-              <label class="text-[10px] text-slate-300 font-semibold block mb-1">12. Rapport d'Analyse Financière & Diagnostic Stratégique *</label>
-              <textarea id="sp_rapportSynthese" ${isLocked ? 'disabled' : ''} rows="3" 
-                        placeholder="Rédigez un compte-rendu synthétique : structure des coûts, rentabilité des pôles SaaS vs Marchandises, recommandations de gestion de trésorerie..." 
-                        class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-xs disabled:opacity-60 focus:border-emerald-500">${u.rapportSynthese}</textarea>
+              <label class="text-[10px] text-slate-300 font-semibold block mb-1">12. Rapport d'Analyse Financière *</label>
+              <textarea id="sp_rapportSynthese" ${isLocked ? 'disabled' : ''} rows="3" placeholder="Rédigez un compte-rendu synthétique : structure des coûts, rentabilité SaaS vs Marchandises..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-xs disabled:opacity-60 focus:border-emerald-500">${u.rapportSynthese}</textarea>
             </div>
           </div>
 
-          <!-- BOUTONS D'ACTION -->
           ${!isLocked ? `
-            <button onclick="saveAndLockSpecialMission()" class="w-full py-3.5 text-xs sm:text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-[0.99] flex items-center justify-center gap-2">
+            <button onclick="saveAndLockSpecialMission()" class="w-full py-3.5 text-xs sm:text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
               <span>📤</span> Enregistrer & Valider la Grande Mission (+200 $ en attente)
             </button>
           ` : `
             <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-amber-500/10 p-4 rounded-2xl border border-amber-500/30">
               <span class="text-xs font-semibold text-amber-300 flex items-center gap-2">
-                <span>⏳</span> Mission Spéciale enregistrée avec succès. Honoraires de 200,00 $ ajoutés au solde en attente !
+                <span>⏳</span> Mission Spéciale enregistrée. Honoraires de 200,00 $ en attente !
               </span>
               <button onclick="unlockSpecialMission()" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
                 ✏️ Modifier la saisie
               </button>
             </div>
           `}
-
         </div>
       `;
     }
@@ -823,9 +809,9 @@
       renderSpecialMission();
     }
 
-    // --- MODALES & RETRAITS ---
     function openWithdrawChoiceModal() {
       document.getElementById('withdrawChoiceModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function openBankWithdrawModal() {
@@ -837,15 +823,13 @@
         document.getElementById('bankRib').disabled = true;
       }
       document.getElementById('bankModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function openPaypalWithdrawModal() {
       closeModal('withdrawChoiceModal');
       document.getElementById('paypalModal').classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function confirmBankWithdraw(e) {
@@ -962,7 +946,6 @@
       if (txLastBank && savedBankDetails) txLastBank.textContent = savedBankDetails.bank;
     }
 
-    // --- RENDU SECTION 1 ---
     function renderGrid() {
       const grid = document.getElementById('missionsGrid');
       grid.innerHTML = '';
@@ -1001,7 +984,6 @@
       });
     }
 
-    // --- RENDU SECTION 2 ---
     function renderCalcGrid() {
       const grid = document.getElementById('calcMissionsGrid');
       grid.innerHTML = '';
@@ -1024,7 +1006,7 @@
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
-            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📌 6 Données Financières de la Société :</div>
+            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📌 6 Données Financières :</div>
             <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
               <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
               <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
@@ -1036,58 +1018,44 @@
           </div>
 
           <div class="space-y-2.5 text-xs">
-            <div class="font-semibold text-slate-300">🧮 6 Résultats Financiers à Calculer :</div>
+            <div class="font-semibold text-slate-300">🧮 6 Résultats Financiers :</div>
             
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">1. Total Charges ($)</label>
-                <input type="number" step="0.01" id="totalCharges_${m.id}" value="${m.userInputs.totalCharges}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="Achats+Sal+Expl+Loyer" 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
+                <input type="number" step="0.01" id="totalCharges_${m.id}" value="${m.userInputs.totalCharges}" ${isLocked ? 'disabled' : ''} placeholder="Achats+Sal+Expl+Loyer" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
               </div>
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">2. EBITDA / EBE ($)</label>
-                <input type="number" step="0.01" id="ebitda_${m.id}" value="${m.userInputs.ebitda}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="CA - Total Charges" 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
+                <input type="number" step="0.01" id="ebitda_${m.id}" value="${m.userInputs.ebitda}" ${isLocked ? 'disabled' : ''} placeholder="CA - Total Charges" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">3. TVA Collectée (20%) ($)</label>
-                <input type="number" step="0.01" id="tva_${m.id}" value="${m.userInputs.tva}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="CA HT x 20%" 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
+                <input type="number" step="0.01" id="tva_${m.id}" value="${m.userInputs.tva}" ${isLocked ? 'disabled' : ''} placeholder="CA HT x 20%" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
               </div>
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">4. Res. Avant Impôt (RAI) ($)</label>
-                <input type="number" step="0.01" id="rai_${m.id}" value="${m.userInputs.rai}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="EBITDA - Frais Fin." 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
+                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">4. Res. Avant Impôt ($)</label>
+                <input type="number" step="0.01" id="rai_${m.id}" value="${m.userInputs.rai}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA - Frais Fin." class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">5. Impôt Sociétés (IS 15%) ($)</label>
-                <input type="number" step="0.01" id="impot_${m.id}" value="${m.userInputs.impot}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="RAI x 15%" 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
+                <input type="number" step="0.01" id="impot_${m.id}" value="${m.userInputs.impot}" ${isLocked ? 'disabled' : ''} placeholder="RAI x 15%" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
               </div>
               <div>
                 <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">6. Résultat Net ($)</label>
-                <input type="number" step="0.01" id="net_${m.id}" value="${m.userInputs.net}" ${isLocked ? 'disabled' : ''} 
-                       placeholder="RAI - IS" 
-                       class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-emerald-400 font-bold disabled:opacity-60 border-slate-700">
+                <input type="number" step="0.01" id="net_${m.id}" value="${m.userInputs.net}" ${isLocked ? 'disabled' : ''} placeholder="RAI - IS" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-emerald-400 font-bold disabled:opacity-60 border-slate-700">
               </div>
             </div>
 
             <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-1">Remarques & Observations de Gestion</label>
-              <textarea id="remarque_${m.id}" ${isLocked ? 'disabled' : ''} rows="2" 
-                        placeholder="Ex: Analyse de la rentabilité nette, solvabilité financière de la société..." 
-                        class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white text-xs disabled:opacity-60 border-slate-700">${m.userInputs.remarque}</textarea>
+              <label class="text-[10px] text-slate-400 font-semibold block mb-1">Remarques & Observations</label>
+              <textarea id="remarque_${m.id}" ${isLocked ? 'disabled' : ''} rows="2" placeholder="Ex: Analyse de rentabilité, solvabilité..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white text-xs disabled:opacity-60 border-slate-700">${m.userInputs.remarque}</textarea>
             </div>
           </div>
 
@@ -1144,7 +1112,6 @@
       }
     }
 
-    // FONCTION POUR DÉVERROUILLER LA MISSION ET MODIFIER SES DONNÉES
     function unlockCalcMission(id) {
       const m = calcMissions.find(item => item.id === id);
       if (m) {
@@ -1165,24 +1132,6 @@
       renderGrid();
     }
 
-    function openModal(id) {
-      selectedMissionId = id;
-      const m = missions.find(item => item.id === id);
-      if (!m) return;
-
-      document.getElementById('modalCategory').textContent = m.plateforme;
-      document.getElementById('modalTitle').textContent = m.nom;
-      document.getElementById('modalDescription').textContent = m.desc;
-      document.getElementById('modalGain').textContent = `+${m.gain.toFixed(2).replace('.', ',')} $`;
-      document.getElementById('modalStatut').textContent = m.statut;
-      document.getElementById('proofInput').value = m.preuve || '';
-
-      const btn = document.getElementById('toggleStatusBtn');
-      btn.textContent = m.statut === 'Terminée' ? "Marquer En attente" : "Valider l'audit";
-
-      document.getElementById('missionModal').classList.remove('hidden');
-    }
-
     function toggleMissionStatus() {
       if (selectedMissionId === null) return;
       const m = missions.find(item => item.id === selectedMissionId);
@@ -1201,6 +1150,7 @@
   </script>
 </body>
 </html>
+
 
 
 
