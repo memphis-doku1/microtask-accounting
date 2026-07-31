@@ -56,10 +56,10 @@
         <!-- NAVIGATION PAR ONGLETS -->
         <nav class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
           <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950">
-             Missions
+            Missions
           </button>
           <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
-             Transactions
+            Transactions
           </button>
         </nav>
       </div>
@@ -79,7 +79,7 @@
             </div>
             <!-- BOUTON RETIRER -->
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
-               Retirer
+              Retirer
             </button>
           </div>
           <div>
@@ -101,7 +101,7 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
           <div>
             <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span></span> Audits & Revues Financières de Sociétés Européennes (10)
+              <span>📋</span> Audits & Revues Financières de Sociétés Européennes (10)
             </h2>
             <p class="text-xs text-slate-400">Vérification comptable & validation des comptes de résultat (PME & Groupes UE)</p>
           </div>
@@ -125,7 +125,7 @@
         <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-              <span></span> Saisie Financière : Entreprises & Multinationales Européennes (30 Nouvelles Missions)
+              <span>📊</span> Saisie Financière : Entreprises & Multinationales Européennes (30 Nouvelles Missions)
             </h2>
             <p class="text-xs text-slate-300 mt-1">
               À partir des <strong>6 données financières</strong> fournies, évaluez les <strong>6 résultats</strong> clés de la société et rédigez vos remarques.
@@ -146,7 +146,7 @@
       <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <span></span> Historique Général des Transactions & Retraits
+            <span>💳</span> Historique Général des Transactions & Retraits
           </h2>
           <p class="text-xs text-slate-400 mt-1">Suivi en temps réel de vos virements bancaires et demandes de règlement.</p>
         </div>
@@ -215,24 +215,24 @@
       <div class="grid grid-cols-1 gap-3 pt-2">
         <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl"></span>
+            <span class="text-2xl">🏦</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire</div>
               <div class="text-[11px] text-slate-400">Virement directement au Maroc</div>
             </div>
           </div>
-          <span class="text-slate-500 group-hover:text-emerald-400 font-bold"></span>
+          <span class="text-slate-500 group-hover:text-emerald-400 font-bold">➔</span>
         </button>
 
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl"></span>
+            <span class="text-2xl">💙</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
               <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
             </div>
           </div>
-          <span class="text-slate-500 group-hover:text-emerald-400 font-bold"></span>
+          <span class="text-slate-500 group-hover:text-emerald-400 font-bold">➔</span>
         </button>
       </div>
     </div>
@@ -242,7 +242,7 @@
   <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2"> Retrait par Virement Bancaire</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
         <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -301,7 +301,7 @@
   <div id="paypalModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2"> Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💙 Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
       </div>
 
@@ -630,7 +630,7 @@
             <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
               isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
             }">
-              ${isDone ? ' ' : ' '}${statusText}
+              ${isDone ? '✔ ' : '⏳ '}${statusText}
             </span>
           </td>
         `;
@@ -703,7 +703,7 @@
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
-            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1"> 6 Données Financières de la Société :</div>
+            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📌 6 Données Financières de la Société :</div>
             <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
               <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
               <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
@@ -715,7 +715,7 @@
           </div>
 
           <div class="space-y-2.5 text-xs">
-            <div class="font-semibold text-slate-300"> 6 Résultats Financiers à Calculer :</div>
+            <div class="font-semibold text-slate-300">🧮 6 Résultats Financiers à Calculer :</div>
             
             <div class="grid grid-cols-2 gap-2">
               <div>
@@ -772,11 +772,16 @@
 
           ${!isLocked ? `
             <button onclick="saveAndLockCalcMission(${m.id})" class="w-full mt-2 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-               Enregistrer & Envoyer (+${m.reward} $ en attente)
+              📤 Enregistrer & Envoyer (+${m.reward} $ en attente)
             </button>
           ` : `
-            <div class="text-center py-2 text-[11px] font-semibold text-amber-300 bg-amber-500/10 rounded-xl border border-amber-500/20">
-               Rémunération ajoutée au solde en attente (+${m.reward} $)
+            <div class="space-y-2">
+              <div class="text-center py-1.5 text-[11px] font-semibold text-amber-300 bg-amber-500/10 rounded-xl border border-amber-500/20">
+                ⏳ Rémunération ajoutée au solde en attente (+${m.reward} $)
+              </div>
+              <button onclick="unlockCalcMission(${m.id})" class="w-full py-1.5 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                ✏️ Modifier les données
+              </button>
             </div>
           `}
         `;
@@ -812,6 +817,17 @@
         };
         m.locked = true;
 
+        saveState();
+        updateHeader();
+        renderCalcGrid();
+      }
+    }
+
+    // FONCTION POUR DÉVERROUILLER LA MISSION ET MODIFIER SES DONNÉES
+    function unlockCalcMission(id) {
+      const m = calcMissions.find(item => item.id === id);
+      if (m) {
+        m.locked = false;
         saveState();
         updateHeader();
         renderCalcGrid();
@@ -864,6 +880,7 @@
   </script>
 </body>
 </html>
+
 
 
 
