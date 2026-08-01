@@ -80,7 +80,7 @@
           <div class="border-b border-slate-800 pb-1 mb-1 flex justify-between items-center gap-3">
             <div>
               <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
-              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">178,34 $</span>
+              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">389,45 $</span>
             </div>
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
               Retirer
@@ -131,7 +131,7 @@
         <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-              <span>📊</span> Saisie Financière : Entreprises & Multinationales Européennes (30 Nouvelles Missions)
+              <span>⚡</span> Saisie Financière : Entreprises & Multinationales Européennes (30 Nouvelles Missions)
             </h2>
             <p class="text-xs text-slate-300 mt-1">
               À partir des <strong>6 données financières</strong> fournies, évaluez les <strong>6 résultats</strong> clés de la société et rédigez vos remarques.
@@ -211,7 +211,7 @@
       <div class="grid grid-cols-1 gap-3 pt-2">
         <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">🏦</span>
+            <span class="text-2xl">🏛️</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire</div>
               <div class="text-[11px] text-slate-400">Virement directement au Maroc</div>
@@ -221,7 +221,7 @@
         </button>
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">💙</span>
+            <span class="text-2xl">🅿️</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
               <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
@@ -236,7 +236,7 @@
   <div id="bankModal" onclick="handleBackdropClick(event, 'bankModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏦 Retrait par Virement Bancaire</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🏛️ Retrait par Virement Bancaire</h3>
         <button onclick="closeModal('bankModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
       <form id="bankForm" onsubmit="confirmBankWithdraw(event)" class="space-y-3 text-xs">
@@ -288,7 +288,7 @@
   <div id="paypalModal" onclick="handleBackdropClick(event, 'paypalModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💙 Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🅿️ Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
       <form id="paypalForm" onsubmit="confirmPaypalWithdraw(event)" class="space-y-3 text-xs">
@@ -361,7 +361,7 @@
   </div>
 
   <script>
-    const BASE_SOLDE_VALIDE = 278.34; 
+    const BASE_SOLDE_VALIDE = 489.45; 
     const BASE_SOLDE_EN_ATTENTE = 0.00;
 
     let currentFilter = 'all';
@@ -426,16 +426,16 @@
     ];
 
     const newEuropeanCompanies = [
-      "Inditex SA (Espagne)", "Sanofi SA (France)", "SAP SE (Allemagne)", 
-      "ASML Holding NV (Pays-Bas)", "Stellantis NV (Pays-Bas/France)", "Shell plc (Royaume-Uni)", 
-      "Novartis AG (Suisse)", "Prosus NV (Pays-Bas)", "Banco Santander (Espagne)", 
-      "Ferrari NV (Italie)", "Airbus SE (France)", "BASF SE (Allemagne)", 
-      "Danone SA (France)", "Heineken NV (Pays-Bas)", "Bayer AG (Allemagne)", 
-      "BBVA SA (Espagne)", "Atlas Copco AB (Suède)", "Nokia Oyj (Finlande)", 
-      "Assicurazioni Generali (Italie)", "Michelin (France)", "Legrand SA (France)", 
-      "SGS SA (Suisse)", "RWE AG (Allemagne)", "UPM-Kymmene Oyj (Finlande)", 
-      "AkzoNobel NV (Pays-Bas)", "Prysmian SpA (Italie)", "Veolia Environnement (France)", 
-      "Ferrovial SE (Espagne)", "Logitech International (Suisse)", "Smurfit Westrock (Irlande)"
+      "TotalEnergies SE (France)", "LVMH Moët Hennessy (France)", "SAP SE (Allemagne)", 
+      "Schneider Electric SE (France)", "Airbus SE (Pays-Bas/France)", "L'Oréal SA (France)", 
+      "Allianz SE (Allemagne)", "Anheuser-Busch InBev (Belgique)", "ING Groep NV (Pays-Bas)", 
+      "Adyen NV (Pays-Bas)", "Nordea Bank Abp (Finlande)", "Volvo Group (Suède)", 
+      "Capgemini SE (France)", "NXP Semiconductors (Pays-Bas)", "Deutsche Telekom (Allemagne)", 
+      "STMicroelectronics (Suisse/France)", "Dassault Systèmes (France)", "Danone SA (France)", 
+      "Intesa Sanpaolo (Italie)", "Enel SpA (Italie)", "Infineon Technologies (Allemagne)", 
+      "Siemens AG (Allemagne)", "BMW Group (Allemagne)", "Ahold Delhaize (Pays-Bas)", 
+      "Kering SA (France)", "Pernod Ricard SA (France)", "Henkel AG (Allemagne)", 
+      "Safran SA (France)", "Bayerische Motoren Werke (Allemagne)", "Standard Chartered (Royaume-Uni)"
     ];
 
     const defaultCalcMissions = Array.from({ length: 30 }, (_, i) => {
@@ -443,14 +443,14 @@
       const companyName = newEuropeanCompanies[i % newEuropeanCompanies.length];
       const projet = `${companyName}`;
       
-      const caHT = (31000 + (id * 4120)).toFixed(2);
-      const achatsStock = (10500 + (id * 1280)).toFixed(2);
-      const salaires = (6100 + (id * 920)).toFixed(2);
-      const chargesExploit = (2700 + (id * 390)).toFixed(2);
-      const loyerChargesFixes = (1850 + (id * 210)).toFixed(2);
-      const fraisFinanciers = (520 + (id * 85)).toFixed(2);
+      const caHT = (42500 + (id * 3850)).toFixed(2);
+      const achatsStock = (14200 + (id * 1150)).toFixed(2);
+      const salaires = (8300 + (id * 840)).toFixed(2);
+      const chargesExploit = (3100 + (id * 420)).toFixed(2);
+      const loyerChargesFixes = (2150 + (id * 190)).toFixed(2);
+      const fraisFinanciers = (680 + (id * 95)).toFixed(2);
 
-      const gainMission = Math.floor(32 + ((id * 8.3) % 64)); 
+      const gainMission = Math.floor(35 + ((id * 7.9) % 58)); 
 
       return {
         id: id,
@@ -480,14 +480,14 @@
 
     let specialMission = JSON.parse(localStorage.getItem('microtask_special_v1')) || defaultSpecialMission;
     let missions = JSON.parse(localStorage.getItem('microtask_missions_v3')) || defaultMissions;
-    let calcMissions = JSON.parse(localStorage.getItem('microtask_calcMissions_v3')) || defaultCalcMissions;
+    let calcMissions = JSON.parse(localStorage.getItem('microtask_calcMissions_v4')) || defaultCalcMissions;
     let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals_v3')) || defaultWithdrawals;
     let savedBankDetails = JSON.parse(localStorage.getItem('microtask_savedBankDetails_v3')) || defaultSavedBankDetails;
 
     function saveState() {
       localStorage.setItem('microtask_special_v1', JSON.stringify(specialMission));
       localStorage.setItem('microtask_missions_v3', JSON.stringify(missions));
-      localStorage.setItem('microtask_calcMissions_v3', JSON.stringify(calcMissions));
+      localStorage.setItem('microtask_calcMissions_v4', JSON.stringify(calcMissions));
       localStorage.setItem('microtask_withdrawals_v3', JSON.stringify(withdrawals));
       localStorage.setItem('microtask_savedBankDetails_v3', JSON.stringify(savedBankDetails));
     }
@@ -611,7 +611,7 @@
             <div class="space-y-1">
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                  ★ MISSION EXCLUSIVE COMPTABILITÉ GÉNÉRALE
+                  ⭐ MISSION EXCLUSIVE COMPTABILITÉ GÉNÉRALE
                 </span>
                 <span class="text-xs text-slate-400 font-medium">${specialMission.exercice}</span>
               </div>
@@ -625,14 +625,14 @@
                 <span class="text-2xl sm:text-3xl font-black text-emerald-400">+200,00 $</span>
               </div>
               <span class="px-3 py-1.5 rounded-xl text-xs font-bold ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
-                ${isLocked ? '⏳ En attente' : '🟢 Disponible'}
+                ${isLocked ? '⏳ En attente' : '🔓 Disponible'}
               </span>
             </div>
           </div>
 
           <div class="space-y-3">
             <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-              <span>📋</span> Données Comptables & Financières de l'Exercice (21 Indicateurs)
+              <span>📊</span> Données Comptables & Financières de l'Exercice (21 Indicateurs)
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
@@ -697,7 +697,7 @@
 
           <div class="space-y-4 pt-2">
             <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span>🧮</span> Formulaire de Synthèse Comptable (12 Résultats)
+              <span>✍️</span> Formulaire de Synthèse Comptable (12 Résultats)
             </h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
@@ -755,7 +755,7 @@
 
           ${!isLocked ? `
             <button onclick="saveAndLockSpecialMission()" class="w-full py-3.5 text-xs sm:text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
-              <span>📤</span> Enregistrer & Valider la Grande Mission (+200 $ en attente)
+              <span>💾</span> Enregistrer & Valider la Grande Mission (+200 $ en attente)
             </button>
           ` : `
             <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-amber-500/10 p-4 rounded-2xl border border-amber-500/30">
@@ -1006,7 +1006,7 @@
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
-            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📌 6 Données Financières :</div>
+            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📊 6 Données Financières :</div>
             <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
               <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
               <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
@@ -1018,7 +1018,7 @@
           </div>
 
           <div class="space-y-2.5 text-xs">
-            <div class="font-semibold text-slate-300">🧮 6 Résultats Financiers :</div>
+            <div class="font-semibold text-slate-300">📈 6 Résultats Financiers :</div>
             
             <div class="grid grid-cols-2 gap-2">
               <div>
@@ -1061,7 +1061,7 @@
 
           ${!isLocked ? `
             <button onclick="saveAndLockCalcMission(${m.id})" class="w-full mt-2 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              📤 Enregistrer & Envoyer (+${m.reward} $ en attente)
+              💾 Enregistrer & Envoyer (+${m.reward} $ en attente)
             </button>
           ` : `
             <div class="space-y-2">
@@ -1150,6 +1150,7 @@
   </script>
 </body>
 </html>
+
 
 
 
