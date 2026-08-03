@@ -56,13 +56,13 @@
           </div>
           <div>
             <h1 class="text-lg sm:text-xl font-bold tracking-wide text-white">MicroTask <span class="text-emerald-400">Accounting</span></h1>
-            <p class="text-[10px] sm:text-xs text-slate-400">Analyse & Diagnostic Financier de Sociétés Européennes</p>
+            <p class="text-[10px] sm:text-xs text-slate-400">Analyse Financière Approfondie de Grandes Entreprises Européennes</p>
           </div>
         </div>
 
         <nav class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
           <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950">
-            Missions
+            Grand Audit
           </button>
           <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
             Transactions
@@ -72,15 +72,15 @@
 
       <div class="flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap justify-center sm:justify-end w-full sm:w-auto">
         <div class="bg-slate-900 border border-slate-800 px-3 sm:px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
-          <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Analyses Validées</span>
-          <span id="completedNewCount" class="text-base sm:text-lg font-bold text-emerald-400">0/30</span>
+          <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Progression Audit</span>
+          <span id="completedNewCount" class="text-base sm:text-lg font-bold text-emerald-400">0/1</span>
         </div>
 
         <div class="bg-slate-900 border border-emerald-500/30 px-4 sm:px-5 py-2 rounded-xl text-right shadow-[0_0_20px_rgba(16,185,129,0.1)] w-full sm:w-auto min-w-[200px] sm:min-w-[220px]">
           <div class="border-b border-slate-800 pb-1 mb-1 flex justify-between items-center gap-3">
             <div>
               <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Solde Validé</span>
-              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">467,80 $</span>
+              <span id="soldeDisplay" class="text-lg sm:text-xl font-black text-emerald-400">620,66 $</span>
             </div>
             <button onclick="openWithdrawChoiceModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-md hover:shadow-emerald-500/20 active:scale-95">
               Retirer
@@ -98,69 +98,32 @@
   <!-- CONTENU PRINCIPAL -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full">
 
-    <div id="dashboardView" class="space-y-8 sm:space-y-12">
+    <div id="dashboardView" class="space-y-8">
 
-      <!-- SECTION MISSIONS EXCLUSIVES (5 MISSIONS) -->
-      <section class="space-y-4 sm:space-y-6">
-        <div class="bg-slate-900/50 p-4 rounded-2xl border border-amber-500/30 flex justify-between items-center">
+      <!-- SECTION UNIQUE DE LA GRANDE MISSION -->
+      <section class="space-y-6">
+        <div class="bg-slate-900/50 p-4 rounded-2xl border border-emerald-500/40 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span>⭐</span> Missions Exclusives Comptabilité Générale (5)
+            <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
+              <span>📊</span> Grande Mission d'Analyse Financière & Diagnostic Multi-Postes
             </h2>
-            <p class="text-xs text-slate-400">Grandes analyses financières approfondies des groupes européens (+200,00 $ / mission)</p>
+            <p class="text-xs text-slate-400">Évaluation approfondie du Compte de Résultat, du Bilan, de la CAF, du BFR et Ratios de Financement.</p>
           </div>
         </div>
 
-        <div id="specialMissionContainer" class="space-y-6">
+        <div id="megaMissionContainer">
+          <!-- Injecté dynamiquement par JavaScript -->
         </div>
       </section>
 
-      <hr class="border-slate-800 my-6 sm:my-8">
-
-      <section class="space-y-4 sm:space-y-6">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-800/80">
-          <div>
-            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <span>📋</span> Audits & Revues Financières de Sociétés Européennes (10)
-            </h2>
-            <p class="text-xs text-slate-400">Vérification comptable & validation des comptes de résultat (PME & Groupes UE)</p>
-          </div>
-
-          <div class="flex flex-wrap gap-2 w-full md:w-auto">
-            <button onclick="filterMissions('all')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition" data-filter="all">Toutes</button>
-            <button onclick="filterMissions('Terminée')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="Terminée">Terminées</button>
-            <button onclick="filterMissions('En attente')" class="filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" data-filter="En attente">En attente</button>
-          </div>
-        </div>
-
-        <div id="missionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        </div>
-      </section>
-
-      <hr class="border-slate-800 my-6 sm:my-8">
-
-      <section class="space-y-4 sm:space-y-6">
-        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/40 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-              <span>🔢</span> Saisie Financière : Entreprises & Multinationales Européennes (30 Nouvelles Missions)
-            </h2>
-            <p class="text-xs text-slate-300 mt-1">
-              À partir des <strong>6 données financières</strong> fournies, évaluez les <strong>6 résultats</strong> clés de la société et rédigez vos remarques.
-            </p>
-          </div>
-        </div>
-
-        <div id="calcMissionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        </div>
-      </section>
     </div>
 
+    <!-- VUE TRANSACTIONS -->
     <div id="transactionsView" class="hidden space-y-6">
       <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <span>📜</span> Historique Général des Transactions & Retraits
+            <span>💳</span> Historique Général des Transactions & Retraits
           </h2>
           <p class="text-xs text-slate-400 mt-1">Suivi en temps réel de vos virements bancaires et demandes de règlement.</p>
         </div>
@@ -212,7 +175,7 @@
 
   </main>
 
-  <!-- MODALES -->
+  <!-- MODALES DE RETRAIT -->
   <div id="withdrawChoiceModal" onclick="handleBackdropClick(event, 'withdrawChoiceModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-5 animate-modal-pop">
       <div class="flex justify-between items-center">
@@ -233,7 +196,7 @@
         </button>
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">💳</span>
+            <span class="text-2xl">🅿️</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
               <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
@@ -300,7 +263,7 @@
   <div id="paypalModal" onclick="handleBackdropClick(event, 'paypalModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💳 Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🅿️ Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
       <form id="paypalForm" onsubmit="confirmPaypalWithdraw(event)" class="space-y-3 text-xs">
@@ -320,193 +283,87 @@
     </div>
   </div>
 
-  <div id="missionModal" onclick="handleBackdropClick(event, 'missionModal')" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
-    <div class="bg-slate-900 border border-slate-700/80 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[88vh] animate-modal-pop relative">
-      <div class="px-5 py-4 border-b border-slate-800/90 flex justify-between items-center bg-slate-900/90 shrink-0">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="modalCategory" class="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-            Société Européenne
-          </span>
-        </div>
-        <button onclick="closeModal('missionModal')" class="text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg w-8 h-8 flex items-center justify-center text-xl font-bold transition">
-          &times;
-        </button>
-      </div>
-
-      <div class="p-5 overflow-y-auto space-y-4 text-left flex-1">
-        <div>
-          <h3 id="modalTitle" class="text-lg sm:text-xl font-black text-white tracking-tight leading-snug">Titre de la mission</h3>
-        </div>
-
-        <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
-          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Objectif de la revue</p>
-          <p id="modalDescription" class="text-xs sm:text-sm text-slate-200 leading-relaxed">Description de la mission...</p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-center">
-            <span class="text-[10px] text-slate-400 uppercase font-bold block tracking-wider">Rémunération</span>
-            <span id="modalGain" class="text-lg sm:text-xl font-black text-emerald-400">+0,00 $</span>
-          </div>
-          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-center">
-            <span class="text-[10px] text-slate-400 uppercase font-bold block tracking-wider">Statut Actuel</span>
-            <span id="modalStatut" class="text-xs sm:text-sm font-bold text-slate-100 mt-0.5">En attente</span>
-          </div>
-        </div>
-
-        <div class="space-y-1.5 pt-1">
-          <label class="text-xs font-bold text-slate-300 block">Référence / Matricule de l'Audit :</label>
-          <input type="text" id="proofInput" placeholder="Ex: AUDIT-EU-2026-N890" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition shadow-inner">
-        </div>
-      </div>
-
-      <div class="bg-slate-950/90 px-5 py-3.5 border-t border-slate-800/90 flex justify-end items-center gap-3 shrink-0">
-        <button onclick="closeModal('missionModal')" class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white transition">
-          Fermer
-        </button>
-        <button id="toggleStatusBtn" onclick="toggleMissionStatus()" class="px-5 py-2.5 text-xs font-black rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-95 transition shadow-lg shadow-emerald-500/20">
-          Valider
-        </button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const BASE_SOLDE_VALIDE = 467.80; 
+    const BASE_SOLDE_VALIDE = 620.66; 
     const BASE_SOLDE_EN_ATTENTE = 0.00;
 
-    let currentFilter = 'all';
-    let selectedMissionId = null;
-
-    // 5 MISSIONS EXCLUSIVES DÉTAILLÉES
-    const defaultSpecialMissions = [
-      {
-        id: "SPECIAL_200_1",
-        societe: "EuroTech Dynamics Group SA (Luxembourg / France)",
-        exercice: "Exercice Clos au 31/12/2025",
-        reward: 200,
-        locked: false,
-        donnees: {
-          revVenteMarchandises: 450000.00, revPrestationsSaaS: 280000.00, revLicencesLogiciels: 125000.00, revSubventionsUE: 45000.00,
-          salairesCadresDev: 185000.00, salairesEquipeCommerciale: 92000.00, salairesAdminRH: 48000.00, chargesSocialesPatronales: 114000.00,
-          achatsComposantsTech: 165000.00, loyerSiegeCloudData: 42000.00, fraisMarketingGoogleMeta: 38000.00, honorairesAvocatsAuditeurs: 18500.00,
-          fraisDeplacementMissions: 14200.00, assurancesEtDiverses: 9800.00, dotationsAmortissementsMat: 34000.00, intetetsEmpruntsBancaires: 12400.00,
-          creancesDouteusesClient: 8600.00, tauxImpotsSocietes: 15, clientsGrandsComptes: 55, clientsPME: 35, clientsParticuliers: 10
-        },
-        userInputs: { totalRevenus: '', totalMasseSalariale: '', totalChargesExploit: '', ebitdaSpecial: '', margeBrutePct: '', resultatExploitation: '', raiSpecial: '', impotSocieteSpecial: '', resultatNetSpecial: '', caGrandsComptes: '', margeNettePct: '', rapportSynthese: '' }
-      },
-      {
-        id: "SPECIAL_200_2",
-        societe: "Nordic CleanEnergy Systems Holdings (Allemagne / Suède)",
-        exercice: "Exercice Clos au 31/12/2025",
-        reward: 200,
-        locked: false,
-        donnees: {
-          revVenteMarchandises: 520000.00, revPrestationsSaaS: 310000.00, revLicencesLogiciels: 95000.00, revSubventionsUE: 60000.00,
-          salairesCadresDev: 210000.00, salairesEquipeCommerciale: 105000.00, salairesAdminRH: 52000.00, chargesSocialesPatronales: 128000.00,
-          achatsComposantsTech: 180000.00, loyerSiegeCloudData: 46000.00, fraisMarketingGoogleMeta: 41000.00, honorairesAvocatsAuditeurs: 22000.00,
-          fraisDeplacementMissions: 16500.00, assurancesEtDiverses: 11200.00, dotationsAmortissementsMat: 39000.00, intetetsEmpruntsBancaires: 14500.00,
-          creancesDouteusesClient: 9200.00, tauxImpotsSocietes: 15, clientsGrandsComptes: 60, clientsPME: 30, clientsParticuliers: 10
-        },
-        userInputs: { totalRevenus: '', totalMasseSalariale: '', totalChargesExploit: '', ebitdaSpecial: '', margeBrutePct: '', resultatExploitation: '', raiSpecial: '', impotSocieteSpecial: '', resultatNetSpecial: '', caGrandsComptes: '', margeNettePct: '', rapportSynthese: '' }
-      },
-      {
-        id: "SPECIAL_200_3",
-        societe: "MedBio Tech Pharma Europe NV (Pays-Bas / Belgique)",
-        exercice: "Exercice Clos au 31/12/2025",
-        reward: 200,
-        locked: false,
-        donnees: {
-          revVenteMarchandises: 610000.00, revPrestationsSaaS: 190000.00, revLicencesLogiciels: 180000.00, revSubventionsUE: 50000.00,
-          salairesCadresDev: 240000.00, salairesEquipeCommerciale: 88000.00, salairesAdminRH: 56000.00, chargesSocialesPatronales: 135000.00,
-          achatsComposantsTech: 210000.00, loyerSiegeCloudData: 38000.00, fraisMarketingGoogleMeta: 32000.00, honorairesAvocatsAuditeurs: 26000.00,
-          fraisDeplacementMissions: 12800.00, assurancesEtDiverses: 14000.00, dotationsAmortissementsMat: 42000.00, intetetsEmpruntsBancaires: 11000.00,
-          creancesDouteusesClient: 7500.00, tauxImpotsSocietes: 15, clientsGrandsComptes: 50, clientsPME: 40, clientsParticuliers: 10
-        },
-        userInputs: { totalRevenus: '', totalMasseSalariale: '', totalChargesExploit: '', ebitdaSpecial: '', margeBrutePct: '', resultatExploitation: '', raiSpecial: '', impotSocieteSpecial: '', resultatNetSpecial: '', caGrandsComptes: '', margeNettePct: '', rapportSynthese: '' }
-      },
-      {
-        id: "SPECIAL_200_4",
-        societe: "AeroSpace Logistics International Ltd (Irlande / France)",
-        exercice: "Exercice Clos au 31/12/2025",
-        reward: 200,
-        locked: false,
-        donnees: {
-          revVenteMarchandises: 730000.00, revPrestationsSaaS: 150000.00, revLicencesLogiciels: 110000.00, revSubventionsUE: 35000.00,
-          salairesCadresDev: 195000.00, salairesEquipeCommerciale: 120000.00, salairesAdminRH: 61000.00, chargesSocialesPatronales: 142000.00,
-          achatsComposantsTech: 245000.00, loyerSiegeCloudData: 54000.00, fraisMarketingGoogleMeta: 45000.00, honorairesAvocatsAuditeurs: 21000.00,
-          fraisDeplacementMissions: 22000.00, assurancesEtDiverses: 18000.00, dotationsAmortissementsMat: 51000.00, intetetsEmpruntsBancaires: 16800.00,
-          creancesDouteusesClient: 11500.00, tauxImpotsSocietes: 15, clientsGrandsComptes: 65, clientsPME: 25, clientsParticuliers: 10
-        },
-        userInputs: { totalRevenus: '', totalMasseSalariale: '', totalChargesExploit: '', ebitdaSpecial: '', margeBrutePct: '', resultatExploitation: '', raiSpecial: '', impotSocieteSpecial: '', resultatNetSpecial: '', caGrandsComptes: '', margeNettePct: '', rapportSynthese: '' }
-      },
-      {
-        id: "SPECIAL_200_5",
-        societe: "Alpin Robotics & AI Automation AG (Suisse / Allemagne)",
-        exercice: "Exercice Clos au 31/12/2025",
-        reward: 200,
-        locked: false,
-        donnees: {
-          revVenteMarchandises: 490000.00, revPrestationsSaaS: 340000.00, revLicencesLogiciels: 210000.00, revSubventionsUE: 75000.00,
-          salairesCadresDev: 260000.00, salairesEquipeCommerciale: 115000.00, salairesAdminRH: 64000.00, chargesSocialesPatronales: 151000.00,
-          achatsComposantsTech: 195000.00, loyerSiegeCloudData: 48000.00, fraisMarketingGoogleMeta: 52000.00, honorairesAvocatsAuditeurs: 29000.00,
-          fraisDeplacementMissions: 18500.00, assurancesEtDiverses: 13500.00, dotationsAmortissementsMat: 46000.00, intetetsEmpruntsBancaires: 13200.00,
-          creancesDouteusesClient: 6800.00, tauxImpotsSocietes: 15, clientsGrandsComptes: 70, clientsPME: 20, clientsParticuliers: 10
-        },
-        userInputs: { totalRevenus: '', totalMasseSalariale: '', totalChargesExploit: '', ebitdaSpecial: '', margeBrutePct: '', resultatExploitation: '', raiSpecial: '', impotSocieteSpecial: '', resultatNetSpecial: '', caGrandsComptes: '', margeNettePct: '', rapportSynthese: '' }
-      }
-    ];
-
-    const defaultMissions = [
-      { id: 11, nom: "Air Liquide SA — Audit des Actifs Immo & Frais Généraux", plateforme: "France", gain: 5.10, statut: "En attente", date: "2026-07-25", desc: "Vérification des amortissements d'unités de production de gaz industriels." },
-      { id: 12, nom: "Siemens Healthineers AG — Contrôle du Bilan & Trésorerie", plateforme: "Allemagne", gain: 3.50, statut: "En attente", date: "2026-07-24", desc: "Rapprochement des créances clients et évaluation de la liquidité à court terme." },
-      { id: 13, nom: "BNP Paribas SA — Audit de Conformité Prêts & Provisions", plateforme: "France", gain: 4.60, statut: "En attente", date: "2026-07-24", desc: "Revue des provisions pour créances douteuses du pôle Banque de Détail Europe." },
-      { id: 14, nom: "Mercedes-Benz Group AG — Analyse Marge & Coûts Fixes", plateforme: "Allemagne", gain: 6.80, statut: "En attente", date: "2026-07-24", desc: "Évaluation du coût de revient unitaire des modèles électriques et hybrides." },
-      { id: 15, nom: "Eni SpA — Diagnostic des Investissements Énergétiques", plateforme: "Italie", gain: 4.10, statut: "En attente", date: "2026-07-23", desc: "Contrôle d'imputation des dépenses d'exploration et de transition décarbonée." },
-      { id: 16, nom: "DSM-Firmenich AG — Audit Interne des Comptes Consolidation", plateforme: "Suisse/Pays-Bas", gain: 5.30, statut: "En attente", date: "2026-07-23", desc: "Harmonisation des bilans filiales Santé & Nutrition selon les normes IFRS." },
-      { id: 17, nom: "EDP Energias de Portugal — Revue du Fonds de Roulement", plateforme: "Portugal", gain: 4.70, statut: "En attente", date: "2026-07-23", desc: "Calcul du BFR opérationnel sur les parcs d'énergie renouvelable du groupe." },
-      { id: 18, nom: "CRH Plc — Contrôle des Stocks & Approvisionnements", plateforme: "Irlande", gain: 5.90, statut: "En attente", date: "2026-07-22", desc: "Inventaire physique et dépréciation des stocks de matériaux de construction." },
-      { id: 19, nom: "Kone Oyj — Analyse Rentabilité Contrats d'Entretien", plateforme: "Finlande", gain: 3.40, statut: "En attente", date: "2026-07-22", desc: "Audit des marges générées par le parc d'ascenseurs et systèmes de mobilité." },
-      { id: 20, nom: "BBVA SA — Synthèse Financière & Ratio de Solvabilité", plateforme: "Espagne", gain: 33.86, statut: "En attente", date: "2026-07-22", desc: "Validation de la structure des fonds propres et des capitaux permanents." }
-    ];
-
-    const newEuropeanCompanies = [
-      "TotalEnergies SE (France)", "LVMH Moët Hennessy (France)", "SAP SE (Allemagne)", 
-      "Schneider Electric SE (France)", "Airbus SE (Pays-Bas/France)", "L'Oréal SA (France)", 
-      "Allianz SE (Allemagne)", "Anheuser-Busch InBev (Belgique)", "ING Groep NV (Pays-Bas)", 
-      "Adyen NV (Pays-Bas)", "Nordea Bank Abp (Finlande)", "Volvo Group (Suède)", 
-      "Capgemini SE (France)", "NXP Semiconductors (Pays-Bas)", "Deutsche Telekom (Allemagne)", 
-      "STMicroelectronics (Suisse/France)", "Dassault Systèmes (France)", "Danone SA (France)", 
-      "Intesa Sanpaolo (Italie)", "Enel SpA (Italie)", "Infineon Technologies (Allemagne)", 
-      "Siemens AG (Allemagne)", "BMW Group (Allemagne)", "Ahold Delhaize (Pays-Bas)", 
-      "Kering SA (France)", "Pernod Ricard SA (France)", "Henkel AG (Allemagne)", 
-      "Safran SA (France)", "Bayerische Motoren Werke (Allemagne)", "Standard Chartered (Royaume-Uni)"
-    ];
-
-    const defaultCalcMissions = Array.from({ length: 30 }, (_, i) => {
-      const id = i + 1;
-      const companyName = newEuropeanCompanies[i % newEuropeanCompanies.length];
-      const projet = `${companyName}`;
+    const megaMissionData = {
+      id: "MEGA_MISSION_01",
+      societe: "EuroHoldings & Tech Industries SA (France / Allemagne / Luxembourg)",
+      exercice: "Exercice Comptable Clos au 31/12/2025",
+      reward: 500,
+      locked: false,
       
-      const caHT = (42500 + (id * 3850)).toFixed(2);
-      const achatsStock = (14200 + (id * 1150)).toFixed(2);
-      const salaires = (8300 + (id * 840)).toFixed(2);
-      const chargesExploit = (3100 + (id * 420)).toFixed(2);
-      const loyerChargesFixes = (2150 + (id * 190)).toFixed(2);
-      const fraisFinanciers = (680 + (id * 95)).toFixed(2);
+      donnees: {
+        venteProduitsFinis: 1250000.00,
+        prestationsSaaSCloud: 680000.00,
+        licencesBrevets: 240000.00,
+        subventionsExploitation: 80000.00,
+        
+        achatsMatieresPremières: 420000.00,
+        variationStocksMatieres: -15000.00,
+        achatsAutresApprovisionnements: 85000.00,
+        
+        salairesEtTraitements: 580000.00,
+        chargesSocialesPatronales: 232000.00,
+        
+        loyersEtChargesLocatives: 95000.00,
+        fraisMarketingEtPub: 110000.00,
+        honorairesConseilsJuridiques: 45000.00,
+        servicesBanqueEtAssurances: 28000.00,
+        fraisDeplacementsEtMissions: 32000.00,
+        
+        dotationsAmortissementsImmo: 145000.00,
+        dotationsProvisionsCreances: 25000.00,
+        
+        produitsFinanciers: 18000.00,
+        chargesInteretsEmprunts: 64000.00,
+        
+        produitsExceptionnels: 35000.00,
+        chargesExceptionnelles: 12000.00,
+        
+        tauxImpotsSociete: 25,
 
-      const gainMission = Math.floor(35 + ((id * 7.9) % 58)); 
+        actifImmobiliseBrut: 1850000.00,
+        amortissementsCumules: 520000.00,
+        
+        stocksMarchandises: 190000.00,
+        creancesClientsBrutes: 380000.00,
+        provisionsDepreciationClients: 25000.00,
+        disponibilitesBanqueCaisse: 215000.00,
+        
+        capitauxPropresHorsResultat: 1100000.00,
+        empruntsDettesBancairesLMT: 680000.00,
+        dettesFournisseurs: 245000.00,
+        dettesFiscalesEtSociales: 135000.00,
+        concoursBancairesCourants: 30000.00
+      },
 
-      return {
-        id: id,
-        projet: projet,
-        reward: gainMission,
-        donnees: { caHT, achatsStock, salaires, chargesExploit, loyerChargesFixes, fraisFinanciers },
-        userInputs: { totalCharges: '', ebitda: '', tva: '', rai: '', impot: '', net: '', remarque: '' },
-        locked: false
-      };
-    });
+      userInputs: {
+        totalChiffreAffaires: '',
+        totalChargesAchat: '',
+        margeBruteCommerciale: '',
+        totalChargesPersonnel: '',
+        totalAutresChargesExploitation: '',
+        ebitda: '',
+        margeEbitdaPct: '',
+        resultatExploitation: '',
+        resultatFinancier: '',
+        resultatCourantAvantImpots: '',
+        resultatExceptionnel: '',
+        impotSurLesSocietes: '',
+        resultatNetGlobal: '',
+        capitauxPropresTotaux: '',
+        actifImmobiliseNet: '',
+        actifCirculantTotal: '',
+        bfr: '',
+        capacideAutofinancement: '',
+        detteNetteTotale: '',
+        ratioEndettementPropre: '',
+        ratioSolvabilite: '',
+        rapportAuditStrategique: ''
+      }
+    };
 
     const defaultWithdrawals = [
       {
@@ -524,62 +381,28 @@
       rib: "230780000000000000008206"
     };
 
-    let specialMissions = JSON.parse(localStorage.getItem('microtask_specialMissions_v5')) || defaultSpecialMissions;
-    let missions = JSON.parse(localStorage.getItem('microtask_missions_v3')) || defaultMissions;
-    let calcMissions = JSON.parse(localStorage.getItem('microtask_calcMissions_v4')) || defaultCalcMissions;
+    let megaMission = JSON.parse(localStorage.getItem('microtask_megaMission_v3')) || megaMissionData;
     let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals_v3')) || defaultWithdrawals;
     let savedBankDetails = JSON.parse(localStorage.getItem('microtask_savedBankDetails_v3')) || defaultSavedBankDetails;
 
     function saveState() {
-      localStorage.setItem('microtask_specialMissions_v5', JSON.stringify(specialMissions));
-      localStorage.setItem('microtask_missions_v3', JSON.stringify(missions));
-      localStorage.setItem('microtask_calcMissions_v4', JSON.stringify(calcMissions));
+      localStorage.setItem('microtask_megaMission_v3', JSON.stringify(megaMission));
       localStorage.setItem('microtask_withdrawals_v3', JSON.stringify(withdrawals));
       localStorage.setItem('microtask_savedBankDetails_v3', JSON.stringify(savedBankDetails));
     }
 
     function init() {
       updateHeader();
-      renderSpecialMissions();
-      renderGrid();
-      renderCalcGrid();
+      renderMegaMission();
       renderWithdrawHistory();
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-          closeModal('missionModal');
           closeModal('withdrawChoiceModal');
           closeModal('bankModal');
           closeModal('paypalModal');
         }
       });
-    }
-
-    function openModal(id) {
-      selectedMissionId = id;
-      const m = missions.find(item => item.id === id);
-      if (!m) return;
-
-      document.getElementById('modalCategory').textContent = m.plateforme;
-      document.getElementById('modalTitle').textContent = m.nom;
-      document.getElementById('modalDescription').textContent = m.desc;
-      document.getElementById('modalGain').textContent = `+${m.gain.toFixed(2).replace('.', ',')} $`;
-      
-      const isDone = m.statut === 'Terminée';
-      const statutEl = document.getElementById('modalStatut');
-      statutEl.textContent = m.statut;
-      statutEl.className = isDone 
-        ? "text-xs sm:text-sm font-bold text-amber-400" 
-        : "text-xs sm:text-sm font-bold text-slate-200";
-
-      document.getElementById('proofInput').value = m.preuve || '';
-
-      const btn = document.getElementById('toggleStatusBtn');
-      btn.textContent = isDone ? "Marquer En attente" : "Valider l'audit";
-
-      const modal = document.getElementById('missionModal');
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
     }
 
     function closeModal(modalId) {
@@ -606,16 +429,18 @@
       const dashBtn = document.getElementById('navDashboardBtn');
       const txBtn = document.getElementById('navTransactionsBtn');
 
+      dashView.classList.add('hidden');
+      txView.classList.add('hidden');
+
+      dashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+      txBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+
       if (tab === 'dashboard') {
         dashView.classList.remove('hidden');
-        txView.classList.add('hidden');
         dashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950";
-        txBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
-      } else {
-        dashView.classList.add('hidden');
+      } else if (tab === 'transactions') {
         txView.classList.remove('hidden');
         txBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950";
-        dashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
         renderWithdrawHistory();
       }
     }
@@ -629,243 +454,489 @@
       const soldeValide = getSoldeValide();
       document.getElementById('soldeDisplay').textContent = `${soldeValide.toFixed(2).replace('.', ',')} $`;
 
-      const soldeEnAttenteCalc = calcMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
-      const soldeEnAttenteAudits = missions.filter(m => m.statut === 'Terminée').reduce((acc, m) => acc + m.gain, 0);
-      const soldeEnAttenteSpecial = specialMissions.filter(m => m.locked).reduce((acc, m) => acc + m.reward, 0);
-      
-      const soldeEnAttenteTotal = BASE_SOLDE_EN_ATTENTE + soldeEnAttenteCalc + soldeEnAttenteAudits + soldeEnAttenteSpecial;
+      const soldeEnAttenteMega = megaMission.locked ? megaMission.reward : 0;
+      const soldeEnAttenteTotal = BASE_SOLDE_EN_ATTENTE + soldeEnAttenteMega;
 
       document.getElementById('soldeEnAttenteDisplay').textContent = `${soldeEnAttenteTotal.toFixed(2).replace('.', ',')} $`;
 
-      const completedNew = calcMissions.filter(m => m.locked).length;
-      document.getElementById('completedNewCount').textContent = `${completedNew}/30`;
+      const completedNew = megaMission.locked ? 1 : 0;
+      document.getElementById('completedNewCount').textContent = `${completedNew}/1`;
     }
 
-    function renderSpecialMissions() {
-      const container = document.getElementById('specialMissionContainer');
+    function renderMegaMission() {
+      const container = document.getElementById('megaMissionContainer');
       if (!container) return;
 
-      container.innerHTML = '';
+      const d = megaMission.donnees;
+      const u = megaMission.userInputs || {};
+      const isLocked = megaMission.locked;
 
-      specialMissions.forEach((sp) => {
-        const d = sp.donnees;
-        const u = sp.userInputs;
-        const isLocked = sp.locked;
-
-        const card = document.createElement('div');
-        card.className = `bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 ${isLocked ? 'border-amber-500/50' : 'border-emerald-500/60'} rounded-3xl p-5 sm:p-7 shadow-[0_0_30px_rgba(16,185,129,0.15)] relative overflow-hidden space-y-6`;
-
-        card.innerHTML = `
-          <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-          <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-800 pb-5">
-            <div class="space-y-1">
+      container.innerHTML = `
+        <div class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 ${isLocked ? 'border-amber-500/50' : 'border-emerald-500/60'} rounded-3xl p-5 sm:p-8 shadow-[0_0_35px_rgba(16,185,129,0.15)] relative overflow-hidden space-y-8">
+          
+          <!-- EN-TÊTE DE MISSION -->
+          <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-800 pb-6">
+            <div class="space-y-1.5">
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                  ⭐ MISSION EXCLUSIVE COMPTABILITÉ GÉNÉRALE
+                <span class="bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+                  🌟 MISSION UNIQUE COMPLÈTE
                 </span>
-                <span class="text-xs text-slate-400 font-medium">${sp.exercice}</span>
+                <span class="text-xs text-slate-400 font-medium">${megaMission.exercice}</span>
               </div>
-              <h2 class="text-xl sm:text-2xl font-black text-white">${sp.societe}</h2>
-              <p class="text-xs text-slate-300">Analyse financière globale, bilan analytique et évaluation stratégique des performances de la société.</p>
+              <h2 class="text-2xl sm:text-3xl font-black text-white">${megaMission.societe}</h2>
+              <p class="text-xs sm:text-sm text-slate-300">Analyse financière intégrale, diagnostic du Bilan, calculs de rentabilité et ratios de couverture financier.</p>
             </div>
 
-            <div class="bg-slate-950 border border-emerald-500/40 p-3 sm:p-4 rounded-2xl flex items-center gap-4 shrink-0 shadow-lg">
+            <div class="bg-slate-950 border border-emerald-500/40 p-4 rounded-2xl flex items-center gap-5 shrink-0 shadow-lg">
               <div>
                 <span class="text-[10px] text-slate-400 font-bold uppercase block">Rémunération Unique</span>
-                <span class="text-2xl sm:text-3xl font-black text-emerald-400">+${sp.reward},00 $</span>
+                <span class="text-2xl sm:text-4xl font-black text-emerald-400">+${megaMission.reward},00 $</span>
               </div>
-              <span class="px-3 py-1.5 rounded-xl text-xs font-bold ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
-                ${isLocked ? '⌛ En attente' : '✨ Disponible'}
+              <span class="px-3.5 py-2 rounded-xl text-xs font-bold ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
+                ${isLocked ? '⌛ En attente de validation' : '⚡ Saisie Ouverte'}
               </span>
             </div>
           </div>
 
-          <div class="space-y-3">
-            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-              <span>📊</span> Données Comptables & Financières de l'Exercice (21 Indicateurs)
+          <!-- SECTION 1 : ETAT DES DONNEES FOURNIES -->
+          <div class="space-y-4">
+            <h3 class="text-sm sm:text-base font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+              <span>📂</span> 1. États Financiers Bruts de la Société
             </h3>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>1. Chiffre d'Affaires</span>
-                  <span>(4)</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+              
+              <!-- BLOC PRODUITS -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>A. Produits & Ventes</span>
+                  <span>(4 Postes)</span>
                 </div>
-                <ul class="space-y-1 text-[11px] text-slate-300">
-                  <li class="flex justify-between"><span>Ventes Marchandises :</span> <strong class="text-white">${d.revVenteMarchandises.toLocaleString()} $</strong></li>
-                  <li class="flex justify-between"><span>Abonnements SaaS :</span> <strong class="text-white">${d.revPrestationsSaaS.toLocaleString()} $</strong></li>
-                  <li class="flex justify-between"><span>Licences Logiciels :</span> <strong class="text-white">${d.revLicencesLogiciels.toLocaleString()} $</strong></li>
-                  <li class="flex justify-between"><span>Subventions UE :</span> <strong class="text-white">${d.revSubventionsUE.toLocaleString()} $</strong></li>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Ventes Produits Finis :</span> <strong class="text-white">${d.venteProduitsFinis.toLocaleString()} $</strong></li>
+                  <li class="flex justify-between"><span>Services Cloud & SaaS :</span> <strong class="text-white">${d.prestationsSaaSCloud.toLocaleString()} $</strong></li>
+                  <li class="flex justify-between"><span>Licences & Brevets :</span> <strong class="text-white">${d.licencesBrevets.toLocaleString()} $</strong></li>
+                  <li class="flex justify-between"><span>Subventions Exploitation :</span> <strong class="text-white">${d.subventionsExploitation.toLocaleString()} $</strong></li>
                 </ul>
               </div>
 
-              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>2. Salaires & RH</span>
-                  <span>(4)</span>
+              <!-- BLOC ACHATS & CHARGES -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>B. Achats & Consommations</span>
+                  <span>(3 Postes)</span>
                 </div>
-                <ul class="space-y-1 text-[11px] text-slate-300">
-                  <li class="flex justify-between"><span>Cadres & Devs :</span> <span class="text-slate-200">${d.salairesCadresDev.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Équipe Commerciale :</span> <span class="text-slate-200">${d.salairesEquipeCommerciale.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Admin & RH :</span> <span class="text-slate-200">${d.salairesAdminRH.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Charges Patronales :</span> <span class="text-slate-200">${d.chargesSocialesPatronales.toLocaleString()} $</span></li>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Achats Matières Premières :</span> <span class="text-slate-200">${d.achatsMatieresPremières.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Variation de Stock :</span> <span class="text-slate-200">${d.variationStocksMatieres.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Autres Approvisionnements :</span> <span class="text-slate-200">${d.achatsAutresApprovisionnements.toLocaleString()} $</span></li>
                 </ul>
               </div>
 
-              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>3. Charges Générales</span>
-                  <span>(6)</span>
+              <!-- BLOC CHARGES PERSONNEL -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>C. Personnel & RH</span>
+                  <span>(2 Postes)</span>
                 </div>
-                <ul class="space-y-1 text-[11px] text-slate-300">
-                  <li class="flex justify-between"><span>Achat Composants :</span> <span class="text-slate-200">${d.achatsComposantsTech.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Loyers & Cloud :</span> <span class="text-slate-200">${d.loyerSiegeCloudData.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Marketing Digital :</span> <span class="text-slate-200">${d.fraisMarketingGoogleMeta.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Honoraires & Juridique :</span> <span class="text-slate-200">${d.honorairesAvocatsAuditeurs.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Missions & Voyages :</span> <span class="text-slate-200">${d.fraisDeplacementMissions.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Assurances :</span> <span class="text-slate-200">${d.assurancesEtDiverses.toLocaleString()} $</span></li>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Salaires & Traitements Brut :</span> <span class="text-slate-200">${d.salairesEtTraitements.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Charges Sociales Patronales :</span> <span class="text-slate-200">${d.chargesSocialesPatronales.toLocaleString()} $</span></li>
                 </ul>
               </div>
 
-              <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                <div class="font-bold text-white border-b border-slate-800 pb-1 text-[11px] text-emerald-400 flex justify-between">
-                  <span>4. Amort. & Finance</span>
-                  <span>(7)</span>
+              <!-- BLOC CHARGES EXTERNES -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>D. Services Extérieurs</span>
+                  <span>(5 Postes)</span>
                 </div>
-                <ul class="space-y-1 text-[11px] text-slate-300">
-                  <li class="flex justify-between"><span>Amortissements Mat. :</span> <span class="text-slate-200">${d.dotationsAmortissementsMat.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Intérêts Emprunts :</span> <span class="text-slate-200">${d.intetetsEmpruntsBancaires.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Créances Douteuses :</span> <span class="text-slate-200">${d.creancesDouteusesClient.toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Taux Impôt (IS) :</span> <strong class="text-amber-400">${d.tauxImpotsSocietes} %</strong></li>
-                  <li class="flex justify-between border-t border-slate-800/80 pt-1 text-[10px]"><span>Grands Comptes :</span> <span class="text-slate-200">${d.clientsGrandsComptes}% CA</span></li>
-                  <li class="flex justify-between text-[10px]"><span>PME & Mid-Market :</span> <span class="text-slate-200">${d.clientsPME}% CA</span></li>
-                  <li class="flex justify-between text-[10px]"><span>Particuliers :</span> <span class="text-slate-200">${d.clientsParticuliers}% CA</span></li>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Loyers & Charges Locatives :</span> <span class="text-slate-200">${d.loyersEtChargesLocatives.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Marketing & Publicité :</span> <span class="text-slate-200">${d.fraisMarketingEtPub.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Honoraires & Conseils :</span> <span class="text-slate-200">${d.honorairesConseilsJuridiques.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Frais Bancaires & Assurances :</span> <span class="text-slate-200">${d.servicesBanqueEtAssurances.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Déplacements & Missions :</span> <span class="text-slate-200">${d.fraisDeplacementsEtMissions.toLocaleString()} $</span></li>
                 </ul>
               </div>
+
+              <!-- BLOC AMORTISSEMENTS ET FINANCIER -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>E. Amortissements & Financier</span>
+                  <span>(5 Postes)</span>
+                </div>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Dotations Amortissements :</span> <span class="text-slate-200">${d.dotationsAmortissementsImmo.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Provisions Créances Clients :</span> <span class="text-slate-200">${d.dotationsProvisionsCreances.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Produits Financiers :</span> <span class="text-slate-200">${d.produitsFinanciers.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Charges d'Intérêts Emprunts :</span> <span class="text-slate-200">${d.chargesInteretsEmprunts.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Taux Impôt Sociétés (IS) :</span> <strong class="text-amber-400">${d.tauxImpotsSociete} %</strong></li>
+                </ul>
+              </div>
+
+              <!-- BLOC STRUCTURE DU BILAN -->
+              <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
+                <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
+                  <span>F. Structure du Bilan</span>
+                  <span>(8 Postes)</span>
+                </div>
+                <ul class="space-y-1.5 text-slate-300">
+                  <li class="flex justify-between"><span>Actif Immo Brut :</span> <span class="text-slate-200">${d.actifImmobiliseBrut.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Amortissements Cumulés :</span> <span class="text-slate-200">${d.amortissementsCumules.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Stocks Marchandises :</span> <span class="text-slate-200">${d.stocksMarchandises.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Créances Clients Brutes :</span> <span class="text-slate-200">${d.creancesClientsBrutes.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Trésorerie Actif :</span> <span class="text-slate-200">${d.disponibilitesBanqueCaisse.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Capitaux Propres H.R. :</span> <span class="text-slate-200">${d.capitauxPropresHorsResultat.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Dettes Long/Moyen Terme :</span> <span class="text-slate-200">${d.empruntsDettesBancairesLMT.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Dettes Fournisseurs :</span> <span class="text-slate-200">${d.dettesFournisseurs.toLocaleString()} $</span></li>
+                </ul>
+              </div>
+
             </div>
           </div>
 
-          <div class="space-y-4 pt-2">
-            <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span>✍️</span> Formulaire de Synthèse Comptable (12 Résultats)
+          <!-- SECTION 2 : FORMULAIRE DE CALCULS ET SYNTHÈSE -->
+          <div class="space-y-4 border-t border-slate-800 pt-6">
+            <h3 class="text-sm sm:text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <span>✍️</span> 2. Tâches de Calcul & Ratios Synthétiques (22 Éléments à Saisir)
             </h3>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+              
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">1. Total Revenus Brut ($)</label>
-                <input type="number" step="0.01" id="sp_totalRevenus_${sp.id}" value="${u.totalRevenus}" ${isLocked ? 'disabled' : ''} placeholder="Somme des 4 revenus" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">1. Total Chiffre d'Affaires ($)</label>
+                <input type="number" step="0.01" id="m_totalChiffreAffaires" value="${u.totalChiffreAffaires || ''}" ${isLocked ? 'disabled' : ''} placeholder="Somme des produits" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">2. Total Masse Salariale ($)</label>
-                <input type="number" step="0.01" id="sp_totalMasseSalariale_${sp.id}" value="${u.totalMasseSalariale}" ${isLocked ? 'disabled' : ''} placeholder="Salaires + Charges Sociales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">2. Total Charges Achats ($)</label>
+                <input type="number" step="0.01" id="m_totalChargesAchat" value="${u.totalChargesAchat || ''}" ${isLocked ? 'disabled' : ''} placeholder="Achats + Var. Stock + Appro." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">3. Total Charges Exploitation ($)</label>
-                <input type="number" step="0.01" id="sp_totalChargesExploit_${sp.id}" value="${u.totalChargesExploit}" ${isLocked ? 'disabled' : ''} placeholder="Somme des 6 charges générales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">3. Marge Brute Commerciale ($)</label>
+                <input type="number" step="0.01" id="m_margeBrute" value="${u.margeBruteCommerciale || ''}" ${isLocked ? 'disabled' : ''} placeholder="CA - Total Achats" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">4. EBITDA / EBE ($)</label>
-                <input type="number" step="0.01" id="sp_ebitdaSpecial_${sp.id}" value="${u.ebitdaSpecial}" ${isLocked ? 'disabled' : ''} placeholder="Revenus - Masse Sal. - Charges Expl." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">4. Charges de Personnel ($)</label>
+                <input type="number" step="0.01" id="m_totalChargesPersonnel" value="${u.totalChargesPersonnel || ''}" ${isLocked ? 'disabled' : ''} placeholder="Salaires + Charges Sociales" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">5. Marge Brute (%)</label>
-                <input type="number" step="0.01" id="sp_margeBrutePct_${sp.id}" value="${u.margeBrutePct}" ${isLocked ? 'disabled' : ''} placeholder="(EBITDA / Total Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">5. Total Services Extérieurs ($)</label>
+                <input type="number" step="0.01" id="m_totalAutresChargesExploitation" value="${u.totalAutresChargesExploitation || ''}" ${isLocked ? 'disabled' : ''} placeholder="Somme des services ext." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">6. Résultat d'Exploitation ($)</label>
-                <input type="number" step="0.01" id="sp_resultatExploitation_${sp.id}" value="${u.resultatExploitation}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA - Amort. - Créances" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">6. EBITDA / EBE ($)</label>
+                <input type="number" step="0.01" id="m_ebitda" value="${u.ebitda || ''}" ${isLocked ? 'disabled' : ''} placeholder="Marge Brute - Personnel - Serv." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">7. Résultat Avant Impôt ($)</label>
-                <input type="number" step="0.01" id="sp_raiSpecial_${sp.id}" value="${u.raiSpecial}" ${isLocked ? 'disabled' : ''} placeholder="Res. Exploitation - Intérêts" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">7. Marge EBITDA (%)</label>
+                <input type="number" step="0.01" id="m_margeEbitdaPct" value="${u.margeEbitdaPct || ''}" ${isLocked ? 'disabled' : ''} placeholder="(EBITDA / CA) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">8. Impôt Sociétés (IS 15%) ($)</label>
-                <input type="number" step="0.01" id="sp_impotSocieteSpecial_${sp.id}" value="${u.impotSocieteSpecial}" ${isLocked ? 'disabled' : ''} placeholder="RAI x 15%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">8. Résultat d'Exploitation ($)</label>
+                <input type="number" step="0.01" id="m_resultatExploitation" value="${u.resultatExploitation || ''}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA - Dotations" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">9. Résultat Net ($)</label>
-                <input type="number" step="0.01" id="sp_resultatNetSpecial_${sp.id}" value="${u.resultatNetSpecial}" ${isLocked ? 'disabled' : ''} placeholder="RAI - Impôt Sociétés" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-extrabold text-sm focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">9. Résultat Financier ($)</label>
+                <input type="number" step="0.01" id="m_resultatFinancier" value="${u.resultatFinancier || ''}" ${isLocked ? 'disabled' : ''} placeholder="Produits Fin. - Charges Fin." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">10. CA Grands Comptes ($)</label>
-                <input type="number" step="0.01" id="sp_caGrandsComptes_${sp.id}" value="${u.caGrandsComptes}" ${isLocked ? 'disabled' : ''} placeholder="Total Revenus x 55%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">10. Résultat Courant Avant Impôt ($)</label>
+                <input type="number" step="0.01" id="m_resultatCourantAvantImpots" value="${u.resultatCourantAvantImpots || ''}" ${isLocked ? 'disabled' : ''} placeholder="Exploitation + Financier" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
               <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-1">11. Marge Nette Globale (%)</label>
-                <input type="number" step="0.01" id="sp_margeNettePct_${sp.id}" value="${u.margeNettePct}" ${isLocked ? 'disabled' : ''} placeholder="(Résultat Net / Revenus) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">11. Résultat Exceptionnel ($)</label>
+                <input type="number" step="0.01" id="m_resultatExceptionnel" value="${u.resultatExceptionnel || ''}" ${isLocked ? 'disabled' : ''} placeholder="Prod. Excep. - Charg. Excep." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">12. Impôt sur les Sociétés (25%) ($)</label>
+                <input type="number" step="0.01" id="m_impotSurLesSocietes" value="${u.impotSurLesSocietes || ''}" ${isLocked ? 'disabled' : ''} placeholder="(RAI + Excep.) x 25%" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">13. Résultat Net Global ($)</label>
+                <input type="number" step="0.01" id="m_resultatNetGlobal" value="${u.resultatNetGlobal || ''}" ${isLocked ? 'disabled' : ''} placeholder="Courant + Excep. - IS" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-extrabold text-sm focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">14. Capitaux Propres Totaux ($)</label>
+                <input type="number" step="0.01" id="m_capitauxPropresTotaux" value="${u.capitauxPropresTotaux || ''}" ${isLocked ? 'disabled' : ''} placeholder="Capitaux H.R. + Resultat Net" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">15. Actif Immobilisé Net ($)</label>
+                <input type="number" step="0.01" id="m_actifImmobiliseNet" value="${u.actifImmobiliseNet || ''}" ${isLocked ? 'disabled' : ''} placeholder="Immo Brut - Amortissements" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">16. Actif Circulant Total ($)</label>
+                <input type="number" step="0.01" id="m_actifCirculantTotal" value="${u.actifCirculantTotal || ''}" ${isLocked ? 'disabled' : ''} placeholder="Stocks + Créances Nettes + Trésor." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">17. BFR (Besoin en Fonds de Roulement) ($)</label>
+                <input type="number" step="0.01" id="m_bfr" value="${u.bfr || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Stocks + Créances Nettes) - Dettes Fourn." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">18. Capacité d'Autofinancement (CAF) ($)</label>
+                <input type="number" step="0.01" id="m_capacideAutofinancement" value="${u.capacideAutofinancement || ''}" ${isLocked ? 'disabled' : ''} placeholder="Résultat Net + Dotations" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">19. Dette Nette Totale ($)</label>
+                <input type="number" step="0.01" id="m_detteNetteTotale" value="${u.detteNetteTotale || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Emprunts + Concours) - Trésorerie" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">20. Ratio d'Endettement (Dette Nette / K.Propres)</label>
+                <input type="number" step="0.01" id="m_ratioEndettementPropre" value="${u.ratioEndettementPropre || ''}" ${isLocked ? 'disabled' : ''} placeholder="Dette Nette / K. Propres" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
+              <div>
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">21. Ratio de Solvabilité Générale</label>
+                <input type="number" step="0.01" id="m_ratioSolvabilite" value="${u.ratioSolvabilite || ''}" ${isLocked ? 'disabled' : ''} placeholder="Actif Total / Total Dettes" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+              </div>
+
             </div>
 
-            <div>
-              <label class="text-[10px] text-slate-300 font-semibold block mb-1">12. Rapport d'Analyse Financière *</label>
-              <textarea id="sp_rapportSynthese_${sp.id}" ${isLocked ? 'disabled' : ''} rows="3" placeholder="Rédigez un compte-rendu synthétique : structure des coûts, rentabilité SaaS vs Marchandises..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-xs disabled:opacity-60 focus:border-emerald-500">${u.rapportSynthese}</textarea>
+            <!-- RAPPORT D'AUDIT GLOBAL -->
+            <div class="pt-2">
+              <label class="text-xs font-bold text-slate-200 block mb-1.5">22. Rapport & Diagnostic Synthétique d'Audit *</label>
+              <textarea id="m_rapportAuditStrategique" ${isLocked ? 'disabled' : ''} rows="5" placeholder="Détaillez ici votre analyse complète : niveau d'endettement, rentabilité opérationnelle SaaS vs Produits, santé financière du bilan, couverture du BFR et recommandations stratégiques pour l'exercice à venir..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-white text-xs disabled:opacity-60 focus:border-emerald-500">${u.rapportAuditStrategique || ''}</textarea>
             </div>
           </div>
 
+          <!-- BOUTONS D'ACTION -->
           ${!isLocked ? `
-            <button onclick="saveAndLockSpecialMission('${sp.id}')" class="w-full py-3.5 text-xs sm:text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
-              <span>🚀</span> Enregistrer & Valider la Grande Mission (+200 $ en attente)
+            <button onclick="saveAndLockMegaMission()" class="w-full py-4 text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_25px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2 cursor-pointer">
+              <span>🚀</span> Valider & Soumettre la Grande Mission d'Analyse (+500 $ en attente)
             </button>
           ` : `
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-amber-500/10 p-4 rounded-2xl border border-amber-500/30">
-              <span class="text-xs font-semibold text-amber-300 flex items-center gap-2">
-                <span>⌛</span> Mission Spéciale enregistrée. Honoraires de 200,00 $ en attente !
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-amber-500/10 p-5 rounded-2xl border border-amber-500/30">
+              <span class="text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
+                <span>⌛</span> Grande Mission soumise et validée ! Rémunération de 500,00 $ ajoutée au solde en attente.
               </span>
-              <button onclick="unlockSpecialMission('${sp.id}')" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
-                ✏️ Modifier la saisie
+              <button onclick="unlockMegaMission()" class="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
+                ✏️ Modifier la Saisie
               </button>
             </div>
           `}
-        `;
 
-        container.appendChild(card);
-      });
+          <!-- SECTION STATISTIQUES ET PERFORMANCES (EN BAS DE LA MISSION) -->
+          <div class="mt-8 pt-8 border-t-2 border-slate-800/80 space-y-6">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                  <span>📈</span> Statistiques Personnelles & Performances de l'Auditeur
+                </h3>
+                <p class="text-xs text-slate-400">Synthèse consolidée de l'historique d'exécution de vos tâches et audits.</p>
+              </div>
+              <span class="px-3 py-1 rounded-xl text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                Profil : Senior / Certifié
+              </span>
+            </div>
+
+            <!-- KPIS PRINCIPAUX -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              
+              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-semibold text-slate-400">Missions Effectuées</span>
+                  <span class="text-base">🎯</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-black text-white">70</div>
+                <div class="text-[10px] text-emerald-400 font-medium">100% complétées à ce jour</div>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-semibold text-slate-400">Réponses Correctes</span>
+                  <span class="text-base">✅</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-black text-emerald-400">66%</div>
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-emerald-400 h-1.5 rounded-full" style="width: 66%"></div>
+                </div>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-semibold text-slate-400">Utilisation de l'IA</span>
+                  <span class="text-base">🤖</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-black text-teal-400">21%</div>
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-teal-400 h-1.5 rounded-full" style="width: 21%"></div>
+                </div>
+              </div>
+
+              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-semibold text-slate-400">Score de Fiabilité</span>
+                  <span class="text-base">⭐</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-black text-amber-400">A-</div>
+                <div class="text-[10px] text-slate-400 font-medium">Excellente cohérence globale</div>
+              </div>
+
+            </div>
+
+            <!-- AUTRES INDICATEURS ET REMARQUE D'AUDIT DÉVELOPPÉE -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              
+              <!-- INDICATEURS COMPLÉMENTAIRES -->
+              <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 lg:col-span-1">
+                <h4 class="text-xs font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
+                  <span>📊 Indicateurs d'Efficience</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider">70 Missions</span>
+                </h4>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 text-xs">
+                  <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1">
+                    <span class="text-slate-400 block text-[11px] font-medium">Temps Moyen / Mission</span>
+                    <span class="text-sm font-bold text-white block">14 min 30 sec</span>
+                    <p class="text-[10px] text-slate-400">Niveau de productivité très élevé.</p>
+                  </div>
+
+                  <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1">
+                    <span class="text-slate-400 block text-[11px] font-medium">Rémunération Moyenne / Tâche</span>
+                    <span class="text-sm font-bold text-emerald-400 block">7,14 $</span>
+                    <p class="text-[10px] text-slate-400">Hors prime sur la grande mission.</p>
+                  </div>
+
+                  <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1">
+                    <span class="text-slate-400 block text-[11px] font-medium">Taux de Correction / Rework</span>
+                    <span class="text-sm font-bold text-amber-400 block">12,5 %</span>
+                    <p class="text-[10px] text-slate-400">Ajustements mineurs demandés.</p>
+                  </div>
+
+                  <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-1">
+                    <span class="text-slate-400 block text-[11px] font-medium">Précision des Calculs Nette</span>
+                    <span class="text-sm font-bold text-teal-400 block">89,4 %</span>
+                    <p class="text-[10px] text-slate-400">Après validation définitive.</p>
+                  </div>
+                </div>
+
+                <!-- BARRE DE RÉPARTITION -->
+                <div class="space-y-1.5 pt-1">
+                  <div class="flex justify-between text-[11px] text-slate-300 font-semibold">
+                    <span>Répartition de l'Analyse</span>
+                    <span class="text-slate-400">79% Humain | 21% IA</span>
+                  </div>
+                  <div class="w-full bg-slate-900 rounded-lg h-2.5 p-0.5 border border-slate-800 flex overflow-hidden">
+                    <div class="bg-emerald-500 h-full rounded-l-md" style="width: 79%"></div>
+                    <div class="bg-teal-400 h-full rounded-r-md" style="width: 21%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ENCADRÉ REMARQUE / DIAGNOSTIC (RALLONGÉ & AVERTISSEMENT IA) -->
+              <div class="bg-slate-950 p-5 rounded-2xl border border-amber-500/40 space-y-4 lg:col-span-2 flex flex-col justify-between">
+                <div class="space-y-3">
+                  <h4 class="text-xs sm:text-sm font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
+                    <span class="flex items-center gap-2">
+                      <span class="text-amber-400">⚠️</span> Remarque d'Audit & Recommandations d'Exécution
+                    </span>
+                    <span class="text-[10px] text-amber-400 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">Attention requise</span>
+                  </h4>
+                  
+                  <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-[11px]">
+                    
+                    <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-1">
+                      <p class="font-bold text-amber-300 flex items-center gap-1.5">
+                        <span>🤖</span> Vigilance sur l'Utilisation de l'Intelligence Artificielle (21%) :
+                      </p>
+                      <p class="text-slate-300">
+                        Il est impératif de faire preuve d'une grande prudence lorsque vous vous appuyez sur les outils d'IA. Bien qu'efficaces pour structurer des données ou accélérer la saisie, les modèles d'IA restent sujets à des erreurs d'interprétation, des hallucinations statistiques ou de fausses formules sur les ratios complexes (notamment sur le BFR et la CAF). <strong class="text-white">Ne validez jamais une réponse générée par l'IA sans effectuer un contrôle humain rigoureux.</strong>
+                      </p>
+                    </div>
+
+                    <p>
+                      <strong class="text-emerald-400">Analyse de la précision (66% de réussite) :</strong> Votre taux actuel de réponses correctes au premier essai (66%) montre une bonne compréhension globale des principes d'audit. Cependant, une proportion non négligeable des erreurs relevées provient de la confiance aveugle accordée aux suggestions automatisées ou de fautes d'inattention lors du report des montants.
+                    </p>
+
+                    <p>
+                      <strong class="text-white">Procédure obligatoire de vérification :</strong> Pour garantir le maintien de votre statut d'Auditeur Senior et maximiser vos primes de validation, nous vous recommandons de reconsidérer chaque calcul d'EBITDA, de ratio de solvabilité et de charges fiscales de manière autonome. L'IA doit servir uniquement d'assistant de second niveau et non de décideur principal.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1 mt-2">
+                  <span class="font-bold text-emerald-400 block flex items-center gap-1">
+                    <span>💡</span> Rappel de Conformité du Réseau :
+                  </span>
+                  <p>Tout rapport contenant des incohérences majeures dues à une retranscription directe sans vérification d'IA fera l'objet d'un signalement et d'une révision obligatoire avant déblocage de la rémunération.</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
     }
 
-    function saveAndLockSpecialMission(spId) {
-      const sp = specialMissions.find(item => item.id === spId);
-      if (!sp) return;
+    function saveAndLockMegaMission() {
+      const ca = document.getElementById('m_totalChiffreAffaires').value;
+      const net = document.getElementById('m_resultatNetGlobal').value;
+      const rapport = document.getElementById('m_rapportAuditStrategique').value;
 
-      const rev = document.getElementById(`sp_totalRevenus_${spId}`).value;
-      const net = document.getElementById(`sp_resultatNetSpecial_${spId}`).value;
-      const rapport = document.getElementById(`sp_rapportSynthese_${spId}`).value;
-
-      if (!rev || !net || !rapport) {
-        alert("Veuillez renseigner au moins le Total Revenus, le Résultat Net et le Rapport d'Analyse synthétique.");
+      if (!ca || !net || !rapport) {
+        alert("Veuillez remplir au moins le Chiffre d'Affaires, le Résultat Net Global et le Rapport Diagnostic d'Audit.");
         return;
       }
 
-      sp.userInputs = {
-        totalRevenus: rev,
-        totalMasseSalariale: document.getElementById(`sp_totalMasseSalariale_${spId}`).value,
-        totalChargesExploit: document.getElementById(`sp_totalChargesExploit_${spId}`).value,
-        ebitdaSpecial: document.getElementById(`sp_ebitdaSpecial_${spId}`).value,
-        margeBrutePct: document.getElementById(`sp_margeBrutePct_${spId}`).value,
-        resultatExploitation: document.getElementById(`sp_resultatExploitation_${spId}`).value,
-        raiSpecial: document.getElementById(`sp_raiSpecial_${spId}`).value,
-        impotSocieteSpecial: document.getElementById(`sp_impotSocieteSpecial_${spId}`).value,
-        resultatNetSpecial: net,
-        caGrandsComptes: document.getElementById(`sp_caGrandsComptes_${spId}`).value,
-        margeNettePct: document.getElementById(`sp_margeNettePct_${spId}`).value,
-        rapportSynthese: rapport
+      megaMission.userInputs = {
+        totalChiffreAffaires: ca,
+        totalChargesAchat: document.getElementById('m_totalChargesAchat').value,
+        margeBruteCommerciale: document.getElementById('m_margeBrute').value,
+        totalChargesPersonnel: document.getElementById('m_totalChargesPersonnel').value,
+        totalAutresChargesExploitation: document.getElementById('m_totalAutresChargesExploitation').value,
+        ebitda: document.getElementById('m_ebitda').value,
+        margeEbitdaPct: document.getElementById('m_margeEbitdaPct').value,
+        resultatExploitation: document.getElementById('m_resultatExploitation').value,
+        resultatFinancier: document.getElementById('m_resultatFinancier').value,
+        resultatCourantAvantImpots: document.getElementById('m_resultatCourantAvantImpots').value,
+        resultatExceptionnel: document.getElementById('m_resultatExceptionnel').value,
+        impotSurLesSocietes: document.getElementById('m_impotSurLesSocietes').value,
+        resultatNetGlobal: net,
+        capitauxPropresTotaux: document.getElementById('m_capitauxPropresTotaux').value,
+        actifImmobiliseNet: document.getElementById('m_actifImmobiliseNet').value,
+        actifCirculantTotal: document.getElementById('m_actifCirculantTotal').value,
+        bfr: document.getElementById('m_bfr').value,
+        capacideAutofinancement: document.getElementById('m_capacideAutofinancement').value,
+        detteNetteTotale: document.getElementById('m_detteNetteTotale').value,
+        ratioEndettementPropre: document.getElementById('m_ratioEndettementPropre').value,
+        ratioSolvabilite: document.getElementById('m_ratioSolvabilite').value,
+        rapportAuditStrategique: rapport
       };
-      sp.locked = true;
+
+      megaMission.locked = true;
 
       saveState();
       updateHeader();
-      renderSpecialMissions();
+      renderMegaMission();
     }
 
-    function unlockSpecialMission(spId) {
-      const sp = specialMissions.find(item => item.id === spId);
-      if (sp) {
-        sp.locked = false;
-        saveState();
-        updateHeader();
-        renderSpecialMissions();
-      }
+    function unlockMegaMission() {
+      megaMission.locked = false;
+      saveState();
+      updateHeader();
+      renderMegaMission();
     }
 
     function openWithdrawChoiceModal() {
@@ -994,7 +1065,7 @@
             <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
               isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
             }">
-              ${isDone ? '✔ ' : '⏳ '}${statusText}
+              ${isDone ? '✓ ' : '⌛ '}${statusText}
             </span>
           </td>
         `;
@@ -1005,210 +1076,11 @@
       if (txLastBank && savedBankDetails) txLastBank.textContent = savedBankDetails.bank;
     }
 
-    function renderGrid() {
-      const grid = document.getElementById('missionsGrid');
-      grid.innerHTML = '';
-
-      const filtered = missions.filter(m => currentFilter === 'all' || m.statut === currentFilter);
-
-      filtered.forEach(m => {
-        const isDone = m.statut === 'Terminée';
-        const card = document.createElement('div');
-        card.className = `bg-slate-900 border rounded-2xl p-4 sm:p-5 hover:border-emerald-500/50 transition cursor-pointer flex flex-col justify-between space-y-4 shadow-lg group relative overflow-hidden ${
-          isDone ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'
-        }`;
-        card.onclick = () => openModal(m.id);
-
-        card.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-emerald-400 border border-slate-700">
-                ${m.plateforme}
-              </span>
-              <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${
-                isDone ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700'
-              }">
-                ${m.statut}
-              </span>
-            </div>
-            <h3 class="font-bold text-white text-sm sm:text-base group-hover:text-emerald-400 transition">${m.nom}</h3>
-            <p class="text-xs text-slate-400 line-clamp-2">${m.desc}</p>
-          </div>
-          <div class="flex justify-between items-center pt-3 border-t border-slate-800/60 text-xs">
-            <span class="text-slate-500">${m.date}</span>
-            <span class="font-black text-amber-400 text-sm">+${m.gain.toFixed(2).replace('.', ',')} $</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function renderCalcGrid() {
-      const grid = document.getElementById('calcMissionsGrid');
-      grid.innerHTML = '';
-
-      calcMissions.forEach(m => {
-        const isLocked = m.locked;
-
-        const card = document.createElement('div');
-        card.className = `bg-slate-900 border ${isLocked ? 'border-amber-500/40 bg-slate-900/60' : 'border-slate-800'} rounded-2xl p-4 sm:p-5 shadow-xl space-y-4 relative`;
-
-        card.innerHTML = `
-          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-            <div>
-              <h3 class="font-bold text-emerald-400 text-xs sm:text-sm">Mission #${m.id} — ${m.projet}</h3>
-              <span class="text-xs font-black text-amber-400">Rémunération : +${m.reward} $</span>
-            </div>
-            <span class="text-[10px] font-bold px-2 py-1 rounded ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-800 text-slate-400'}">
-              ${isLocked ? 'En attente' : 'À remplir'}
-            </span>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-xs space-y-1.5 text-slate-300">
-            <div class="font-semibold text-slate-200 border-b border-slate-800 pb-1 mb-1">📊 6 Données Financières :</div>
-            <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] sm:text-xs">
-              <div>• CA HT : <strong class="text-white">${m.donnees.caHT} $</strong></div>
-              <div>• Achats Stock : <span class="text-slate-300">${m.donnees.achatsStock} $</span></div>
-              <div>• Masse Salariale : <span class="text-slate-300">${m.donnees.salaires} $</span></div>
-              <div>• Charges Expl. : <span class="text-slate-300">${m.donnees.chargesExploit} $</span></div>
-              <div>• Loyer & Fixes : <span class="text-slate-300">${m.donnees.loyerChargesFixes} $</span></div>
-              <div>• Frais Financiers : <span class="text-slate-300">${m.donnees.fraisFinanciers} $</span></div>
-            </div>
-          </div>
-
-          <div class="space-y-2.5 text-xs">
-            <div class="font-semibold text-slate-300">✍️ 6 Résultats Financiers :</div>
-            
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">1. Total Charges ($)</label>
-                <input type="number" step="0.01" id="totalCharges_${m.id}" value="${m.userInputs.totalCharges}" ${isLocked ? 'disabled' : ''} placeholder="Achats+Sal+Expl+Loyer" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">2. EBITDA / EBE ($)</label>
-                <input type="number" step="0.01" id="ebitda_${m.id}" value="${m.userInputs.ebitda}" ${isLocked ? 'disabled' : ''} placeholder="CA - Total Charges" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">3. TVA Collectée (20%) ($)</label>
-                <input type="number" step="0.01" id="tva_${m.id}" value="${m.userInputs.tva}" ${isLocked ? 'disabled' : ''} placeholder="CA HT x 20%" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">4. Res. Avant Impôt ($)</label>
-                <input type="number" step="0.01" id="rai_${m.id}" value="${m.userInputs.rai}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA - Frais Fin." class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">5. Impôt Sociétés (IS 15%) ($)</label>
-                <input type="number" step="0.01" id="impot_${m.id}" value="${m.userInputs.impot}" ${isLocked ? 'disabled' : ''} placeholder="RAI x 15%" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-white disabled:opacity-60 border-slate-700">
-              </div>
-              <div>
-                <label class="text-[10px] text-slate-400 font-semibold block mb-0.5">6. Résultat Net ($)</label>
-                <input type="number" step="0.01" id="net_${m.id}" value="${m.userInputs.net}" ${isLocked ? 'disabled' : ''} placeholder="RAI - IS" class="w-full bg-slate-950 border rounded-lg px-2.5 py-1 text-emerald-400 font-bold disabled:opacity-60 border-slate-700">
-              </div>
-            </div>
-
-            <div>
-              <label class="text-[10px] text-slate-400 font-semibold block mb-1">Remarques & Observations</label>
-              <textarea id="remarque_${m.id}" ${isLocked ? 'disabled' : ''} rows="2" placeholder="Ex: Analyse de rentabilité, solvabilité..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white text-xs disabled:opacity-60 border-slate-700">${m.userInputs.remarque}</textarea>
-            </div>
-          </div>
-
-          ${!isLocked ? `
-            <button onclick="saveAndLockCalcMission(${m.id})" class="w-full mt-2 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              🚀 Enregistrer & Envoyer (+${m.reward} $ en attente)
-            </button>
-          ` : `
-            <div class="space-y-2">
-              <div class="text-center py-1.5 text-[11px] font-semibold text-amber-300 bg-amber-500/10 rounded-xl border border-amber-500/20">
-                ⌛ Rémunération ajoutée au solde en attente (+${m.reward} $)
-              </div>
-              <button onclick="unlockCalcMission(${m.id})" class="w-full py-1.5 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-                ✏️ Modifier les données
-              </button>
-            </div>
-          `}
-        `;
-
-        grid.appendChild(card);
-      });
-    }
-
-    function saveAndLockCalcMission(id) {
-      const totalChargesVal = document.getElementById(`totalCharges_${id}`).value;
-      const ebitdaVal = document.getElementById(`ebitda_${id}`).value;
-      const tvaVal = document.getElementById(`tva_${id}`).value;
-      const raiVal = document.getElementById(`rai_${id}`).value;
-      const impotVal = document.getElementById(`impot_${id}`).value;
-      const netVal = document.getElementById(`net_${id}`).value;
-      const remarqueVal = document.getElementById(`remarque_${id}`).value;
-
-      if (!totalChargesVal || !netVal) {
-        alert("Veuillez remplir au moins le Total Charges et le Résultat Net avant d'enregistrer.");
-        return;
-      }
-
-      const m = calcMissions.find(item => item.id === id);
-      if (m) {
-        m.userInputs = {
-          totalCharges: totalChargesVal,
-          ebitda: ebitdaVal,
-          tva: tvaVal,
-          rai: raiVal,
-          impot: impotVal,
-          net: netVal,
-          remarque: remarqueVal
-        };
-        m.locked = true;
-
-        saveState();
-        updateHeader();
-        renderCalcGrid();
-      }
-    }
-
-    function unlockCalcMission(id) {
-      const m = calcMissions.find(item => item.id === id);
-      if (m) {
-        m.locked = false;
-        saveState();
-        updateHeader();
-        renderCalcGrid();
-      }
-    }
-
-    function filterMissions(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.className = btn.dataset.filter === filter
-          ? "filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500 text-slate-950 border border-emerald-400 transition"
-          : "filter-btn flex-1 md:flex-none px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition";
-      });
-      renderGrid();
-    }
-
-    function toggleMissionStatus() {
-      if (selectedMissionId === null) return;
-      const m = missions.find(item => item.id === selectedMissionId);
-      if (m) {
-        m.statut = m.statut === 'Terminée' ? 'En attente' : 'Terminée';
-        m.preuve = document.getElementById('proofInput').value;
-        
-        saveState();
-        updateHeader();
-        renderGrid();
-        closeModal('missionModal');
-      }
-    }
-
     window.onload = init;
   </script>
 </body>
 </html>
+
 
 
 
