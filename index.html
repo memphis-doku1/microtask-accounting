@@ -105,7 +105,7 @@
         <div class="bg-slate-900/50 p-4 rounded-2xl border border-emerald-500/40 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h2 class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-2">
-              <span>📊</span> Grande Mission d'Analyse Financière & Diagnostic Multi-Postes
+              <span>📋</span> Grande Mission d'Analyse Financière & Diagnostic Multi-Postes
             </h2>
             <p class="text-xs text-slate-400">Évaluation approfondie du Compte de Résultat, du Bilan, de la CAF, du BFR et Ratios de Financement.</p>
           </div>
@@ -123,7 +123,7 @@
       <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-            <span>💳</span> Historique Général des Transactions & Retraits
+            <span>📜</span> Historique Général des Transactions & Retraits
           </h2>
           <p class="text-xs text-slate-400 mt-1">Suivi en temps réel de vos virements bancaires et demandes de règlement.</p>
         </div>
@@ -135,7 +135,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
           <span class="text-xs text-slate-400 font-semibold block">Total Demandé / Retiré</span>
-          <span id="txTotalAmount" class="text-xl font-black text-amber-400 mt-1 block">100,00 $</span>
+          <span id="txTotalAmount" class="text-xl font-black text-amber-400 mt-1 block">0,00 $</span>
         </div>
         <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
           <span class="text-xs text-slate-400 font-semibold block">Dernière Banque Utilisée</span>
@@ -171,6 +171,22 @@
           </table>
         </div>
       </div>
+
+      <!-- NOTIFICATION AJOUTÉE EN BAS DES TRANSACTIONS -->
+      <div class="bg-amber-500/10 border-2 border-amber-500/40 p-5 rounded-2xl shadow-lg flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl shrink-0 border border-amber-500/30">
+          ⚠️
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-sm font-extrabold text-amber-400 uppercase tracking-wide">
+            Consigne Obligatoire pour le Premier Retrait
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Vous ne devez <strong>pas effectuer plusieurs demandes de retrait</strong> avant d'avoir reçu le paiement de votre premier virement. De plus, votre <strong>premier retrait ne doit pas dépasser 100 $</strong>. Toute demande supplémentaire effectuée avant la réception du premier paiement sera automatiquement bloquée.
+          </p>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -182,8 +198,19 @@
         <h3 class="text-base sm:text-lg font-bold text-white">Sélectionner la méthode de retrait</h3>
         <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
-      <p class="text-xs text-slate-300">Choisissez comment vous souhaitez recevoir vos fonds (Montant minimum de retrait : <strong>100 $</strong>).</p>
-      <div class="grid grid-cols-1 gap-3 pt-2">
+
+      <!-- NOTIFICATION DE LA MODALE -->
+      <div class="bg-amber-500/10 border border-amber-500/30 p-3.5 rounded-xl space-y-1 text-xs">
+        <span class="font-bold text-amber-400 flex items-center gap-1.5">
+          <span>⚠️</span> Consigne Obligatoire pour le Premier Retrait :
+        </span>
+        <p class="text-slate-300 text-[11px] leading-relaxed">
+          Veuillez effectuer un <strong>seul retrait</strong> et attendre de recevoir ce premier virement avant d'en effectuer d'autres. Votre premier retrait ne doit pas dépasser <strong>100 $</strong>.
+        </p>
+      </div>
+
+      <p class="text-xs text-slate-300">Choisissez comment vous souhaitez recevoir vos fonds :</p>
+      <div class="grid grid-cols-1 gap-3 pt-1">
         <button onclick="openBankWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
             <span class="text-2xl">🏦</span>
@@ -196,7 +223,7 @@
         </button>
         <button onclick="openPaypalWithdrawModal()" class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded-xl transition text-left group">
           <div class="flex items-center space-x-3">
-            <span class="text-2xl">🅿️</span>
+            <span class="text-2xl">💳</span>
             <div>
               <div class="text-sm font-bold text-white group-hover:text-emerald-400">PayPal</div>
               <div class="text-[11px] text-slate-400">Transfert instantané vers votre email</div>
@@ -249,8 +276,8 @@
           <input type="text" id="bankRib" placeholder="Ex: 230780000000000000008206" required maxlength="24" pattern="[0-9]{24}" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
         <div>
-          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
-          <input type="number" id="bankAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Plafond 1er retrait : 100 $) *</label>
+          <input type="number" id="bankAmount" max="100" min="10" step="0.01" placeholder="Maximum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeModal('bankModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
@@ -263,7 +290,7 @@
   <div id="paypalModal" onclick="handleBackdropClick(event, 'paypalModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-5 sm:p-6 space-y-4 animate-modal-pop">
       <div class="flex justify-between items-center">
-        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">🅿️ Retrait par PayPal</h3>
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">💳 Retrait par PayPal</h3>
         <button onclick="closeModal('paypalModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
       </div>
       <form id="paypalForm" onsubmit="confirmPaypalWithdraw(event)" class="space-y-3 text-xs">
@@ -272,8 +299,8 @@
           <input type="email" id="paypalEmail" placeholder="votre.email@exemple.com" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
         <div>
-          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Min: 100 $) *</label>
-          <input type="number" id="paypalAmount" min="100" step="0.01" placeholder="Minimum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
+          <label class="text-slate-300 font-semibold block mb-1">Montant à retirer ($) (Plafond 1er retrait : 100 $) *</label>
+          <input type="number" id="paypalAmount" max="100" min="10" step="0.01" placeholder="Maximum 100 $" required class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl px-3 py-2 focus:border-emerald-500 focus:outline-none">
         </div>
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeModal('paypalModal')" class="px-4 py-2 text-slate-400 hover:text-white">Annuler</button>
@@ -365,6 +392,7 @@
       }
     };
 
+    // Historique des retraits reinitialises et rembourses
     const defaultWithdrawals = [
       {
         id: 1785234000000,
@@ -372,7 +400,7 @@
         montant: 100.00,
         moyen: "Compte Bancaire (Maroc)",
         details: "Attijariwafa Bank - RIB: ****8206",
-        statut: "Approuvé (Reçu le 04/08/2026)"
+        statut: "Annulé & Remboursé"
       }
     ];
 
@@ -381,9 +409,18 @@
       rib: "230780000000000000008206"
     };
 
+    // Recuperation des donnees
     let megaMission = JSON.parse(localStorage.getItem('microtask_megaMission_v3')) || megaMissionData;
     let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals_v3')) || defaultWithdrawals;
     let savedBankDetails = JSON.parse(localStorage.getItem('microtask_savedBankDetails_v3')) || defaultSavedBankDetails;
+
+    // Mise a jour forcée des anciens retraits vers statut Remboursé si présents
+    withdrawals = withdrawals.map(w => {
+      if (!w.statut || w.statut.includes('Approuvé') || w.statut.includes('traitement')) {
+        return { ...w, statut: 'Annulé & Remboursé' };
+      }
+      return w;
+    });
 
     function saveState() {
       localStorage.setItem('microtask_megaMission_v3', JSON.stringify(megaMission));
@@ -392,6 +429,7 @@
     }
 
     function init() {
+      saveState();
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
@@ -446,8 +484,10 @@
     }
 
     function getSoldeValide() {
-      const totalRetire = withdrawals.reduce((acc, w) => acc + w.montant, 0);
-      return Math.max(0, BASE_SOLDE_VALIDE - totalRetire);
+      const totalRetireActif = withdrawals
+        .filter(w => !w.statut.includes('Remboursé') && !w.statut.includes('Annulé'))
+        .reduce((acc, w) => acc + w.montant, 0);
+      return Math.max(0, BASE_SOLDE_VALIDE - totalRetireActif);
     }
 
     function updateHeader() {
@@ -479,7 +519,7 @@
             <div class="space-y-1.5">
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                  🌟 MISSION UNIQUE COMPLÈTE
+                  📌 MISSION UNIQUE COMPLÈTE
                 </span>
                 <span class="text-xs text-slate-400 font-medium">${megaMission.exercice}</span>
               </div>
@@ -493,7 +533,7 @@
                 <span class="text-2xl sm:text-4xl font-black text-emerald-400">+${megaMission.reward},00 $</span>
               </div>
               <span class="px-3.5 py-2 rounded-xl text-xs font-bold ${isLocked ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'}">
-                ${isLocked ? '⌛ En attente de validation' : '⚡ Saisie Ouverte'}
+                ${isLocked ? '🔒 En attente de validation' : '🔓 Saisie Ouverte'}
               </span>
             </div>
           </div>
@@ -501,7 +541,7 @@
           <!-- SECTION 1 : ETAT DES DONNEES FOURNIES -->
           <div class="space-y-4">
             <h3 class="text-sm sm:text-base font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-              <span>📂</span> 1. États Financiers Bruts de la Société
+              <span>📊</span> 1. États Financiers Bruts de la Société
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
@@ -726,7 +766,7 @@
           ` : `
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-amber-500/10 p-5 rounded-2xl border border-amber-500/30">
               <span class="text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
-                <span>⌛</span> Grande Mission soumise et validée ! Rémunération de 500,00 $ ajoutée au solde en attente.
+                <span>✅</span> Grande Mission soumise et validée ! Rémunération de 500,00 $ ajoutée au solde en attente.
               </span>
               <button onclick="unlockMegaMission()" class="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
                 ✏️ Modifier la Saisie
@@ -734,7 +774,7 @@
             </div>
           `}
 
-          <!-- SECTION STATISTIQUES ET PERFORMANCES (EN BAS DE LA MISSION) -->
+          <!-- SECTION STATISTIQUES ET PERFORMANCES -->
           <div class="mt-8 pt-8 border-t-2 border-slate-800/80 space-y-6">
             
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
@@ -755,7 +795,7 @@
               <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-slate-400">Missions Effectuées</span>
-                  <span class="text-base">🎯</span>
+                  <span class="text-base">📁</span>
                 </div>
                 <div class="text-2xl sm:text-3xl font-black text-white">70</div>
                 <div class="text-[10px] text-emerald-400 font-medium">100% complétées à ce jour</div>
@@ -764,7 +804,7 @@
               <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
                 <div class="flex justify-between items-center">
                   <span class="text-xs font-semibold text-slate-400">Réponses Correctes</span>
-                  <span class="text-base">✅</span>
+                  <span class="text-base">🎯</span>
                 </div>
                 <div class="text-2xl sm:text-3xl font-black text-emerald-400">66%</div>
                 <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
@@ -800,7 +840,7 @@
               <!-- INDICATEURS COMPLÉMENTAIRES -->
               <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 lg:col-span-1">
                 <h4 class="text-xs font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
-                  <span>📊 Indicateurs d'Efficience</span>
+                  <span>⚡ Indicateurs d'Efficience</span>
                   <span class="text-[10px] text-slate-400 uppercase tracking-wider">70 Missions</span>
                 </h4>
 
@@ -843,7 +883,7 @@
                 </div>
               </div>
 
-              <!-- ENCADRÉ REMARQUE / DIAGNOSTIC (RALLONGÉ & AVERTISSEMENT IA) -->
+              <!-- ENCADRÉ REMARQUE / DIAGNOSTIC -->
               <div class="bg-slate-950 p-5 rounded-2xl border border-amber-500/40 space-y-4 lg:col-span-2 flex flex-col justify-between">
                 <div class="space-y-3">
                   <h4 class="text-xs sm:text-sm font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
@@ -854,31 +894,30 @@
                   </h4>
                   
                   <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-[11px]">
-                    
                     <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-1">
                       <p class="font-bold text-amber-300 flex items-center gap-1.5">
-                        <span>🤖</span> Vigilance sur l'Utilisation de l'Intelligence Artificielle (21%) :
+                        <span>💡</span> Vigilance sur l'Utilisation de l'Intelligence Artificielle (21%) :
                       </p>
                       <p class="text-slate-300">
-                        Il est impératif de faire preuve d'une grande prudence lorsque vous vous appuyez sur les outils d'IA. Bien qu'efficaces pour structurer des données ou accélérer la saisie, les modèles d'IA restent sujets à des erreurs d'interprétation, des hallucinations statistiques ou de fausses formules sur les ratios complexes (notamment sur le BFR et la CAF). <strong class="text-white">Ne validez jamais une réponse générée par l'IA sans effectuer un contrôle humain rigoureux.</strong>
+                        Il est impératif de faire preuve d'une grande prudence lorsque vous vous appuyez sur les outils d'IA. Bien qu'efficaces pour structurer des données ou accélérer la saisie, les modèles d'IA restent sujets à des erreurs d'interprétation ou de fausses formules. <strong class="text-white">Ne validez jamais une réponse générée par l'IA sans effectuer un contrôle humain rigoureux.</strong>
                       </p>
                     </div>
 
                     <p>
-                      <strong class="text-emerald-400">Analyse de la précision (66% de réussite) :</strong> Votre taux actuel de réponses correctes au premier essai (66%) montre une bonne compréhension globale des principes d'audit. Cependant, une proportion non négligeable des erreurs relevées provient de la confiance aveugle accordée aux suggestions automatisées ou de fautes d'inattention lors du report des montants.
+                      <strong class="text-emerald-400">Analyse de la précision (66% de réussite) :</strong> Votre taux actuel de réponses correctes au premier essai (66%) montre une bonne compréhension globale des principes d'audit.
                     </p>
 
                     <p>
-                      <strong class="text-white">Procédure obligatoire de vérification :</strong> Pour garantir le maintien de votre statut d'Auditeur Senior et maximiser vos primes de validation, nous vous recommandons de reconsidérer chaque calcul d'EBITDA, de ratio de solvabilité et de charges fiscales de manière autonome. L'IA doit servir uniquement d'assistant de second niveau et non de décideur principal.
+                      <strong class="text-white">Procédure obligatoire de vérification :</strong> Pour garantir le maintien de votre statut d'Auditeur Senior, reconsidérez chaque calcul d'EBITDA, de solvabilité et de charges de manière autonome.
                     </p>
                   </div>
                 </div>
 
                 <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1 mt-2">
                   <span class="font-bold text-emerald-400 block flex items-center gap-1">
-                    <span>💡</span> Rappel de Conformité du Réseau :
+                    <span>🛡️</span> Rappel de Conformité du Réseau :
                   </span>
-                  <p>Tout rapport contenant des incohérences majeures dues à une retranscription directe sans vérification d'IA fera l'objet d'un signalement et d'une révision obligatoire avant déblocage de la rémunération.</p>
+                  <p>Tout rapport contenant des incohérences majeures dues à une retranscription directe sans vérification d'IA fera l'objet d'un signalement.</p>
                 </div>
               </div>
 
@@ -969,8 +1008,14 @@
       const rib = document.getElementById('bankRib').value;
       const soldeDispo = getSoldeValide();
 
-      if (amount < 100) {
-        alert("Le montant minimum de retrait est de 100 $.");
+      const activeWithdrawals = withdrawals.filter(w => !w.statut.includes('Remboursé') && !w.statut.includes('Annulé'));
+      if (activeWithdrawals.length > 0) {
+        alert("Vous avez déjà un retrait en cours d'attente. Veuillez attendre de le recevoir sur votre compte avant d'effectuer un nouveau retrait.");
+        return;
+      }
+
+      if (amount > 100) {
+        alert("Votre premier retrait ne doit pas dépasser 100 $.");
         return;
       }
 
@@ -995,7 +1040,7 @@
       withdrawals.push(newWithdrawal);
       saveState();
       
-      alert(`Demande de retrait de ${amount} $ par virement bancaire enregistrée avec succès !`);
+      alert(`Demande de retrait de ${amount} $ enregistrée avec succès ! Veuillez patienter la réception de ce premier virement avant d'effectuer une nouvelle demande.`);
       
       closeModal('bankModal');
       document.getElementById('bankForm').reset();
@@ -1009,8 +1054,14 @@
       const email = document.getElementById('paypalEmail').value;
       const soldeDispo = getSoldeValide();
 
-      if (amount < 100) {
-        alert("Le montant minimum de retrait est de 100 $.");
+      const activeWithdrawals = withdrawals.filter(w => !w.statut.includes('Remboursé') && !w.statut.includes('Annulé'));
+      if (activeWithdrawals.length > 0) {
+        alert("Vous avez déjà un retrait en cours d'attente. Veuillez attendre de le recevoir sur votre compte avant d'effectuer un nouveau retrait.");
+        return;
+      }
+
+      if (amount > 100) {
+        alert("Votre premier retrait ne doit pas dépasser 100 $.");
         return;
       }
 
@@ -1031,7 +1082,7 @@
       withdrawals.push(newWithdrawal);
       saveState();
 
-      alert(`Demande de retrait PayPal de ${amount} $ envoyée à ${email} !`);
+      alert(`Demande de retrait PayPal de ${amount} $ enregistrée ! Veuillez attendre la réception de ce premier virement.`);
 
       closeModal('paypalModal');
       document.getElementById('paypalForm').reset();
@@ -1047,12 +1098,13 @@
       if (!tableBody) return;
 
       tableBody.innerHTML = '';
-      let totalRetire = 0;
+      let totalRetireEffectif = 0;
 
       withdrawals.forEach(w => {
-        totalRetire += w.montant;
-        const statusText = w.statut || 'En cours de traitement';
-        const isDone = statusText.includes('Approuvé') || statusText.includes('Effectué');
+        const isRefunded = w.statut.includes('Remboursé') || w.statut.includes('Annulé');
+        if (!isRefunded) {
+          totalRetireEffectif += w.montant;
+        }
 
         const row = document.createElement('tr');
         row.className = "hover:bg-slate-950/50 transition";
@@ -1060,19 +1112,21 @@
           <td class="py-3 px-3 font-mono text-slate-400">${w.date}</td>
           <td class="py-3 px-3 font-semibold text-white">${w.moyen}</td>
           <td class="py-3 px-3 text-slate-300 font-mono">${w.details}</td>
-          <td class="py-3 px-3 font-black text-amber-400">-${w.montant.toFixed(2)} $</td>
+          <td class="py-3 px-3 font-black ${isRefunded ? 'text-slate-500 line-through' : 'text-amber-400'}">-${w.montant.toFixed(2)} $</td>
           <td class="py-3 px-3 text-right">
             <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
-              isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+              isRefunded 
+                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
+                : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
             }">
-              ${isDone ? '✓ ' : '⌛ '}${statusText}
+              ${isRefunded ? '↩️ ' : '⏳ '}${w.statut}
             </span>
           </td>
         `;
         tableBody.appendChild(row);
       });
 
-      if (txTotalAmount) txTotalAmount.textContent = `${totalRetire.toFixed(2).replace('.', ',')} $`;
+      if (txTotalAmount) txTotalAmount.textContent = `${totalRetireEffectif.toFixed(2).replace('.', ',')} $`;
       if (txLastBank && savedBankDetails) txLastBank.textContent = savedBankDetails.bank;
     }
 
@@ -1080,6 +1134,7 @@
   </script>
 </body>
 </html>
+
 
 
 
