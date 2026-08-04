@@ -43,7 +43,7 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-16">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased">
 
   <!-- EN-TÊTE -->
   <header class="bg-slate-900/90 border-b border-slate-800 relative">
@@ -96,7 +96,7 @@
   </header>
 
   <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8 flex-1 w-full mb-12">
 
     <div id="dashboardView" class="space-y-8">
 
@@ -172,7 +172,7 @@
         </div>
       </div>
 
-      <!-- NOTIFICATION AJOUTÉE EN BAS DES TRANSACTIONS -->
+      <!-- NOTIFICATION EN BAS DES TRANSACTIONS -->
       <div class="bg-amber-500/10 border-2 border-amber-500/40 p-5 rounded-2xl shadow-lg flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl shrink-0 border border-amber-500/30">
           ⚠️
@@ -190,6 +190,98 @@
     </div>
 
   </main>
+
+  <!-- PIED DE PAGE (FOOTER) AVEC LIEN CGU -->
+  <footer class="mt-auto bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <div>
+        © 2026 MicroTask Accounting. Tous droits réservés.
+      </div>
+      <div class="flex items-center space-x-6">
+        <button onclick="openCguModal()" class="text-slate-400 hover:text-emerald-400 transition font-semibold underline underline-offset-4 decoration-slate-700 hover:decoration-emerald-400">
+          Conditions Générales d'Utilisation (CGU) & Politiques
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALE DES CONDITIONS GÉNÉRALES D'UTILISATION (CGU) -->
+  <div id="cguModal" onclick="handleBackdropClick(event, 'cguModal')" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden p-6 space-y-5 animate-modal-pop max-h-[85vh] flex flex-col">
+      
+      <!-- EN-TÊTE MODALE -->
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3 shrink-0">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <span>⚖️</span> Conditions Générales d'Utilisation & Charte
+        </h3>
+        <button onclick="closeModal('cguModal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">&times;</button>
+      </div>
+
+      <!-- CONTENU AVEC DÉFILEMENT -->
+      <div class="overflow-y-auto pr-2 space-y-5 text-xs text-slate-300 leading-relaxed">
+        
+        <!-- SECTION 1 : UTILISATION GÉNÉRALE -->
+        <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <h4 class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+            <span>🌐</span> 1. Utilisation Générale de l'Application
+          </h4>
+          <p>
+            L'application <strong>MicroTask Accounting</strong> met à disposition de ses auditeurs partenaires des données financières d'entreprises européennes aux fins d'analyse, d'évaluation comptable et de contrôle de gestion. En accédant à la plateforme, l'utilisateur s'engage à effectuer des saisies rigoureuses et conformes aux règles de la comptabilité générale. Tout usage frauduleux ou tentative d'automatisation malveillante entraînera la suspension immédiate du compte.
+          </p>
+        </div>
+
+        <!-- SECTION 2 : CONDITIONS DE RETRAIT -->
+        <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-amber-500/30">
+          <h4 class="text-sm font-bold text-amber-400 flex items-center gap-1.5">
+            <span>💳</span> 2. Reglementation & Conditions des Retraits
+          </h4>
+          <ul class="list-disc list-inside space-y-1.5 text-slate-300 pl-1">
+            <li>
+              <strong class="text-white">Plafond du Premier Retrait :</strong> Pour des raisons de vérification d'identité bancaire et de sécurité anti-fraude, le premier retrait est strictement <strong>limité à un montant maximum de 100 $</strong>.
+            </li>
+            <li>
+              <strong class="text-white">Règle de la Demande Unique :</strong> Il est formellement interdit d'effectuer plusieurs demandes de retrait simultanées. L'utilisateur doit <strong>impérativement attendre la réception effective de son premier virement</strong> sur son compte bancaire ou PayPal avant de pouvoir formuler une nouvelle demande.
+            </li>
+            <li>
+              <strong class="text-white">Délais de Traitement :</strong> Les virements bancaires nationaux (Maroc) et transferts électroniques sont traités sous un délai standard de validation administrative après vérification de l'exactitude du RIB ou de l'email fourni.
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3 : SECRET DES INFORMATIONS ET CONFIDENTIALITÉ -->
+        <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <h4 class="text-sm font-bold text-teal-400 flex items-center gap-1.5">
+            <span>🔒</span> 3. Secret des Informations & Confidentialité (NDA)
+          </h4>
+          <p>
+            Toutes les données chiffrées, bilans, comptes de résultat et rapports d'audit soumis ou affichés dans l'application sont soumis au <strong>secret professionnel absolu</strong>.
+          </p>
+          <p class="pt-1">
+            L'auditeur s'engage solennellement à ne pas divulguer, copier, exporter ou publier les informations financières des sociétés auditées à des tiers. La transmission de documents ou de données confidentielles est strictement prohibée sous peine de poursuites conformément à la législation en vigueur.
+          </p>
+        </div>
+
+        <!-- SECTION 4 : RESPONSABILITÉ ET USAGE DE L'IA -->
+        <div class="space-y-2 bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <h4 class="text-sm font-bold text-slate-200 flex items-center gap-1.5">
+            <span>🤖</span> 4. Responsabilité & Assistance par IA
+          </h4>
+          <p>
+            L'utilisation d'outils d'assistance par Intelligence Artificielle est tolérée pour vous aider dans la structuration des calculs. Cependant, <strong>l'utilisateur demeure l'unique responsable final de l'exactitude des chiffres transmis</strong>. Les anomalies ou erreurs de calcul répétées imputables à une confiance aveugle envers un assistant virtuel pourront affecter le score de fiabilité du profil.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- PIED MODALE -->
+      <div class="pt-3 border-t border-slate-800 flex justify-end shrink-0">
+        <button onclick="closeModal('cguModal')" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl transition text-xs shadow-md">
+          J'ai lu et j'accepte les conditions
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- MODALES DE RETRAIT -->
   <div id="withdrawChoiceModal" onclick="handleBackdropClick(event, 'withdrawChoiceModal')" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -392,7 +484,6 @@
       }
     };
 
-    // Historique des retraits reinitialises et rembourses
     const defaultWithdrawals = [
       {
         id: 1785234000000,
@@ -409,12 +500,10 @@
       rib: "230780000000000000008206"
     };
 
-    // Recuperation des donnees
     let megaMission = JSON.parse(localStorage.getItem('microtask_megaMission_v3')) || megaMissionData;
     let withdrawals = JSON.parse(localStorage.getItem('microtask_withdrawals_v3')) || defaultWithdrawals;
     let savedBankDetails = JSON.parse(localStorage.getItem('microtask_savedBankDetails_v3')) || defaultSavedBankDetails;
 
-    // Mise a jour forcée des anciens retraits vers statut Remboursé si présents
     withdrawals = withdrawals.map(w => {
       if (!w.statut || w.statut.includes('Approuvé') || w.statut.includes('traitement')) {
         return { ...w, statut: 'Annulé & Remboursé' };
@@ -439,6 +528,7 @@
           closeModal('withdrawChoiceModal');
           closeModal('bankModal');
           closeModal('paypalModal');
+          closeModal('cguModal');
         }
       });
     }
@@ -459,6 +549,11 @@
       if (event.target.id === modalId) {
         closeModal(modalId);
       }
+    }
+
+    function openCguModal() {
+      document.getElementById('cguModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
     }
 
     function switchTab(tab) {
@@ -546,7 +641,6 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
               
-              <!-- BLOC PRODUITS -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
                   <span>A. Produits & Ventes</span>
@@ -560,7 +654,6 @@
                 </ul>
               </div>
 
-              <!-- BLOC ACHATS & CHARGES -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
                   <span>B. Achats & Consommations</span>
@@ -573,7 +666,6 @@
                 </ul>
               </div>
 
-              <!-- BLOC CHARGES PERSONNEL -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
                   <span>C. Personnel & RH</span>
@@ -585,7 +677,6 @@
                 </ul>
               </div>
 
-              <!-- BLOC CHARGES EXTERNES -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
                   <span>D. Services Extérieurs</span>
@@ -600,10 +691,9 @@
                 </ul>
               </div>
 
-              <!-- BLOC AMORTISSEMENTS ET FINANCIER -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
-                  <span>E. Amortissements & Financier</span>
+                  <span>E. Amortissements ET Financier</span>
                   <span>(5 Postes)</span>
                 </div>
                 <ul class="space-y-1.5 text-slate-300">
@@ -615,7 +705,6 @@
                 </ul>
               </div>
 
-              <!-- BLOC STRUCTURE DU BILAN -->
               <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
                 <div class="font-extrabold text-white border-b border-slate-800 pb-2 text-xs text-emerald-400 flex justify-between">
                   <span>F. Structure du Bilan</span>
@@ -834,10 +923,8 @@
 
             </div>
 
-            <!-- AUTRES INDICATEURS ET REMARQUE D'AUDIT DÉVELOPPÉE -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
               
-              <!-- INDICATEURS COMPLÉMENTAIRES -->
               <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 lg:col-span-1">
                 <h4 class="text-xs font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
                   <span>⚡ Indicateurs d'Efficience</span>
@@ -870,7 +957,6 @@
                   </div>
                 </div>
 
-                <!-- BARRE DE RÉPARTITION -->
                 <div class="space-y-1.5 pt-1">
                   <div class="flex justify-between text-[11px] text-slate-300 font-semibold">
                     <span>Répartition de l'Analyse</span>
@@ -883,7 +969,6 @@
                 </div>
               </div>
 
-              <!-- ENCADRÉ REMARQUE / DIAGNOSTIC -->
               <div class="bg-slate-950 p-5 rounded-2xl border border-amber-500/40 space-y-4 lg:col-span-2 flex flex-col justify-between">
                 <div class="space-y-3">
                   <h4 class="text-xs sm:text-sm font-bold text-white border-b border-slate-800 pb-2.5 flex items-center justify-between">
@@ -1134,18 +1219,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
