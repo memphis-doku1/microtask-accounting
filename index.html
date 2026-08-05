@@ -246,7 +246,7 @@
             <span>🔹</span> 2. Règlementation & Conditions des Retraits
           </h4>
           <ul class="list-disc list-inside space-y-1.5 text-slate-300 pl-1">
-            <li><strong class="text-white">Plafond du Premier Retrait :</strong> Le premier retrait est strictement <strong>limité à 100 $</strong>.</li>
+            <li><strong class="text-white">Plafond du Premier Retrait :</strong> Le premier retrait est strictly <strong>limité à 100 $</strong>.</li>
             <li><strong class="text-white">Règle de la Demande Unique :</strong> Attendre la réception effective du premier virement avant de formuler une nouvelle demande.</li>
           </ul>
         </div>
@@ -426,8 +426,8 @@
       userInputs: {
         totalChiffreAffaires: '', totalChargesAchat: '', margeBruteCommerciale: '', totalChargesPersonnel: '',
         totalAutresChargesExploitation: '', ebitda: '', margeEbitdaPct: '', resultatExploitation: '',
-        resultatFinancier: '', resultatCourantAvantImpots: '', resultatExceptionnel: '', impotSurLesSocietes: '',
-        resultatNetGlobal: '', capitauxPropresTotaux: '', actifImmobiliseNet: '', actifCirculantTotal: '',
+        margeOperationnellePct: '', resultatFinancier: '', resultatCourantAvantImpots: '', resultatExceptionnel: '', impotSurLesSocietes: '',
+        resultatNetGlobal: '', margeNettePct: '', capitauxPropresTotaux: '', actifImmobiliseNet: '', actifCirculantTotal: '',
         bfr: '', capacideAutofinancement: '', detteNetteTotale: '', ratioEndettementPropre: '',
         ratioSolvabilite: '', rapportAuditStrategique: ''
       }
@@ -522,7 +522,7 @@
       }
     };
 
-    // MISSION 4 : NOUVELLE GRANDE MISSION PHARMA (32 TÂCHES DE CALCUL)
+    // MISSION 4
     const megaMissionData4 = {
       id: "MEGA_MISSION_04",
       societe: "Global Pharma & Biotech Research Corp SE (Suisse / Allemagne / Royaume-Uni)",
@@ -579,7 +579,7 @@
       }
     };
 
-    // MISSION 5 : NOUVELLE GRANDE MISSION TELECOM (33 TÂCHES DE CALCUL)
+    // MISSION 5
     const megaMissionData5 = {
       id: "MEGA_MISSION_05",
       societe: "Nordic Telecom & Digital Infrastructure SE (Suède / Finlande / Norvège)",
@@ -1036,11 +1036,11 @@
                   <li class="flex justify-between"><span>Actif Immo Brut :</span> <span class="text-slate-200">${d.actifImmobiliseBrut.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Amortissements Cumulés :</span> <span class="text-slate-200">${d.amortissementsCumules.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Stocks / Matériel :</span> <span class="text-slate-200">${(d.stocksMaterielEtEquipementsTelecom || d.stocksMatieresEtProduitsFinisPharma || d.stocksMatérielEtComposantsVerts || d.stocksMarchandisesEtLuxe || d.stocksMarchandises).toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Créances Clients Brutes :</span> <span class="text-slate-200">${d.creancesClientsBrutes.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Créances Clients Brutes :</span> <span class="text-slate-200">${(d.creancesAbonnésEtEntreprisesBrutes || d.creancesClientsEtHopitauxBrutes || d.creancesClientsEtEtatsBrutes || d.creancesClientsBrutes).toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Trésorerie Actif :</span> <span class="text-slate-200">${(d.disponibilitesBanquesInternationales || d.disponibilitesBanqueCaisse).toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Capitaux Propres H.R. :</span> <span class="text-slate-200">${d.capitauxPropresHorsResultat.toLocaleString()} $</span></li>
                   <li class="flex justify-between"><span>Dettes Long/Moyen Terme :</span> <span class="text-slate-200">${(d.empruntsObligatairesReseauLMT || d.empruntsBancairesLMTRecherche || d.empruntsObligationVertesLMT || d.empruntsDettesBancairesLMT).toLocaleString()} $</span></li>
-                  <li class="flex justify-between"><span>Dettes Fournisseurs :</span> <span class="text-slate-200">${d.dettesFournisseurs.toLocaleString()} $</span></li>
+                  <li class="flex justify-between"><span>Dettes Fournisseurs :</span> <span class="text-slate-200">${(d.dettesFournisseursEquipementiers || d.dettesFournisseursEtLaboratoires || d.dettesFournisseursEtPartenaires || d.dettesFournisseurs).toLocaleString()} $</span></li>
                 </ul>
               </div>
 
@@ -1049,9 +1049,16 @@
 
           <!-- SECTION 2 : FORMULAIRE DE CALCULS ET SYNTHÈSE -->
           <div class="space-y-4 border-t border-slate-800 pt-6">
-            <h3 class="text-sm sm:text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <span>🧮</span> 2. Tâches de Calcul & Ratios Synthétiques (${taskCountText} à Saisir)
-            </h3>
+            <div class="flex justify-between items-center flex-wrap gap-2">
+              <h3 class="text-sm sm:text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <span>🧮</span> 2. Tâches de Calcul & Ratios Synthétiques (${taskCountText} à Saisir)
+              </h3>
+              ${!isLocked ? `
+                <button onclick="autoFillCalculations()" class="text-xs bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5">
+                  ⚡ Calculer automatiquement l'audit
+                </button>
+              ` : ''}
+            </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
               
@@ -1067,7 +1074,7 @@
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">3. Marge Brute Commerciale ($)</label>
-                <input type="number" step="0.01" id="m_margeBrute" value="${u.margeBruteCommerciale || ''}" ${isLocked ? 'disabled' : ''} placeholder="CA - Total Achats" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_margeBruteCommerciale" value="${u.margeBruteCommerciale || ''}" ${isLocked ? 'disabled' : ''} placeholder="CA - Total Achats" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
@@ -1132,171 +1139,61 @@
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">16. Capitaux Propres Totaux ($)</label>
-                <input type="number" step="0.01" id="m_capitauxPropresTotaux" value="${u.capitauxPropresTotaux || ''}" ${isLocked ? 'disabled' : ''} placeholder="Capitaux H.R. + Resultat Net" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_capitauxPropresTotaux" value="${u.capitauxPropresTotaux || ''}" ${isLocked ? 'disabled' : ''} placeholder="CP Hors Résultat + Résultat Net" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">17. Actif Immobilisé Net ($)</label>
-                <input type="number" step="0.01" id="m_actifImmobiliseNet" value="${u.actifImmobiliseNet || ''}" ${isLocked ? 'disabled' : ''} placeholder="Immo Brut - Amortissements" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_actifImmobiliseNet" value="${u.actifImmobiliseNet || ''}" ${isLocked ? 'disabled' : ''} placeholder="Immo Brut - Amort. Cumulés" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">18. Actif Circulant Total ($)</label>
-                <input type="number" step="0.01" id="m_actifCirculantTotal" value="${u.actifCirculantTotal || ''}" ${isLocked ? 'disabled' : ''} placeholder="Stocks + Créances Nettes + Trésor." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_actifCirculantTotal" value="${u.actifCirculantTotal || ''}" ${isLocked ? 'disabled' : ''} placeholder="Stocks + Créances Nettes + Tréso" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">19. BFR (Besoin en Fonds de Roulement) ($)</label>
-                <input type="number" step="0.01" id="m_bfr" value="${u.bfr || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Stocks + Créances Nettes) - Dettes Fourn." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">19. Besoin en Fonds de Roulement (BFR) ($)</label>
+                <input type="number" step="0.01" id="m_bfr" value="${u.bfr || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Stocks + Créances) - Dettes C.T." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">20. Capacité d'Autofinancement (CAF) ($)</label>
-                <input type="number" step="0.01" id="m_capacideAutofinancement" value="${u.capacideAutofinancement || ''}" ${isLocked ? 'disabled' : ''} placeholder="Résultat Net + Dotations" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_capaciteAutofinancement" value="${u.capaciteAutofinancement || u.capacideAutofinancement || ''}" ${isLocked ? 'disabled' : ''} placeholder="Résultat Net + Amort. & Prov." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">21. Dette Nette Totale ($)</label>
-                <input type="number" step="0.01" id="m_detteNetteTotale" value="${u.detteNetteTotale || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Emprunts + Découverts) - Trésorerie" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_detteNetteTotale" value="${u.detteNetteTotale || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Dettes LMT + Court Terme) - Tréso" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">22. Ratio d'Endettement (Dette Nette / K.Propres)</label>
-                <input type="number" step="0.01" id="m_ratioEndettementPropre" value="${u.ratioEndettementPropre || ''}" ${isLocked ? 'disabled' : ''} placeholder="Dette Nette / K. Propres" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <label class="text-[11px] text-slate-300 font-semibold block mb-1">22. Ratio d'Endettement / CP (%)</label>
+                <input type="number" step="0.01" id="m_ratioEndettementPropre" value="${u.ratioEndettementPropre || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Dette Nette / CP Totaux) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
 
               <div>
                 <label class="text-[11px] text-slate-300 font-semibold block mb-1">23. Ratio de Solvabilité Générale</label>
-                <input type="number" step="0.01" id="m_ratioSolvabilite" value="${u.ratioSolvabilite || ''}" ${isLocked ? 'disabled' : ''} placeholder="Actif Total / Total Dettes" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
+                <input type="number" step="0.01" id="m_ratioSolvabilite" value="${u.ratioSolvabilite || ''}" ${isLocked ? 'disabled' : ''} placeholder="Total Actif / Total Dettes" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
               </div>
-
-              <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">24. Couverture des Intérêts (EBITDA / Charges Int.)</label>
-                <input type="number" step="0.01" id="m_couvertureInterets" value="${u.couvertureInterets || ''}" ${isLocked ? 'disabled' : ''} placeholder="EBITDA / Charges Intérêts" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-              </div>
-
-              <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">25. Rentabilité des Capitaux Propres (ROE %)</label>
-                <input type="number" step="0.01" id="m_rentabiliteCapitauxPropresROE" value="${u.rentabiliteCapitauxPropresROE || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Résultat Net / K. Propres) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-              </div>
-
-              <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">26. Rentabilité Économique de l'Actif (ROA %)</label>
-                <input type="number" step="0.01" id="m_rentabiliteActifROA" value="${u.rentabiliteActifROA || ''}" ${isLocked ? 'disabled' : ''} placeholder="(Résultat Net / Total Actif) x 100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-              </div>
-
-              <div>
-                <label class="text-[11px] text-slate-300 font-semibold block mb-1">27. Productivité Apparente du Personnel ($/sal.)</label>
-                <input type="number" step="0.01" id="m_productiviteApparentPersonnel" value="${u.productiviteApparentPersonnel || ''}" ${isLocked ? 'disabled' : ''} placeholder="CA / Masse Salariale" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-              </div>
-
-              ${isMission4 || isMission5 ? `
-                <div>
-                  <label class="text-[11px] text-slate-300 font-semibold block mb-1">28. ${isMission5 ? 'Ratio d’Investissement CAPEX (%)' : 'Ratio R&D / Chiffre d’Affaires (%)'}</label>
-                  <input type="number" step="0.01" id="m_ratioExtra1" value="${u.ratioExtra1 || ''}" ${isLocked ? 'disabled' : ''} placeholder="Investissements / CA" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-                </div>
-
-                <div>
-                  <label class="text-[11px] text-slate-300 font-semibold block mb-1">29. ${isMission5 ? 'Ratio Marketing / CA (%)' : 'Ratio de Liquidité Immédiate'}</label>
-                  <input type="number" step="0.01" id="m_ratioExtra2" value="${u.ratioExtra2 || ''}" ${isLocked ? 'disabled' : ''} placeholder="Trésorerie / Passif Court Terme" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-                </div>
-
-                <div>
-                  <label class="text-[11px] text-slate-300 font-semibold block mb-1">30. ${isMission5 ? 'Autonomie Financière (K.Propres / Actif Total)' : 'Couverture des Dettes LMT par CAF'}</label>
-                  <input type="number" step="0.01" id="m_ratioExtra3" value="${u.ratioExtra3 || ''}" ${isLocked ? 'disabled' : ''} placeholder="Indicateur de structure" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-                </div>
-
-                <div>
-                  <label class="text-[11px] text-slate-300 font-semibold block mb-1">31. ${isMission5 ? 'Fonds de Roulement Net Global ($)' : 'Rotation des Stocks en Jours'}</label>
-                  <input type="number" step="0.01" id="m_ratioExtra4" value="${u.ratioExtra4 || ''}" ${isLocked ? 'disabled' : ''} placeholder="Calcul d'écoulement" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-                </div>
-
-                <div>
-                  <label class="text-[11px] text-slate-300 font-semibold block mb-1">32. ${isMission5 ? 'Ratio de Couverture du BFR' : 'Indice de Performance Global'}</label>
-                  <input type="number" step="0.01" id="m_ratioExtra5" value="${u.ratioExtra5 || ''}" ${isLocked ? 'disabled' : ''} placeholder="Stabilité financière" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-semibold focus:border-emerald-500 disabled:opacity-60">
-                </div>
-              ` : ''}
 
             </div>
 
-            <!-- RAPPORT D'AUDIT GLOBAL -->
             <div class="pt-2">
-              <label class="text-xs font-bold text-slate-200 block mb-1.5">${isMission5 ? '33' : isMission4 ? '33' : isMission3 ? '28' : isMission2 ? '25' : '22'}. Rapport & Diagnostic Synthétique d'Audit *</label>
-              <textarea id="m_rapportAuditStrategique" ${isLocked ? 'disabled' : ''} rows="5" placeholder="Détaillez ici votre analyse complète : niveau d'endettement, investissements technologiques, santé financière du bilan, couverture du BFR et recommandations stratégiques..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3.5 text-white text-xs disabled:opacity-60 focus:border-emerald-500">${u.rapportAuditStrategique || ''}</textarea>
-            </div>
-          </div>
-
-          <!-- BOUTONS D'ACTION -->
-          ${!isLocked ? `
-            <button onclick="saveAndLockMegaMission()" class="w-full py-4 text-sm font-black rounded-2xl bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition shadow-[0_0_25px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2 cursor-pointer">
-              <span>🚀</span> Valider & Soumettre la Grande Mission (+${currentMission.reward} $ en attente)
-            </button>
-          ` : `
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-amber-500/10 p-5 rounded-2xl border border-amber-500/30">
-              <span class="text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
-                <span>🔒</span> Grande Mission soumise et validée ! Rémunération de ${currentMission.reward},00 $ ajoutée au solde en attente.
-              </span>
-              <button onclick="unlockMegaMission()" class="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
-                ✏️ Modifier la Saisie
-              </button>
-            </div>
-          `}
-
-          <!-- SECTION STATISTIQUES ET PERFORMANCES -->
-          <div class="mt-8 pt-8 border-t-2 border-slate-800/80 space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-              <div>
-                <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                  <span>📈</span> Statistiques Personnelles & Performances de l'Auditeur
-                </h3>
-                <p class="text-xs text-slate-400">Synthèse consolidée de l'historique d'exécution de vos tâches et audits.</p>
-              </div>
-              <span class="px-3 py-1 rounded-xl text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                Profil : Senior / Certifié
-              </span>
+              <label class="text-[11px] text-slate-300 font-semibold block mb-1">24. Synthèse d'Audit Stratégique & Diagnostic Financier *</label>
+              <textarea id="m_rapportAuditStrategique" rows="3" ${isLocked ? 'disabled' : ''} placeholder="Rédigez votre synthèse sur la rentabilité, le BFR et la solvabilité financière de la société..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white focus:border-emerald-500 text-xs disabled:opacity-60">${u.rapportAuditStrategique || ''}</textarea>
             </div>
 
-            <!-- KPIS PRINCIPAUX -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-slate-400">Missions Effectuées</span>
-                  <span class="text-base">💼</span>
+            <div class="pt-4 flex justify-end">
+              ${!isLocked ? `
+                <button onclick="submitMegaMission()" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black rounded-xl transition shadow-lg shadow-emerald-500/20 active:scale-95 text-xs sm:text-sm">
+                  Soumettre le Rapport & Réclamer +${currentMission.reward},00 $
+                </button>
+              ` : `
+                <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 p-3 rounded-xl text-xs font-semibold">
+                  ✅ Mission soumise avec succès. Rémunération en attente de confirmation comptable.
                 </div>
-                <div class="text-2xl sm:text-3xl font-black text-white">72</div>
-                <div class="text-[10px] text-emerald-400 font-medium">100% complétées à ce jour</div>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-slate-400">Réponses Correctes</span>
-                  <span class="text-base">🎯</span>
-                </div>
-                <div class="text-2xl sm:text-3xl font-black text-emerald-400">68%</div>
-                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
-                  <div class="bg-emerald-400 h-1.5 rounded-full" style="width: 68%"></div>
-                </div>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-slate-400">Utilisation de l'IA</span>
-                  <span class="text-base">🤖</span>
-                </div>
-                <div class="text-2xl sm:text-3xl font-black text-teal-400">20%</div>
-                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
-                  <div class="bg-teal-400 h-1.5 rounded-full" style="width: 20%"></div>
-                </div>
-              </div>
-
-              <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs font-semibold text-slate-400">Score de Fiabilité</span>
-                  <span class="text-base">⭐</span>
-                </div>
-                <div class="text-2xl sm:text-3xl font-black text-amber-400">A+</div>
-                <div class="text-[10px] text-slate-400 font-medium">Excellente cohérence globale</div>
-              </div>
+              `}
             </div>
           </div>
 
@@ -1304,64 +1201,153 @@
       `;
     }
 
-    function saveAndLockMegaMission() {
-      const ca = document.getElementById('m_totalChiffreAffaires').value;
-      const net = document.getElementById('m_resultatNetGlobal').value;
-      const rapport = document.getElementById('m_rapportAuditStrategique').value;
+    function autoFillCalculations() {
+      const currentMission = getCurrentMission();
+      const d = currentMission.donnees;
+      const isM1 = activeMissionId === 'MEGA_MISSION_01';
+      const isM2 = activeMissionId === 'MEGA_MISSION_02';
+      const isM3 = activeMissionId === 'MEGA_MISSION_03';
+      const isM4 = activeMissionId === 'MEGA_MISSION_04';
+      const isM5 = activeMissionId === 'MEGA_MISSION_05';
 
-      if (!ca || !net || !rapport) {
-        alert("Veuillez remplir au moins le Chiffre d'Affaires, le Résultat Net Global et le Rapport Diagnostic d'Audit.");
+      let ca = 0, ach = 0, pers = 0, serv = 0, amort = 0, prov = 0, prodFin = 0, chargFin = 0, prodExc = 0, chargExc = 0;
+
+      if (isM1) {
+        ca = d.venteProduitsFinis + d.prestationsSaaSCloud + d.licencesBrevets + d.subventionsExploitation;
+        ach = d.achatsMatieresPremières + d.variationStocksMatieres + d.achatsAutresApprovisionnements;
+        pers = d.salairesEtTraitements + d.chargesSocialesPatronales;
+        serv = d.loyersEtChargesLocatives + d.fraisMarketingEtPub + d.honorairesConseilsJuridiques + d.servicesBanqueEtAssurances + d.fraisDeplacementsEtMissions;
+        amort = d.dotationsAmortissementsImmo;
+        prov = d.dotationsProvisionsCreances;
+        prodFin = d.produitsFinanciers;
+        chargFin = d.chargesInteretsEmprunts;
+        prodExc = d.produitsExceptionnels;
+        chargExc = d.chargesExceptionnelles;
+      } else if (isM2) {
+        ca = d.venteProduitsMaroquinerie + d.ventesVinsEtSpiritueux + d.servicesHorlogerieBijouterie + d.royaltiesMarquesEtRedevances;
+        ach = d.achatsMatieresNoblesEtOr + d.variationStocksMatieresNobles + d.achatsPackagingEtEcrins;
+        pers = d.salairesEtCommissionsVendeurs + d.chargesSocialesEtSecurite + d.bonusEtGratificationsCadres;
+        serv = d.bauxBoutiquesChampsElysees + d.campagnesPubCampagnesDefiles + d.honorairesDesignersEtConsultants + d.securiteBoutiquesEtLogistique + d.fraisAssurancesTransportLuxe;
+        amort = d.dotationsAmortissementsBoutiques;
+        prov = d.provisionsDepreciationStocks;
+        prodFin = d.produitsPlacementsTreso;
+        chargFin = d.chargesObligationsEtEmprunts;
+        prodExc = d.cessionActifsEtImmeubles;
+        chargExc = d.litigesEtFraisRestructuration;
+      } else if (isM3) {
+        ca = d.venteElectriciteRenouvelableGrid + d.subventionsEtCertificatsVerts + d.contratsMaintenanceParcsEoliens + d.cessionBrevetsHydrogene;
+        ach = d.achatsEquipementsTurbinesEtCables + d.variationStocksMaterielTechnologique + d.achatsSousTraitanceMontageOffshore;
+        pers = d.salairesIngenieursEtExpertsGrid + d.chargesSocialesEtAssurancesRisques + d.participationSalarieAuxResultatsVerts;
+        serv = d.loyersBasesEtNaviresLogistiques + d.fraisRAndDTransitionCarbone + d.honorairesExpertsEnvironnementaux + d.maintenanceSecuriteParcsMaritimes + d.assurancesRisquesMajeursOffshore;
+        amort = d.dotationsAmortissementsParcsEoliens;
+        prov = d.provisionsRisquesEnvironnementaux;
+        prodFin = d.produitsFinanciersObligationsVertes;
+        chargFin = d.chargesInteretsDettesDurables;
+        prodExc = d.produitsExceptionnelsSubventionsInvest;
+        chargExc = d.chargesExceptionnellesDemantelement;
+      } else if (isM4) {
+        ca = d.venteMedicamentsInnovants + d.royaltiesLicencesOncologie + d.contratsEssaisCliniquesPhases + d.subventionsRechercheSanitaireUE;
+        ach = d.achatsMatieresChimiquesActives + d.variationStocksMatieresPharma + d.achatsConsommablesLaboratoireSterile;
+        pers = d.salairesChercheursEtMedecins + d.chargesSocialesEtAssurancesSante + d.bonusScientifiquesEtBrevets;
+        serv = d.loyersLaboratoiresEtSallesBlanches + d.fraisRechercheEtDeveloppementRAndD + d.honorairesExpertsReglementairesEMA + d.sousTraitanceEssaisCliniquesHopitaux + d.fraisAssurancesResponsabiliteCivilePro;
+        amort = d.dotationsAmortissementsBrevetsEtLabs;
+        prov = d.provisionsRisquesLitigesBrevets;
+        prodFin = d.produitsFinanciersPlacementsSouverains;
+        chargFin = d.chargesInteretsEmpruntsLabs;
+        prodExc = d.produitsExceptionnelsCessionsBrevets;
+        chargExc = d.chargesExceptionnellesRestructurationBio;
+      } else if (isM5) {
+        ca = d.abonnementsMobileEtFibreFixe + d.servicesEntreprisesCloudEtCyber + d.locationsInfrastructuresAntennes + d.subventionsNumerisationEuropeennes;
+        ach = d.achatsEquipementsRouteursEtFibre + d.variationStocksMaterielReseau + d.achatsEnergieDataCentersEtAntennes;
+        pers = d.salairesTechniciensEtIngenieursReseau + d.chargesSocialesEtRetraitesNordiques + d.primesPerformanceReseau;
+        serv = d.loyersBauxEmplacementsAntennes + d.fraisMaintenanceEtInterventionsField + d.campagnesMarketingEtFidelisation + d.honorairesLicencesSpectreFrequences + d.assurancesReseauxCritiquesEtCyber;
+        amort = d.dotationsAmortissementsReseauFibre5G;
+        prov = d.provisionsClientsIrrecouvrablesTelecom;
+        prodFin = d.produitsFinanciersActifsTreso;
+        chargFin = d.chargesInteretsDettesObligation;
+        prodExc = d.produitsExceptionnelsCessionsAntennes;
+        chargExc = d.chargesExceptionnellesPiratageSecurite;
+      }
+
+      const margeBrute = ca - ach;
+      const ebitda = margeBrute - pers - serv;
+      const margeEbitda = (ebitda / ca) * 100;
+      const roc = ebitda - amort - prov;
+      const margeOp = (roc / ca) * 100;
+      const resFin = prodFin - chargFin;
+      const rai = roc + resFin;
+      const resExc = prodExc - chargExc;
+      const is = Math.max(0, (rai + resExc) * (d.tauxImpotsSociete / 100));
+      const resNet = rai + resExc - is;
+      const margeNette = (resNet / ca) * 100;
+
+      const cpTotaux = d.capitauxPropresHorsResultat + resNet;
+      const immoNet = d.actifImmobiliseBrut - d.amortissementsCumules;
+      const stocks = d.stocksMaterielEtEquipementsTelecom || d.stocksMatieresEtProduitsFinisPharma || d.stocksMatérielEtComposantsVerts || d.stocksMarchandisesEtLuxe || d.stocksMarchandises;
+      const creances = d.creancesAbonnésEtEntreprisesBrutes || d.creancesClientsEtHopitauxBrutes || d.creancesClientsEtEtatsBrutes || d.creancesClientsBrutes;
+      const provCreances = d.provisionsDepreciationCreancesTelecom || d.provisionsDepreciationCreancesSante || d.provisionsDepreciationCreancesVertes || d.provisionsClients || d.provisionsDepreciationClients;
+      const creancesNettes = creances - provCreances;
+      const treso = d.disponibilitesBanquesInternationales || d.disponibilitesBanqueCaisse;
+      const actifCirculant = stocks + creancesNettes + treso;
+
+      const dettesFourn = d.dettesFournisseursEquipementiers || d.dettesFournisseursEtLaboratoires || d.dettesFournisseursEtPartenaires || d.dettesFournisseurs;
+      const dettesFisc = d.dettesFiscalesEtSocialesEtat || d.dettesFiscalesEtSociales;
+      const bfr = (stocks + creancesNettes) - (dettesFourn + dettesFisc);
+      const caf = resNet + amort + prov;
+
+      const dettesLMT = d.empruntsObligatairesReseauLMT || d.empruntsBancairesLMTRecherche || d.empruntsObligationVertesLMT || d.empruntsDettesBancairesLMT;
+      const concours = d.decouvertsBancairesCourants || d.concoursBancairesCourants || 0;
+      const detteTotale = dettesLMT + concours;
+      const detteNette = detteTotale - treso;
+      const ratioEndettement = (detteNette / cpTotaux) * 100;
+      const totalActif = immoNet + actifCirculant;
+      const totalDettesG = detteTotale + dettesFourn + dettesFisc;
+      const ratioSolvabilite = totalActif / totalDettesG;
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = typeof val === 'number' ? val.toFixed(2) : val;
+      };
+
+      setVal('m_totalChiffreAffaires', ca);
+      setVal('m_totalChargesAchat', ach);
+      setVal('m_margeBruteCommerciale', margeBrute);
+      setVal('m_totalChargesPersonnel', pers);
+      setVal('m_totalAutresChargesExploitation', serv);
+      setVal('m_ebitda', ebitda);
+      setVal('m_margeEbitdaPct', margeEbitda);
+      setVal('m_resultatExploitation', roc);
+      setVal('m_margeOperationnellePct', margeOp);
+      setVal('m_resultatFinancier', resFin);
+      setVal('m_resultatCourantAvantImpots', rai);
+      setVal('m_resultatExceptionnel', resExc);
+      setVal('m_impotSurLesSocietes', is);
+      setVal('m_resultatNetGlobal', resNet);
+      setVal('m_margeNettePct', margeNette);
+      setVal('m_capitauxPropresTotaux', cpTotaux);
+      setVal('m_actifImmobiliseNet', immoNet);
+      setVal('m_actifCirculantTotal', actifCirculant);
+      setVal('m_bfr', bfr);
+      setVal('m_capaciteAutofinancement', caf);
+      setVal('m_detteNetteTotale', detteNette);
+      setVal('m_ratioEndettementPropre', ratioEndettement);
+      setVal('m_ratioSolvabilite', ratioSolvabilite);
+
+      const reportEl = document.getElementById('m_rapportAuditStrategique');
+      if (reportEl && !reportEl.value) {
+        reportEl.value = `L'entreprise présente une performance solide avec un CA de ${ca.toLocaleString()} $ et une marge EBITDA de ${margeEbitda.toFixed(2)}%. La structure financière est maîtrisée avec un ratio de solvabilité de ${ratioSolvabilite.toFixed(2)} et un BFR de ${bfr.toLocaleString()} $. La CAF de ${caf.toLocaleString()} $ assure la pérennité du groupe.`;
+      }
+    }
+
+    function submitMegaMission() {
+      const currentMission = getCurrentMission();
+      const reportEl = document.getElementById('m_rapportAuditStrategique');
+      if (reportEl && !reportEl.value.trim()) {
+        alert("Veuillez remplir au moins la synthèse d'audit stratégique.");
         return;
       }
 
-      const currentMission = getCurrentMission();
-
-      currentMission.userInputs = {
-        totalChiffreAffaires: ca,
-        totalChargesAchat: document.getElementById('m_totalChargesAchat').value,
-        margeBruteCommerciale: document.getElementById('m_margeBrute').value,
-        totalChargesPersonnel: document.getElementById('m_totalChargesPersonnel').value,
-        totalAutresChargesExploitation: document.getElementById('m_totalAutresChargesExploitation').value,
-        ebitda: document.getElementById('m_ebitda').value,
-        margeEbitdaPct: document.getElementById('m_margeEbitdaPct').value,
-        resultatExploitation: document.getElementById('m_resultatExploitation').value,
-        margeOperationnellePct: document.getElementById('m_margeOperationnellePct') ? document.getElementById('m_margeOperationnellePct').value : '',
-        resultatFinancier: document.getElementById('m_resultatFinancier').value,
-        resultatCourantAvantImpots: document.getElementById('m_resultatCourantAvantImpots').value,
-        resultatExceptionnel: document.getElementById('m_resultatExceptionnel').value,
-        impotSurLesSocietes: document.getElementById('m_impotSurLesSocietes').value,
-        resultatNetGlobal: net,
-        margeNettePct: document.getElementById('m_margeNettePct') ? document.getElementById('m_margeNettePct').value : '',
-        capitauxPropresTotaux: document.getElementById('m_capitauxPropresTotaux').value,
-        actifImmobiliseNet: document.getElementById('m_actifImmobiliseNet').value,
-        actifCirculantTotal: document.getElementById('m_actifCirculantTotal').value,
-        bfr: document.getElementById('m_bfr').value,
-        capacideAutofinancement: document.getElementById('m_capacideAutofinancement').value,
-        detteNetteTotale: document.getElementById('m_detteNetteTotale').value,
-        ratioEndettementPropre: document.getElementById('m_ratioEndettementPropre').value,
-        ratioSolvabilite: document.getElementById('m_ratioSolvabilite').value,
-        couvertureInterets: document.getElementById('m_couvertureInterets') ? document.getElementById('m_couvertureInterets').value : '',
-        rentabiliteCapitauxPropresROE: document.getElementById('m_rentabiliteCapitauxPropresROE') ? document.getElementById('m_rentabiliteCapitauxPropresROE').value : '',
-        rentabiliteActifROA: document.getElementById('m_rentabiliteActifROA') ? document.getElementById('m_rentabiliteActifROA').value : '',
-        productiviteApparentPersonnel: document.getElementById('m_productiviteApparentPersonnel') ? document.getElementById('m_productiviteApparentPersonnel').value : '',
-        ratioExtra1: document.getElementById('m_ratioExtra1') ? document.getElementById('m_ratioExtra1').value : '',
-        ratioExtra2: document.getElementById('m_ratioExtra2') ? document.getElementById('m_ratioExtra2').value : '',
-        ratioExtra3: document.getElementById('m_ratioExtra3') ? document.getElementById('m_ratioExtra3').value : '',
-        ratioExtra4: document.getElementById('m_ratioExtra4') ? document.getElementById('m_ratioExtra4').value : '',
-        ratioExtra5: document.getElementById('m_ratioExtra5') ? document.getElementById('m_ratioExtra5').value : '',
-        rapportAuditStrategique: rapport
-      };
-
       currentMission.locked = true;
-
-      saveState();
-      updateHeader();
-      renderMegaMission();
-    }
-
-    function unlockMegaMission() {
-      const currentMission = getCurrentMission();
-      currentMission.locked = false;
       saveState();
       updateHeader();
       renderMegaMission();
@@ -1374,14 +1360,15 @@
 
     function openBankWithdrawModal() {
       closeModal('withdrawChoiceModal');
-      if (savedBankDetails) {
-        document.getElementById('bankSelect').value = savedBankDetails.bank;
-        document.getElementById('bankSelect').disabled = true;
-        document.getElementById('bankRib').value = savedBankDetails.rib;
-        document.getElementById('bankRib').disabled = true;
-      }
       document.getElementById('bankModal').classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
+      
+      const bankSelect = document.getElementById('bankSelect');
+      const bankRib = document.getElementById('bankRib');
+      if (savedBankDetails) {
+        if (bankSelect) bankSelect.value = savedBankDetails.bank || '';
+        if (bankRib) bankRib.value = savedBankDetails.rib || '';
+      }
     }
 
     function openPaypalWithdrawModal() {
@@ -1392,137 +1379,111 @@
 
     function confirmBankWithdraw(e) {
       e.preventDefault();
-      const amount = parseFloat(document.getElementById('bankAmount').value);
       const bank = document.getElementById('bankSelect').value;
       const rib = document.getElementById('bankRib').value;
+      const amount = parseFloat(document.getElementById('bankAmount').value);
+
+      if (!bank || !rib || isNaN(amount) || amount <= 0) return;
+
       const soldeDispo = getSoldeValide();
-
-      const activeWithdrawals = withdrawals.filter(w => !w.statut.includes('Remboursé') && !w.statut.includes('Annulé'));
-      if (activeWithdrawals.length > 0) {
-        alert("Vous avez déjà un retrait en cours d'attente. Veuillez attendre de le recevoir sur votre compte avant d'effectuer un nouveau retrait.");
-        return;
-      }
-
-      if (amount > 100) {
-        alert("Votre premier retrait ne doit pas dépasser 100 $.");
-        return;
-      }
-
       if (amount > soldeDispo) {
-        alert(`Solde insuffisant ! Votre solde validé actuel est de ${soldeDispo.toFixed(2)} $.`);
+        alert(`Le montant demandé dépasse votre solde disponible (${soldeDispo.toFixed(2)} $).`);
         return;
       }
 
-      if (!savedBankDetails) {
-        savedBankDetails = { bank, rib };
-      }
+      savedBankDetails = { bank, rib };
 
-      const newWithdrawal = {
+      const newTx = {
         id: Date.now(),
-        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        date: new Date().toLocaleDateString('fr-FR') + ' à ' + new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}),
         montant: amount,
-        moyen: 'Compte Bancaire (Maroc)',
+        moyen: "Compte Bancaire (Maroc)",
         details: `${bank} - RIB: ****${rib.slice(-4)}`,
-        statut: 'En cours de traitement'
+        statut: "En cours de traitement"
       };
 
-      withdrawals.push(newWithdrawal);
+      withdrawals.unshift(newTx);
       saveState();
-      
-      alert(`Demande de retrait de ${amount} $ enregistrée avec succès !`);
-      
       closeModal('bankModal');
-      document.getElementById('bankForm').reset();
       updateHeader();
       renderWithdrawHistory();
+      switchTab('transactions');
     }
 
     function confirmPaypalWithdraw(e) {
       e.preventDefault();
-      const amount = parseFloat(document.getElementById('paypalAmount').value);
       const email = document.getElementById('paypalEmail').value;
+      const amount = parseFloat(document.getElementById('paypalAmount').value);
+
+      if (!email || isNaN(amount) || amount <= 0) return;
+
       const soldeDispo = getSoldeValide();
-
-      const activeWithdrawals = withdrawals.filter(w => !w.statut.includes('Remboursé') && !w.statut.includes('Annulé'));
-      if (activeWithdrawals.length > 0) {
-        alert("Vous avez déjà un retrait en cours d'attente. Veuillez attendre de le recevoir sur votre compte avant d'effectuer un nouveau retrait.");
-        return;
-      }
-
-      if (amount > 100) {
-        alert("Votre premier retrait ne doit pas dépasser 100 $.");
-        return;
-      }
-
       if (amount > soldeDispo) {
-        alert(`Solde insuffisant ! Votre solde validé actuel est de ${soldeDispo.toFixed(2)} $.`);
+        alert(`Le montant demandé dépasse votre solde disponible (${soldeDispo.toFixed(2)} $).`);
         return;
       }
 
-      const newWithdrawal = {
+      const newTx = {
         id: Date.now(),
-        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        date: new Date().toLocaleDateString('fr-FR') + ' à ' + new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}),
         montant: amount,
-        moyen: 'PayPal',
+        moyen: "PayPal",
         details: email,
-        statut: 'En cours de traitement'
+        statut: "En cours de traitement"
       };
 
-      withdrawals.push(newWithdrawal);
+      withdrawals.unshift(newTx);
       saveState();
-
-      alert(`Demande de retrait PayPal de ${amount} $ enregistrée !`);
-
       closeModal('paypalModal');
-      document.getElementById('paypalForm').reset();
       updateHeader();
       renderWithdrawHistory();
+      switchTab('transactions');
     }
 
     function renderWithdrawHistory() {
-      const tableBody = document.getElementById('fullTransactionTableBody');
-      const txTotalAmount = document.getElementById('txTotalAmount');
-      const txLastBank = document.getElementById('txLastBank');
+      const tbody = document.getElementById('fullTransactionTableBody');
+      if (!tbody) return;
 
-      if (!tableBody) return;
+      let totalRetire = 0;
+      let lastBank = savedBankDetails.bank || "Attijariwafa Bank";
 
-      tableBody.innerHTML = '';
-      let totalRetireEffectif = 0;
-
-      withdrawals.forEach(w => {
-        const isRefunded = w.statut.includes('Remboursé') || w.statut.includes('Annulé');
-        if (!isRefunded) {
-          totalRetireEffectif += w.montant;
+      tbody.innerHTML = withdrawals.map(w => {
+        if (!w.statut.includes('Remboursé') && !w.statut.includes('Annulé')) {
+          totalRetire += w.montant;
         }
 
-        const row = document.createElement('tr');
-        row.className = "hover:bg-slate-950/50 transition";
-        row.innerHTML = `
-          <td class="py-3 px-3 font-mono text-slate-400">${w.date}</td>
-          <td class="py-3 px-3 font-semibold text-white">${w.moyen}</td>
-          <td class="py-3 px-3 text-slate-300 font-mono">${w.details}</td>
-          <td class="py-3 px-3 font-black ${isRefunded ? 'text-slate-500 line-through' : 'text-amber-400'}">-${w.montant.toFixed(2)} $</td>
-          <td class="py-3 px-3 text-right">
-            <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
-              isRefunded 
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' 
-                : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
-            }">
-              ${isRefunded ? '✔️ ' : '⏳ '}${w.statut}
-            </span>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
+        let statusClass = "text-amber-400 bg-amber-500/10 border-amber-500/30";
+        if (w.statut.includes('Effectué') || w.statut.includes('Validé')) {
+          statusClass = "text-emerald-400 bg-emerald-500/10 border-emerald-500/30";
+        } else if (w.statut.includes('Annulé') || w.statut.includes('Remboursé')) {
+          statusClass = "text-slate-400 bg-slate-800 border-slate-700";
+        }
 
-      if (txTotalAmount) txTotalAmount.textContent = `${totalRetireEffectif.toFixed(2).replace('.', ',')} $`;
-      if (txLastBank && savedBankDetails) txLastBank.textContent = savedBankDetails.bank;
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-3 px-3 font-medium text-slate-300">${w.date}</td>
+            <td class="py-3 px-3 font-semibold text-white">${w.moyen}</td>
+            <td class="py-3 px-3 font-mono text-slate-400">${w.details}</td>
+            <td class="py-3 px-3 font-extrabold text-emerald-400">${w.montant.toFixed(2)} $</td>
+            <td class="py-3 px-3 text-right">
+              <span class="px-2.5 py-1 rounded-lg border text-[10px] font-bold inline-block ${statusClass}">
+                ${w.statut}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('txTotalAmount').textContent = `${totalRetire.toFixed(2).replace('.', ',')} $`;
+      document.getElementById('txLastBank').textContent = lastBank;
     }
 
-    window.onload = init;
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
+
 
 
 
