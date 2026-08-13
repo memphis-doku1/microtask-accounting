@@ -102,7 +102,7 @@
   </header>
 
   <!-- CONTENU PRINCIPAL -->
-  <main class="max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-8 flex-1 w-full relative z-10">
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-8 flex-1 w-full relative z-10 space-y-8">
 
     <div id="dashboardView" class="space-y-4 sm:space-y-6">
 
@@ -165,6 +165,129 @@
         </div>
       </div>
     </div>
+
+    <!-- FICHE D'ÉVALUATION DE PERFORMANCE AVEC GRAPHIQUES -->
+    <section class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📈</span>
+            <h2 class="text-lg sm:text-2xl font-black text-white">Fiche d'Évaluation de Performance</h2>
+          </div>
+          <p class="text-xs text-slate-400 font-semibold mt-0.5">Bilan global et métriques d'audit comptable</p>
+        </div>
+        <div class="flex items-center gap-2 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 self-start sm:self-auto">
+          <span class="text-xs font-bold text-slate-400">Niveau :</span>
+          <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">Senior</span>
+        </div>
+      </div>
+
+      <!-- INFOS COLLABORATEUR -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+        <div>
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Collaborateur</span>
+          <span class="text-sm font-black text-white">Aballagh Abderrahim</span>
+        </div>
+        <div>
+          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Périmètre d'intervention</span>
+          <span class="text-sm font-black text-emerald-400">Audit comptable des grandes sociétés (+100 tâches réalisées)</span>
+        </div>
+      </div>
+
+      <!-- DÉTAIL DES NOTES ET GRAPHIQUES -->
+      <div class="space-y-4">
+        <h3 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+          <span>📊</span> Détail des Notes & Remarques
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <!-- CARTE 1 : PRÉCISION -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-slate-200">1. Précision des Calculs</h4>
+                <span class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider block mt-0.5">Bon niveau technique</span>
+              </div>
+            </div>
+
+            <!-- Graphique Donut SVG -->
+            <div class="relative w-28 h-28 mx-auto flex items-center justify-center my-2">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="text-emerald-400" stroke-dasharray="88.4, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div class="absolute flex flex-col items-center justify-center">
+                <span class="text-base font-black text-white">88,4%</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+              <strong class="text-slate-100">Remarque :</strong> Bon alignement sur les normes attendues pour un niveau Senior. Cependant, il est recommandé d'accorder plus de temps au contrôle et au calcul des équations comptables complexes avant la validation finale, afin de réduire les écarts résiduels et d'approcher la perfection.
+            </p>
+          </div>
+
+          <!-- CARTE 2 : QUALITÉ -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-slate-200">2. Qualité des Remarques & Analyses</h4>
+                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Moyen / À développer</span>
+              </div>
+            </div>
+
+            <!-- Jauge SVG / Barre de score -->
+            <div class="space-y-2 my-auto py-4">
+              <div class="flex justify-between items-end">
+                <span class="text-xs text-slate-400 font-bold">Note globale</span>
+                <span class="text-xl font-black text-amber-300">6 / 10</span>
+              </div>
+              <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                <div class="bg-gradient-to-r from-amber-500 to-teal-400 h-full rounded-full" style="width: 60%"></div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+              <strong class="text-slate-100">Remarque :</strong> Les observations d'audit restent exploitables mais trop synthétiques. Elles gagnent à être enrichies par des analyses techniques personnelles et structurées, sans s'appuyer sur des formulations ou remarques de type IA dans la rédaction des conclusions.
+            </p>
+          </div>
+
+          <!-- CARTE 3 : CONFORMITÉ -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold text-slate-200">3. Conformité & Pratiques de Travail</h4>
+                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Points de vigilance identifiés</span>
+              </div>
+            </div>
+
+            <!-- Statut Visuel -->
+            <div class="flex items-center justify-center gap-3 my-auto py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
+              <span class="text-2xl">⚠️</span>
+              <div>
+                <span class="text-xs font-black text-amber-300 block">Respect des Procédures</span>
+                <span class="text-[11px] text-slate-300">Saisie directe exigée</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+              <strong class="text-slate-100">Remarque :</strong> Il est demandé d'éviter la multiplication des captures d'écran effectuées depuis la plateforme. Le traitement et la justification des opérations doivent être documentés directement via les champs d'audit prévus à cet effet pour des raisons de fluidité et de sécurité des données.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SYNTHÈSE GLOBALE -->
+      <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
+        <h3 class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+          <span>📌</span> Synthèse Globale
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+          <strong class="text-white">Bilan :</strong> Profil Senior performant et régulier sur le traitement des volumes chiffrés. La priorité d'amélioration porte sur la rigueur temporelle accordée au calcul des équations comptables, l'autonomie rédactionnelle des commentaires d'audit, et le respect des procédures de saisie sur la plateforme.
+        </p>
+      </div>
+    </section>
 
   </main>
 
