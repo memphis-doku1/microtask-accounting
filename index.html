@@ -215,6 +215,7 @@
   <script>
     const FIXED_SOLDE_VALIDE = 790.44;
     let activeMissionIndex = 0;
+    const TARGET_DEADLINE = new Date('2026-08-14T12:00:00');
 
     let defaultWithdrawals = [
       { id: 1785900000000, date: "04/08/2026 à 14:20", beneficiaire: "Aballagh Abderrahim", montant: 100.00, moyen: "Compte Bancaire (Maroc)", details: "Attijariwafa Bank - RIB: ****8206", statut: "Payé & Validé" }
@@ -276,6 +277,7 @@
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
+      startCountdownTimer();
     }
 
     function getSoldeEnAttente() {
@@ -306,7 +308,9 @@
           : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
 
         let statusIcon = '';
-        if (m.locked) {
+        if (m.completed) {
+          statusIcon = ' ✅';
+        } else if (m.locked) {
           statusIcon = ' 🔒';
         } else if (m.answers && Object.keys(m.answers).some(k => m.answers[k] && m.answers[k].trim() !== '')) {
           statusIcon = ' 📝';
@@ -324,10 +328,41 @@
       renderMegaMission();
     }
 
+    function startCountdownTimer() {
+      setInterval(updateCountdownDisplay, 1000);
+      updateCountdownDisplay();
+    }
+
+    function updateCountdownDisplay() {
+      const timerElement = document.getElementById('missionCountdownDisplay');
+      if (!timerElement) return;
+
+      const now = new Date();
+      const diff = TARGET_DEADLINE - now;
+
+      if (diff <= 0) {
+        timerElement.textContent = "⏱️ Date limite dépassée !";
+        timerElement.className = "text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      let text = "⏱️ DÉLAI MAXIMUM : ";
+      if (days > 0) text += `${days}j `;
+      text += `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+
+      timerElement.textContent = text;
+    }
+
     function renderMegaMission() {
       const container = document.getElementById('megaMissionContainer');
       const m = missions[activeMissionIndex];
       const isLocked = m.locked === true;
+      const isCompleted = m.completed === true;
 
       // Compter les champs remplis
       let filledCount = 0;
@@ -352,7 +387,7 @@
         const isObservations = task.id === 't26';
         const savedValue = (m.answers && m.answers[task.id]) ? m.answers[task.id] : '';
         const disabledAttr = isLocked ? 'disabled' : '';
-        const inputBg = isLocked ? 'bg-slate-900/60 opacity-80 cursor-not-allowed' : 'bg-slate-950';
+        const inputBg = isLocked ? 'bg-slate-900/60 opacity-80 cursor-not-allowed select-none' : 'bg-slate-950';
 
         if (isObservations) {
           tasksHTML += `
@@ -377,34 +412,57 @@
 
       // Actions & statut du formulaire
       let actionButtonsHTML = '';
-      if (isLocked) {
+      if (isCompleted) {
         actionButtonsHTML = `
-          <div class="space-y-2">
-            <div class="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-center">
-              <p class="text-xs sm:text-sm font-black text-emerald-400">🔒 Rapport de Mission Verrouillé & Envoyé à la révision</p>
-              <p class="text-[11px] text-slate-300 mt-0.5">Le gain de +${m.reward},00 $ est en attente de validation.</p>
+          <div class="p-4 bg-emerald-500/10 border border-emerald-500/40 rounded-xl text-center space-y-1">
+            <p class="text-xs sm:text-sm font-black text-emerald-400">✅ Rapport Transmis & Verrouillé Définitivement</p>
+            <p class="text-xs text-slate-300">Cette mission a été envoyée avec succès pour révision (+${m.reward},00 $ ajoutés au solde en attente).</p>
+          </div>
+        `;
+      } else if (isLocked) {
+        actionButtonsHTML = `
+          <div class="space-y-2.5">
+            <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center">
+              <p class="text-xs sm:text-sm font-black text-amber-300">🔒 Rapport Verrouillé (Sauvegarde en cours)</p>
+              <p class="text-[11px] text-slate-300 mt-0.5">Les champs sont bloqués. Cliquez ci-dessous pour effectuer des modifications.</p>
             </div>
-            <button type="button" onclick="unlockMission(${activeMissionIndex})" class="w-full py-3 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-black text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <span>✏️</span> Autoriser la modification (Déverrouiller)
+            <button type="button" onclick="unlockMission(${activeMissionIndex})" class="w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-black text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
+              <span>✏️</span> Modifier le rapport (Déverrouiller)
             </button>
           </div>
         `;
       } else {
         actionButtonsHTML = `
           <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
-            <button type="button" onclick="saveDraftOnly()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-extrabold text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <span>💾</span> Sauvegarder l'avancement
+            <button type="button" onclick="saveAndLockDraft(${activeMissionIndex})" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-extrabold text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
+              <span>💾</span> Sauvegarder & Verrouiller
             </button>
             <button type="button" onclick="lockAndSubmitMission(${activeMissionIndex})" class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition active:scale-95 flex items-center justify-center gap-2">
-              <span>🔒</span> Verrouiller & Envoyer (+${m.reward},00 $)
+              <span>🚀</span> Valider & Envoyer pour révision (+${m.reward},00 $)
             </button>
           </div>
         `;
       }
 
       container.innerHTML = `
-        <div class="bg-slate-900/90 backdrop-blur-xl border ${m.locked ? 'border-emerald-500/50' : 'border-slate-800'} rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-5 shadow-xl">
+        <div class="bg-slate-900/90 backdrop-blur-xl border ${m.completed ? 'border-emerald-500/50' : isLocked ? 'border-amber-500/40' : 'border-slate-800'} rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-5 shadow-xl">
           
+          <!-- BANNIÈRE DE COMPTE À REBOURS DU DÉLAI -->
+          <div class="bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-2 shadow-md">
+            <div class="flex items-center space-x-2">
+              <span class="text-amber-400 text-lg animate-bounce">⏳</span>
+              <div>
+                <p class="text-[11px] text-slate-300 font-extrabold uppercase tracking-wider">Échéance de soumission</p>
+                <p class="text-xs font-bold text-white">Vendredi 14 Août 2026 à 12:00</p>
+              </div>
+            </div>
+            <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 text-center w-full sm:w-auto">
+              <span id="missionCountdownDisplay" class="text-xs sm:text-sm font-black font-mono text-amber-300 tracking-wider">
+                Calcul en cours...
+              </span>
+            </div>
+          </div>
+
           <div class="flex justify-between items-start gap-2 border-b border-slate-800 pb-3">
             <div>
               <span class="text-xs text-emerald-400 font-black bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 inline-block">${m.code}</span>
@@ -445,6 +503,8 @@
 
         </div>
       `;
+
+      updateCountdownDisplay();
     }
 
     function onTaskInput(taskId, value) {
@@ -455,16 +515,19 @@
       saveState();
     }
 
-    function saveDraftOnly() {
+    function saveAndLockDraft(missionIdx) {
+      const m = missions[missionIdx];
+      m.locked = true;
+      
       saveState();
       renderMissionButtons();
-      alert("✅ Avancement sauvegardé avec succès. Vous pourrez revenir le compléter ultérieurement.");
+      renderMegaMission();
+      alert("🔒 Avancement sauvegardé et verrouillé ! Pour modifier à nouveau les champs, cliquez sur le bouton 'Modifier le rapport'.");
     }
 
     function lockAndSubmitMission(missionIdx) {
       const m = missions[missionIdx];
       
-      // Vérifier si tous les 26 champs sont remplis
       let missingCount = 0;
       taskDefinitions.forEach(t => {
         if (!m.answers || !m.answers[t.id] || m.answers[t.id].trim() === '') {
@@ -473,7 +536,7 @@
       });
 
       if (missingCount > 0) {
-        alert(`⚠️ Attention : Il reste ${missingCount} champ(s) non rempli(s).\n\nVeuillez compléter la totalité des 26 formules et la synthèse d'audit avant de pouvoir verrouiller et envoyer la mission.`);
+        alert(`⚠️ Attention : Il reste ${missingCount} champ(s) non rempli(s).\n\nVeuillez compléter la totalité des 26 formules et la synthèse d'audit avant de pouvoir envoyer la mission.`);
         return;
       }
 
@@ -485,11 +548,13 @@
       renderMissionButtons();
       renderMegaMission();
 
-      alert(`🎉 Mission ${m.id} transmise avec succès !\nLe rapport a été verrouillé et +${m.reward},00 $ ont été ajoutés à votre solde en attente.`);
+      alert(`🎉 Mission ${m.id} transmise avec succès !\nLe rapport est verrouillé définitivement et +${m.reward},00 $ ont été ajoutés à votre solde en attente.`);
     }
 
     function unlockMission(missionIdx) {
       const m = missions[missionIdx];
+      if (m.completed) return;
+      
       m.locked = false;
       
       saveState();
@@ -564,7 +629,6 @@
       alert(`Demande de retrait de ${amt.toFixed(2)} $ transmise.`);
     }
 
-    // Exposer explicitement les fonctions au scope global (window)
     window.switchMission = switchMission;
     window.switchTab = switchTab;
     window.openWithdrawChoiceModal = openWithdrawChoiceModal;
@@ -572,7 +636,7 @@
     window.closeModal = closeModal;
     window.confirmBankWithdraw = confirmBankWithdraw;
     window.onTaskInput = onTaskInput;
-    window.saveDraftOnly = saveDraftOnly;
+    window.saveAndLockDraft = saveAndLockDraft;
     window.lockAndSubmitMission = lockAndSubmitMission;
     window.unlockMission = unlockMission;
 
