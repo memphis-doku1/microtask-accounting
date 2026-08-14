@@ -88,7 +88,7 @@
         <div class="flex items-center gap-3.5 text-right pr-1 overflow-x-auto no-scrollbar">
           <div>
             <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">790,44 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">833,41 $</span>
           </div>
           <div class="border-l border-slate-800 pl-3">
             <span class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
@@ -111,7 +111,7 @@
         <div class="bg-slate-900/90 backdrop-blur-xl p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-800 shadow-xl space-y-3">
           <div class="flex justify-between items-center">
             <h2 class="text-xs sm:text-base font-black text-white flex items-center gap-2">
-              <span class="text-emerald-400">📋</span> Missions d'Audit (M1 à M10)
+              <span class="text-emerald-400">📊</span> Missions d'Audit (M1 à M10)
             </h2>
             <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full">0/10 Envoyées</span>
           </div>
@@ -134,7 +134,7 @@
       <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex justify-between items-center">
         <div>
           <h2 class="text-sm sm:text-lg font-black text-white flex items-center gap-2">
-            <span class="text-emerald-400">💸</span> Transactions & Retraits
+            <span class="text-emerald-400">💳</span> Transactions & Retraits
           </h2>
           <p class="text-xs text-slate-300 mt-0.5 font-medium">Suivi de vos virements bancaires</p>
         </div>
@@ -171,7 +171,7 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xl">📈</span>
+            <span class="text-xl">📋</span>
             <h2 class="text-lg sm:text-2xl font-black text-white">Fiche d'Évaluation de Performance</h2>
           </div>
           <p class="text-xs text-slate-400 font-semibold mt-0.5">Bilan global et métriques d'audit comptable</p>
@@ -197,7 +197,7 @@
       <!-- DÉTAIL DES NOTES ET GRAPHIQUES -->
       <div class="space-y-4">
         <h3 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
-          <span>📊</span> Détail des Notes & Remarques
+          <span>📝</span> Détail des Notes & Remarques
         </h3>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -336,13 +336,11 @@
   </div>
 
   <script>
-    const FIXED_SOLDE_VALIDE = 790.44;
+    const FIXED_SOLDE_VALIDE = 833.41;
     let activeMissionIndex = 0;
-    const TARGET_DEADLINE = new Date('2026-08-14T12:00:00');
+    const TARGET_DEADLINE = new Date('2026-08-15T09:00:00');
 
-    let defaultWithdrawals = [
-      { id: 1785900000000, date: "04/08/2026 à 14:20", beneficiaire: "Aballagh Abderrahim", montant: 100.00, moyen: "Compte Bancaire (Maroc)", details: "Attijariwafa Bank - RIB: ****8206", statut: "Payé & Validé" }
-    ];
+    let defaultWithdrawals = [];
 
     let withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals')) || defaultWithdrawals;
 
@@ -376,17 +374,25 @@
     ];
 
     const defaultMissions = [
-      { id: "M1", company: "Toyota Motor Corp. (Japon)", code: "TYO: 7203", reward: 35, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "270 000 M$", "Coût des Ventes (COGS)": "210 000 M$", "Dépenses d'Exploitation": "32 000 M$", "Dotations Amortissements": "12 000 M$", "Charges Financières / Intérêts": "1 500 M$", "Impôts sur Sociétés": "6 500 M$", "Actifs Circulants": "140 000 M$", "Stocks": "25 000 M$", "Créances Clients": "42 000 M$", "Trésorerie & Équivalents": "35 000 M$", "Passifs Circulants": "95 000 M$", "Dettes Fournisseurs": "30 000 M$", "Dette Totale": "110 000 M$", "Capitaux Propres": "125 000 M$", "Total Actifs": "285 000 M$", "Flux de Trésorerie d'Exploitation": "38 000 M$", "CAPEX": "14 000 M$" } },
-      { id: "M2", company: "Samsung Electronics (Corée)", code: "KRX: 005930", reward: 45, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "210 000 M$", "Coût des Ventes (COGS)": "145 000 M$", "Dépenses d'Exploitation": "38 000 M$", "Dotations Amortissements": "18 000 M$", "Charges Financières / Intérêts": "800 M$", "Impôts sur Sociétés": "5 200 M$", "Actifs Circulants": "160 000 M$", "Stocks": "38 000 M$", "Créances Clients": "28 000 M$", "Trésorerie & Équivalents": "72 000 M$", "Passifs Circulants": "58 000 M$", "Dettes Fournisseurs": "18 000 M$", "Dette Totale": "18 000 M$", "Capitaux Propres": "230 000 M$", "Total Actifs": "310 000 M$", "Flux de Trésorerie d'Exploitation": "42 000 M$", "CAPEX": "27 000 M$" } },
-      { id: "M3", company: "TSMC Semiconductor (Taïwan)", code: "TWSE: 2330", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "75 000 M$", "Coût des Ventes (COGS)": "34 000 M$", "Dépenses d'Exploitation": "8 500 M$", "Dotations Amortissements": "14 000 M$", "Charges Financières / Intérêts": "350 M$", "Impôts sur Sociétés": "4 800 M$", "Actifs Circulants": "52 000 M$", "Stocks": "7 200 M$", "Créances Clients": "8 100 M$", "Trésorerie & Équivalents": "31 000 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "5 400 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "98 000 M$", "Total Actifs": "145 000 M$", "Flux de Trésorerie d'Exploitation": "39 000 M$", "CAPEX": "28 000 M$" } },
-      { id: "M4", company: "Alibaba Group (Chine)", code: "HKG: 9988", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "130 000 M$", "Coût des Ventes (COGS)": "81 000 M$", "Dépenses d'Exploitation": "31 000 M$", "Dotations Amortissements": "6 200 M$", "Charges Financières / Intérêts": "750 M$", "Impôts sur Sociétés": "2 900 M$", "Actifs Circulants": "92 000 M$", "Stocks": "4 100 M$", "Créances Clients": "12 500 M$", "Trésorerie & Équivalents": "64 000 M$", "Passifs Circulants": "48 000 M$", "Dettes Fournisseurs": "22 000 M$", "Dette Totale": "23 000 M$", "Capitaux Propres": "142 000 M$", "Total Actifs": "240 000 M$", "Flux de Trésorerie d'Exploitation": "26 000 M$", "CAPEX": "7 500 M$" } },
-      { id: "M5", company: "Sony Group Corp. (Japon)", code: "TYO: 6758", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "88 000 M$", "Coût des Ventes (COGS)": "58 000 M$", "Dépenses d'Exploitation": "19 500 M$", "Dotations Amortissements": "4 100 M$", "Charges Financières / Intérêts": "420 M$", "Impôts sur Sociétés": "1 800 M$", "Actifs Circulants": "48 000 M$", "Stocks": "8 900 M$", "Créances Clients": "11 200 M$", "Trésorerie & Équivalents": "14 500 M$", "Passifs Circulants": "39 000 M$", "Dettes Fournisseurs": "9 800 M$", "Dette Totale": "19 500 M$", "Capitaux Propres": "46 000 M$", "Total Actifs": "118 000 M$", "Flux de Trésorerie d'Exploitation": "11 500 M$", "CAPEX": "4 900 M$" } },
-      { id: "M6", company: "Tencent Holdings (Chine)", code: "HKG: 0700", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "84 000 M$", "Coût des Ventes (COGS)": "43 000 M$", "Dépenses d'Exploitation": "21 000 M$", "Dotations Amortissements": "5 800 M$", "Charges Financières / Intérêts": "1 100 M$", "Impôts sur Sociétés": "3 100 M$", "Actifs Circulants": "58 000 M$", "Stocks": "800 M$", "Créances Clients": "7 400 M$", "Trésorerie & Équivalents": "36 000 M$", "Passifs Circulants": "44 000 M$", "Dettes Fournisseurs": "14 500 M$", "Dette Totale": "41 000 M$", "Capitaux Propres": "115 000 M$", "Total Actifs": "225 000 M$", "Flux de Trésorerie d'Exploitation": "28 000 M$", "CAPEX": "3 800 M$" } },
-      { id: "M7", company: "Reliance Industries (Inde)", code: "NSE: RELIANCE", reward: 110, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "108 000 M$", "Coût des Ventes (COGS)": "74 000 M$", "Dépenses d'Exploitation": "18 000 M$", "Dotations Amortissements": "5 400 M$", "Charges Financières / Intérêts": "2 400 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "42 000 M$", "Stocks": "14 200 M$", "Créances Clients": "4 800 M$", "Trésorerie & Équivalents": "11 000 M$", "Passifs Circulants": "49 000 M$", "Dettes Fournisseurs": "19 000 M$", "Dette Totale": "42 000 M$", "Capitaux Propres": "92 000 M$", "Total Actifs": "195 000 M$", "Flux de Trésorerie d'Exploitation": "16 500 M$", "CAPEX": "12 000 M$" } },
-      { id: "M8", company: "Hyundai Motor (Corée)", code: "KRX: 005380", reward: 120, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "115 000 M$", "Coût des Ventes (COGS)": "91 000 M$", "Dépenses d'Exploitation": "13 500 M$", "Dotations Amortissements": "4 200 M$", "Charges Financières / Intérêts": "950 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "61 000 M$", "Stocks": "12 800 M$", "Créances Clients": "8 900 M$", "Trésorerie & Équivalents": "18 500 M$", "Passifs Circulants": "43 000 M$", "Dettes Fournisseurs": "11 500 M$", "Dette Totale": "68 000 M$", "Capitaux Propres": "62 000 M$", "Total Actifs": "180 000 M$", "Flux de Trésorerie d'Exploitation": "12 800 M$", "CAPEX": "5 100 M$" } },
-      { id: "M9", company: "Foxconn (Taïwan)", code: "TWSE: 2317", reward: 135, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "215 000 M$", "Coût des Ventes (COGS)": "201 000 M$", "Dépenses d'Exploitation": "8 200 M$", "Dotations Amortissements": "2 800 M$", "Charges Financières / Intérêts": "1 100 M$", "Impôts sur Sociétés": "950 M$", "Actifs Circulants": "112 000 M$", "Stocks": "24 000 M$", "Créances Clients": "39 000 M$", "Trésorerie & Équivalents": "34 000 M$", "Passifs Circulants": "88 000 M$", "Dettes Fournisseurs": "46 000 M$", "Dette Totale": "38 000 M$", "Capitaux Propres": "49 000 M$", "Total Actifs": "148 000 M$", "Flux de Trésorerie d'Exploitation": "9 200 M$", "CAPEX": "3 400 M$" } },
-      { id: "M10", company: "Nintendo Co., Ltd. (Japon)", code: "TYO: 7974", reward: 145, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "12 000 M$", "Coût des Ventes (COGS)": "5 400 M$", "Dépenses d'Exploitation": "2 800 M$", "Dotations Amortissements": "310 M$", "Charges Financières / Intérêts": "12 M$", "Impôts sur Sociétés": "980 M$", "Actifs Circulants": "18 500 M$", "Stocks": "1 200 M$", "Créances Clients": "1 800 M$", "Trésorerie & Équivalents": "13 500 M$", "Passifs Circulants": "3 200 M$", "Dettes Fournisseurs": "920 M$", "Dette Totale": "0 M$", "Capitaux Propres": "19 000 M$", "Total Actifs": "23 000 M$", "Flux de Trésorerie d'Exploitation": "3 900 M$", "CAPEX": "210 M$" } }
+      { id: "M1", company: "Honda Motor Co. (Japon)", code: "TYO: 7267", reward: 155, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "125 000 M$", "Coût des Ventes (COGS)": "98 000 M$", "Dépenses d'Exploitation": "18 500 M$", "Dotations Amortissements": "5 200 M$", "Charges Financières / Intérêts": "890 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "68 000 M$", "Stocks": "14 500 M$", "Créances Clients": "18 000 M$", "Trésorerie & Équivalents": "21 000 M$", "Passifs Circulants": "45 000 M$", "Dettes Fournisseurs": "12 800 M$", "Dette Totale": "52 000 M$", "Capitaux Propres": "74 000 M$", "Total Actifs": "162 000 M$", "Flux de Trésorerie d'Exploitation": "14 200 M$", "CAPEX": "6 100 M$" } },
+      { id: "M2", company: "Baidu Inc. (Chine)", code: "HKG: 9888", reward: 165, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "19 000 M$", "Coût des Ventes (COGS)": "9 800 M$", "Dépenses d'Exploitation": "6 200 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "310 M$", "Impôts sur Sociétés": "520 M$", "Actifs Circulants": "24 000 M$", "Stocks": "350 M$", "Créances Clients": "2 900 M$", "Trésorerie & Équivalents": "18 200 M$", "Passifs Circulants": "9 500 M$", "Dettes Fournisseurs": "1 800 M$", "Dette Totale": "11 200 M$", "Capitaux Propres": "32 000 M$", "Total Actifs": "56 000 M$", "Flux de Trésorerie d'Exploitation": "4 800 M$", "CAPEX": "1 900 M$" } },
+      { id: "M3", company: "LG Electronics (Corée)", code: "KRX: 066570", reward: 175, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "48 500 M$", "Dépenses d'Exploitation": "13 200 M$", "Dotations Amortissements": "2 900 M$", "Charges Financières / Intérêts": "480 M$", "Impôts sur Sociétés": "680 M$", "Actifs Circulants": "28 000 M$", "Stocks": "7 800 M$", "Créances Clients": "8 200 M$", "Trésorerie & Équivalents": "6 100 M$", "Passifs Circulants": "22 500 M$", "Dettes Fournisseurs": "6 900 M$", "Dette Totale": "16 400 M$", "Capitaux Propres": "18 200 M$", "Total Actifs": "47 000 M$", "Flux de Trésorerie d'Exploitation": "5 100 M$", "CAPEX": "2 400 M$" } },
+      { id: "M4", company: "Tata Motors (Inde)", code: "NSE: TATAMOTORS", reward: 185, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "44 000 M$", "Coût des Ventes (COGS)": "31 200 M$", "Dépenses d'Exploitation": "8 900 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "1 200 M$", "Impôts sur Sociétés": "650 M$", "Actifs Circulants": "19 500 M$", "Stocks": "5 400 M$", "Créances Clients": "3 800 M$", "Trésorerie & Équivalents": "5 900 M$", "Passifs Circulants": "18 000 M$", "Dettes Fournisseurs": "6 200 M$", "Dette Totale": "17 500 M$", "Capitaux Propres": "11 800 M$", "Total Actifs": "42 000 M$", "Flux de Trésorerie d'Exploitation": "4 200 M$", "CAPEX": "2 800 M$" } },
+      { id: "M5", company: "Panasonic Holdings (Japon)", code: "TYO: 6752", reward: 195, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "62 000 M$", "Coût des Ventes (COGS)": "44 000 M$", "Dépenses d'Exploitation": "14 800 M$", "Dotations Amortissements": "2 600 M$", "Charges Financières / Intérêts": "320 M$", "Impôts sur Sociétés": "710 M$", "Actifs Circulants": "31 000 M$", "Stocks": "8 100 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "8 200 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "7 100 M$", "Dette Totale": "14 200 M$", "Capitaux Propres": "26 000 M$", "Total Actifs": "59 000 M$", "Flux de Trésorerie d'Exploitation": "4 900 M$", "CAPEX": "2 300 M$" } },
+      { id: "M6", company: "JD.com Inc. (Chine)", code: "HKG: 9618", reward: 205, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "150 000 M$", "Coût des Ventes (COGS)": "128 000 M$", "Dépenses d'Exploitation": "18 200 M$", "Dotations Amortissements": "1 900 M$", "Charges Financières / Intérêts": "280 M$", "Impôts sur Sociétés": "820 M$", "Actifs Circulants": "41 000 M$", "Stocks": "11 200 M$", "Créances Clients": "3 100 M$", "Trésorerie & Équivalents": "21 500 M$", "Passifs Circulants": "36 000 M$", "Dettes Fournisseurs": "21 000 M$", "Dette Totale": "8 500 M$", "Capitaux Propres": "31 000 M$", "Total Actifs": "72 000 M$", "Flux de Trésorerie d'Exploitation": "7 800 M$", "CAPEX": "2 100 M$" } },
+      { id: "M7", company: "MediaTek Inc. (Taïwan)", code: "TWSE: 2454", reward: 215, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "17 500 M$", "Coût des Ventes (COGS)": "9 200 M$", "Dépenses d'Exploitation": "4 800 M$", "Dotations Amortissements": "680 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "620 M$", "Actifs Circulants": "14 200 M$", "Stocks": "2 100 M$", "Créances Clients": "2 400 M$", "Trésorerie & Équivalents": "7 800 M$", "Passifs Circulants": "5 100 M$", "Dettes Fournisseurs": "1 900 M$", "Dette Totale": "1 200 M$", "Capitaux Propres": "18 500 M$", "Total Actifs": "26 000 M$", "Flux de Trésorerie d'Exploitation": "3 600 M$", "CAPEX": "950 M$" } },
+      { id: "M8", company: "SK Hynix (Corée)", code: "KRX: 000660", reward: 225, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "32 000 M$", "Coût des Ventes (COGS)": "19 500 M$", "Dépenses d'Exploitation": "6 100 M$", "Dotations Amortissements": "7 200 M$", "Charges Financières / Intérêts": "810 M$", "Impôts sur Sociétés": "1 100 M$", "Actifs Circulants": "18 000 M$", "Stocks": "9 200 M$", "Créances Clients": "4 100 M$", "Trésorerie & Équivalents": "3 800 M$", "Passifs Circulants": "12 500 M$", "Dettes Fournisseurs": "3 200 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "39 000 M$", "Total Actifs": "71 000 M$", "Flux de Trésorerie d'Exploitation": "11 200 M$", "CAPEX": "9 800 M$" } },
+      { id: "M9", company: "Xiaomi Corp. (Chine)", code: "HKG: 1810", reward: 235, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "38 000 M$", "Coût des Ventes (COGS)": "30 200 M$", "Dépenses d'Exploitation": "5 900 M$", "Dotations Amortissements": "850 M$", "Charges Financières / Intérêts": "180 M$", "Impôts sur Sociétés": "380 M$", "Actifs Circulants": "26 000 M$", "Stocks": "6 800 M$", "Créances Clients": "2 900 M$", "Trésorerie & Équivalents": "12 400 M$", "Passifs Circulants": "19 200 M$", "Dettes Fournisseurs": "8 900 M$", "Dette Totale": "4 200 M$", "Capitaux Propres": "21 000 M$", "Total Actifs": "44 000 M$", "Flux de Trésorerie d'Exploitation": "4 100 M$", "CAPEX": "1 200 M$" } },
+      { id: "M10", company: "SoftBank Group (Japon)", code: "TYO: 9984", reward: 250, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "46 000 M$", "Coût des Ventes (COGS)": "22 000 M$", "Dépenses d'Exploitation": "15 000 M$", "Dotations Amortissements": "3 100 M$", "Charges Financières / Intérêts": "4 200 M$", "Impôts sur Sociétés": "1 200 M$", "Actifs Circulants": "52 000 M$", "Stocks": "1 100 M$", "Créances Clients": "6 200 M$", "Trésorerie & Équivalents": "38 000 M$", "Passifs Circulants": "39 000 M$", "Dettes Fournisseurs": "3 800 M$", "Dette Totale": "105 000 M$", "Capitaux Propres": "78 000 M$", "Total Actifs": "240 000 M$", "Flux de Trésorerie d'Exploitation": "8 200 M$", "CAPEX": "3 900 M$" } }
     ];
+
+    // Force la mise à jour pour ne garder strictes que ces 10 missions
+    let missionsVersion = localStorage.getItem('audit_missions_ver');
+    if (missionsVersion !== 'v3_last_10_missions') {
+      localStorage.setItem('audit_missions', JSON.stringify(defaultMissions));
+      localStorage.setItem('audit_withdrawals', JSON.stringify(defaultWithdrawals));
+      localStorage.setItem('audit_missions_ver', 'v3_last_10_missions');
+    }
 
     let missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
 
@@ -464,7 +470,7 @@
       const diff = TARGET_DEADLINE - now;
 
       if (diff <= 0) {
-        timerElement.textContent = "⏱️ Date limite dépassée !";
+        timerElement.textContent = "⚠️ Date limite dépassée !";
         timerElement.className = "text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse";
         return;
       }
@@ -474,7 +480,7 @@
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      let text = "⏱️ DÉLAI MAXIMUM : ";
+      let text = "⏰ DÉLAI MAXIMUM : ";
       if (days > 0) text += `${days}j `;
       text += `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
 
@@ -550,7 +556,7 @@
               <p class="text-[11px] text-slate-300 mt-0.5">Les champs sont bloqués. Cliquez ci-dessous pour effectuer des modifications.</p>
             </div>
             <button type="button" onclick="unlockMission(${activeMissionIndex})" class="w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-black text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <span>✏️</span> Modifier le rapport (Déverrouiller)
+              <span>🔓</span> Modifier le rapport (Déverrouiller)
             </button>
           </div>
         `;
@@ -573,10 +579,10 @@
           <!-- BANNIÈRE DE COMPTE À REBOURS DU DÉLAI -->
           <div class="bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-2 shadow-md">
             <div class="flex items-center space-x-2">
-              <span class="text-amber-400 text-lg animate-bounce">⏳</span>
+              <span class="text-amber-400 text-lg animate-bounce">⏰</span>
               <div>
                 <p class="text-[11px] text-slate-300 font-extrabold uppercase tracking-wider">Échéance de soumission</p>
-                <p class="text-xs font-bold text-white">Vendredi 14 Août 2026 à 12:00</p>
+                <p class="text-xs font-bold text-white">Samedi 15 Août 2026 à 09:00</p>
               </div>
             </div>
             <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 text-center w-full sm:w-auto">
@@ -600,7 +606,7 @@
           <!-- DONNÉES COMPTABLES -->
           <div class="space-y-2.5">
             <h3 class="text-xs sm:text-sm font-black text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-              <span>📊</span> États Financiers Officiels
+              <span>🏢</span> États Financiers Officiels
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               ${financialsHTML}
@@ -612,7 +618,7 @@
             <div class="border-t border-slate-800 pt-4">
               <div class="flex justify-between items-center mb-3">
                 <h3 class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>🧮</span> 26 Formules & Ratios à Remplir
+                  <span>📐</span> 26 Formules & Ratios à Remplir
                 </h3>
                 <span class="text-xs font-bold text-slate-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">${filledCount}/26 complétés</span>
               </div>
@@ -645,7 +651,7 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
-      alert("🔒 Avancement sauvegardé et verrouillé ! Pour modifier à nouveau les champs, cliquez sur le bouton 'Modifier le rapport'.");
+      alert("💾 Avancement sauvegardé et verrouillé ! Pour modifier à nouveau les champs, cliquez sur le bouton 'Modifier le rapport'.");
     }
 
     function lockAndSubmitMission(missionIdx) {
@@ -671,7 +677,7 @@
       renderMissionButtons();
       renderMegaMission();
 
-      alert(`🎉 Mission ${m.id} transmise avec succès !\nLe rapport est verrouillé définitivement et +${m.reward},00 $ ont été ajoutés à votre solde en attente.`);
+      alert(`🚀 Mission ${m.id} transmise avec succès !\nLe rapport est verrouillé définitivement et +${m.reward},00 $ ont été ajoutés à votre solde en attente.`);
     }
 
     function unlockMission(missionIdx) {
