@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr" dir="ltr" class="dark">
 <head>
   <link rel="manifest" href="./manifest.json">
   <meta charset="UTF-8">
@@ -34,10 +34,21 @@
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .animate-modal-pop { animation: modalPop 0.2s ease-out forwards; }
+
+    @keyframes toastIn {
+      0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes toastOut {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    }
+    .animate-toast-in { animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-toast-out { animation: toastOut 0.2s ease-in forwards; }
+
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    
-    /* Évite le zoom automatique sur iPhone lors du clic sur un input */
+
     input, select, textarea { font-size: 16px !important; }
     @media (min-width: 640px) {
       input, select, textarea { font-size: 0.95rem !important; }
@@ -45,6 +56,9 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased relative overflow-x-hidden pb-12">
+
+  <!-- CONTENEUR DES TOASTS UI -->
+  <div id="toastContainer" class="fixed top-4 right-4 z-50 flex flex-col gap-2.5 max-w-sm w-[calc(100vw-2rem)] pointer-events-none"></div>
 
   <!-- DÉCORS D'ARRIÈRE-PLAN -->
   <div class="fixed inset-0 bg-cyber-grid bg-[size:24px_24px] pointer-events-none opacity-40 z-0"></div>
@@ -54,9 +68,9 @@
   <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 shadow-xl">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex flex-col gap-3">
       
-      <!-- Ligne sup : Logo + Bouton Retrait -->
-      <div class="flex items-center justify-between gap-2">
-        <div class="flex items-center space-x-3">
+      <!-- Ligne sup : Logo + Sélecteurs (Langue & Devise) + Bouton Retrait + Calculatrice -->
+      <div class="flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
           <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-slate-950 flex items-center justify-center text-emerald-400 font-black text-xl border border-emerald-500/40 shrink-0 shadow-inner">
             M
           </div>
@@ -64,35 +78,62 @@
             <h1 class="text-sm sm:text-xl font-black tracking-wide text-white leading-tight">
               MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Asia</span>
             </h1>
-            <p class="text-xs text-slate-300 font-semibold">Audit Financier Asiatique</p>
+            <p id="t_headerSubtitle" class="text-xs text-slate-300 font-semibold">Audit Financier Asiatique</p>
           </div>
         </div>
 
-        <button onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black shadow-md shadow-emerald-500/20 active:scale-95 shrink-0 transition">
-          Retirer
-        </button>
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <!-- Sélecteur de Langue (FR / EN / AR) -->
+          <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-0.5 text-xs font-black">
+            <button id="langBtnFR" onclick="setLanguage('fr')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition">FR</button>
+            <button id="langBtnEN" onclick="setLanguage('en')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">EN</button>
+            <button id="langBtnAR" onclick="setLanguage('ar')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">عربي</button>
+          </div>
+
+          <!-- Sélecteur de Devise ($ / MAD / €) -->
+          <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-0.5 text-xs font-black">
+            <button id="currBtnUSD" onclick="setCurrency('USD')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black">$</button>
+            <button id="currBtnMAD" onclick="setCurrency('MAD')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">DH</button>
+            <button id="currBtnEUR" onclick="setCurrency('EUR')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">€</button>
+          </div>
+
+          <!-- Bouton Calculatrice -->
+          <button onclick="openCalculatorModal()" title="Calculatrice" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 p-2 rounded-xl text-xs font-black flex items-center gap-1 transition active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
+          </button>
+          
+          <button id="t_btnWithdrawTop" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-md shadow-emerald-500/20 active:scale-95 shrink-0 transition">
+            Retirer
+          </button>
+        </div>
       </div>
 
-      <!-- Ligne inf : Soldes + Navigation -->
+      <!-- Ligne inf : Soldes + Navigation à 3 Onglets -->
       <div class="flex items-center justify-between gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800">
         
-        <nav class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
-          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md">
-            Audit
+        <nav class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0 gap-1">
+          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span id="t_navAudit">Audit</span>
           </button>
-          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition">
-            Retraits
+          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            <span id="t_navWithdrawals">Retraits</span>
+          </button>
+          <button id="navEvaluationBtn" onclick="switchTab('evaluation')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            <span id="t_navEvaluation">Évaluation</span>
           </button>
         </nav>
 
-        <div class="flex items-center gap-3.5 text-right pr-1 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1 overflow-x-auto no-scrollbar">
           <div>
-            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
+            <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
             <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">833,41 $</span>
           </div>
-          <div class="border-l border-slate-800 pl-3">
-            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
+          <div class="border-l rtl:border-l-0 rtl:border-r border-slate-800 pl-3 rtl:pl-0 rtl:pr-3">
+            <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">100,00 $</span>
           </div>
         </div>
 
@@ -104,203 +145,438 @@
   <!-- CONTENU PRINCIPAL -->
   <main class="max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-8 flex-1 w-full relative z-10 space-y-8">
 
+    <!-- 1. VUE AUDIT / MISSIONS -->
     <div id="dashboardView" class="space-y-4 sm:space-y-6">
-
-      <!-- BARRE DE SÉLECTION DÉFILANTE DES MISSIONS -->
       <section class="space-y-3">
         <div class="bg-slate-900/90 backdrop-blur-xl p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-800 shadow-xl space-y-3">
           <div class="flex justify-between items-center">
             <h2 class="text-xs sm:text-base font-black text-white flex items-center gap-2">
-              <span class="text-emerald-400">📊</span> Missions d'Audit (M1 à M10)
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <span id="t_missionsTitle">Missions d'Audit (M1 à M10)</span>
             </h2>
             <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full">0/10 Envoyées</span>
           </div>
 
-          <!-- Carousel / Scroll horizontal fluide -->
-          <div id="missionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1">
-            <!-- Boutons M1 - M10 générés en JS -->
-          </div>
+          <div id="missionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1"></div>
         </div>
 
-        <div id="megaMissionContainer">
-          <!-- Injecté dynamiquement par JavaScript -->
-        </div>
+        <div id="megaMissionContainer"></div>
       </section>
-
     </div>
 
-    <!-- VUE TRANSACTIONS/RETRAITS -->
+    <!-- 2. VUE TRANSACTIONS / RETRAITS -->
     <div id="transactionsView" class="hidden space-y-4">
       <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex justify-between items-center">
         <div>
           <h2 class="text-sm sm:text-lg font-black text-white flex items-center gap-2">
-            <span class="text-emerald-400">💳</span> Transactions & Retraits
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            <span id="t_txTitle">Transactions & Retraits</span>
           </h2>
-          <p class="text-xs text-slate-300 mt-0.5 font-medium">Suivi de vos virements bancaires</p>
+          <p id="t_txSubtitle" class="text-xs text-slate-300 mt-0.5 font-medium">Cliquez sur une opération pour afficher son avis officiel de virement</p>
         </div>
         <button onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black">
-          + Retrait
+          + <span id="t_btnNewWithdraw">Retrait</span>
         </button>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
+          <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
+          <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
           <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa Bank</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire</span>
+          <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire</span>
           <span class="text-sm sm:text-base font-black text-white block mt-1 truncate">Aballagh Abderrahim</span>
         </div>
       </div>
 
       <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-        <h3 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider border-b border-slate-800 pb-2">Journal d'Opérations</h3>
-        <div id="fullTransactionMobileList" class="space-y-3">
-          <!-- Transféré dynamiquement -->
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+          <h3 id="t_txJournalTitle" class="text-xs sm:text-sm font-black text-white uppercase tracking-wider">Journal d'Opérations Bancaires</h3>
+          <span id="t_txNoticeBadge" class="text-[10px] text-emerald-400 font-bold uppercase">Avis certifiés disponibles</span>
         </div>
+        <div id="fullTransactionMobileList" class="space-y-3"></div>
       </div>
     </div>
 
-    <!-- FICHE D'ÉVALUATION DE PERFORMANCE AVEC GRAPHIQUES -->
-    <section class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xl">📋</span>
-            <h2 class="text-lg sm:text-2xl font-black text-white">Fiche d'Évaluation de Performance</h2>
+    <!-- 3. VUE ÉVALUATION DE PERFORMANCE (3ᵉ Onglet) -->
+    <div id="evaluationView" class="hidden space-y-6">
+      <section class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <h2 id="t_evalHeaderTitle" class="text-lg sm:text-2xl font-black text-white">Fiche d'Évaluation de Performance</h2>
+            </div>
+            <p id="t_evalHeaderSubtitle" class="text-xs text-slate-400 font-semibold mt-0.5">Bilan global et métriques d'audit comptable</p>
           </div>
-          <p class="text-xs text-slate-400 font-semibold mt-0.5">Bilan global et métriques d'audit comptable</p>
-        </div>
-        <div class="flex items-center gap-2 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 self-start sm:self-auto">
-          <span class="text-xs font-bold text-slate-400">Niveau :</span>
-          <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">Senior</span>
-        </div>
-      </div>
-
-      <!-- INFOS COLLABORATEUR -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-        <div>
-          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Collaborateur</span>
-          <span class="text-sm font-black text-white">Aballagh Abderrahim</span>
-        </div>
-        <div>
-          <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Périmètre d'intervention</span>
-          <span class="text-sm font-black text-emerald-400">Audit comptable des grandes sociétés (+100 tâches réalisées)</span>
-        </div>
-      </div>
-
-      <!-- DÉTAIL DES NOTES ET GRAPHIQUES -->
-      <div class="space-y-4">
-        <h3 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
-          <span>📝</span> Détail des Notes & Remarques
-        </h3>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          <!-- CARTE 1 : PRÉCISION -->
-          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-xs sm:text-sm font-bold text-slate-200">1. Précision des Calculs</h4>
-                <span class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider block mt-0.5">Bon niveau technique</span>
-              </div>
-            </div>
-
-            <!-- Graphique Donut SVG -->
-            <div class="relative w-28 h-28 mx-auto flex items-center justify-center my-2">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path class="text-emerald-400" stroke-dasharray="88.4, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <div class="absolute flex flex-col items-center justify-center">
-                <span class="text-base font-black text-white">88,4%</span>
-              </div>
-            </div>
-
-            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
-              <strong class="text-slate-100">Remarque :</strong> Bon alignement sur les normes attendues pour un niveau Senior. Cependant, il est recommandé d'accorder plus de temps au contrôle et au calcul des équations comptables complexes avant la validation finale, afin de réduire les écarts résiduels et d'approcher la perfection.
-            </p>
+          <div class="flex items-center gap-2 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 self-start sm:self-auto">
+            <span id="t_evalLevelLabel" class="text-xs font-bold text-slate-400">Niveau :</span>
+            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">Senior</span>
           </div>
-
-          <!-- CARTE 2 : QUALITÉ -->
-          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-xs sm:text-sm font-bold text-slate-200">2. Qualité des Remarques & Analyses</h4>
-                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Moyen / À développer</span>
-              </div>
-            </div>
-
-            <!-- Jauge SVG / Barre de score -->
-            <div class="space-y-2 my-auto py-4">
-              <div class="flex justify-between items-end">
-                <span class="text-xs text-slate-400 font-bold">Note globale</span>
-                <span class="text-xl font-black text-amber-300">6 / 10</span>
-              </div>
-              <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
-                <div class="bg-gradient-to-r from-amber-500 to-teal-400 h-full rounded-full" style="width: 60%"></div>
-              </div>
-            </div>
-
-            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
-              <strong class="text-slate-100">Remarque :</strong> Les observations d'audit restent exploitables mais trop synthétiques. Elles gagnent à être enrichies par des analyses techniques personnelles et structurées, sans s'appuyer sur des formulations ou remarques de type IA dans la rédaction des conclusions.
-            </p>
-          </div>
-
-          <!-- CARTE 3 : CONFORMITÉ -->
-          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-xs sm:text-sm font-bold text-slate-200">3. Conformité & Pratiques de Travail</h4>
-                <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Points de vigilance identifiés</span>
-              </div>
-            </div>
-
-            <!-- Statut Visuel -->
-            <div class="flex items-center justify-center gap-3 my-auto py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
-              <span class="text-2xl">⚠️</span>
-              <div>
-                <span class="text-xs font-black text-amber-300 block">Respect des Procédures</span>
-                <span class="text-[11px] text-slate-300">Saisie directe exigée</span>
-              </div>
-            </div>
-
-            <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
-              <strong class="text-slate-100">Remarque :</strong> Il est demandé d'éviter la multiplication des captures d'écran effectuées depuis la plateforme. Le traitement et la justification des opérations doivent être documentés directement via les champs d'audit prévus à cet effet pour des raisons de fluidité et de sécurité des données.
-            </p>
-          </div>
-
         </div>
-      </div>
 
-      <!-- SYNTHÈSE GLOBALE -->
-      <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
-        <h3 class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-          <span>📌</span> Synthèse Globale
-        </h3>
-        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-          <strong class="text-white">Bilan :</strong> Profil Senior performant et régulier sur le traitement des volumes chiffrés. La priorité d'amélioration porte sur la rigueur temporelle accordée au calcul des équations comptables, l'autonomie rédactionnelle des commentaires d'audit, et le respect des procédures de saisie sur la plateforme.
-        </p>
-      </div>
-    </section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+          <div>
+            <span id="t_evalUserLabel" class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Collaborateur</span>
+            <span class="text-sm font-black text-white">Aballagh Abderrahim</span>
+          </div>
+          <div>
+            <span id="t_evalScopeLabel" class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block">Périmètre d'intervention</span>
+            <span id="t_evalScopeValue" class="text-sm font-black text-emerald-400">Audit comptable des grandes sociétés (+100 tâches réalisées)</span>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <h3 id="t_evalCardsTitle" class="text-xs sm:text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+            Détail des Notes & Remarques
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- CARTE 1 -->
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 id="t_evalCard1Title" class="text-xs sm:text-sm font-bold text-slate-200">1. Précision des Calculs</h4>
+                  <span id="t_evalCard1Badge" class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider block mt-0.5">Bon niveau technique</span>
+                </div>
+              </div>
+
+              <div class="relative w-28 h-28 mx-auto flex items-center justify-center my-2">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="text-emerald-400" stroke-dasharray="88.4, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div class="absolute flex flex-col items-center justify-center">
+                  <span class="text-base font-black text-white">88,4%</span>
+                </div>
+              </div>
+
+              <p id="t_evalCard1Desc" class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+                <strong class="text-slate-100">Remarque :</strong> Bon alignement sur les normes attendues pour un niveau Senior. Cependant, il est recommandé d'accorder plus de temps au contrôle et au calcul des équations comptables complexes avant la validation finale.
+              </p>
+            </div>
+
+            <!-- CARTE 2 -->
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 id="t_evalCard2Title" class="text-xs sm:text-sm font-bold text-slate-200">2. Qualité des Remarques & Analyses</h4>
+                  <span id="t_evalCard2Badge" class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Moyen / À développer</span>
+                </div>
+              </div>
+
+              <div class="space-y-2 my-auto py-4">
+                <div class="flex justify-between items-end">
+                  <span id="t_evalCard2ScoreLabel" class="text-xs text-slate-400 font-bold">Note globale</span>
+                  <span class="text-xl font-black text-amber-300">6 / 10</span>
+                </div>
+                <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                  <div class="bg-gradient-to-r from-amber-500 to-teal-400 h-full rounded-full" style="width: 60%"></div>
+                </div>
+              </div>
+
+              <p id="t_evalCard2Desc" class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+                <strong class="text-slate-100">Remarque :</strong> Les observations d'audit restent exploitables mais trop synthétiques. Elles gagnent à être enrichies par des analyses techniques personnelles et structurées.
+              </p>
+            </div>
+
+            <!-- CARTE 3 -->
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 id="t_evalCard3Title" class="text-xs sm:text-sm font-bold text-slate-200">3. Conformité & Pratiques de Travail</h4>
+                  <span id="t_evalCard3Badge" class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block mt-0.5">Points de vigilance identifiés</span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-center gap-3 my-auto py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
+                <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <div>
+                  <span id="t_evalCard3BoxTitle" class="text-xs font-black text-amber-300 block">Respect des Procédures</span>
+                  <span id="t_evalCard3BoxSub" class="text-[11px] text-slate-300">Saisie directe exigée</span>
+                </div>
+              </div>
+
+              <p id="t_evalCard3Desc" class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/50">
+                <strong class="text-slate-100">Remarque :</strong> Il est demandé d'éviter la multiplication des captures d'écran. Le traitement et la justification des opérations doivent être documentés directement via les champs prévus.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SYNTHÈSE GLOBALE -->
+        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 rounded-2xl border border-emerald-500/30 space-y-2">
+          <h3 id="t_evalSummaryTitle" class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Synthèse Globale
+          </h3>
+          <p id="t_evalSummaryDesc" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+            <strong class="text-white">Bilan :</strong> Profil Senior performant et régulier sur le traitement des volumes chiffrés. La priorité d'amélioration porte sur la rigueur temporelle accordée au calcul des équations comptables, l'autonomie rédactionnelle des commentaires d'audit, et le respect des procédures de saisie sur la plateforme.
+          </p>
+        </div>
+      </section>
+    </div>
 
   </main>
 
-  <!-- MODALES RESPONSIVES -->
+  <!-- BOUTON FLOTTANT CALCULATRICE -->
+  <button onclick="openCalculatorModal()" class="fixed bottom-4 right-4 z-40 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 p-3.5 rounded-full shadow-2xl shadow-emerald-500/40 border border-emerald-300 hover:scale-110 active:scale-90 transition flex items-center justify-center">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
+  </button>
+
+  <!-- MODALE : AVIS D'OPÉRATION DE VIREMENT CORPORATE (MICROTASK ASIA) -->
+  <div id="receiptModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto">
+      
+      <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+          <span id="t_recModalTitle" class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Asia</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportReceiptPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span id="t_btnRecPrint">Imprimer / PDF</span>
+          </button>
+          <button onclick="closeModal('receiptModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-8 space-y-6 text-slate-100 bg-slate-900">
+        
+        <div class="flex justify-between items-start pb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 bg-slate-950 rounded-xl border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-xl shadow-inner shrink-0">
+              M
+            </div>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-white leading-tight">MicroTask Asia Settlement Ltd</h2>
+              <p id="t_recDept" class="text-xs text-slate-400">Treasury & International Settlement Department</p>
+            </div>
+          </div>
+          <div class="text-right rtl:text-left">
+            <span id="t_recRefLabel" class="text-[10px] font-black uppercase text-amber-400 block tracking-wider">RÉFÉRENCE TRANSACTION</span>
+            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTA-20260808-8206</span>
+            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 08/08/2026</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
+            <span id="t_recAmtLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Montant du Virement</span>
+            <div id="recAmountUSD" class="text-2xl font-black text-emerald-400">100,00 $</div>
+            <span id="recAmountMAD" class="text-xs font-bold text-slate-400 block">Contre-valeur : ~ 992,00 MAD</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
+            <span id="t_recStatusLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Statut de Traitement</span>
+            <div id="recStatusBadge" class="inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              En cours de traitement
+            </div>
+            <span id="t_recChannel" class="text-[10px] text-slate-400 block mt-1">Canal : Virement International Direct</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+          <div class="space-y-1 border-b sm:border-b-0 sm:border-r rtl:sm:border-r-0 rtl:sm:border-l border-slate-800 pb-3 sm:pb-0 sm:pr-3 rtl:sm:pr-0 rtl:sm:pl-3">
+            <span id="t_recDebtorLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Émetteur / Débiteur</span>
+            <p class="text-xs font-black text-white">MicroTask Asia Settlement Ltd</p>
+            <p class="text-[11px] text-slate-400">Hong Kong Financial Clearing Center</p>
+            <p class="text-[11px] text-emerald-400 font-mono">Compte : HK88-MTA-PAY-9921</p>
+          </div>
+          <div class="space-y-1 sm:pl-3 rtl:sm:pl-0 rtl:sm:pr-3 pt-2 sm:pt-0">
+            <span id="t_recBeneficiaryLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Bénéficiaire / Banque Réceptrice</span>
+            <p class="text-xs font-black text-white">Aballagh Abderrahim</p>
+            <p class="text-[11px] text-slate-400">Banque : Attijariwafa Bank (Maroc)</p>
+            <p class="text-[11px] text-emerald-400 font-mono">RIB : 230780000000000000008206</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
+          <div class="space-y-1 text-left rtl:text-right w-full sm:w-auto">
+            <span id="t_recReasonLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Motif du Virement</span>
+            <p id="t_recReasonVal" class="text-xs font-semibold text-slate-200">Règlement honoraires missions d'audit financier (Senior Auditor)</p>
+            <p class="text-[10px] font-mono text-slate-400 mt-1">Clearing Code : MTA-SETTLE-SIMT-AWB</p>
+          </div>
+
+          <div class="w-24 h-24 rounded-full border-2 border-dashed border-emerald-400/80 p-1 flex items-center justify-center text-center rotate-[-6deg] shadow-lg shrink-0">
+            <div class="w-full h-full rounded-full border border-emerald-500/40 flex flex-col items-center justify-center p-1 bg-emerald-500/5">
+              <span class="text-[7px] font-black uppercase text-emerald-400">MICROTASK ASIA</span>
+              <span class="text-[9px] font-black text-white leading-tight my-0.5">TREASURY VALIDATED</span>
+              <span class="text-[7px] font-mono font-bold text-emerald-300">08/08/2026</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODALE PLEIN ÉCRAN : FICHE D'AUDIT CERTIFIÉE -->
+  <div id="auditCertificateModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto">
+      
+      <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+          <span id="t_certModalTitle" class="text-xs sm:text-sm font-black text-white">Rapport Officiel d'Audit Certifié</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportAuditPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span id="t_btnCertPrint">Télécharger / Imprimer PDF</span>
+          </button>
+          <button onclick="closeModal('auditCertificateModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
+        </div>
+      </div>
+
+      <div id="printableCertificate" class="p-6 sm:p-10 space-y-6 text-slate-100 bg-slate-900">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-700/80 gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-slate-950 rounded-2xl border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-2xl shadow-inner shrink-0">
+              M
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-black text-white tracking-wide">MicroTask Accounting Asia</h2>
+              <p id="t_certDivision" class="text-xs text-slate-400 font-semibold">Corporate Financial Audit & Ratio Certification Division</p>
+            </div>
+          </div>
+          <div class="text-left sm:text-right rtl:text-right rtl:sm:text-left bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
+            <span id="t_certNumberLabel" class="text-[10px] font-black uppercase text-emerald-400 block tracking-wider">CERTIFICAT N°</span>
+            <span id="certDocNumber" class="text-xs font-mono font-bold text-white">MTA-2026-M1-8842</span>
+            <span id="certDocDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 14/08/2026</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span id="t_certAuditedEntityLabel" class="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entité Auditée</span>
+            <h3 id="certCompanyName" class="text-base sm:text-lg font-black text-white mt-0.5">Honda Motor Co. (Japon)</h3>
+            <span id="certCompanyCode" class="text-xs text-emerald-400 font-mono font-bold">TYO: 7267</span>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <span id="t_certAuditorLabel" class="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Auditeur Certifié Responsable</span>
+            <h3 class="text-base sm:text-lg font-black text-white mt-0.5">Aballagh Abderrahim</h3>
+            <span id="t_certAuditorGrade" class="text-xs text-emerald-400 font-bold">Grade : Senior Lead Auditor (Accréditation Corporate)</span>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <h4 id="t_certRatiosTitle" class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            Synthèse des Ratios d'Audit Validés
+          </h4>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="certRatiosGrid"></div>
+        </div>
+
+        <div class="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-2">
+          <span id="t_certObsLabel" class="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Conclusions & Observations de l'Auditeur Senior</span>
+          <p id="certObservations" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 items-end">
+          <div class="space-y-1">
+            <span id="t_certSecurityLabel" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Sécurité & Horodatage</span>
+            <p class="text-[10px] font-mono text-slate-400">HASH: SHA256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</p>
+            <p id="t_certStatusVal" class="text-[10px] text-emerald-400 font-bold">Statut : Enregistré au Registre Central</p>
+          </div>
+
+          <div class="flex justify-center">
+            <div class="w-28 h-28 rounded-full border-2 border-dashed border-emerald-400/80 p-1 flex items-center justify-center text-center rotate-[-6deg] shadow-lg">
+              <div class="w-full h-full rounded-full border border-emerald-500/40 flex flex-col items-center justify-center p-1 bg-emerald-500/5">
+                <span class="text-[8px] font-black uppercase text-emerald-400 tracking-tighter">MicroTask Asia</span>
+                <span class="text-[10px] font-black text-white leading-none my-0.5">AUDIT CERTIFIÉ</span>
+                <span class="text-[8px] font-mono font-bold text-emerald-300">SENIOR VERIFIED</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-left sm:text-right rtl:text-right rtl:sm:text-left space-y-1">
+            <span id="t_certSignLabel" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Signature Numérique</span>
+            <p class="text-xs font-black text-white italic">Aballagh Abderrahim</p>
+            <span class="text-[10px] text-slate-400 block">Senior Lead Auditor</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODALE CALCULATRICE POP-UP -->
+  <div id="calculatorModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 w-full max-w-xs rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop">
+      
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
+          <h3 id="t_calcTitle" class="text-xs sm:text-sm font-black text-white">Calculatrice d'Audit</h3>
+        </div>
+        <button onclick="closeModal('calculatorModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
+      </div>
+
+      <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-right space-y-1">
+        <div id="calcExpression" class="text-xs text-slate-400 font-mono h-4 overflow-hidden truncate">0</div>
+        <div id="calcDisplay" class="text-2xl font-black text-emerald-400 font-mono overflow-x-auto no-scrollbar">0</div>
+      </div>
+
+      <div class="grid grid-cols-4 gap-2">
+        <button onclick="calcClear()" class="bg-rose-500/20 text-rose-300 font-black p-3 rounded-xl hover:bg-rose-500/30 active:scale-95 transition text-xs">AC</button>
+        <button onclick="calcBackspace()" class="bg-slate-800 text-slate-200 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">⌫</button>
+        <button onclick="calcAppend('%')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">%</button>
+        <button onclick="calcAppend('/')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">÷</button>
+
+        <button onclick="calcAppend('7')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">7</button>
+        <button onclick="calcAppend('8')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">8</button>
+        <button onclick="calcAppend('9')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">9</button>
+        <button onclick="calcAppend('*')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">×</button>
+
+        <button onclick="calcAppend('4')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">4</button>
+        <button onclick="calcAppend('5')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">5</button>
+        <button onclick="calcAppend('6')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">6</button>
+        <button onclick="calcAppend('-')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">−</button>
+
+        <button onclick="calcAppend('1')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">1</button>
+        <button onclick="calcAppend('2')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">2</button>
+        <button onclick="calcAppend('3')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">3</button>
+        <button onclick="calcAppend('+')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">+</button>
+
+        <button onclick="calcAppend('(')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">(</button>
+        <button onclick="calcAppend('0')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">0</button>
+        <button onclick="calcAppend('.')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">.</button>
+        <button onclick="calcAppend(')')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">)</button>
+
+        <button onclick="calcCopyResult()" class="col-span-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-black p-3 rounded-xl active:scale-95 transition text-xs flex items-center justify-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          <span id="t_btnCalcCopy">Copier</span>
+        </button>
+        <button onclick="calcEvaluate()" class="col-span-2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black p-3 rounded-xl active:scale-95 transition text-base shadow-lg shadow-emerald-500/20">
+          =
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODALES RETRAITS -->
   <div id="withdrawChoiceModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="text-sm sm:text-base font-black text-white">Méthode de retrait</h3>
+        <h3 id="t_modalWithdrawChoiceTitle" class="text-sm sm:text-base font-black text-white">Méthode de retrait</h3>
         <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
-      <button onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 active:border-emerald-500 rounded-xl text-left flex justify-between items-center group transition">
-        <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">🏦 Compte Bancaire (Maroc) - Aballagh Abderrahim</span>
-        <span class="text-emerald-400 font-bold">➔</span>
+      <button onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 active:border-emerald-500 rounded-xl text-left rtl:text-right flex justify-between items-center group transition">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire (Maroc) - Aballagh Abderrahim</span>
+        </div>
+        <svg class="w-4 h-4 text-emerald-400 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </button>
     </div>
   </div>
@@ -308,41 +584,567 @@
   <div id="bankModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="text-sm sm:text-base font-black text-white flex items-center gap-2"><span>🏦</span> Retrait Bancaire</h3>
+        <h3 id="t_bankModalTitle" class="text-sm sm:text-base font-black text-white flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+          Retrait Bancaire
+        </h3>
         <button onclick="closeModal('bankModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
       <form onsubmit="confirmBankWithdraw(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
-          <label class="text-slate-300 font-bold block mb-1">Titulaire</label>
+          <label id="t_bankLabelAccountHolder" class="text-slate-300 font-bold block mb-1">Titulaire</label>
           <input type="text" value="Aballagh Abderrahim" disabled class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-bold rounded-xl p-3">
         </div>
         <div>
-          <label class="text-slate-300 font-bold block mb-1">Banque</label>
+          <label id="t_bankLabelBankName" class="text-slate-300 font-bold block mb-1">Banque</label>
           <select id="bankSelect" disabled class="w-full bg-slate-950 border border-slate-800 text-white font-bold rounded-xl p-3">
             <option value="Attijariwafa Bank" selected>Attijariwafa Bank</option>
           </select>
         </div>
         <div>
-          <label class="text-slate-300 font-bold block mb-1">RIB (24 chiffres)</label>
+          <label id="t_bankLabelRib" class="text-slate-300 font-bold block mb-1">RIB (24 chiffres)</label>
           <input type="text" id="bankRib" value="230780000000000000008206" disabled class="w-full bg-slate-950 border border-slate-800 text-emerald-400 font-mono font-bold rounded-xl p-3">
         </div>
         <div>
-          <label class="text-slate-200 font-bold block mb-1">Montant à retirer ($)</label>
+          <label id="t_bankLabelAmount" class="text-slate-200 font-bold block mb-1">Montant à retirer ($ USD)</label>
           <input type="number" id="bankAmount" max="1000" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 focus:border-emerald-500 outline-none">
         </div>
-        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl shadow-lg shadow-emerald-500/20 active:scale-95 transition">Confirmer le Retrait</button>
+        <button id="t_btnConfirmWithdraw" type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl shadow-lg shadow-emerald-500/20 active:scale-95 transition">Confirmer le Retrait</button>
       </form>
     </div>
   </div>
 
   <script>
-    const FIXED_SOLDE_VALIDE = 833.41;
+    /* ========================================================
+       SYSTÈME MULTILINGUE (i18n) : FR / EN / AR
+       ======================================================== */
+    let currentLanguage = localStorage.getItem('audit_lang') || 'fr';
+
+    const translations = {
+      fr: {
+        headerSubtitle: "Audit Financier Asiatique",
+        navAudit: "Audit",
+        navWithdrawals: "Retraits",
+        navEvaluation: "Évaluation",
+        labelValide: "Validé",
+        labelAttente: "En Attente",
+        btnWithdrawTop: "Retirer",
+        missionsTitle: "Missions d'Audit (M1 à M10)",
+        sentCount: "{done}/10 Envoyées",
+        financialsTitle: "États Financiers Officiels",
+        potentialGain: "Gain potentiel",
+        submissionDeadline: "Échéance de soumission",
+        deadlineDate: "Samedi 15 Août 2026 à 09:00",
+        delayMax: "DÉLAI MAXIMUM : ",
+        conformityTitle: "Indicateur de Conformité Financière",
+        conformCount: "{count}/26 Conformes ({pct}%)",
+        tasksTitle: "26 Formules & Ratios à Remplir",
+        completedTasks: "{count}/26 complétés",
+        conformBadge: "Conforme",
+        toVerifyBadge: "À vérifier",
+        authorSummary: "Synthèse de l'auditeur",
+        btnSaveLock: "Sauvegarder & Verrouiller",
+        btnLockSubmit: "Valider & Envoyer (+{amount})",
+        btnUnlock: "Modifier le rapport (Déverrouiller)",
+        reportLockedTitle: "Rapport Verrouillé (Sauvegarde en cours)",
+        reportLockedDesc: "Les champs sont bloqués. Cliquez ci-dessous pour effectuer des modifications.",
+        reportCompletedTitle: "Rapport Transmis & Verrouillé Définitivement",
+        reportCompletedDesc: "Cette mission a été envoyée avec succès (+{amount} ajoutés au solde en attente).",
+        btnGenCertificate: "Générer la Fiche d'Audit & Export PDF",
+        txTitle: "Transactions & Retraits",
+        txSubtitle: "Cliquez sur une opération pour afficher son avis officiel de virement",
+        btnNewWithdraw: "Retrait",
+        txPendingLabel: "En Attente",
+        txBankLabel: "Banque Réceptrice",
+        txBeneficiaryLabel: "Bénéficiaire",
+        txJournalTitle: "Journal d'Opérations Bancaires",
+        txNoticeBadge: "Avis certifiés disponibles",
+        evalHeaderTitle: "Fiche d'Évaluation de Performance",
+        evalHeaderSubtitle: "Bilan global et métriques d'audit comptable",
+        evalLevelLabel: "Niveau :",
+        evalUserLabel: "Collaborateur",
+        evalScopeLabel: "Périmètre d'intervention",
+        evalScopeValue: "Audit comptable des grandes sociétés (+100 tâches réalisées)",
+        evalCardsTitle: "Détail des Notes & Remarques",
+        evalCard1Title: "1. Précision des Calculs",
+        evalCard1Badge: "Bon niveau technique",
+        evalCard1Desc: "Bon alignement sur les normes attendues pour un niveau Senior. Cependant, il est recommandé d'accorder plus de temps au contrôle et au calcul des équations comptables complexes avant la validation finale.",
+        evalCard2Title: "2. Qualité des Remarques & Analyses",
+        evalCard2Badge: "Moyen / À développer",
+        evalCard2ScoreLabel: "Note globale",
+        evalCard2Desc: "Les observations d'audit restent exploitables mais trop synthétiques. Elles gagnent à être enrichies par des analyses techniques personnelles et structurées.",
+        evalCard3Title: "3. Conformité & Pratiques de Travail",
+        evalCard3Badge: "Points de vigilance identifiés",
+        evalCard3BoxTitle: "Respect des Procédures",
+        evalCard3BoxSub: "Saisie directe exigée",
+        evalCard3Desc: "Il est demandé d'éviter la multiplication des captures d'écran. Le traitement et la justification des opérations doivent être documentés directement via les champs prévus.",
+        evalSummaryTitle: "Synthèse Globale",
+        evalSummaryDesc: "Profil Senior performant et régulier sur le traitement des volumes chiffrés. La priorité d'amélioration porte sur la rigueur temporelle accordée au calcul des équations comptables, l'autonomie rédactionnelle des commentaires d'audit, et le respect des procédures de saisie sur la plateforme.",
+        recModalTitle: "Avis d'Opération de Virement - MicroTask Asia",
+        btnRecPrint: "Imprimer / PDF",
+        recDept: "Treasury & International Settlement Department",
+        recRefLabel: "RÉFÉRENCE TRANSACTION",
+        recAmtLabel: "Montant du Virement",
+        recStatusLabel: "Statut de Traitement",
+        recChannel: "Canal : Virement International Direct",
+        recDebtorLabel: "Émetteur / Débiteur",
+        recBeneficiaryLabel: "Bénéficiaire / Banque Réceptrice",
+        recReasonLabel: "Motif du Virement",
+        recReasonVal: "Règlement honoraires missions d'audit financier (Senior Auditor)",
+        certModalTitle: "Rapport Officiel d'Audit Certifié",
+        btnCertPrint: "Télécharger / Imprimer PDF",
+        certDivision: "Corporate Financial Audit & Ratio Certification Division",
+        certNumberLabel: "CERTIFICAT N°",
+        certAuditedEntityLabel: "Entité Auditée",
+        certAuditorLabel: "Auditeur Certifié Responsable",
+        certAuditorGrade: "Grade : Senior Lead Auditor (Accréditation Corporate)",
+        certRatiosTitle: "Synthèse des Ratios d'Audit Validés",
+        certObsLabel: "Conclusions & Observations de l'Auditeur Senior",
+        certSecurityLabel: "Sécurité & Horodatage",
+        certStatusVal: "Statut : Enregistré au Registre Central",
+        certSignLabel: "Signature Numérique",
+        calcTitle: "Calculatrice d'Audit",
+        btnCalcCopy: "Copier",
+        modalWithdrawChoiceTitle: "Méthode de retrait",
+        bankModalTitle: "Retrait Bancaire",
+        bankLabelAccountHolder: "Titulaire",
+        bankLabelBankName: "Banque",
+        bankLabelRib: "RIB (24 chiffres)",
+        bankLabelAmount: "Montant à retirer ($ USD)",
+        btnConfirmWithdraw: "Confirmer le Retrait"
+      },
+      en: {
+        headerSubtitle: "Asian Financial Audit Platform",
+        navAudit: "Audit",
+        navWithdrawals: "Withdrawals",
+        navEvaluation: "Evaluation",
+        labelValide: "Validated",
+        labelAttente: "Pending",
+        btnWithdrawTop: "Withdraw",
+        missionsTitle: "Audit Missions (M1 to M10)",
+        sentCount: "{done}/10 Submitted",
+        financialsTitle: "Official Financial Statements",
+        potentialGain: "Potential reward",
+        submissionDeadline: "Submission deadline",
+        deadlineDate: "Saturday August 15, 2026 at 09:00",
+        delayMax: "TIME REMAINING: ",
+        conformityTitle: "Financial Compliance Tracker",
+        conformCount: "{count}/26 Compliant ({pct}%)",
+        tasksTitle: "26 Formulas & Ratios to Complete",
+        completedTasks: "{count}/26 completed",
+        conformBadge: "Compliant",
+        toVerifyBadge: "Check values",
+        authorSummary: "Auditor's summary",
+        btnSaveLock: "Save & Lock Draft",
+        btnLockSubmit: "Submit Audit (+{amount})",
+        btnUnlock: "Edit Report (Unlock)",
+        reportLockedTitle: "Report Locked (Draft saved)",
+        reportLockedDesc: "Fields are locked. Click below to unlock and make changes.",
+        reportCompletedTitle: "Report Submitted & Permanently Locked",
+        reportCompletedDesc: "This mission was successfully submitted (+{amount} added to pending balance).",
+        btnGenCertificate: "Generate Certified Audit Sheet & PDF",
+        txTitle: "Transactions & Withdrawals",
+        txSubtitle: "Click on any transaction to view its official bank settlement slip",
+        btnNewWithdraw: "Withdraw",
+        txPendingLabel: "Pending Amount",
+        txBankLabel: "Receiving Bank",
+        txBeneficiaryLabel: "Beneficiary",
+        txJournalTitle: "Bank Settlement Journal",
+        txNoticeBadge: "Certified slips available",
+        evalHeaderTitle: "Senior Performance Review",
+        evalHeaderSubtitle: "Global financial audit assessment and metrics",
+        evalLevelLabel: "Grade:",
+        evalUserLabel: "Auditor",
+        evalScopeLabel: "Scope of Intervention",
+        evalScopeValue: "Corporate Financial Audit of Large Enterprises (+100 tasks completed)",
+        evalCardsTitle: "Scores & Technical Reviews",
+        evalCard1Title: "1. Calculation Accuracy",
+        evalCard1Badge: "Strong technical level",
+        evalCard1Desc: "Well aligned with Senior level requirements. It is recommended to spend adequate time verifying complex financial equations before final submission.",
+        evalCard2Title: "2. Analysis & Commentary Quality",
+        evalCard2Badge: "Moderate / To improve",
+        evalCard2ScoreLabel: "Overall score",
+        evalCard2Desc: "Audit notes are accurate but concise. Expand with structured technical rationale and in-depth observations.",
+        evalCard3Title: "3. Workflow Compliance & Platform Policy",
+        evalCard3Badge: "Attention points noted",
+        evalCard3BoxTitle: "Procedure Compliance",
+        evalCard3BoxSub: "Direct system entry required",
+        evalCard3Desc: "Please avoid multiple screen captures. Document all working papers directly in the dedicated fields for data privacy and traceability.",
+        evalSummaryTitle: "Executive Summary",
+        evalSummaryDesc: "Consistent and strong Senior profile across financial datasets. Core focus should remain on computation rigor, autonomous audit summaries, and strict platform compliance.",
+        recModalTitle: "Settlement Remittance Notice - MicroTask Asia",
+        btnRecPrint: "Print / PDF",
+        recDept: "Treasury & International Settlement Department",
+        recRefLabel: "TRANSACTION REFERENCE",
+        recAmtLabel: "Settlement Amount",
+        recStatusLabel: "Processing Status",
+        recChannel: "Channel: Direct International Wire",
+        recDebtorLabel: "Originator / Debtor",
+        recBeneficiaryLabel: "Beneficiary / Receiving Bank",
+        recReasonLabel: "Remittance Purpose",
+        recReasonVal: "Corporate Financial Audit Senior Consultant Fees",
+        certModalTitle: "Official Certified Audit Report",
+        btnCertPrint: "Download / Print PDF",
+        certDivision: "Corporate Financial Audit & Ratio Certification Division",
+        certNumberLabel: "CERTIFICATE NO.",
+        certAuditedEntityLabel: "Audited Entity",
+        certAuditorLabel: "Lead Certified Auditor",
+        certAuditorGrade: "Grade: Senior Lead Auditor (Corporate Accreditation)",
+        certRatiosTitle: "Validated Financial Ratios Summary",
+        certObsLabel: "Senior Lead Auditor Findings & Observations",
+        certSecurityLabel: "Security & Timestamp",
+        certStatusVal: "Status: Registered in Central Ledger",
+        certSignLabel: "Digital Signature",
+        calcTitle: "Audit Calculator",
+        btnCalcCopy: "Copy",
+        modalWithdrawChoiceTitle: "Withdrawal Method",
+        bankModalTitle: "Bank Wire Withdrawal",
+        bankLabelAccountHolder: "Account Holder",
+        bankLabelBankName: "Bank",
+        bankLabelRib: "RIB (24 digits)",
+        bankLabelAmount: "Amount to withdraw ($ USD)",
+        btnConfirmWithdraw: "Confirm Withdrawal"
+      },
+      ar: {
+        headerSubtitle: "منصة التدقيق المالي الآسيوي",
+        navAudit: "التدقيق",
+        navWithdrawals: "السحوبات",
+        navEvaluation: "التقييم",
+        labelValide: "الرصيد المؤكد",
+        labelAttente: "قيد المعالجة",
+        btnWithdrawTop: "طلب سحب",
+        missionsTitle: "مهام التدقيق المالي (M1 إلى M10)",
+        sentCount: "{done}/10 تم إرسالها",
+        financialsTitle: "البيانات المالية الرسمية للشركة",
+        potentialGain: "المكافأة المكتسبة",
+        submissionDeadline: "الموعد النهائي للتقديم",
+        deadlineDate: "السبت 15 أغسطس 2026 عند الساعة 09:00",
+        delayMax: "الوقت المتبقي: ",
+        conformityTitle: "مؤشر المطابقة الحسابية الفورية",
+        conformCount: "{count}/26 مطابق ({pct}%)",
+        tasksTitle: "26 معادلة ونسبة مالية للإنجاز",
+        completedTasks: "{count}/26 منجز",
+        conformBadge: "مطابق",
+        toVerifyBadge: "بحاجة للمراجعة",
+        authorSummary: "التقرير التحليلي للمدقق",
+        btnSaveLock: "حفظ وتجميد المسودة",
+        btnLockSubmit: "اعتماد وإرسال التقرير (+{amount})",
+        btnUnlock: "تعديل التقرير (إلغاء التجميد)",
+        reportLockedTitle: "تم حفظ التقرير وتجميده",
+        reportLockedDesc: "الحقول مقفلة حالياً. اضغط على الزر أدناه لإجراء التعديلات.",
+        reportCompletedTitle: "تم اعتماد التقرير وإرساله نهائياً",
+        reportCompletedDesc: "تم إرسال المهمة بنجاح وإضافة (+{amount}) إلى رصيدك قيد المعالجة.",
+        btnGenCertificate: "استخراج شهادة التدقيق المعتمدة PDF",
+        txTitle: "سجل العمليات والتحويلات البنكية",
+        txSubtitle: "اضغط على أي عملية لعرض وتحميل إشعار التحويل البنكي الرسمي",
+        btnNewWithdraw: "سحب جديد",
+        txPendingLabel: "المبلغ قيد الانتظار",
+        txBankLabel: "البنك المستلم",
+        txBeneficiaryLabel: "المستفيد",
+        txJournalTitle: "كشف المعاملات المصرفية",
+        txNoticeBadge: "الإشعارات الرسمية متوفرة",
+        evalHeaderTitle: "بطاقة تقييم الأداء المهني",
+        evalHeaderSubtitle: "التقرير الشامل ومؤشرات التدقيق المحاسبي",
+        evalLevelLabel: "الرتبة:",
+        evalUserLabel: "المدقق المالي",
+        evalScopeLabel: "نطاق الاختصاص",
+        evalScopeValue: "التدقيق المحاسبي للشركات الكبرى (+100 مهمة منجزة)",
+        evalCardsTitle: "تفاصيل النقاط والملاحظات الرقابية",
+        evalCard1Title: "1. دقة الحسابات والمعادلات",
+        evalCard1Badge: "مستوى تقني ممتاز",
+        evalCard1Desc: "أداء متوافق مع معايير رتبة Senior. يُنصح بمزيد من المراجعة والتأني في المعادلات الحسابية المركبة قبل الاعتماد النهائي.",
+        evalCard2Title: "2. جودة الملاحظات والتحليل المالي",
+        evalCard2Badge: "متوسط / قابل للتطوير",
+        evalCard2ScoreLabel: "التقييم الإجمالي",
+        evalCard2Desc: "الملاحظات الرقابية واضحة ومباشرة ولكنها مختصرة. يرجى إثراؤها بتحليلات فنية مخصصة وشاملة.",
+        evalCard3Title: "3. الامتثال لإجراءات المنصة",
+        evalCard3Badge: "تنبيهات أمنية وإجرائية",
+        evalCard3BoxTitle: "الالتزام بالنظام",
+        evalCard3BoxSub: "الإدخال المباشر مطلوب",
+        evalCard3Desc: "يُرجى تجنب الإكثار من لقطات الشاشة داخل المنصة وتدوين المعطيات مباشرة في الخانات لضمان حماية وسرية البيانات المالية.",
+        evalSummaryTitle: "الخلاصة والتقييم العام",
+        evalSummaryDesc: "ملف مهني ممتاز ومنتظم في معالجة التدفقات المحاسبية الكبرى. الأولوية الموصى بها هي التدقيق الرياضي المستمر وصياغة تقارير تحليلية شاملة.",
+        recModalTitle: "إشعار تحويل مالي معتمد - MicroTask Asia",
+        btnRecPrint: "طباعة / استخراج PDF",
+        recDept: "Treasury & International Settlement Department",
+        recRefLabel: "مرجع المعاملة",
+        recAmtLabel: "المبلغ المحول",
+        recStatusLabel: "حالة التحويل",
+        recChannel: "القناة: تحويل مصرفي دولي مباشر",
+        recDebtorLabel: "الجهة المحولة (الآمر بالصرف)",
+        recBeneficiaryLabel: "المستفيد / البنك المستقبل",
+        recReasonLabel: "غرض التحويل",
+        recReasonVal: "مستحقات أتعاب مهام التدقيق المالي المعتمدة (رتبة Senior)",
+        certModalTitle: "تقرير التدقيق المالي الرسمي المعتمد",
+        btnCertPrint: "تحميل / طباعة الشهادة PDF",
+        certDivision: "Corporate Financial Audit & Ratio Certification Division",
+        certNumberLabel: "رقم الشهادة:",
+        certAuditedEntityLabel: "الشركة المدققة",
+        certAuditorLabel: "المدقق المالي المعتمد",
+        certAuditorGrade: "الرتبة: Senior Lead Auditor (معتمد لدى المنصة)",
+        certRatiosTitle: "ملخص النسب والمؤشرات المالية المعتمدة",
+        certObsLabel: "خلاصة وتقرير المدقق المالي الرئيسي",
+        certSecurityLabel: "الأمان والترميز الزمني",
+        certStatusVal: "الحالة: مسجل في السجل المالي المركزي",
+        certSignLabel: "التوقيع الرقمي المعتمد",
+        calcTitle: "حاسبة التدقيق المالي",
+        btnCalcCopy: "نسخ",
+        modalWithdrawChoiceTitle: "طريقة السحب المالي",
+        bankModalTitle: "سحب بنكي إلى الحساب",
+        bankLabelAccountHolder: "صاحب الحساب",
+        bankLabelBankName: "اسم البنك",
+        bankLabelRib: "رقم الحساب البنكي RIB (24 رقم)",
+        bankLabelAmount: "المبلغ المراد سحبه ($ USD)",
+        btnConfirmWithdraw: "تأكيد طلب السحب"
+      }
+    };
+
+    function t(key, params = {}) {
+      const langPack = translations[currentLanguage] || translations.fr;
+      let text = langPack[key] || translations.fr[key] || key;
+      for (const [k, v] of Object.entries(params)) {
+        text = text.replace(new RegExp(`\\{${k}\\}`, 'g'), v);
+      }
+      return text;
+    }
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('audit_lang', lang);
+
+      const htmlEl = document.documentElement;
+      htmlEl.setAttribute('lang', lang);
+      htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+      ['FR', 'EN', 'AR'].forEach(l => {
+        const btn = document.getElementById(`langBtn${l}`);
+        if (l.toLowerCase() === lang) {
+          btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
+        } else {
+          btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+        }
+      });
+
+      applyStaticTranslations();
+      updateHeader();
+      renderMegaMission();
+      renderWithdrawHistory();
+      
+      const langNames = { fr: "Français", en: "English", ar: "العربية" };
+      showToast(lang === 'ar' ? `تم تغيير اللغة إلى ${langNames[lang]}` : `Langue modifiée : ${langNames[lang]}`, "info", lang === 'ar' ? "اللغة" : "Langue");
+    }
+
+    function applyStaticTranslations() {
+      const map = {
+        t_headerSubtitle: 'headerSubtitle',
+        t_navAudit: 'navAudit',
+        t_navWithdrawals: 'navWithdrawals',
+        t_navEvaluation: 'navEvaluation',
+        t_labelValide: 'labelValide',
+        t_labelAttente: 'labelAttente',
+        t_btnWithdrawTop: 'btnWithdrawTop',
+        t_missionsTitle: 'missionsTitle',
+        t_txTitle: 'txTitle',
+        t_txSubtitle: 'txSubtitle',
+        t_btnNewWithdraw: 'btnNewWithdraw',
+        t_txPendingLabel: 'txPendingLabel',
+        t_txBankLabel: 'txBankLabel',
+        t_txBeneficiaryLabel: 'txBeneficiaryLabel',
+        t_txJournalTitle: 'txJournalTitle',
+        t_txNoticeBadge: 'txNoticeBadge',
+        t_evalHeaderTitle: 'evalHeaderTitle',
+        t_evalHeaderSubtitle: 'evalHeaderSubtitle',
+        t_evalLevelLabel: 'evalLevelLabel',
+        t_evalUserLabel: 'evalUserLabel',
+        t_evalScopeLabel: 'evalScopeLabel',
+        t_evalScopeValue: 'evalScopeValue',
+        t_evalCardsTitle: 'evalCardsTitle',
+        t_evalCard1Title: 'evalCard1Title',
+        t_evalCard1Badge: 'evalCard1Badge',
+        t_evalCard1Desc: 'evalCard1Desc',
+        t_evalCard2Title: 'evalCard2Title',
+        t_evalCard2Badge: 'evalCard2Badge',
+        t_evalCard2ScoreLabel: 'evalCard2ScoreLabel',
+        t_evalCard2Desc: 'evalCard2Desc',
+        t_evalCard3Title: 'evalCard3Title',
+        t_evalCard3Badge: 'evalCard3Badge',
+        t_evalCard3BoxTitle: 'evalCard3BoxTitle',
+        t_evalCard3BoxSub: 'evalCard3BoxSub',
+        t_evalCard3Desc: 'evalCard3Desc',
+        t_evalSummaryTitle: 'evalSummaryTitle',
+        t_evalSummaryDesc: 'evalSummaryDesc',
+        t_recModalTitle: 'recModalTitle',
+        t_btnRecPrint: 'btnRecPrint',
+        t_recDept: 'recDept',
+        t_recRefLabel: 'recRefLabel',
+        t_recAmtLabel: 'recAmtLabel',
+        t_recStatusLabel: 'recStatusLabel',
+        t_recChannel: 'recChannel',
+        t_recDebtorLabel: 'recDebtorLabel',
+        t_recBeneficiaryLabel: 'recBeneficiaryLabel',
+        t_recReasonLabel: 'recReasonLabel',
+        t_recReasonVal: 'recReasonVal',
+        t_certModalTitle: 'certModalTitle',
+        t_btnCertPrint: 'btnCertPrint',
+        t_certDivision: 'certDivision',
+        t_certNumberLabel: 'certNumberLabel',
+        t_certAuditedEntityLabel: 'certAuditedEntityLabel',
+        t_certAuditorLabel: 'certAuditorLabel',
+        t_certAuditorGrade: 'certAuditorGrade',
+        t_certRatiosTitle: 'certRatiosTitle',
+        t_certObsLabel: 'certObsLabel',
+        t_certSecurityLabel: 'certSecurityLabel',
+        t_certStatusVal: 'certStatusVal',
+        t_certSignLabel: 'certSignLabel',
+        t_calcTitle: 'calcTitle',
+        t_btnCalcCopy: 'btnCalcCopy',
+        t_modalWithdrawChoiceTitle: 'modalWithdrawChoiceTitle',
+        t_bankModalTitle: 'bankModalTitle',
+        t_bankLabelAccountHolder: 'bankLabelAccountHolder',
+        t_bankLabelBankName: 'bankLabelBankName',
+        t_bankLabelRib: 'bankLabelRib',
+        t_bankLabelAmount: 'bankLabelAmount',
+        t_btnConfirmWithdraw: 'btnConfirmWithdraw'
+      };
+
+      for (const [domId, key] of Object.entries(map)) {
+        const el = document.getElementById(domId);
+        if (el) {
+          if (key === 'evalCard1Desc' || key === 'evalCard2Desc' || key === 'evalCard3Desc' || key === 'evalSummaryDesc') {
+            const prefix = (currentLanguage === 'ar') ? '<strong class="text-slate-100">الملاحظة : </strong>' : '<strong class="text-slate-100">Remarque : </strong>';
+            el.innerHTML = prefix + t(key);
+          } else {
+            el.textContent = t(key);
+          }
+        }
+      }
+    }
+
+    const FIXED_SOLDE_VALIDE_USD = 833.41;
     let activeMissionIndex = 0;
     const TARGET_DEADLINE = new Date('2026-08-15T09:00:00');
 
-    let defaultWithdrawals = [];
+    /* ========================================================
+       CONVERTISSEUR DE DEVISES DYNAMIQUE
+       ======================================================== */
+    let currentCurrency = 'USD';
+    const EXCHANGE_RATES = {
+      USD: { rate: 1.0, symbol: '$', pos: 'after' },
+      MAD: { rate: 9.92, symbol: 'DH', pos: 'after' },
+      EUR: { rate: 0.92, symbol: '€', pos: 'after' }
+    };
 
-    let withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals')) || defaultWithdrawals;
+    function formatMoney(amountInUSD) {
+      const conf = EXCHANGE_RATES[currentCurrency] || EXCHANGE_RATES.USD;
+      const converted = amountInUSD * conf.rate;
+      const formattedNum = converted.toLocaleString(currentLanguage === 'ar' ? 'ar-MA' : 'fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return `${formattedNum} ${conf.symbol}`;
+    }
+
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      ['USD', 'MAD', 'EUR'].forEach(c => {
+        const btn = document.getElementById(`currBtn${c}`);
+        if (c === curr) {
+          btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
+        } else {
+          btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+        }
+      });
+
+      updateHeader();
+      renderMegaMission();
+      renderWithdrawHistory();
+      showToast(currentLanguage === 'ar' ? `تم تغيير العملة إلى ${curr}` : `Devise modifiée : ${curr}`, "info", currentLanguage === 'ar' ? "العملة" : "Convertisseur");
+    }
+
+    /* ========================================================
+       SYSTÈME DE NOTIFICATIONS TOASTS UI
+       ======================================================== */
+    function showToast(message, type = 'info', title = null, duration = 4000) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto rounded-2xl border p-3.5 shadow-2xl backdrop-blur-xl animate-toast-in relative overflow-hidden transition-all text-left rtl:text-right`;
+
+      let iconSvg = '';
+      let borderStyle = '';
+      let titleDefault = '';
+      let progressColor = '';
+
+      if (type === 'success') {
+        borderStyle = 'bg-slate-900/95 border-emerald-500/40 text-emerald-300';
+        titleDefault = currentLanguage === 'ar' ? 'نجاح' : (currentLanguage === 'en' ? 'Success' : 'Succès');
+        progressColor = 'bg-emerald-400';
+        iconSvg = `<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+      } else if (type === 'warning') {
+        borderStyle = 'bg-slate-900/95 border-amber-500/40 text-amber-300';
+        titleDefault = currentLanguage === 'ar' ? 'تنبيه' : (currentLanguage === 'en' ? 'Warning' : 'Avertissement');
+        progressColor = 'bg-amber-400';
+        iconSvg = `<svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+      } else if (type === 'error') {
+        borderStyle = 'bg-slate-900/95 border-rose-500/40 text-rose-300';
+        titleDefault = currentLanguage === 'ar' ? 'خطأ' : (currentLanguage === 'en' ? 'Error' : 'Erreur');
+        progressColor = 'bg-rose-400';
+        iconSvg = `<svg class="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+      } else {
+        borderStyle = 'bg-slate-900/95 border-teal-500/40 text-teal-300';
+        titleDefault = currentLanguage === 'ar' ? 'معلومة' : (currentLanguage === 'en' ? 'Info' : 'Information');
+        progressColor = 'bg-teal-400';
+        iconSvg = `<svg class="w-5 h-5 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+      }
+
+      toast.className += ` ${borderStyle}`;
+
+      toast.innerHTML = `
+        <div class="flex items-start gap-3">
+          ${iconSvg}
+          <div class="flex-1 min-w-0 pr-2 rtl:pr-0 rtl:pl-2">
+            <h4 class="text-xs font-black uppercase tracking-wider text-white mb-0.5">${title || titleDefault}</h4>
+            <p class="text-xs text-slate-300 font-medium leading-relaxed">${message.replace(/\n/g, '<br>')}</p>
+          </div>
+          <button onclick="this.closest('.pointer-events-auto').remove()" class="text-slate-400 hover:text-white text-lg font-bold leading-none p-0.5">&times;</button>
+        </div>
+        <div class="absolute bottom-0 left-0 rtl:left-auto rtl:right-0 h-1 ${progressColor} transition-all duration-[${duration}ms] ease-linear w-full" id="toastProgressBar"></div>
+      `;
+
+      container.appendChild(toast);
+
+      const pBar = toast.querySelector('#toastProgressBar');
+      setTimeout(() => {
+        if (pBar) {
+          pBar.style.transition = `width ${duration}ms linear`;
+          pBar.style.width = '0%';
+        }
+      }, 50);
+
+      setTimeout(() => {
+        toast.classList.remove('animate-toast-in');
+        toast.classList.add('animate-toast-out');
+        setTimeout(() => toast.remove(), 200);
+      }, duration);
+    }
+
+    const operationFixe = {
+      id: 1723104000000,
+      date: "08/08/2026",
+      beneficiaire: "Aballagh Abderrahim",
+      montant: 100,
+      moyen: "Compte Bancaire (Maroc)",
+      details: "Attijariwafa Bank - RIB: ****8206",
+      statut: "En cours de traitement"
+    };
+
+    let defaultWithdrawals = [operationFixe];
+
+    let storedWithdrawals = JSON.parse(localStorage.getItem('audit_withdrawals'));
+    let withdrawals = (storedWithdrawals && storedWithdrawals.length > 0) ? storedWithdrawals : defaultWithdrawals;
+
+    if (!withdrawals.some(w => w.date === "08/08/2026" && w.montant === 100)) {
+      withdrawals.unshift(operationFixe);
+    }
+    localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
 
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", placeholder: "Entrez la valeur", formula: "CA - COGS" },
@@ -386,15 +1188,91 @@
       { id: "M10", company: "SoftBank Group (Japon)", code: "TYO: 9984", reward: 250, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "46 000 M$", "Coût des Ventes (COGS)": "22 000 M$", "Dépenses d'Exploitation": "15 000 M$", "Dotations Amortissements": "3 100 M$", "Charges Financières / Intérêts": "4 200 M$", "Impôts sur Sociétés": "1 200 M$", "Actifs Circulants": "52 000 M$", "Stocks": "1 100 M$", "Créances Clients": "6 200 M$", "Trésorerie & Équivalents": "38 000 M$", "Passifs Circulants": "39 000 M$", "Dettes Fournisseurs": "3 800 M$", "Dette Totale": "105 000 M$", "Capitaux Propres": "78 000 M$", "Total Actifs": "240 000 M$", "Flux de Trésorerie d'Exploitation": "8 200 M$", "CAPEX": "3 900 M$" } }
     ];
 
-    // Force la mise à jour pour ne garder strictes que ces 10 missions
-    let missionsVersion = localStorage.getItem('audit_missions_ver');
-    if (missionsVersion !== 'v3_last_10_missions') {
-      localStorage.setItem('audit_missions', JSON.stringify(defaultMissions));
-      localStorage.setItem('audit_withdrawals', JSON.stringify(defaultWithdrawals));
-      localStorage.setItem('audit_missions_ver', 'v3_last_10_missions');
+    let missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
+
+    /* ========================================================
+       CALCUL THÉORIQUE & VALIDATION DE CONFORMITÉ
+       ======================================================== */
+    function getCleanNum(strVal) {
+      if (!strVal) return 0;
+      return parseFloat(strVal.replace(/[^0-9.-]/g, '')) || 0;
     }
 
-    let missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
+    function calculateExpectedValues(m) {
+      const f = m.financials;
+      const CA = getCleanNum(f["Chiffre d'Affaires"]);
+      const COGS = getCleanNum(f["Coût des Ventes (COGS)"]);
+      const DepExp = getCleanNum(f["Dépenses d'Exploitation"]);
+      const Amort = getCleanNum(f["Dotations Amortissements"]);
+      const Interets = getCleanNum(f["Charges Financières / Intérêts"]);
+      const Impots = getCleanNum(f["Impôts sur Sociétés"]);
+      const ActifsCirc = getCleanNum(f["Actifs Circulants"]);
+      const Stocks = getCleanNum(f["Stocks"]);
+      const Creances = getCleanNum(f["Créances Clients"]);
+      const Tresorerie = getCleanNum(f["Trésorerie & Équivalents"]);
+      const PassifsCirc = getCleanNum(f["Passifs Circulants"]);
+      const DettesFourn = getCleanNum(f["Dettes Fournisseurs"]);
+      const DetteTotale = getCleanNum(f["Dette Totale"]);
+      const Equity = getCleanNum(f["Capitaux Propres"]);
+      const TotalActifs = getCleanNum(f["Total Actifs"]);
+      const CashExploit = getCleanNum(f["Flux de Trésorerie d'Exploitation"]);
+      const CAPEX = getCleanNum(f["CAPEX"]);
+
+      const MargeBrute = CA - COGS;
+      const EBIT = MargeBrute - DepExp;
+      const EBITDA = EBIT + Amort;
+      const EBT = EBIT - Interets;
+      const ResultatNet = EBT - Impots;
+      const FRNG = ActifsCirc - PassifsCirc;
+      const BFR = Stocks + Creances - DettesFourn;
+      const TresorerieNette = FRNG - BFR;
+
+      return {
+        t1: MargeBrute,
+        t2: CA ? (MargeBrute / CA) * 100 : 0,
+        t3: EBITDA,
+        t4: EBIT,
+        t5: CA ? (EBIT / CA) * 100 : 0,
+        t6: EBT,
+        t7: ResultatNet,
+        t8: CA ? (ResultatNet / CA) * 100 : 0,
+        t9: FRNG,
+        t10: PassifsCirc ? ActifsCirc / PassifsCirc : 0,
+        t11: PassifsCirc ? (ActifsCirc - Stocks) / PassifsCirc : 0,
+        t12: PassifsCirc ? Tresorerie / PassifsCirc : 0,
+        t13: BFR,
+        t14: TresorerieNette,
+        t15: TotalActifs ? DetteTotale / TotalActifs : 0,
+        t16: Equity ? DetteTotale / Equity : 0,
+        t17: Interets ? EBIT / Interets : 0,
+        t18: TotalActifs ? (ResultatNet / TotalActifs) * 100 : 0,
+        t19: Equity ? (ResultatNet / Equity) * 100 : 0,
+        t20: ResultatNet + Amort,
+        t21: Stocks ? COGS / Stocks : 0,
+        t22: CA ? (Creances / CA) * 365 : 0,
+        t23: COGS ? (DettesFourn / COGS) * 365 : 0,
+        t24: CashExploit - CAPEX,
+        t25: 2.85
+      };
+    }
+
+    function checkTaskConformity(taskId, userInput, expectedValues) {
+      if (taskId === 't26') {
+        return userInput && userInput.trim().length >= 10;
+      }
+      if (!userInput || userInput.trim() === '') return false;
+      const expected = expectedValues[taskId];
+      if (expected === undefined) return false;
+
+      const userVal = parseFloat(userInput.replace(',', '.').replace(/[^0-9.-]/g, ''));
+      if (isNaN(userVal)) return false;
+
+      const diff = Math.abs(userVal - expected);
+      if (diff <= 0.5) return true;
+      if (expected !== 0 && (diff / Math.abs(expected)) <= 0.03) return true;
+
+      return false;
+    }
 
     function saveState() {
       localStorage.setItem('audit_missions', JSON.stringify(missions));
@@ -402,25 +1280,27 @@
     }
 
     function init() {
+      applyStaticTranslations();
       renderMissionButtons();
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
       startCountdownTimer();
+      setLanguage(currentLanguage);
     }
 
-    function getSoldeEnAttente() {
-      let pendingWithdrawals = withdrawals.filter(w => w.statut === "En attente").reduce((sum, w) => sum + w.montant, 0);
+    function getSoldeEnAttenteUSD() {
+      let pendingWithdrawals = withdrawals.filter(w => w.statut === "En attente" || w.statut === "En cours de traitement").reduce((sum, w) => sum + w.montant, 0);
       let pendingMissionsRewards = missions.filter(m => m.completed).reduce((sum, m) => sum + m.reward, 0);
       return pendingMissionsRewards + pendingWithdrawals;
     }
 
     function updateHeader() {
-      document.getElementById('soldeDisplay').textContent = `${FIXED_SOLDE_VALIDE.toFixed(2).replace('.', ',')} $`;
-      document.getElementById('soldeEnAttenteDisplay').textContent = `${getSoldeEnAttente().toFixed(2).replace('.', ',')} $`;
+      document.getElementById('soldeDisplay').textContent = formatMoney(FIXED_SOLDE_VALIDE_USD);
+      document.getElementById('soldeEnAttenteDisplay').textContent = formatMoney(getSoldeEnAttenteUSD());
       
       let doneCount = missions.filter(m => m.completed).length;
-      document.getElementById('completedNewCount').textContent = `${doneCount}/10 Envoyées`;
+      document.getElementById('completedNewCount').textContent = t('sentCount', { done: doneCount });
     }
 
     function renderMissionButtons() {
@@ -436,17 +1316,17 @@
           ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black shadow-lg shadow-emerald-500/20 scale-105 border-emerald-400' 
           : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
 
-        let statusIcon = '';
+        let iconSvg = '';
         if (m.completed) {
-          statusIcon = ' ✅';
+          iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
         } else if (m.locked) {
-          statusIcon = ' 🔒';
+          iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>';
         } else if (m.answers && Object.keys(m.answers).some(k => m.answers[k] && m.answers[k].trim() !== '')) {
-          statusIcon = ' 📝';
+          iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>';
         }
 
-        btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all ${activeStyle}`;
-        btn.textContent = `M${idx + 1}${statusIcon}`;
+        btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
+        btn.innerHTML = `M${idx + 1}${iconSvg}`;
         btnContainer.appendChild(btn);
       });
     }
@@ -470,8 +1350,11 @@
       const diff = TARGET_DEADLINE - now;
 
       if (diff <= 0) {
-        timerElement.textContent = "⚠️ Date limite dépassée !";
-        timerElement.className = "text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse";
+        timerElement.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            ${currentLanguage === 'ar' ? 'انتهت المهلة المحددة!' : (currentLanguage === 'en' ? 'Deadline Exceeded!' : 'Date limite dépassée !')}
+          </span>`;
         return;
       }
 
@@ -480,11 +1363,20 @@
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      let text = "⏰ DÉLAI MAXIMUM : ";
-      if (days > 0) text += `${days}j `;
-      text += `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+      const dTxt = currentLanguage === 'ar' ? 'يوم ' : (currentLanguage === 'en' ? 'd ' : 'j ');
+      const hTxt = currentLanguage === 'ar' ? 'س ' : 'h ';
+      const mTxt = currentLanguage === 'ar' ? 'د ' : 'm ';
+      const sTxt = currentLanguage === 'ar' ? 'ث' : 's';
 
-      timerElement.textContent = text;
+      let text = t('delayMax');
+      if (days > 0) text += `${days}${dTxt}`;
+      text += `${String(hours).padStart(2, '0')}${hTxt}${String(minutes).padStart(2, '0')}${mTxt}${String(seconds).padStart(2, '0')}${sTxt}`;
+
+      timerElement.innerHTML = `
+        <span class="inline-flex items-center gap-1 text-amber-300">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke-width="2"/></svg>
+          ${text}
+        </span>`;
     }
 
     function renderMegaMission() {
@@ -493,13 +1385,23 @@
       const isLocked = m.locked === true;
       const isCompleted = m.completed === true;
 
-      // Compter les champs remplis
+      const expectedVals = calculateExpectedValues(m);
+
       let filledCount = 0;
+      let conformCount = 0;
       if (m.answers) {
         taskDefinitions.forEach(t => {
-          if (m.answers[t.id] && m.answers[t.id].trim() !== '') filledCount++;
+          const val = m.answers[t.id];
+          if (val && val.trim() !== '') {
+            filledCount++;
+            if (checkTaskConformity(t.id, val, expectedVals)) {
+              conformCount++;
+            }
+          }
         });
       }
+
+      const conformPct = Math.round((conformCount / 26) * 100);
 
       let financialsHTML = '';
       for (const [key, val] of Object.entries(m.financials)) {
@@ -515,7 +1417,25 @@
       taskDefinitions.forEach((task) => {
         const isObservations = task.id === 't26';
         const savedValue = (m.answers && m.answers[task.id]) ? m.answers[task.id] : '';
+        const isConform = checkTaskConformity(task.id, savedValue, expectedVals);
         const disabledAttr = isLocked ? 'disabled' : '';
+
+        let borderClass = 'border-slate-700';
+        let statusBadge = '';
+
+        if (savedValue && savedValue.trim() !== '') {
+          if (isConform) {
+            borderClass = 'border-emerald-500/80 ring-1 ring-emerald-500/40 bg-emerald-950/20';
+            statusBadge = `<span class="text-[10px] text-emerald-400 font-extrabold flex items-center gap-0.5">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+              ${t('conformBadge')}
+            </span>`;
+          } else {
+            borderClass = 'border-amber-500/60 bg-amber-950/10';
+            statusBadge = `<span class="text-[10px] text-amber-400 font-bold">${t('toVerifyBadge')}</span>`;
+          }
+        }
+
         const inputBg = isLocked ? 'bg-slate-900/60 opacity-80 cursor-not-allowed select-none' : 'bg-slate-950';
 
         if (isObservations) {
@@ -523,40 +1443,61 @@
             <div class="space-y-1.5 sm:col-span-2 lg:col-span-3 bg-slate-950 p-3.5 rounded-xl border border-slate-800">
               <div class="flex justify-between items-center">
                 <label class="text-xs sm:text-sm font-black text-emerald-300 block">${task.label}</label>
-                <span class="text-[10px] text-slate-400 font-bold uppercase">Synthèse de l'auditeur</span>
+                <div class="flex items-center gap-2">
+                  ${statusBadge}
+                  <span class="text-[10px] text-slate-400 font-bold uppercase">${t('authorSummary')}</span>
+                </div>
               </div>
-              <textarea ${disabledAttr} oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" rows="3" class="w-full ${inputBg} border border-slate-700 focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition resize-y font-semibold">${savedValue}</textarea>
+              <textarea ${disabledAttr} id="input_${task.id}" oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" rows="3" class="w-full ${inputBg} ${borderClass} focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition resize-y font-semibold text-left rtl:text-right">${savedValue}</textarea>
             </div>
           `;
         } else {
           tasksHTML += `
             <div class="space-y-1.5 bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <label class="text-xs font-bold text-slate-100 block truncate">${task.label}</label>
-              <span class="text-[10px] text-emerald-400 font-mono font-bold block leading-tight">📌 Formule : ${task.formula}</span>
-              <input type="text" ${disabledAttr} value="${savedValue}" oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" class="math-only w-full ${inputBg} border border-slate-700 focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition font-semibold">
+              <div class="flex justify-between items-center gap-1">
+                <label class="text-xs font-bold text-slate-100 block truncate">${task.label}</label>
+                ${statusBadge}
+              </div>
+              <span class="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-1 leading-tight truncate">
+                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                ${task.formula}
+              </span>
+              <input type="text" ${disabledAttr} id="input_${task.id}" value="${savedValue}" oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" class="math-only w-full ${inputBg} ${borderClass} focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition font-semibold text-left rtl:text-right">
             </div>
           `;
         }
       });
 
-      // Actions & statut du formulaire
       let actionButtonsHTML = '';
       if (isCompleted) {
         actionButtonsHTML = `
-          <div class="p-4 bg-emerald-500/10 border border-emerald-500/40 rounded-xl text-center space-y-1">
-            <p class="text-xs sm:text-sm font-black text-emerald-400">✅ Rapport Transmis & Verrouillé Définitivement</p>
-            <p class="text-xs text-slate-300">Cette mission a été envoyée avec succès pour révision (+${m.reward},00 $ ajoutés au solde en attente).</p>
+          <div class="space-y-3">
+            <div class="p-4 bg-emerald-500/10 border border-emerald-500/40 rounded-xl text-center space-y-1">
+              <p class="text-xs sm:text-sm font-black text-emerald-400 flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                ${t('reportCompletedTitle')}
+              </p>
+              <p class="text-xs text-slate-300">${t('reportCompletedDesc', { amount: formatMoney(m.reward) })}</p>
+            </div>
+            <button type="button" onclick="openAuditCertificate(${activeMissionIndex})" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition active:scale-95 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              ${t('btnGenCertificate')}
+            </button>
           </div>
         `;
       } else if (isLocked) {
         actionButtonsHTML = `
           <div class="space-y-2.5">
             <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center">
-              <p class="text-xs sm:text-sm font-black text-amber-300">🔒 Rapport Verrouillé (Sauvegarde en cours)</p>
-              <p class="text-[11px] text-slate-300 mt-0.5">Les champs sont bloqués. Cliquez ci-dessous pour effectuer des modifications.</p>
+              <p class="text-xs sm:text-sm font-black text-amber-300 flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>
+                ${t('reportLockedTitle')}
+              </p>
+              <p class="text-[11px] text-slate-300 mt-0.5">${t('reportLockedDesc')}</p>
             </div>
             <button type="button" onclick="unlockMission(${activeMissionIndex})" class="w-full py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-black text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <span>🔓</span> Modifier le rapport (Déverrouiller)
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              ${t('btnUnlock')}
             </button>
           </div>
         `;
@@ -564,10 +1505,12 @@
         actionButtonsHTML = `
           <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
             <button type="button" onclick="saveAndLockDraft(${activeMissionIndex})" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-extrabold text-xs sm:text-sm rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-              <span>💾</span> Sauvegarder & Verrouiller
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              ${t('btnSaveLock')}
             </button>
             <button type="button" onclick="lockAndSubmitMission(${activeMissionIndex})" class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition active:scale-95 flex items-center justify-center gap-2">
-              <span>🚀</span> Valider & Envoyer pour révision (+${m.reward},00 $)
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              ${t('btnLockSubmit', { amount: formatMoney(m.reward) })}
             </button>
           </div>
         `;
@@ -578,11 +1521,11 @@
           
           <!-- BANNIÈRE DE COMPTE À REBOURS DU DÉLAI -->
           <div class="bg-gradient-to-r from-red-500/10 via-amber-500/10 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-3 flex flex-col sm:flex-row items-center justify-between gap-2 shadow-md">
-            <div class="flex items-center space-x-2">
-              <span class="text-amber-400 text-lg animate-bounce">⏰</span>
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+              <svg class="w-5 h-5 text-amber-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke-width="2"/></svg>
               <div>
-                <p class="text-[11px] text-slate-300 font-extrabold uppercase tracking-wider">Échéance de soumission</p>
-                <p class="text-xs font-bold text-white">Samedi 15 Août 2026 à 09:00</p>
+                <p class="text-[11px] text-slate-300 font-extrabold uppercase tracking-wider">${t('submissionDeadline')}</p>
+                <p class="text-xs font-bold text-white">${t('deadlineDate')}</p>
               </div>
             </div>
             <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 text-center w-full sm:w-auto">
@@ -597,19 +1540,34 @@
               <span class="text-xs text-emerald-400 font-black bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 inline-block">${m.code}</span>
               <h2 class="text-lg sm:text-2xl font-black text-white mt-1 leading-tight">${m.company}</h2>
             </div>
-            <div class="text-right shrink-0 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800">
-              <span class="text-[10px] text-slate-400 uppercase font-black block">Gain potentiel</span>
-              <span class="text-base sm:text-xl font-black text-emerald-400">+${m.reward},00 $</span>
+            <div class="text-right rtl:text-left shrink-0 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-black block">${t('potentialGain')}</span>
+              <span class="text-base sm:text-xl font-black text-emerald-400">+${formatMoney(m.reward)}</span>
             </div>
           </div>
 
           <!-- DONNÉES COMPTABLES -->
           <div class="space-y-2.5">
             <h3 class="text-xs sm:text-sm font-black text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-              <span>🏢</span> États Financiers Officiels
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              ${t('financialsTitle')}
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               ${financialsHTML}
+            </div>
+          </div>
+
+          <!-- BARRE DE CONFORMITÉ EN TEMPS RÉEL -->
+          <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full ${conformCount === 26 ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}"></span>
+                ${t('conformityTitle')}
+              </span>
+              <span class="font-black ${conformCount === 26 ? 'text-emerald-400' : 'text-amber-300'}">${t('conformCount', { count: conformCount, pct: conformPct })}</span>
+            </div>
+            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-800">
+              <div class="bg-gradient-to-r from-teal-400 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: ${conformPct}%"></div>
             </div>
           </div>
 
@@ -618,9 +1576,10 @@
             <div class="border-t border-slate-800 pt-4">
               <div class="flex justify-between items-center mb-3">
                 <h3 class="text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <span>📐</span> 26 Formules & Ratios à Remplir
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                  ${t('tasksTitle')}
                 </h3>
-                <span class="text-xs font-bold text-slate-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">${filledCount}/26 complétés</span>
+                <span class="text-xs font-bold text-slate-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">${t('completedTasks', { count: filledCount })}</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                 ${tasksHTML}
@@ -642,6 +1601,23 @@
       }
       missions[activeMissionIndex].answers[taskId] = value;
       saveState();
+
+      const m = missions[activeMissionIndex];
+      const expectedVals = calculateExpectedValues(m);
+      const isConform = checkTaskConformity(taskId, value, expectedVals);
+      
+      const inputEl = document.getElementById(`input_${taskId}`);
+      if (inputEl) {
+        if (value && value.trim() !== '') {
+          if (isConform) {
+            inputEl.className = inputEl.className.replace(/border-slate-700|border-amber-500\/60|bg-amber-950\/10/g, '') + ' border-emerald-500/80 ring-1 ring-emerald-500/40 bg-emerald-950/20';
+          } else {
+            inputEl.className = inputEl.className.replace(/border-slate-700|border-emerald-500\/80|ring-1|ring-emerald-500\/40|bg-emerald-950\/20/g, '') + ' border-amber-500/60 bg-amber-950/10';
+          }
+        } else {
+          inputEl.className = inputEl.className.replace(/border-emerald-500\/80|border-amber-500\/60|ring-1|ring-emerald-500\/40|bg-emerald-950\/20|bg-amber-950\/10/g, '') + ' border-slate-700';
+        }
+      }
     }
 
     function saveAndLockDraft(missionIdx) {
@@ -651,7 +1627,7 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
-      alert("💾 Avancement sauvegardé et verrouillé ! Pour modifier à nouveau les champs, cliquez sur le bouton 'Modifier le rapport'.");
+      showToast(currentLanguage === 'ar' ? 'تم حفظ وتجميد المسودة بنجاح.' : (currentLanguage === 'en' ? 'Draft saved and locked.' : 'Brouillon sauvegardé et verrouillé.'), "info", currentLanguage === 'ar' ? 'حفظ المسودة' : 'Rapport Sauvegardé');
     }
 
     function lockAndSubmitMission(missionIdx) {
@@ -665,7 +1641,7 @@
       });
 
       if (missingCount > 0) {
-        alert(`⚠️ Attention : Il reste ${missingCount} champ(s) non rempli(s).\n\nVeuillez compléter la totalité des 26 formules et la synthèse d'audit avant de pouvoir envoyer la mission.`);
+        showToast(currentLanguage === 'ar' ? `يتبقى ${missingCount} حقول غير مكتملة.` : (currentLanguage === 'en' ? `There are ${missingCount} incomplete fields.` : `Il reste ${missingCount} champ(s) non rempli(s).`), "warning", currentLanguage === 'ar' ? 'تنبيه' : 'Champs Incomplets');
         return;
       }
 
@@ -677,7 +1653,7 @@
       renderMissionButtons();
       renderMegaMission();
 
-      alert(`🚀 Mission ${m.id} transmise avec succès !\nLe rapport est verrouillé définitivement et +${m.reward},00 $ ont été ajoutés à votre solde en attente.`);
+      showToast(currentLanguage === 'ar' ? `تم اعتماد وإرسال المهمة ${m.id} بنجاح!` : `Mission ${m.id} transmise avec succès ! +${formatMoney(m.reward)}`, "success", currentLanguage === 'ar' ? 'تم الاعتماد' : 'Mission Validée');
     }
 
     function unlockMission(missionIdx) {
@@ -689,6 +1665,151 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
+      showToast(currentLanguage === 'ar' ? 'تم إلغاء التجميد وإتاحة الحقول للتعديل.' : 'Les champs du rapport sont maintenant modifiables.', "info", currentLanguage === 'ar' ? 'تعديل التقرير' : 'Rapport Déverrouillé');
+    }
+
+    /* ========================================================
+       FONCTIONNALITÉ REÇU BANCAIRE OFFICIEL MICROTASK & EXPORT PDF
+       ======================================================== */
+    let currentReceiptData = null;
+
+    function openReceiptModal(withdrawalId) {
+      const w = withdrawals.find(item => item.id === withdrawalId);
+      if (!w) return;
+
+      const refNumber = `TXN-MTA-${w.date.replace(/[^0-9]/g, '').slice(0, 8)}-${w.id.toString().slice(-4)}`;
+      const amountMAD = (w.montant * 9.92).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      document.getElementById('recTxRef').textContent = refNumber;
+      document.getElementById('recTxDate').textContent = `Date : ${w.date}`;
+      document.getElementById('recAmountUSD').textContent = `${w.montant.toFixed(2).replace('.', ',')} $`;
+      document.getElementById('recAmountMAD').textContent = `Contre-valeur : ~ ${amountMAD} MAD`;
+
+      const badge = document.getElementById('recStatusBadge');
+      badge.textContent = w.statut;
+      if (w.statut === "En attente" || w.statut === "En cours de traitement") {
+        badge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30";
+      } else {
+        badge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
+      }
+
+      currentReceiptData = {
+        ref: refNumber,
+        date: w.date,
+        amountUSD: `${w.montant.toFixed(2).replace('.', ',')} $`,
+        amountMAD: `${amountMAD} MAD`,
+        beneficiary: w.beneficiaire || "Aballagh Abderrahim",
+        bank: "Attijariwafa Bank",
+        rib: "230780000000000000008206",
+        statut: w.statut
+      };
+
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    function exportReceiptPDF() {
+      if (!currentReceiptData) return;
+
+      const printWindow = window.open('', '_blank', 'width=850,height=950');
+      if (!printWindow) {
+        showToast("Veuillez autoriser les pop-ups pour télécharger l'avis de virement.", "warning", "Export Reçu");
+        return;
+      }
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="${currentLanguage}" dir="${currentLanguage === 'ar' ? 'rtl' : 'ltr'}">
+        <head>
+          <meta charset="UTF-8">
+          <title>Avis de Virement - ${currentReceiptData.ref}</title>
+          <style>
+            @page { size: A4; margin: 15mm; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 15px; background: white; }
+            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 20px; }
+            .logo-box { width: 44px; height: 44px; background: #022c22; color: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; margin-right: 12px; margin-left: 12px; float: left; text-align: center; line-height: 44px; }
+            .badge { background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 6px; text-transform: uppercase; }
+            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+            .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; }
+            .card-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
+            .card-val { font-size: 15px; font-weight: 900; color: #0f172a; margin: 0; }
+            .amount-box { background: #ecfdf5; border: 1px solid #10b981; border-radius: 10px; padding: 15px; text-align: center; margin-bottom: 20px; }
+            .amount-val { font-size: 28px; font-weight: 900; color: #065f46; }
+            .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 15px; margin-top: 25px; }
+            .stamp { width: 95px; height: 95px; border: 2px dashed #10b981; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(-5deg); color: #065f46; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <div class="logo-box">M</div>
+              <div style="overflow: hidden;">
+                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Asia Settlement Ltd</h1>
+                <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0;">Treasury & International Settlement Department</p>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="badge">${currentReceiptData.statut}</span>
+              <div style="font-size: 12px; font-family: monospace; font-weight: bold; margin-top: 6px;">${currentReceiptData.ref}</div>
+              <div style="font-size: 11px; color: #64748b;">${currentReceiptData.date}</div>
+            </div>
+          </div>
+
+          <div class="amount-box">
+            <div class="card-label">Montant Net Transféré</div>
+            <div class="amount-val">${currentReceiptData.amountUSD}</div>
+            <div style="font-size: 13px; font-weight: bold; color: #047857; margin-top: 4px;">Contre-valeur estimée : ~ ${currentReceiptData.amountMAD}</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-label">Émetteur / Débiteur</div>
+              <p class="card-val">MicroTask Asia Settlement Ltd</p>
+              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Compte de Règlement : HK88-MTA-PAY-9921</div>
+              <div style="font-size: 11px; color: #047857; margin-top: 4px; font-weight: bold;">Réseau : International Settlement Network</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Bénéficiaire / Banque Réceptrice</div>
+              <p class="card-val">${currentReceiptData.beneficiary}</p>
+              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Banque Réceptrice : ${currentReceiptData.bank} (Maroc)</div>
+              <div style="font-size: 11px; font-family: monospace; color: #047857; margin-top: 4px; font-weight: bold;">RIB : ${currentReceiptData.rib}</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-label">Motif du virement</div>
+            <p style="font-size: 13px; font-weight: 700; color: #1e293b; margin: 2px 0 0 0;">
+              Règlement honoraires missions d'audit financier des grandes sociétés - Senior Auditor
+            </p>
+          </div>
+
+          <div class="footer">
+            <div style="font-size: 10px; color: #64748b; line-height: 1.4;">
+              Avis d'opération certifié et émis par le Département Trésorerie de MicroTask Asia.<br>
+              Enregistrement sécurisé : SHA256:4b892a01ce904b77f198124d98a0021c9b2.
+            </div>
+
+            <div class="stamp">
+              <div style="font-size: 7px; font-weight: 900; text-transform: uppercase;">MICROTASK ASIA</div>
+              <div style="font-size: 9px; font-weight: 900; margin: 2px 0;">TREASURY VALIDATED</div>
+              <div style="font-size: 7px; font-weight: bold;">08/08/2026</div>
+            </div>
+
+            <div style="text-align: right;">
+              <div style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase;">Direction Financière</div>
+              <div style="font-size: 13px; font-weight: 900; font-style: italic; color: #0f172a; margin-top: 3px;">MicroTask Treasury Dept.</div>
+              <div style="font-size: 10px; color: #64748b;">Settlement & Compliance Division</div>
+            </div>
+          </div>
+
+          <script>
+            window.onload = function() {
+              setTimeout(function() { window.print(); }, 250);
+            };
+          <\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
     function renderWithdrawHistory() {
@@ -696,36 +1817,55 @@
       if (!container) return;
 
       container.innerHTML = '';
-      let totalPending = getSoldeEnAttente();
+      let totalPendingUSD = getSoldeEnAttenteUSD();
 
       withdrawals.forEach(w => {
-        const isPending = w.statut === "En attente";
+        const isPending = w.statut === "En attente" || w.statut === "En cours de traitement";
         const card = document.createElement('div');
-        card.className = "bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm";
+        card.onclick = () => openReceiptModal(w.id);
+        card.className = "bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm hover:border-emerald-500/60 cursor-pointer transition active:scale-[0.99] group shadow-sm";
         card.innerHTML = `
           <div class="flex justify-between items-center">
-            <span class="text-xs text-slate-400 font-bold">${w.date}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400 font-bold">${w.date}</span>
+              <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition flex items-center gap-0.5">
+                <span>📄 ${currentLanguage === 'ar' ? 'عرض الإشعار' : (currentLanguage === 'en' ? 'View Remittance' : 'Voir l\'avis')}</span>
+              </span>
+            </div>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${isPending ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'}">
               ${w.statut}
             </span>
           </div>
           <div class="flex justify-between items-center pt-1 border-t border-slate-900">
             <div>
-              <p class="font-bold text-white text-xs sm:text-sm">${w.moyen}</p>
+              <p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p>
               <p class="text-xs text-slate-400 font-mono">${w.details}</p>
             </div>
-            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'}">${w.montant.toFixed(2).replace('.', ',')} $</span>
+            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'}">${formatMoney(w.montant)}</span>
           </div>
         `;
         container.appendChild(card);
       });
 
-      document.getElementById('txTotalAmount').textContent = `${totalPending.toFixed(2).replace('.', ',')} $`;
+      document.getElementById('txTotalAmount').textContent = formatMoney(totalPendingUSD);
     }
 
+    /* GESTION NAVIGATION 3 ONGLETS */
     function switchTab(tab) {
       document.getElementById('dashboardView').classList.toggle('hidden', tab !== 'dashboard');
       document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
+      document.getElementById('evaluationView').classList.toggle('hidden', tab !== 'evaluation');
+      
+      const navDash = document.getElementById('navDashboardBtn');
+      const navTx = document.getElementById('navTransactionsBtn');
+      const navEval = document.getElementById('navEvaluationBtn');
+
+      const activeClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5";
+      const inactiveClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5";
+
+      navDash.className = (tab === 'dashboard') ? activeClass : inactiveClass;
+      navTx.className = (tab === 'transactions') ? activeClass : inactiveClass;
+      navEval.className = (tab === 'evaluation') ? activeClass : inactiveClass;
     }
 
     function openWithdrawChoiceModal() { document.getElementById('withdrawChoiceModal').classList.remove('hidden'); }
@@ -735,7 +1875,10 @@
     function confirmBankWithdraw(e) {
       e.preventDefault();
       const amt = parseFloat(document.getElementById('bankAmount').value);
-      if (!amt || amt <= 0) return;
+      if (!amt || amt <= 0) {
+        showToast("Veuillez saisir un montant supérieur à 0 $.", "error", "Montant Invalide");
+        return;
+      }
 
       const now = new Date();
       const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()} à ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -755,19 +1898,272 @@
       renderWithdrawHistory();
       closeModal('bankModal');
 
-      alert(`Demande de retrait de ${amt.toFixed(2)} $ transmise.`);
+      showToast(`Demande de virement de ${formatMoney(amt)} enregistrée et en attente de traitement bancaire.`, "success", "Demande Transmise");
     }
 
+    /* ========================================================
+       LOGIQUE CALCULATRICE D'AUDIT
+       ======================================================== */
+    let currentCalcInput = "";
+
+    function openCalculatorModal() {
+      document.getElementById('calculatorModal').classList.remove('hidden');
+    }
+
+    function updateCalcUI() {
+      const display = document.getElementById('calcDisplay');
+      const expr = document.getElementById('calcExpression');
+      display.textContent = currentCalcInput || "0";
+      expr.textContent = currentCalcInput || "0";
+    }
+
+    function calcAppend(val) {
+      if (val === '%') {
+        currentCalcInput += '/100';
+      } else {
+        currentCalcInput += val;
+      }
+      updateCalcUI();
+    }
+
+    function calcClear() {
+      currentCalcInput = "";
+      updateCalcUI();
+    }
+
+    function calcBackspace() {
+      currentCalcInput = currentCalcInput.slice(0, -1);
+      updateCalcUI();
+    }
+
+    function calcEvaluate() {
+      try {
+        if (!currentCalcInput) return;
+        const sanitized = currentCalcInput.replace(/[^0-9+\-*/().]/g, '');
+        const res = Function(`'use strict'; return (${sanitized})`)();
+        
+        let formattedRes = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(4)).toString();
+        document.getElementById('calcExpression').textContent = `${currentCalcInput} =`;
+        currentCalcInput = formattedRes;
+        document.getElementById('calcDisplay').textContent = formattedRes;
+      } catch (err) {
+        document.getElementById('calcDisplay').textContent = "Erreur";
+        showToast("Format de calcul invalide", "error", "Calculatrice");
+      }
+    }
+
+    function calcCopyResult() {
+      const display = document.getElementById('calcDisplay');
+      const val = display.textContent;
+      if (val && val !== "0" && val !== "Erreur") {
+        navigator.clipboard.writeText(val).then(() => {
+          showToast(`Résultat (${val}) copié dans le presse-papier.`, "success", "Presse-papier");
+        }).catch(() => {
+          showToast(`Valeur : ${val}`, "info", "Calculatrice");
+        });
+      }
+    }
+
+    /* ========================================================
+       FICHE D'AUDIT CORPORATE & EXPORT PDF
+       ======================================================== */
+    let currentCertData = null;
+
+    function openAuditCertificate(missionIdx) {
+      const m = missions[missionIdx];
+      if (!m) return;
+
+      const now = new Date();
+      const dateFormatted = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()}`;
+      const docNum = `MTA-2026-${m.id}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      document.getElementById('certCompanyName').textContent = m.company;
+      document.getElementById('certCompanyCode').textContent = m.code;
+      document.getElementById('certDocNumber').textContent = docNum;
+      document.getElementById('certDocDate').textContent = `Date : ${dateFormatted}`;
+
+      const obs = (m.answers && m.answers['t26']) ? m.answers['t26'] : "L'audit des indicateurs financiers et ratios de solvabilité confirme l'intégrité comptable de l'exercice audité.";
+      document.getElementById('certObservations').textContent = obs;
+
+      const keyRatios = [
+        { label: "Marge Brute", val: (m.answers && m.answers['t1']) ? m.answers['t1'] : "Calculé" },
+        { label: "Marge Nette (%)", val: (m.answers && m.answers['t8']) ? m.answers['t8'] : "Conforme" },
+        { label: "Trésorerie Nette", val: (m.answers && m.answers['t14']) ? m.answers['t14'] : "Validé" },
+        { label: "Ratio Liquidité", val: (m.answers && m.answers['t10']) ? m.answers['t10'] : "Optimal" },
+        { label: "BFR d'Exploitation", val: (m.answers && m.answers['t13']) ? m.answers['t13'] : "Équilibré" },
+        { label: "Endettement / Equity", val: (m.answers && m.answers['t16']) ? m.answers['t16'] : "Maîtrisé" },
+        { label: "Free Cash Flow", val: (m.answers && m.answers['t24']) ? m.answers['t24'] : "Positif" },
+        { label: "Score Z Altman", val: (m.answers && m.answers['t25']) ? m.answers['t25'] : "Zone Sûre" }
+      ];
+
+      currentCertData = {
+        company: m.company,
+        code: m.code,
+        docNum: docNum,
+        date: dateFormatted,
+        obs: obs,
+        ratios: keyRatios
+      };
+
+      const grid = document.getElementById('certRatiosGrid');
+      grid.innerHTML = '';
+      keyRatios.forEach(r => {
+        const item = document.createElement('div');
+        item.className = "bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex flex-col justify-between";
+        item.innerHTML = `
+          <span class="text-[10px] text-slate-400 font-bold truncate">${r.label}</span>
+          <span class="text-xs font-black text-emerald-400 mt-1 truncate">${r.val}</span>
+        `;
+        grid.appendChild(item);
+      });
+
+      document.getElementById('auditCertificateModal').classList.remove('hidden');
+    }
+
+    function exportAuditPDF() {
+      if (!currentCertData) return;
+
+      const printWindow = window.open('', '_blank', 'width=900,height=1050');
+      if (!printWindow) {
+        showToast("Veuillez autoriser les pop-ups pour afficher le PDF.", "warning", "Export PDF");
+        return;
+      }
+
+      let ratiosRowsHtml = '';
+      currentCertData.ratios.forEach(r => {
+        ratiosRowsHtml += `
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
+            <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">${r.label}</div>
+            <div style="font-size: 14px; font-weight: 900; color: #059669; margin-top: 4px;">${r.val}</div>
+          </div>
+        `;
+      });
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="${currentLanguage}" dir="${currentLanguage === 'ar' ? 'rtl' : 'ltr'}">
+        <head>
+          <meta charset="UTF-8">
+          <title>Fiche d'Audit - ${currentCertData.company}</title>
+          <style>
+            @page { size: A4; margin: 15mm; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 10px; background: white; }
+            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 15px; margin-bottom: 20px; }
+            .logo-box { width: 50px; height: 50px; background: #022c22; color: #10b981; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; margin-right: 15px; margin-left: 15px; float: left; text-align: center; line-height: 50px; }
+            .badge { background: #ecfdf5; border: 1px solid #10b981; color: #065f46; font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-transform: uppercase; }
+            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+            .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; }
+            .card-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 5px; }
+            .card-val { font-size: 16px; font-weight: 900; color: #0f172a; margin: 0; }
+            .ratios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+            .obs-box { background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #10b981; border-radius: 8px; padding: 15px; margin-bottom: 25px; }
+            .footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 20px; }
+            .stamp { width: 100px; height: 100px; border: 2px dashed #10b981; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(-5deg); margin: 0 auto; color: #065f46; }
+            .stamp-title { font-size: 8px; font-weight: 900; text-transform: uppercase; }
+            .stamp-main { font-size: 10px; font-weight: 900; margin: 2px 0; }
+            .stamp-sub { font-size: 8px; font-weight: 700; color: #059669; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <div class="logo-box">M</div>
+              <div style="overflow: hidden;">
+                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Accounting Asia</h1>
+                <p style="font-size: 12px; color: #64748b; margin: 3px 0 0 0;">Corporate Financial Audit & Certification Division</p>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="badge">Audit Officiel Certifié</span>
+              <div style="font-size: 12px; font-family: monospace; font-weight: bold; margin-top: 6px;">${currentCertData.docNum}</div>
+              <div style="font-size: 11px; color: #64748b;">${currentCertData.date}</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Société Auditée</div>
+              <p class="card-val">${currentCertData.company}</p>
+              <div style="font-size: 12px; font-weight: bold; color: #059669; font-family: monospace; margin-top: 3px;">Code : ${currentCertData.code}</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Auditeur Certifié Responsable</div>
+              <p class="card-val">Aballagh Abderrahim</p>
+              <div style="font-size: 12px; font-weight: bold; color: #059669; margin-top: 3px;">Grade : Senior Lead Auditor</div>
+            </div>
+          </div>
+
+          <div style="font-size: 13px; font-weight: 900; text-transform: uppercase; color: #0f172a; margin-bottom: 10px;">
+            📊 Ratios Financiers & Équations de Solvabilité
+          </div>
+          <div class="ratios-grid">
+            ${ratiosRowsHtml}
+          </div>
+
+          <div class="obs-box">
+            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #0f172a; margin-bottom: 6px;">
+              Synthèse & Conclusions de l'Auditeur Senior :
+            </div>
+            <div style="font-size: 12px; line-height: 1.6; color: #334155;">
+              ${currentCertData.obs}
+            </div>
+          </div>
+
+          <div class="footer">
+            <div style="font-size: 10px; color: #64748b; line-height: 1.4;">
+              <strong>Sécurité & Enregistrement :</strong><br>
+              SHA256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069<br>
+              Certifié conforme aux normes internationales d'audit financier.
+            </div>
+
+            <div class="stamp">
+              <div class="stamp-title">MicroTask Asia</div>
+              <div class="stamp-main">AUDIT CERTIFIÉ</div>
+              <div class="stamp-sub">SENIOR VERIFIED</div>
+            </div>
+
+            <div style="text-align: right;">
+              <div style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase;">Signature Numérique</div>
+              <div style="font-size: 14px; font-weight: 900; font-style: italic; color: #0f172a; margin-top: 4px;">Aballagh Abderrahim</div>
+              <div style="font-size: 10px; color: #64748b;">Senior Lead Auditor</div>
+            </div>
+          </div>
+
+          <script>
+            window.onload = function() {
+              setTimeout(function() { window.print(); }, 300);
+            };
+          <\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+
+    window.t = t;
+    window.setLanguage = setLanguage;
+    window.showToast = showToast;
+    window.setCurrency = setCurrency;
     window.switchMission = switchMission;
     window.switchTab = switchTab;
     window.openWithdrawChoiceModal = openWithdrawChoiceModal;
     window.openBankWithdrawModal = openBankWithdrawModal;
+    window.openReceiptModal = openReceiptModal;
+    window.exportReceiptPDF = exportReceiptPDF;
     window.closeModal = closeModal;
     window.confirmBankWithdraw = confirmBankWithdraw;
     window.onTaskInput = onTaskInput;
     window.saveAndLockDraft = saveAndLockDraft;
     window.lockAndSubmitMission = lockAndSubmitMission;
     window.unlockMission = unlockMission;
+    window.openCalculatorModal = openCalculatorModal;
+    window.openAuditCertificate = openAuditCertificate;
+    window.exportAuditPDF = exportAuditPDF;
+    window.calcAppend = calcAppend;
+    window.calcClear = calcClear;
+    window.calcBackspace = calcBackspace;
+    window.calcEvaluate = calcEvaluate;
+    window.calcCopyResult = calcCopyResult;
 
     document.addEventListener('input', (e) => {
       if (e.target.classList.contains('math-only')) {
