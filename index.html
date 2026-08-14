@@ -108,25 +108,33 @@
         </div>
       </div>
 
-      <!-- Ligne inf : Soldes + Navigation à 3 Onglets -->
+      <!-- Ligne inf : Soldes + Navigation Étendue (5 Onglets) -->
       <div class="flex items-center justify-between gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800">
         
-        <nav class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0 gap-1">
-          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5">
+        <nav class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0 gap-1 overflow-x-auto no-scrollbar max-w-[70vw] sm:max-w-none">
+          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span id="t_navAudit">Audit</span>
           </button>
-          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-            <span id="t_navWithdrawals">Retraits</span>
+          <button id="navCoursesBtn" onclick="switchTab('courses')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span id="t_navCourses">Cours</span>
           </button>
-          <button id="navEvaluationBtn" onclick="switchTab('evaluation')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5">
+          <button id="navQuizzesBtn" onclick="switchTab('quizzes')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            <span id="t_navQuizzes">Contrôles (50 QCM)</span>
+          </button>
+          <button id="navEvaluationBtn" onclick="switchTab('evaluation')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             <span id="t_navEvaluation">Évaluation</span>
           </button>
+          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            <span id="t_navWithdrawals">Retraits</span>
+          </button>
         </nav>
 
-        <div class="flex items-center gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1 shrink-0">
           <div>
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
             <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">833,41 $</span>
@@ -164,46 +172,80 @@
       </section>
     </div>
 
-    <!-- 2. VUE TRANSACTIONS / RETRAITS -->
-    <div id="transactionsView" class="hidden space-y-4">
-      <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex justify-between items-center">
-        <div>
-          <h2 class="text-sm sm:text-lg font-black text-white flex items-center gap-2">
-            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-            <span id="t_txTitle">Transactions & Retraits</span>
-          </h2>
-          <p id="t_txSubtitle" class="text-xs text-slate-300 mt-0.5 font-medium">Cliquez sur une opération pour afficher son avis officiel de virement</p>
+    <!-- 2. VUE COURS D'AUDIT COMPTABLE (LONG COURSES) -->
+    <div id="coursesView" class="hidden space-y-6">
+      <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <h2 id="t_coursesHeaderTitle" class="text-lg sm:text-2xl font-black text-white">Académie & Cours Magistraux d'Audit Comptable</h2>
+            </div>
+            <p id="t_coursesHeaderSubtitle" class="text-xs text-slate-400 font-semibold mt-0.5">Guide de référence complet : normes IFRS, ratios financiers, contrôle interne et détection des fraudes</p>
+          </div>
+          <div class="bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="t_coursesBadge" class="text-xs font-bold text-slate-300">6 Modules Complets</span>
+          </div>
         </div>
-        <button onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black">
-          + <span id="t_btnNewWithdraw">Retrait</span>
-        </button>
-      </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
-        </div>
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
-          <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa Bank</span>
-        </div>
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
-          <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire</span>
-          <span class="text-sm sm:text-base font-black text-white block mt-1 truncate">Aballagh Abderrahim</span>
-        </div>
-      </div>
-
-      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 id="t_txJournalTitle" class="text-xs sm:text-sm font-black text-white uppercase tracking-wider">Journal d'Opérations Bancaires</h3>
-          <span id="t_txNoticeBadge" class="text-[10px] text-emerald-400 font-bold uppercase">Avis certifiés disponibles</span>
-        </div>
-        <div id="fullTransactionMobileList" class="space-y-3"></div>
+        <div id="coursesListContainer" class="space-y-6"></div>
       </div>
     </div>
 
-    <!-- 3. VUE ÉVALUATION DE PERFORMANCE (3ᵉ Onglet) -->
+    <!-- 3. VUE CONTRÔLES (50 QCM & CORRECTION EN DIRECT) -->
+    <div id="quizzesView" class="hidden space-y-6">
+      <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <h2 id="t_quizHeaderTitle" class="text-lg sm:text-2xl font-black text-white">Grand Examen d'Audit & Comptabilité (50 Questions)</h2>
+            </div>
+            <p id="t_quizHeaderSubtitle" class="text-xs text-slate-400 font-semibold mt-0.5">Évaluation complète avec correction immédiate sur place et explications d'audit détaillées</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="resetQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span id="t_btnResetQuiz">Réinitialiser le test</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- BANDEAU DE SCORE APRÈS CORRECTION -->
+        <div id="quizScoreBanner" class="hidden p-5 rounded-2xl border transition-all duration-300">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div id="quizScoreIcon" class="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-2xl shadow-inner shrink-0"></div>
+              <div>
+                <h3 id="quizScoreTitle" class="text-base sm:text-lg font-black text-white"></h3>
+                <p id="quizScoreFeedback" class="text-xs text-slate-300 font-medium mt-0.5"></p>
+              </div>
+            </div>
+            <div class="text-center sm:text-right bg-slate-950/90 px-6 py-3 rounded-2xl border border-slate-800">
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-extrabold block">Note Globale</span>
+              <span id="quizScoreDisplay" class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LISTE DES 50 QUESTIONS DU QCM -->
+        <form id="quizForm" onsubmit="gradeQuiz(event)" class="space-y-6">
+          <div id="quizQuestionsContainer" class="space-y-4"></div>
+
+          <div class="pt-4 border-t border-slate-800 flex justify-end">
+            <button id="t_btnSubmitQuiz" type="submit" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm rounded-xl shadow-lg shadow-emerald-500/20 active:scale-95 transition flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Valider & Corriger les 50 Questions</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- 4. VUE ÉVALUATION DE PERFORMANCE -->
     <div id="evaluationView" class="hidden space-y-6">
       <section class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
@@ -323,6 +365,45 @@
       </section>
     </div>
 
+    <!-- 5. VUE TRANSACTIONS / RETRAITS -->
+    <div id="transactionsView" class="hidden space-y-4">
+      <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex justify-between items-center">
+        <div>
+          <h2 class="text-sm sm:text-lg font-black text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            <span id="t_txTitle">Transactions & Retraits</span>
+          </h2>
+          <p id="t_txSubtitle" class="text-xs text-slate-300 mt-0.5 font-medium">Cliquez sur une opération pour afficher son avis officiel de virement</p>
+        </div>
+        <button onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black">
+          + <span id="t_btnNewWithdraw">Retrait</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+          <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+          <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
+          <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa Bank</span>
+        </div>
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+          <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire</span>
+          <span class="text-sm sm:text-base font-black text-white block mt-1 truncate">Aballagh Abderrahim</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+          <h3 id="t_txJournalTitle" class="text-xs sm:text-sm font-black text-white uppercase tracking-wider">Journal d'Opérations Bancaires</h3>
+          <span id="t_txNoticeBadge" class="text-[10px] text-emerald-400 font-bold uppercase">Avis certifiés disponibles</span>
+        </div>
+        <div id="fullTransactionMobileList" class="space-y-3"></div>
+      </div>
+    </div>
+
   </main>
 
   <!-- BOUTON FLOTTANT CALCULATRICE -->
@@ -330,7 +411,7 @@
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
   </button>
 
-  <!-- MODALE : AVIS D'OPÉRATION DE VIREMENT CORPORATE (MICROTASK ASIA) -->
+  <!-- MODALE : AVIS D'OPÉRATION DE VIREMENT -->
   <div id="receiptModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto">
       
@@ -624,6 +705,8 @@
       fr: {
         headerSubtitle: "Audit Financier Asiatique",
         navAudit: "Audit",
+        navCourses: "Cours",
+        navQuizzes: "Contrôles (50 QCM)",
         navWithdrawals: "Retraits",
         navEvaluation: "Évaluation",
         labelValide: "Validé",
@@ -680,42 +763,19 @@
         evalCard3Desc: "Il est demandé d'éviter la multiplication des captures d'écran. Le traitement et la justification des opérations doivent être documentés directement via les champs prévus.",
         evalSummaryTitle: "Synthèse Globale",
         evalSummaryDesc: "Profil Senior performant et régulier sur le traitement des volumes chiffrés. La priorité d'amélioration porte sur la rigueur temporelle accordée au calcul des équations comptables, l'autonomie rédactionnelle des commentaires d'audit, et le respect des procédures de saisie sur la plateforme.",
-        recModalTitle: "Avis d'Opération de Virement - MicroTask Asia",
-        btnRecPrint: "Imprimer / PDF",
-        recDept: "Treasury & International Settlement Department",
-        recRefLabel: "RÉFÉRENCE TRANSACTION",
-        recAmtLabel: "Montant du Virement",
-        recStatusLabel: "Statut de Traitement",
-        recChannel: "Canal : Virement International Direct",
-        recDebtorLabel: "Émetteur / Débiteur",
-        recBeneficiaryLabel: "Bénéficiaire / Banque Réceptrice",
-        recReasonLabel: "Motif du Virement",
-        recReasonVal: "Règlement honoraires missions d'audit financier (Senior Auditor)",
-        certModalTitle: "Rapport Officiel d'Audit Certifié",
-        btnCertPrint: "Télécharger / Imprimer PDF",
-        certDivision: "Corporate Financial Audit & Ratio Certification Division",
-        certNumberLabel: "CERTIFICAT N°",
-        certAuditedEntityLabel: "Entité Auditée",
-        certAuditorLabel: "Auditeur Certifié Responsable",
-        certAuditorGrade: "Grade : Senior Lead Auditor (Accréditation Corporate)",
-        certRatiosTitle: "Synthèse des Ratios d'Audit Validés",
-        certObsLabel: "Conclusions & Observations de l'Auditeur Senior",
-        certSecurityLabel: "Sécurité & Horodatage",
-        certStatusVal: "Statut : Enregistré au Registre Central",
-        certSignLabel: "Signature Numérique",
-        calcTitle: "Calculatrice d'Audit",
-        btnCalcCopy: "Copier",
-        modalWithdrawChoiceTitle: "Méthode de retrait",
-        bankModalTitle: "Retrait Bancaire",
-        bankLabelAccountHolder: "Titulaire",
-        bankLabelBankName: "Banque",
-        bankLabelRib: "RIB (24 chiffres)",
-        bankLabelAmount: "Montant à retirer ($ USD)",
-        btnConfirmWithdraw: "Confirmer le Retrait"
+        coursesHeaderTitle: "Académie & Cours Magistraux d'Audit Comptable",
+        coursesHeaderSubtitle: "Guide de référence complet : normes IFRS, ratios financiers, contrôle interne et détection des fraudes",
+        coursesBadge: "6 Modules Complets",
+        quizHeaderTitle: "Grand Examen d'Audit & Comptabilité (50 Questions)",
+        quizHeaderSubtitle: "Évaluation complète avec correction immédiate sur place et explications d'audit détaillées",
+        btnResetQuiz: "Réinitialiser le test",
+        btnSubmitQuiz: "Valider & Corriger les 50 Questions"
       },
       en: {
         headerSubtitle: "Asian Financial Audit Platform",
         navAudit: "Audit",
+        navCourses: "Courses",
+        navQuizzes: "Assessments (50 MCQ)",
         navWithdrawals: "Withdrawals",
         navEvaluation: "Evaluation",
         labelValide: "Validated",
@@ -772,42 +832,19 @@
         evalCard3Desc: "Please avoid multiple screen captures. Document all working papers directly in the dedicated fields for data privacy and traceability.",
         evalSummaryTitle: "Executive Summary",
         evalSummaryDesc: "Consistent and strong Senior profile across financial datasets. Core focus should remain on computation rigor, autonomous audit summaries, and strict platform compliance.",
-        recModalTitle: "Settlement Remittance Notice - MicroTask Asia",
-        btnRecPrint: "Print / PDF",
-        recDept: "Treasury & International Settlement Department",
-        recRefLabel: "TRANSACTION REFERENCE",
-        recAmtLabel: "Settlement Amount",
-        recStatusLabel: "Processing Status",
-        recChannel: "Channel: Direct International Wire",
-        recDebtorLabel: "Originator / Debtor",
-        recBeneficiaryLabel: "Beneficiary / Receiving Bank",
-        recReasonLabel: "Remittance Purpose",
-        recReasonVal: "Corporate Financial Audit Senior Consultant Fees",
-        certModalTitle: "Official Certified Audit Report",
-        btnCertPrint: "Download / Print PDF",
-        certDivision: "Corporate Financial Audit & Ratio Certification Division",
-        certNumberLabel: "CERTIFICATE NO.",
-        certAuditedEntityLabel: "Audited Entity",
-        certAuditorLabel: "Lead Certified Auditor",
-        certAuditorGrade: "Grade: Senior Lead Auditor (Corporate Accreditation)",
-        certRatiosTitle: "Validated Financial Ratios Summary",
-        certObsLabel: "Senior Lead Auditor Findings & Observations",
-        certSecurityLabel: "Security & Timestamp",
-        certStatusVal: "Status: Registered in Central Ledger",
-        certSignLabel: "Digital Signature",
-        calcTitle: "Audit Calculator",
-        btnCalcCopy: "Copy",
-        modalWithdrawChoiceTitle: "Withdrawal Method",
-        bankModalTitle: "Bank Wire Withdrawal",
-        bankLabelAccountHolder: "Account Holder",
-        bankLabelBankName: "Bank",
-        bankLabelRib: "RIB (24 digits)",
-        bankLabelAmount: "Amount to withdraw ($ USD)",
-        btnConfirmWithdraw: "Confirm Withdrawal"
+        coursesHeaderTitle: "Audit Academy & Master Lectures",
+        coursesHeaderSubtitle: "Complete guide: IFRS standards, financial ratios, internal control and fraud detection",
+        coursesBadge: "6 Master Modules",
+        quizHeaderTitle: "Master Audit & Accounting Exam (50 Questions)",
+        quizHeaderSubtitle: "Full assessment with instant on-the-spot graded corrections and technical explanations",
+        btnResetQuiz: "Reset Assessment",
+        btnSubmitQuiz: "Submit & Grade All 50 Questions"
       },
       ar: {
         headerSubtitle: "منصة التدقيق المالي الآسيوي",
         navAudit: "التدقيق",
+        navCourses: "الدروس",
+        navQuizzes: "الاختبارات (50 QCM)",
         navWithdrawals: "السحوبات",
         navEvaluation: "التقييم",
         labelValide: "الرصيد المؤكد",
@@ -864,38 +901,13 @@
         evalCard3Desc: "يُرجى تجنب الإكثار من لقطات الشاشة داخل المنصة وتدوين المعطيات مباشرة في الخانات لضمان حماية وسرية البيانات المالية.",
         evalSummaryTitle: "الخلاصة والتقييم العام",
         evalSummaryDesc: "ملف مهني ممتاز ومنتظم في معالجة التدفقات المحاسبية الكبرى. الأولوية الموصى بها هي التدقيق الرياضي المستمر وصياغة تقارير تحليلية شاملة.",
-        recModalTitle: "إشعار تحويل مالي معتمد - MicroTask Asia",
-        btnRecPrint: "طباعة / استخراج PDF",
-        recDept: "Treasury & International Settlement Department",
-        recRefLabel: "مرجع المعاملة",
-        recAmtLabel: "المبلغ المحول",
-        recStatusLabel: "حالة التحويل",
-        recChannel: "القناة: تحويل مصرفي دولي مباشر",
-        recDebtorLabel: "الجهة المحولة (الآمر بالصرف)",
-        recBeneficiaryLabel: "المستفيد / البنك المستقبل",
-        recReasonLabel: "غرض التحويل",
-        recReasonVal: "مستحقات أتعاب مهام التدقيق المالي المعتمدة (رتبة Senior)",
-        certModalTitle: "تقرير التدقيق المالي الرسمي المعتمد",
-        btnCertPrint: "تحميل / طباعة الشهادة PDF",
-        certDivision: "Corporate Financial Audit & Ratio Certification Division",
-        certNumberLabel: "رقم الشهادة:",
-        certAuditedEntityLabel: "الشركة المدققة",
-        certAuditorLabel: "المدقق المالي المعتمد",
-        certAuditorGrade: "الرتبة: Senior Lead Auditor (معتمد لدى المنصة)",
-        certRatiosTitle: "ملخص النسب والمؤشرات المالية المعتمدة",
-        certObsLabel: "خلاصة وتقرير المدقق المالي الرئيسي",
-        certSecurityLabel: "الأمان والترميز الزمني",
-        certStatusVal: "الحالة: مسجل في السجل المالي المركزي",
-        certSignLabel: "التوقيع الرقمي المعتمد",
-        calcTitle: "حاسبة التدقيق المالي",
-        btnCalcCopy: "نسخ",
-        modalWithdrawChoiceTitle: "طريقة السحب المالي",
-        bankModalTitle: "سحب بنكي إلى الحساب",
-        bankLabelAccountHolder: "صاحب الحساب",
-        bankLabelBankName: "اسم البنك",
-        bankLabelRib: "رقم الحساب البنكي RIB (24 رقم)",
-        bankLabelAmount: "المبلغ المراد سحبه ($ USD)",
-        btnConfirmWithdraw: "تأكيد طلب السحب"
+        coursesHeaderTitle: "أكاديمية ودروس التدقيق المحاسبي المعمقة",
+        coursesHeaderSubtitle: "المرجع الشامل: المعايير الدولية IFRS، النسب المالية، الرقابة الداخلية وكشف الاحتيال",
+        coursesBadge: "6 وحدات تعليمية كبرى",
+        quizHeaderTitle: "الامتحان الشامل للتدقيق والمحاسبة (50 سؤالاً)",
+        quizHeaderSubtitle: "اختبار مهني شامل مع تصحيح فوري وشروحات محاسبية مفصلة في نفس الصفحة",
+        btnResetQuiz: "إعادة تعيين الاختبار",
+        btnSubmitQuiz: "تصحيح الـ 50 سؤالاً فوراً"
       }
     };
 
@@ -929,6 +941,8 @@
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
+      renderCourses();
+      renderQuiz();
       
       const langNames = { fr: "Français", en: "English", ar: "العربية" };
       showToast(lang === 'ar' ? `تم تغيير اللغة إلى ${langNames[lang]}` : `Langue modifiée : ${langNames[lang]}`, "info", lang === 'ar' ? "اللغة" : "Langue");
@@ -938,6 +952,8 @@
       const map = {
         t_headerSubtitle: 'headerSubtitle',
         t_navAudit: 'navAudit',
+        t_navCourses: 'navCourses',
+        t_navQuizzes: 'navQuizzes',
         t_navWithdrawals: 'navWithdrawals',
         t_navEvaluation: 'navEvaluation',
         t_labelValide: 'labelValide',
@@ -973,38 +989,12 @@
         t_evalCard3Desc: 'evalCard3Desc',
         t_evalSummaryTitle: 'evalSummaryTitle',
         t_evalSummaryDesc: 'evalSummaryDesc',
-        t_recModalTitle: 'recModalTitle',
-        t_btnRecPrint: 'btnRecPrint',
-        t_recDept: 'recDept',
-        t_recRefLabel: 'recRefLabel',
-        t_recAmtLabel: 'recAmtLabel',
-        t_recStatusLabel: 'recStatusLabel',
-        t_recChannel: 'recChannel',
-        t_recDebtorLabel: 'recDebtorLabel',
-        t_recBeneficiaryLabel: 'recBeneficiaryLabel',
-        t_recReasonLabel: 'recReasonLabel',
-        t_recReasonVal: 'recReasonVal',
-        t_certModalTitle: 'certModalTitle',
-        t_btnCertPrint: 'btnCertPrint',
-        t_certDivision: 'certDivision',
-        t_certNumberLabel: 'certNumberLabel',
-        t_certAuditedEntityLabel: 'certAuditedEntityLabel',
-        t_certAuditorLabel: 'certAuditorLabel',
-        t_certAuditorGrade: 'certAuditorGrade',
-        t_certRatiosTitle: 'certRatiosTitle',
-        t_certObsLabel: 'certObsLabel',
-        t_certSecurityLabel: 'certSecurityLabel',
-        t_certStatusVal: 'certStatusVal',
-        t_certSignLabel: 'certSignLabel',
-        t_calcTitle: 'calcTitle',
-        t_btnCalcCopy: 'btnCalcCopy',
-        t_modalWithdrawChoiceTitle: 'modalWithdrawChoiceTitle',
-        t_bankModalTitle: 'bankModalTitle',
-        t_bankLabelAccountHolder: 'bankLabelAccountHolder',
-        t_bankLabelBankName: 'bankLabelBankName',
-        t_bankLabelRib: 'bankLabelRib',
-        t_bankLabelAmount: 'bankLabelAmount',
-        t_btnConfirmWithdraw: 'btnConfirmWithdraw'
+        t_coursesHeaderTitle: 'coursesHeaderTitle',
+        t_coursesHeaderSubtitle: 'coursesHeaderSubtitle',
+        t_coursesBadge: 'coursesBadge',
+        t_quizHeaderTitle: 'quizHeaderTitle',
+        t_quizHeaderSubtitle: 'quizHeaderSubtitle',
+        t_btnResetQuiz: 'btnResetQuiz'
       };
 
       for (const [domId, key] of Object.entries(map)) {
@@ -1017,6 +1007,11 @@
             el.textContent = t(key);
           }
         }
+      }
+      
+      const submitQuizBtn = document.getElementById('t_btnSubmitQuiz');
+      if (submitQuizBtn) {
+        submitQuizBtn.querySelector('span').textContent = t('btnSubmitQuiz');
       }
     }
 
@@ -1137,7 +1132,6 @@
     };
 
     let defaultWithdrawals = [operationFixe];
-
     let storedWithdrawals = JSON.parse(localStorage.getItem('audit_withdrawals'));
     let withdrawals = (storedWithdrawals && storedWithdrawals.length > 0) ? storedWithdrawals : defaultWithdrawals;
 
@@ -1191,7 +1185,402 @@
     let missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
 
     /* ========================================================
-       CALCUL THÉORIQUE & VALIDATION DE CONFORMITÉ
+       COURS LONGS D'AUDIT COMPTABLE (6 MODULES COMPLETS)
+       ======================================================== */
+    const coursesData = [
+      {
+        id: 'c1',
+        title: { fr: "Module 1 : Théorie Fondamentale & Structure des États Financiers", en: "Module 1: Fundamental Theory & Structure of Financial Statements", ar: "الوحدة 1: النظرية الأساسية وهيكل القوائم المالية" },
+        category: "Fondamentaux & IFRS",
+        readTime: "15 min",
+        sections: [
+          {
+            heading: { fr: "1.1 Le Bilan Comptable : Actif, Passif et Capitaux Propres", en: "1.1 The Balance Sheet: Assets, Liabilities and Equity", ar: "1.1 الميزانية العمومية: الأصول والخصوم وحقوق الملكية" },
+            content: {
+              fr: "Le bilan est la représentation du patrimoine d'une entité à une date donnée. L'Actif regroupe les emplois économiques (Actif Immobilisé incorporel, corporel et financier ; Actif Circulant comprenant stocks, créances d'exploitation et trésorerie d'actif). Le Passif regroupe les ressources et origines des fonds (Capitaux Propres : capital social, primes d'émission, réserves et report à nouveau ; Dettes Financières à long et moyen terme ; Passif Circulant : dettes fournisseurs, dettes fiscales et sociales). L'égalité mathématique absolue est : Total Actif = Total Passif.",
+              en: "The balance sheet outlines an entity's financial position at a specific date. Assets represent economic resources (Fixed Assets, Current Assets like inventory, trade receivables, and cash). Liabilities and Equity represent funding sources (Shareholders' Equity, Long-Term Debt, Current Liabilities like accounts payable). The fundamental accounting identity is: Total Assets = Total Liabilities + Equity.",
+              ar: "الميزانية تمثل المركز المالي للمؤسسة في تاريخ معين. تتكون من الأصول (أصول غير متداولة وأصول متداولة كالمخزون والعملاء والنقدية) والخصوم وحقوق الملكية (رأس المال، الاحتياطيات، الديون طويلة وقصيرة الأجل). القاعدة الذهبية هي: مجموع الأصول = مجموع الخصوم."
+            }
+          },
+          {
+            heading: { fr: "1.2 Le Compte de Résultat (P&L) & Soldes Intermédiaires de Gestion (SIG)", en: "1.2 Income Statement & Intermediate Management Balances", ar: "1.2 قائمة الدخل وهوامش التسيير الوسيطة" },
+            content: {
+              fr: "Le compte de résultat retrace les flux d'enrichissement et d'appauvrissement durant l'exercice comptable (Produits - Charges). Les SIG permettent de décomposer la rentabilité : 1) Marge Commerciale (Ventes de marchandises - Achats de marchandises vendues) ; 2) Valeur Ajoutée (VA) mesurant la richesse créée par l'entreprise ; 3) Excédent Brut d'Exploitation (EBE / EBITDA), indicateur de performance purement opérationnelle indépendant des politiques d'amortissement et de financement ; 4) Résultat d'Exploitation (EBIT) ; 5) Résultat Courant Avant Impôts (RCAI) ; et 6) Résultat Net final distribuable sous forme de dividendes ou mis en réserve.",
+              en: "The Income Statement tracks revenues and expenses over a fiscal period. Key management balances decompose profitability: Gross Margin, Value Added, EBITDA (cash operating profitability before D&A), EBIT (operating profit), EBT (pre-tax profit), and final Net Income available for distribution or retained earnings.",
+              ar: "قائمة الدخل تتبع الإيرادات والمصروفات. تفكك الهوامش عبر: الهامش التجاري، القيمة المضافة، الفائض الإجمالي للاستغلال (EBITDA)، النتيجة التشغيلية (EBIT)، النتيجة قبل الضرائب (EBT)، وصافي الربح النهائي."
+            }
+          }
+        ]
+      },
+      {
+        id: 'c2',
+        title: { fr: "Module 2 : Analyse Financière Approfondie & Guide des 26 Ratios d'Audit", en: "Module 2: In-Depth Financial Analysis & Guide to 26 Audit Ratios", ar: "الوحدة 2: التحليل المالي المعمق ودليل الـ 26 نسبة تدقيق" },
+        category: "Ratios & Équations",
+        readTime: "20 min",
+        sections: [
+          {
+            heading: { fr: "2.1 Ratios de Rentabilité & de Rendement", en: "2.1 Profitability & Return Ratios", ar: "2.1 نسب المردودية والعائد" },
+            content: {
+              fr: "• Taux de Marge Brute = (Marge Brute / Chiffre d'Affaires) × 100. Mesure la marge unitaire avant frais généraux.\n• Marge Opérationnelle = (EBIT / CA) × 100. Reflète la rentabilité industrielle et commerciale.\n• Marge Nette = (Résultat Net / CA) × 100. Pourcentage final restant après impôts et charges d'intérêts.\n• Return on Equity (ROE) = (Résultat Net / Capitaux Propres) × 100. Rentabilité des fonds investis par les actionnaires.\n• Return on Assets (ROA) = (Résultat Net / Total Actif) × 100. Efficacité productive de l'ensemble du parc d'actifs.",
+              en: "• Gross Margin Ratio = (Gross Profit / Revenue) × 100.\n• Operating Margin = (EBIT / Revenue) × 100.\n• Net Profit Margin = (Net Income / Revenue) × 100.\n• Return on Equity (ROE) = (Net Income / Shareholders' Equity) × 100.\n• Return on Assets (ROA) = (Net Income / Total Assets) × 100.",
+              ar: "• نسبة الهامش الإجمالي = (الهامش الإجمالي / الإيرادات) × 100.\n• الهامش التشغيلي = (EBIT / الإيرادات) × 100.\n• هامش الربح الصافي = (صافي الربح / الإيرادات) × 100.\n• العائد على حقوق الملكية ROE = (صافي الربح / حقوق الملكية) × 100.\n• العائد على الأصول ROA = (صافي الربح / مجموع الأصول) × 100."
+            }
+          },
+          {
+            heading: { fr: "2.2 Ratios de Solvabilité, Structure & Couverture", en: "2.2 Solvency, Leverage & Coverage Ratios", ar: "2.2 نسب الملاءة المالية والرافعة المالية والتغطية" },
+            content: {
+              fr: "• Ratio d'Endettement Général = Dette Totale / Total Actif (Seuil d'alerte > 0.70).\n• Gearing / Debt-to-Equity = Dette Financière Nette / Capitaux Propres (Doit rester < 1.00 sous peine de sous-capitalisation).\n• Ratio de Couverture des Intérêts (Interest Coverage Ratio) = EBIT / Charges d'Intérêts. Un ratio inférieur à 2.50 signale une vulnérabilité critique face aux hausses de taux d'intérêt.",
+              en: "• Debt-to-Assets Ratio = Total Debt / Total Assets (Alert threshold > 0.70).\n• Debt-to-Equity (Gearing) = Total Debt / Equity (Should remain below 1.0 to avoid overleveraging).\n• Interest Coverage Ratio = EBIT / Interest Expenses (Below 2.5 indicates high default risk).",
+              ar: "• نسبة المديونية العامة = إجمالي الديون / مجموع الأصول (خطر إذا تجاوزت 0.70).\n• نسبة الديون إلى حقوق الملكية = إجمالي الديون / حقوق الملكية.\n• نسبة تغطية الفوائد = EBIT / مصاريف الفوائد (أقل من 2.50 يعتبر مؤشر خطر)."
+            }
+          }
+        ]
+      },
+      {
+        id: 'c3',
+        title: { fr: "Module 3 : Équilibre Financier, FRNG, BFR & Trésorerie Nette", en: "Module 3: Financial Equilibrium, Working Capital & Net Cash", ar: "الوحدة 3: التوازن المالي، رأس المال العامل والخزينة الصافية" },
+        category: "Gestion de Trésorerie",
+        readTime: "18 min",
+        sections: [
+          {
+            heading: { fr: "3.1 L'Équation Fondamentale du Bilan Fonctionnel", en: "3.1 The Fundamental Functional Balance Sheet Equation", ar: "3.1 المعادلة الأساسية للتوازن الوظيفي" },
+            content: {
+              fr: "La règle d'or financière stipule que les emplois stables (Actif Immobilisé brut) doivent être intégralement financés par des ressources durables (Capitaux Propres + Dettes financières à long terme). L'excédent dégagé constitue le Fonds de Roulement Net Global (FRNG).\nFormule par le bas du bilan : FRNG = Actifs Circulants - Passifs Circulants.\nLe Besoin en Fonds de Roulement (BFR) correspond aux capitaux immobilisés dans le cycle d'exploitation : BFR = Stocks + Créances Clients - Dettes Fournisseurs.\nLa relation fondamentale s'écrit : Trésorerie Nette = FRNG - BFR.",
+              en: "Long-term fixed assets must be funded by long-term permanent capital. The excess forms the Net Working Capital (FRNG = Current Assets - Current Liabilities). The Working Capital Requirement (WCR/BFR = Inventory + Accounts Receivable - Accounts Payable) reflects operational cash tied up. The golden rule is: Net Cash = Working Capital - WCR.",
+              ar: "القاعدة الذهبية تفرض تمويل الأصول الثابتة برؤوس أموال دائمة. الفائض يشكل رأس المال العامل (FRNG = الأصول المتداولة - الخصوم المتداولة). احتياج رأس المال العامل (BFR = المخزون + العملاء - الموردين). المعادلة الذهبية: الخزينة الصافية = FRNG - BFR."
+            }
+          },
+          {
+            heading: { fr: "3.2 Analyse des Délais du Cycle d'Exploitation (DSO, DPO, DIO)", en: "3.2 Working Capital Cycle Days (DSO, DPO, DIO)", ar: "3.2 مؤشرات دورة الاستغلال بالأيام" },
+            content: {
+              fr: "• DSO (Days Sales Outstanding) = (Créances Clients / Chiffre d'Affaires) × 365. Délai moyen de recouvrement client (Cible recommandée < 60 jours).\n• DPO (Days Payable Outstanding) = (Dettes Fournisseurs / Coût d'Achat des Marchandises Vendues) × 365. Délai consenti par les fournisseurs.\n• DIO (Days Inventory Outstanding) = (Stock Moyen / Coût des Ventes) × 365. Délai de rotation des stocks.\n• Durée du Cycle de Conversion de Trésorerie (CCC) = DIO + DSO - DPO. Plus ce cycle est court ou négatif, plus l'entreprise génère de la trésorerie spontanément (modèle de la grande distribution).",
+              en: "• DSO = (Accounts Receivable / Revenue) × 365 (Target < 60 days).\n• DPO = (Accounts Payable / COGS) × 365.\n• DIO = (Average Inventory / COGS) × 365.\n• Cash Conversion Cycle (CCC) = DIO + DSO - DPO. A shorter cycle frees up operating cash.",
+              ar: "• مدة تحصيل مستحقات العملاء DSO = (ذمم العملاء / المبيعات) × 365.\n• مدة سداد الموردين DPO = (ديون الموردين / تكلفة المبيعات) × 365.\n• دوران المخزون بالأيام DIO = (متوسط المخزون / تكلفة المبيعات) × 365.\n• دورة التحويل النقدي CCC = DIO + DSO - DPO."
+            }
+          }
+        ]
+      },
+      {
+        id: 'c4',
+        title: { fr: "Module 4 : Méthodologie d'Audit Financier, Assertions & Procédures de Contrôle", en: "Module 4: Financial Audit Methodology, Assertions & Substantive Testing", ar: "الوحدة 4: منهجية التدقيق المالي، التأكيدات وإجراءات الرقابة" },
+        category: "Pratique de l'Audit",
+        readTime: "22 min",
+        sections: [
+          {
+            heading: { fr: "4.1 Les 7 Assertions d'Audit Fondamentales (Normes ISA / NEP)", en: "4.1 The 7 Core Audit Assertions (ISA Standards)", ar: "4.1 تأكيدات التدقيق السبعة الأساسية (معايير ISA)" },
+            content: {
+              fr: "Lorsqu'il certifie des comptes réguliers, sincères et donnant une image fidèle, l'auditeur valide 7 assertions :\n1. Réalité / Existence : Les actifs, passifs et opérations enregistrés existent réellement.\n2. Exhaustivité : Toutes les transactions survenues ont été intégralement comptabilisées (aucune omission).\n3. Droits et Obligations : L'entité détient les droits de propriété sur ses actifs et est tenue de ses dettes.\n4. Évaluation et Imputation : Les montants sont valorisés conformément aux principes comptables (provisions, amortissements).\n5. Césure des Exercices (Cut-off) : Rattachement strict des charges et produits à leur exercice de réalisation.\n6. Exactitude Arithmétique : Calculs et équations rigoureusement exacts.\n7. Présentation et Information : Les notes annexes respectent le référentiel en vigueur.",
+              en: "Auditors validate 7 financial statement assertions: Existence, Completeness, Rights and Obligations, Valuation, Cut-off (proper accounting period), Accuracy, and Presentation/Disclosure.",
+              ar: "يتحقق المدقق من 7 تأكيدات: 1) الوجود الفعلي؛ 2) الشمول والاكتمال؛ 3) الحقوق والالتزامات؛ 4) صحة التقييم؛ 5) استقلالية الدورات المحاسبية (Cut-off)؛ 6) الدقة الحسابية؛ 7) العرض والإفصاح القانوني."
+            }
+          },
+          {
+            heading: { fr: "4.2 Seuil de Signification & Sondages d'Audit", en: "4.2 Materiality & Audit Sampling", ar: "4.2 الأهمية النسبية والعينات الرقابية" },
+            content: {
+              fr: "Le Seuil de Signification (Materiality) est le montant au-delà duquel une anomalie non corrigée est susceptible d'influencer les décisions économiques des lecteurs des états financiers. Il est généralement fixé entre 0.5% et 1% du Chiffre d'Affaires, ou 5% du Résultat Net. L'auditeur définit également une 'erreur tolérable' et effectue des sondages statistiques pour orienter ses contrôles substantifs.",
+              en: "Materiality is the benchmark above which misstatements could influence users' decisions. Commonly set at 0.5-1% of Revenue or 5% of Net Profit. Auditors use performance materiality and statistical sampling to execute substantive audit procedures.",
+              ar: "مستوى الأهمية النسبية هو السقف الذي يؤثر تجاوزه على قرارات مستخدمي القوائم المالية. يحدد عادة بنسبة 0.5% إلى 1% من الإيرادات أو 5% من صافي الأرباح."
+            }
+          }
+        ]
+      },
+      {
+        id: 'c5',
+        title: { fr: "Module 5 : Contrôle Interne, Matrice des Risques & Séparation des Fonctions", en: "Module 5: Internal Control, Risk Matrix & Segregation of Duties", ar: "الوحدة 5: الرقابة الداخلية، مصفوفة المخاطر والفصل بين المهام" },
+        category: "Contrôle Interne",
+        readTime: "16 min",
+        sections: [
+          {
+            heading: { fr: "5.1 Les 5 Piliers du Référentiel COSO", en: "5.1 The 5 Pillars of the COSO Framework", ar: "5.1 الأركان الخمسة لإطار COSO" },
+            content: {
+              fr: "Le cadre de référence international COSO structure le contrôle interne autour de 5 composantes interdépendantes :\n1. Environnement de contrôle (éthique, intégrité, ton donné par la direction) ;\n2. Évaluation des risques (identification et cartographie des risques opérationnels et financiers) ;\n3. Activités de contrôle (procédures, vérifications doubles, contrôles physiques) ;\n4. Information et communication (traçabilité et circulation fluide des données) ;\n5. Pilotage et surveillance continue (audits internes réguliers).",
+              en: "The COSO framework relies on 5 core pillars: 1. Control Environment; 2. Risk Assessment; 3. Control Activities; 4. Information & Communication; 5. Monitoring Activities.",
+              ar: "يقوم إطار COSO على 5 ركائز: بيئة الرقابة، تقييم المخاطر، أنشطة الرقابة، المعلومات والتواصل، والمتابعة المستمرة."
+            }
+          },
+          {
+            heading: { fr: "5.2 Le Principe Fondamental de Séparation des Fonctions & Rapprochement à 3 Voies", en: "5.2 Segregation of Duties & 3-Way Matching", ar: "5.2 الفصل بين المهام والمطابقة الثلاثية" },
+            content: {
+              fr: "La séparation des fonctions interdit d'attribuer à un même collaborateur la décision d'engagement (bon de commande), la réception physique (bon de livraison), l'enregistrement comptable (facture) et le paiement (virement bancaire). Dans le cycle Achats, la règle du '3-Way Match' (Bon de commande = Bon de réception = Facture fournisseur) est obligatoire avant toute validation de décaissement pour éviter les facturations fictives et les doublons.",
+              en: "Segregation of duties prevents fraud by separating authorization, custody, recording, and reconciliation. The 3-way match (Purchase Order = Delivery Slip = Supplier Invoice) is mandatory before authorizing any bank disbursement.",
+              ar: "يمنع مبدأ الفصل بين المهام إسناد الطلب والاستلام والتقييد المحاسبي والأداء لشخص واحد. المطابقة الثلاثية (طلب الشراء = وصل الاستلام = الفاتورة) إلزامية قبل أي سداد بنكي."
+            }
+          }
+        ]
+      },
+      {
+        id: 'c6',
+        title: { fr: "Module 6 : Détection des Fraudes Comptables & Prévention des Faillites", en: "Module 6: Fraud Detection & Insolvency Risk Modeling", ar: "الوحدة 6: كشف الاحتيال المحاسبي ونماذج التنبؤ بالإفلاس" },
+        category: "Fraude & Solvabilité",
+        readTime: "18 min",
+        sections: [
+          {
+            heading: { fr: "6.1 Le Triangle de la Fraude de Cressey & Techniques de Détection", en: "6.1 Cressey's Fraud Triangle & Detection Techniques", ar: "6.1 مثلث الاحتيال لكريسي وتقنيات الكشف" },
+            content: {
+              fr: "Selon Donald Cressey, la fraude comptable survient à la convergence de trois facteurs : 1) La Pression/Motivation (objectifs financiers irréalistes, endettement personnel) ; 2) L'Opportunité (défaillance ou absence de contrôles internes) ; 3) La Rationalisation (justification morale de l'acte délictueux).\nLes techniques de détection incluent : l'analyse de la loi de Benford sur le premier chiffre des montants facturés, la recherche d'écritures manuelles passées le week-end ou en fin de période de clôture, et l'analyse des avoirs non justifiés émis juste après la clôture.",
+              en: "Cressey's Fraud Triangle consists of Pressure, Opportunity, and Rationalization. Detection methods include Benford's Law analysis, investigating manual journal entries made on weekends or closing dates, and scrutinizing sudden credit notes after year-end.",
+              ar: "يتكون مثلث الاحتيال من: الضغط المالي، الفرصة المتاحة (غياب الرقابة)، والتبرير الأخلاقي. تشمل تقنيات الكشف: تحليل قانون بنفورد، تدقيق القيود اليدوية في عطل نهاية الأسبوع وفحص إشعارات الخصم المشبوهة."
+            }
+          },
+          {
+            heading: { fr: "6.2 Le Score Z d'Altman pour la Prédiction des Faillites", en: "6.2 Altman Z-Score for Bankruptcy Prediction", ar: "6.2 نموذج ألتمان (Altman Z) للتنبؤ بالتعثر المالي" },
+            content: {
+              fr: "Le modèle statistique d'Edward Altman combine 5 ratios pondérés pour évaluer la probabilité de faillite à 2 ans :\nZ = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5)\nOù X1 = BFR / Total Actif ; X2 = Réserves Réinvesties / Total Actif ; X3 = EBIT / Total Actif ; X4 = Capitaux Propres / Dette Totale ; X5 = Chiffre d'Affaires / Total Actif.\nInterprétation :\n• Z > 2.99 : Zone Sûre (Entreprise financièrement très solide) ;\n• 1.81 < Z < 2.99 : Zone Grise (Risque modéré, surveillance requise) ;\n• Z < 1.81 : Zone de Détresse (Risque de faillite imminent dans les 24 mois).",
+              en: "Altman Z-Score predicts financial distress: Z = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5). Z > 2.99: Safe Zone; 1.81-2.99: Grey Zone; Z < 1.81: Distress Zone (high bankruptcy probability).",
+              ar: "نموذج ألتمان يدمج 5 نسب مالية مرجحة. إذا كان Z أكبر من 2.99 فالشركة آمنة. بين 1.81 و 2.99 منطقة رمادية تحتاج للمراقبة. أقل من 1.81 منطقة خطر وإفلاس وشيك خلال سنتين."
+            }
+          }
+        ]
+      }
+    ];
+
+    /* ========================================================
+       50 QUESTIONS DU GRAND EXAMEN D'AUDIT (QCM COMPLET)
+       ======================================================== */
+    const quizQuestions = [
+      { id: 'q1', q: "Quelle est la formule fondamentale de la Trésorerie Nette ?", opt: ["FRNG + BFR", "FRNG - BFR", "Total Actif / Passif", "EBITDA - CAPEX"], c: 1, exp: "Trésorerie Nette = FRNG - BFR. Elle représente l'excédent de ressources stables après financement du BFR." },
+      { id: 'q2', q: "Comment se calcule le Fonds de Roulement Net Global (FRNG) par le bas du bilan ?", opt: ["Actifs Circulants - Passifs Circulants", "Stocks + Créances", "Capitaux Propres - Dettes", "EBIT - Intérêts"], c: 0, exp: "Par le bas du bilan, FRNG = Actifs Circulants - Passifs Circulants." },
+      { id: 'q3', q: "Comment est défini le Besoin en Fonds de Roulement (BFR) ?", opt: ["Immobilisations - Amortissements", "Stocks + Créances Clients - Dettes Fournisseurs", "Trésorerie Actif - Trésorerie Passif", "Chiffre d'Affaires - Charges"], c: 1, exp: "Le BFR d'exploitation = Stocks + Créances d'exploitation - Dettes d'exploitation." },
+      { id: 'q4', q: "Que mesure le ratio de Liquidité Générale (Current Ratio) ?", opt: ["Actifs Circulants / Passifs Circulants", "Trésorerie / Capitaux Propres", "Résultat Net / Chiffre d'Affaires", "Dette Totale / Total Actif"], c: 0, exp: "Liquidité Générale = Actifs Circulants / Passifs Circulants. Un ratio > 1 indique que les actifs à court terme couvrent les dettes exigibles." },
+      { id: 'q5', q: "Quelle est la formule du ratio de Liquidité Réduite (Quick Ratio / Acid Test) ?", opt: ["(Actifs Circulants - Stocks) / Passifs Circulants", "Actifs Circulants / Stocks", "Trésorerie / Chiffre d'Affaires", "BFR / Total Actif"], c: 0, exp: "Liquidité Réduite = (Actifs Circulants - Stocks) / Passifs Circulants. On exclut les stocks car ils sont moins liquides." },
+      { id: 'q6', q: "Quel ratio mesure la Liquidité Immédiate (Cash Ratio) ?", opt: ["Trésorerie & Équivalents / Passifs Circulants", "EBITDA / Dettes", "Résultat Net / Passifs", "Stocks / Trésorerie"], c: 0, exp: "Liquidité Immédiate = Disponibilités & Placements liquides / Passifs Circulants." },
+      { id: 'q7', q: "Quelle est la définition exacte de l'EBITDA ?", opt: ["Résultat Net - Impôts", "EBIT + Dotations aux Amortissements et Dépréciations", "Chiffre d'Affaires - Impôts", "Marge Brute - Dividendes"], c: 1, exp: "EBITDA = Résultat d'Exploitation (EBIT) + Dotations aux Amortissements & Provisions." },
+      { id: 'q8', q: "Quelle est la formule du Return on Equity (ROE) ?", opt: ["(Résultat Net / Capitaux Propres) × 100", "(EBIT / Chiffre d'Affaires) × 100", "Total Actif / Dette", "Dividendes / Capital"], c: 0, exp: "ROE = (Résultat Net / Capitaux Propres) × 100. Il mesure la rentabilité financière pour les actionnaires." },
+      { id: 'q9', q: "Quelle est la formule du Return on Assets (ROA) ?", opt: ["(Résultat Net / Total Actif) × 100", "Chiffre d'Affaires / Capitaux Propres", "EBIT / Stocks", "Trésorerie / Total Actif"], c: 0, exp: "ROA = (Résultat Net / Total Actif) × 100. Il mesure l'efficacité de l'ensemble des actifs employés." },
+      { id: 'q10', q: "Quelle formule donne le délai moyen de paiement clients (DSO en jours) ?", opt: ["(Créances Clients / Chiffre d'Affaires TTC) × 365", "(Stocks / Achats) × 365", "(Dettes Fournisseurs / Ventes) × 365", "(Résultat Net / CA) × 365"], c: 0, exp: "DSO = (Créances Clients / CA TTC) × 365 jours." },
+      { id: 'q11', q: "Quelle formule donne le délai moyen de paiement fournisseurs (DPO en jours) ?", opt: ["(Dettes Fournisseurs / Coût d'Achat des Marchandises Vendues) × 365", "(Créances / Ventes) × 365", "(Trésorerie / Achats) × 365", "(EBIT / Dettes) × 365"], c: 0, exp: "DPO = (Dettes Fournisseurs / Coût d'Achat ou Achats TTC) × 365 jours." },
+      { id: 'q12', q: "Quelle est la formule de calcul du Free Cash Flow (FCF) ?", opt: ["Flux de Trésorerie d'Exploitation - Dépenses d'Investissement (CAPEX)", "Résultat Net + Chiffre d'Affaires", "EBITDA - Dividendes", "Marge Brute - Frais Généraux"], c: 0, exp: "Free Cash Flow = Cash Flow Opérationnel - CAPEX (investissements nets de maintien et croissance)." },
+      { id: 'q13', q: "Que représente le principe de 'Séparation des Fonctions' en contrôle interne ?", opt: ["Séparer autorisation, exécution, enregistrement et contrôle", "Faire deux bilans différents", "Changer d'auditeur chaque mois", "Séparer l'Actif du Passif"], c: 0, exp: "Ce principe interdit qu'une même personne cumule le pouvoir d'engager, de décaisser et d'enregistrer une opération." },
+      { id: 'q14', q: "Dans le cycle Achats, qu'appelle-t-on la procédure du '3-Way Match' (Rapprochement à 3 voies) ?", opt: ["Bon de commande = Bon de réception = Facture fournisseur", "Bilan = Compte de résultat = TFT", "Banque 1 = Banque 2 = Caisse", "3 signatures obligatoires sur les chèques"], c: 0, exp: "C'est la confrontation obligatoire entre le Bon de Commande, le Bon de Réception physique et la Facture." },
+      { id: 'q15', q: "Qu'est-ce que l'assertion d'audit 'Cut-off' (Césure des exercices) ?", opt: ["Rattacher chaque charge et produit à son exercice d'origine", "Couper les salaires en deux", "Arrêter l'activité à minuit", "Supprimer les écritures erronées"], c: 0, exp: "Le Cut-off garantit que les opérations sont enregistrées dans la bonne période comptable." },
+      { id: 'q16', q: "Quelle assertion est violée si une entreprise enregistre une facture de vente fictive sans livraison ?", opt: ["Réalité / Existence", "Évaluation", "Présentation", "Exhaustivité"], c: 0, exp: "L'assertion de Réalité (ou Existence) est rompue car l'opération n'a pas eu lieu dans l'économie réelle." },
+      { id: 'q17', q: "Quelle assertion est violée si l'entreprise 'oublie' d'enregistrer une facture fournisseur ?", opt: ["Exhaustivité (Completeness)", "Réalité", "Droits et obligations", "Exactitude"], c: 0, exp: "L'exhaustivité exige que 100% des transactions réelles soient comptabilisées." },
+      { id: 'q18', q: "Que mesure le ratio de Couverture des Intérêts (Interest Coverage Ratio) ?", opt: ["EBIT / Charges d'Intérêts", "Chiffre d'Affaires / Emprunts", "Dettes / Capitaux Propres", "Trésorerie / Intérêts"], c: 0, exp: "Couverture des Intérêts = EBIT / Charges Financières. Un score inférieur à 2.5 signale une tension financière." },
+      { id: 'q19', q: "Dans le Score Z d'Altman, quelle valeur du score indique une zone de détresse financière critique (faillite probable) ?", opt: ["Z < 1.81", "Z > 5.00", "Z = 3.50", "Z > 2.99"], c: 0, exp: "Un Score Z inférieur à 1.81 classe la société en zone de détresse financière à court terme." },
+      { id: 'q20', q: "Quels sont les trois facteurs du Triangle de la Fraude (Modèle de Cressey) ?", opt: ["Pression, Opportunité, Rationalisation", "Argent, Banque, Police", "Facture, Bilan, Chèque", "Auditeur, Directeur, Comptable"], c: 0, exp: "Le triangle de Donald Cressey repose sur le Besoin/Pression, l'Opportunité et la Justification mentale." },
+      { id: 'q21', q: "Qu'est-ce qu'un actif immobilisé selon les normes IFRS ?", opt: ["Ressource contrôlée destinée à être utilisée durablement (> 12 mois)", "Un stock vendu dans le mois", "Une créance client à 30 jours", "Le solde du compte bancaire"], c: 0, exp: "Un actif immobilisé est un élément identifiable du patrimoine destiné à servir durablement l'activité." },
+      { id: 'q22', q: "Que signifie le terme 'Gearing' (Levier financier) ?", opt: ["Dette Financière Nette / Capitaux Propres", "Chiffre d'Affaires / Résultat", "Actif Circulant / BFR", "Dividendes / Action"], c: 0, exp: "Le gearing mesure l'endettement net par rapport aux fonds propres des actionnaires." },
+      { id: 'q23', q: "Comment calcule-t-on la Capacité d'Autofinancement (CAF) par la méthode additive ?", opt: ["Résultat Net + Dotations aux Amortissements & Provisions", "Chiffre d'Affaires + Stocks", "Total Actif - Dettes", "EBITDA - Impôts"], c: 0, exp: "CAF = Résultat Net + Charges non décaissables (Amortissements/Provisions) - Produits non encaissables." },
+      { id: 'q24', q: "Quelle est la conséquence directe d'une augmentation imprévue du BFR sur la trésorerie ?", opt: ["Une baisse directe de la trésorerie nette", "Une hausse de la trésorerie", "Aucun impact", "Une augmentation du capital"], c: 0, exp: "Comme Trésorerie = FRNG - BFR, toute hausse du BFR non financée par le FRNG détruit de la trésorerie." },
+      { id: 'q25', q: "Quelle anomalie d'audit traduit un ratio de rotation des stocks anormalement faible ?", opt: ["Surévaluation potentielle ou stocks obsolètes/dormants", "Une surchauffe des ventes", "Une rupture de stock", "Une baisse des impôts"], c: 0, exp: "Une faible rotation des stocks indique que les marchandises dorment en entrepôt, risquant une dépréciation." },
+      { id: 'q26', q: "Qu'est-ce que le 'Seuil de Signification' en audit comptable ?", opt: ["Le montant d'erreur toléré au-delà duquel l'opinion d'audit est altérée", "Le salaire de l'auditeur", "Le montant minimum pour ouvrir un compte", "Le taux de TVA"], c: 0, exp: "C'est la limite chiffrée à partir de laquelle les erreurs impactent la sincérité des états financiers." },
+      { id: 'q27', q: "Quelle méthode d'évaluation des stocks est formellement interdite par les normes IFRS (IAS 2) ?", opt: ["LIFO (Last In, First Out)", "FIFO (First In, First Out)", "CUMP (Coût Unitaire Moyen Pondéré)", "Coût Standard"], c: 0, exp: "La norme IAS 2 proscrit formellement la méthode LIFO (Dernier Entré, Premier Sorti)." },
+      { id: 'q28', q: "Quel compte figure au Passif parmi les suivants ?", opt: ["Dettes Fournisseurs", "Créances Clients", "Immobilisations corporelles", "Trésorerie active"], c: 0, exp: "Les dettes fournisseurs représentent une dette exigible envers un tiers, inscrite au passif circulant." },
+      { id: 'q29', q: "Qu'est-ce qu'une charge constatée d'avance (CCA) ?", opt: ["Une charge payée durant l'exercice mais concernant l'exercice suivant", "Une facture impayée", "Un dividende", "Une provision pour litige"], c: 0, exp: "Une CCA est un actif qui permet de respecter le principe d'indépendance des exercices (Cut-off)." },
+      { id: 'q30', q: "Que constitue un produit constaté d'avance (PCA) au bilan ?", opt: ["Une dette / passif de régularisation", "Un actif immobilisé", "Un compte bancaire", "Une charge financière"], c: 0, exp: "Un PCA est inscrit au passif car l'entreprise a encaissé un revenu pour une prestation non encore livrée." },
+      { id: 'q31', q: "Quel est l'impact de l'amortissement comptable d'une machine sur la trésorerie immédiate ?", opt: ["Aucun impact direct (charge non décaissable)", "Une sortie de cash immédiate", "Une entrée de cash", "Un virement bancaire"], c: 0, exp: "L'amortissement est une charge purement comptable (non décaissée) constatant l'usure de l'actif." },
+      { id: 'q32', q: "Dans le cadre du COSO, combien de piliers fondamentaux composent le contrôle interne ?", opt: ["5 piliers", "2 piliers", "10 piliers", "7 piliers"], c: 0, exp: "Le cadre COSO repose sur 5 piliers : Environnement, Évaluation des risques, Activités de contrôle, Info/Com, Pilotage." },
+      { id: 'q33', q: "Qu'appelle-t-on le 'rapprochement bancaire' ?", opt: ["La justification des écarts entre le grand livre banque et le relevé bancaire", "Une demande de crédit", "Un audit des taux d'intérêt", "Un transfert de fonds"], c: 0, exp: "Il permet de vérifier la concordance parfaite entre le compte 512 en comptabilité et le relevé de la banque." },
+      { id: 'q34', q: "Quel test statistique s'applique sur le premier chiffre des données financières pour détecter la fraude ?", opt: ["La Loi de Benford", "Le théorème de Pythagore", "L'algorithme de Dijkstra", "Le test de Turing"], c: 0, exp: "La loi de Benford démontre que le chiffre 1 apparaît en première position dans ~30.1% des données authentiques." },
+      { id: 'q35', q: "Quelle assertion est vérifiée lorsqu'un auditeur réalise une circularisation (confirmation externe) des clients ?", opt: ["Réalité / Existence des créances et Droits", "Amortissement", "Présentation", "Conformité fiscale"], c: 0, exp: "La confirmation directe par lettre auprès des clients prouve l'existence réelle de la créance." },
+      { id: 'q36', q: "Qu'est-ce que l'actif net comptable (Capitaux Propres) ?", opt: ["Total Actif - Total des Dettes envers les tiers", "Chiffre d'affaires - Salaires", "Trésorerie brute", "Total des stocks"], c: 0, exp: "L'Actif Net = Actif Total - Dettes. Il correspond à la valeur comptable revenant aux propriétaires." },
+      { id: 'q37', q: "Que signifie un 'BFR négatif' (ressource en fonds de roulement) ?", opt: ["Les dettes fournisseurs financent intégralement les stocks et créances", "L'entreprise est en faillite", "Les clients ont refusé de payer", "Le stock est vide"], c: 0, exp: "Typique de la grande distribution (clients paient comptant, fournisseurs payés à 60 jours)." },
+      { id: 'q38', q: "Quel est l'objectif de la 'revue analytique' en phase préliminaire d'audit ?", opt: ["Identifier les variations anormales et les zones de risques significatifs", "Remplir les déclarations d'impôt", "Fixer les prix de vente", "Signer les contrats de travail"], c: 0, exp: "La revue analytique compare les soldes d'une année sur l'autre pour orienter les contrôles." },
+      { id: 'q39', q: "Comment est valorisée une créance client douteuse en fin d'exercice ?", opt: ["Par une dépréciation pour risque de non-recouvrement", "Par une augmentation de capital", "En l'effaçant sans trace", "En l'inscrivant en produit"], c: 0, exp: "Le principe de prudence impose de déprécier la créance à hauteur de la perte estimée." },
+      { id: 'q40', q: "Quel ratio compare l'EBITDA à la Dette Financière Nette ?", opt: ["Ratio de Désendettement (Dette Nette / EBITDA)", "ROE", "Marge Nette", "DSO"], c: 0, exp: "Dette Nette / EBITDA mesure le nombre d'années nécessaires pour rembourser la dette avec le cash opérationnel." },
+      { id: 'q41', q: "Qu'est-ce qu'une 'facture à établir' (FAE) ?", opt: ["Une marchandise livrée avant clôture dont la facture n'est pas encore émise", "Une facture annulée", "Un avoir reçu", "Un devis sans suite"], c: 0, exp: "Une FAE permet de rattacher le produit à l'exercice au cours duquel la livraison a eu lieu." },
+      { id: 'q42', q: "Qu'est-ce qu'une 'facture non parvenue' (FNP) ?", opt: ["Une marchandise réceptionnée avant clôture dont la facture fournisseur n'est pas reçue", "Un rejet de paiement", "Une facture payée d'avance", "Un chèque perdu"], c: 0, exp: "C'est une dette d'exploitation provisionnée pour respecter le principe de rattachement des charges." },
+      { id: 'q43', q: "Pourquoi l'inventaire physique annuel des stocks est-il obligatoire en audit ?", opt: ["Pour valider l'existence physique et détecter les pertes ou vols", "Pour compter le nombre d'employés", "Pour calculer le prix des machines", "Pour modifier les statuts"], c: 0, exp: "L'inventaire physique valide l'assertion d'existence et permet de corriger le stock théorique comptable." },
+      { id: 'q44', q: "Qu'est-ce qu'un engagement hors bilan ?", opt: ["Un droit ou obligation potentiel (caution bancaire, leasing, nantissement)", "Une facture payée en espèces", "Un compte secret", "Un salaire non versé"], c: 0, exp: "Les engagements hors bilan sont décrits dans l'annexe car ils représentent des risques futurs pour l'entité." },
+      { id: 'q45', q: "Quelle norme internationale régit la reconnaissance du revenu des contrats avec les clients ?", opt: ["IFRS 15", "IAS 2", "IFRS 16", "IAS 36"], c: 0, exp: "La norme IFRS 15 fixe le modèle en 5 étapes pour comptabiliser les produits des contrats clients." },
+      { id: 'q46', q: "Quelle norme internationale régit la comptabilisation des contrats de location (Leasing) ?", opt: ["IFRS 16 (Droit d'utilisation à l'actif & Dette de loyer au passif)", "IAS 7", "IAS 1", "IFRS 9"], c: 0, exp: "IFRS 16 oblige à inscrire un actif au titre du droit d'utilisation en contrepartie d'une dette de loyer." },
+      { id: 'q47', q: "Qu'exprime le principe comptable de 'Prudence' ?", opt: ["Ne pas surévaluer les actifs/produits et anticiper les pertes probables", "Dépenser le moins d'argent possible", "Refuser les nouveaux clients", "Cacher les bénéfices"], c: 0, exp: "La prudence impose de comptabiliser les pertes probables dès leur identification mais jamais les gains futurs." },
+      { id: 'q48', q: "Quel est le rôle du Tableau des Flux de Trésorerie (TFT) ?", opt: ["Expliquer la variation de trésorerie via l'exploitation, l'investissement et le financement", "Lister les clients en retard", "Remplacer le bilan", "Calculer le montant de la TVA"], c: 0, exp: "Le TFT décompose les flux de trésorerie en trois catégories fondamentales : OCF, ICF et FCF." },
+      { id: 'q49', q: "Qu'est-ce qu'une 'opinion avec réserve' émise par un Commissaire aux Comptes / Auditeur ?", opt: ["Certification des comptes malgré des désaccords ou limites identifiés non bloquants", "Une démission de l'auditeur", "Un refus total de certifier", "Une félicitation écrite"], c: 0, exp: "L'auditeur certifie que les états sont sincères sauf sur un point spécifique délimité." },
+      { id: 'q50', q: "Dans une analyse de solvabilité, que traduit un ratio Capitaux Propres / Total Actif supérieur à 0.40 ?", opt: ["Une structure financière solide et une forte indépendance financière", "Une faillite immédiate", "Un excès de dettes bancaires", "Une trésorerie bloquée"], c: 0, exp: "Un ratio > 40% prouve que près de la moitié des actifs est financée par les actionnaires sans dépendre des banques." }
+    ];
+
+    let userQuizAnswers = {};
+
+    function renderCourses() {
+      const container = document.getElementById('coursesListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      coursesData.forEach((course, idx) => {
+        const title = course.title[currentLanguage] || course.title.fr;
+        
+        let sectionsHtml = '';
+        course.sections.forEach(sec => {
+          const sHeading = sec.heading[currentLanguage] || sec.heading.fr;
+          const sContent = sec.content[currentLanguage] || sec.content.fr;
+
+          sectionsHtml += `
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                ${sHeading}
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium whitespace-pre-line">${sContent}</p>
+            </div>
+          `;
+        });
+
+        const card = document.createElement('div');
+        card.className = "bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 shadow-lg";
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-3">
+            <div>
+              <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">${course.category}</span>
+              <h3 class="text-base sm:text-lg font-black text-white mt-1.5">${title}</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-bold bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 self-start sm:self-auto">⏱️ ${course.readTime}</span>
+          </div>
+          <div class="space-y-3">
+            ${sectionsHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quizQuestionsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      quizQuestions.forEach((q, idx) => {
+        let optionsHtml = '';
+        q.opt.forEach((optText, optIdx) => {
+          const isChecked = userQuizAnswers[q.id] === optIdx ? 'checked' : '';
+
+          optionsHtml += `
+            <label class="quiz-option-label cursor-pointer flex items-start gap-3 p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-slate-700 transition" id="opt_container_${q.id}_${optIdx}">
+              <input type="radio" name="quiz_${q.id}" value="${optIdx}" ${isChecked} onchange="onQuizSelect('${q.id}', ${optIdx})" class="mt-0.5 text-emerald-500 focus:ring-emerald-400 bg-slate-950 border-slate-700">
+              <span class="text-xs sm:text-sm font-semibold text-slate-200">${optText}</span>
+            </label>
+          `;
+        });
+
+        const qCard = document.createElement('div');
+        qCard.id = `quiz_card_${q.id}`;
+        qCard.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3";
+        qCard.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-emerald-400 uppercase tracking-wider">Question ${idx + 1} / ${quizQuestions.length}</span>
+            <span id="quiz_badge_${q.id}" class="text-[10px] font-black uppercase px-2 py-0.5 rounded hidden"></span>
+          </div>
+          <p class="text-xs sm:text-sm font-bold text-white leading-relaxed">${q.q}</p>
+          <div class="space-y-2 pt-1" id="options_group_${q.id}">
+            ${optionsHtml}
+          </div>
+          <div id="quiz_exp_${q.id}" class="hidden p-3 rounded-xl border text-xs leading-relaxed mt-2 font-medium"></div>
+        `;
+        container.appendChild(qCard);
+      });
+    }
+
+    function onQuizSelect(qId, optIdx) {
+      userQuizAnswers[qId] = optIdx;
+    }
+
+    function gradeQuiz(e) {
+      e.preventDefault();
+      
+      const answeredCount = Object.keys(userQuizAnswers).length;
+      if (answeredCount < quizQuestions.length) {
+        showToast(
+          currentLanguage === 'ar' ? `يرجى الإجابة على جميع الأسئلة (${answeredCount}/${quizQuestions.length})` : `Veuillez répondre aux 50 questions (${answeredCount}/${quizQuestions.length})`,
+          "warning",
+          currentLanguage === 'ar' ? 'تنبيه' : 'Contrôle Incomplet'
+        );
+        return;
+      }
+
+      let correctCount = 0;
+
+      quizQuestions.forEach(q => {
+        const userChoice = userQuizAnswers[q.id];
+        const isCorrect = userChoice === q.c;
+        if (isCorrect) correctCount++;
+
+        const card = document.getElementById(`quiz_card_${q.id}`);
+        const badge = document.getElementById(`quiz_badge_${q.id}`);
+        const expBox = document.getElementById(`quiz_exp_${q.id}`);
+
+        badge.classList.remove('hidden');
+        if (isCorrect) {
+          card.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-emerald-500/60 bg-emerald-950/10 space-y-3";
+          badge.className = "text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
+          badge.textContent = currentLanguage === 'ar' ? 'إجابة صحيحة' : 'Correct';
+        } else {
+          card.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-rose-500/60 bg-rose-950/10 space-y-3";
+          badge.className = "text-[10px] font-black uppercase px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40";
+          badge.textContent = currentLanguage === 'ar' ? 'إجابة خاطئة' : 'Incorrect';
+        }
+
+        q.opt.forEach((_, optIdx) => {
+          const optContainer = document.getElementById(`opt_container_${q.id}_${optIdx}`);
+          if (optContainer) {
+            if (optIdx === q.c) {
+              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-emerald-950/30 border border-emerald-500/80 rounded-xl text-emerald-300 font-bold";
+            } else if (optIdx === userChoice && !isCorrect) {
+              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-rose-950/30 border border-rose-500/80 rounded-xl text-rose-300 line-through opacity-80";
+            } else {
+              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-slate-950 border border-slate-800/60 rounded-xl text-slate-400 opacity-60";
+            }
+          }
+        });
+
+        expBox.classList.remove('hidden');
+        expBox.className = isCorrect 
+          ? "p-3 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-200 text-xs leading-relaxed mt-2" 
+          : "p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-200 text-xs leading-relaxed mt-2";
+        
+        const prefix = currentLanguage === 'ar' ? '<strong>الشرح المحاسبي : </strong>' : '<strong>Explication d\'audit : </strong>';
+        expBox.innerHTML = prefix + q.exp;
+      });
+
+      const banner = document.getElementById('quizScoreBanner');
+      const scoreDisplay = document.getElementById('quizScoreDisplay');
+      const scoreTitle = document.getElementById('quizScoreTitle');
+      const scoreFeedback = document.getElementById('quizScoreFeedback');
+      const scoreIcon = document.getElementById('quizScoreIcon');
+
+      banner.classList.remove('hidden');
+      scoreDisplay.textContent = `${correctCount} / 50`;
+
+      const pct = Math.round((correctCount / 50) * 100);
+
+      if (pct >= 80) {
+        banner.className = "p-5 rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-950 shadow-xl";
+        scoreIcon.className = "w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-black text-2xl shadow-inner";
+        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'ممتاز ! شهادة التميز في التدقيق (Senior Expert)' : 'Excellent ! Niveau Senior Expert Validé';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `لقد حققت نتيجة استثنائية (${pct}%) تعكس إتقاناً شاملاً للرقابة والمعايير المحاسبية الدولية.` : `Vous avez brillamment réussi l'examen (${pct}%) avec une maîtrise approfondie des normes.`;
+      } else if (pct >= 50) {
+        banner.className = "p-5 rounded-2xl border border-teal-500/50 bg-gradient-to-r from-teal-950/40 via-slate-900 to-slate-950 shadow-xl";
+        scoreIcon.className = "w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-black text-2xl shadow-inner";
+        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'مستوى جيد / قابل للتعزيز' : 'Bon niveau / En progression';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `حصلت على (${pct}%). راجع الأسئلة الخاطئة والدروس لترسيخ المفاهيم المتبقية.` : `Résultat honorable (${pct}%). Consultez les explications détaillées sous chaque question pour progresser.`;
+      } else {
+        banner.className = "p-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-950 shadow-xl";
+        scoreIcon.className = "w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-black text-2xl shadow-inner";
+        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'يحتاج إلى مراجعة شاملة للدروس' : 'Révision recommandée des modules de cours';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `حصلت على (${pct}%). نوصي بإعادة قراءة الدروس الستة وإعادة إجراء الاختبار.` : `Score de ${pct}%. Nous vous conseillons de revoir les 6 modules de formation et de repasser le test.`;
+      }
+
+      showToast(
+        currentLanguage === 'ar' ? `تم تصحيح الـ 50 سؤالاً : ${correctCount}/50 (${pct}%)` : `Test corrigé : Note finale de ${correctCount}/50 (${pct}%)`,
+        pct >= 50 ? "success" : "warning",
+        currentLanguage === 'ar' ? 'نتيجة الامتحان' : 'Correction QCM'
+      );
+
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetQuiz() {
+      userQuizAnswers = {};
+      const banner = document.getElementById('quizScoreBanner');
+      if (banner) banner.classList.add('hidden');
+      renderQuiz();
+      showToast(currentLanguage === 'ar' ? 'تمت إعادة تعيين الـ 50 سؤالاً.' : 'Les 50 questions ont été réinitialisées.', "info", currentLanguage === 'ar' ? 'إعادة التعيين' : 'QCM');
+    }
+
+    /* ========================================================
+       CALCUL THÉORIQUE & VALIDATION DE CONFORMITÉ MISSIONS
        ======================================================== */
     function getCleanNum(strVal) {
       if (!strVal) return 0;
@@ -1285,6 +1674,8 @@
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
+      renderCourses();
+      renderQuiz();
       startCountdownTimer();
       setLanguage(currentLanguage);
     }
@@ -1669,7 +2060,7 @@
     }
 
     /* ========================================================
-       FONCTIONNALITÉ REÇU BANCAIRE OFFICIEL MICROTASK & EXPORT PDF
+       REÇU BANCAIRE OFFICIEL & EXPORT PDF
        ======================================================== */
     let currentReceiptData = null;
 
@@ -1850,22 +2241,28 @@
       document.getElementById('txTotalAmount').textContent = formatMoney(totalPendingUSD);
     }
 
-    /* GESTION NAVIGATION 3 ONGLETS */
+    /* GESTION NAVIGATION 5 ONGLETS */
     function switchTab(tab) {
       document.getElementById('dashboardView').classList.toggle('hidden', tab !== 'dashboard');
-      document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
+      document.getElementById('coursesView').classList.toggle('hidden', tab !== 'courses');
+      document.getElementById('quizzesView').classList.toggle('hidden', tab !== 'quizzes');
       document.getElementById('evaluationView').classList.toggle('hidden', tab !== 'evaluation');
+      document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
       
       const navDash = document.getElementById('navDashboardBtn');
-      const navTx = document.getElementById('navTransactionsBtn');
+      const navCourses = document.getElementById('navCoursesBtn');
+      const navQuizzes = document.getElementById('navQuizzesBtn');
       const navEval = document.getElementById('navEvaluationBtn');
+      const navTx = document.getElementById('navTransactionsBtn');
 
-      const activeClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5";
-      const inactiveClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5";
+      const activeClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0";
+      const inactiveClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0";
 
       navDash.className = (tab === 'dashboard') ? activeClass : inactiveClass;
-      navTx.className = (tab === 'transactions') ? activeClass : inactiveClass;
+      navCourses.className = (tab === 'courses') ? activeClass : inactiveClass;
+      navQuizzes.className = (tab === 'quizzes') ? activeClass : inactiveClass;
       navEval.className = (tab === 'evaluation') ? activeClass : inactiveClass;
+      navTx.className = (tab === 'transactions') ? activeClass : inactiveClass;
     }
 
     function openWithdrawChoiceModal() { document.getElementById('withdrawChoiceModal').classList.remove('hidden'); }
@@ -2164,6 +2561,9 @@
     window.calcBackspace = calcBackspace;
     window.calcEvaluate = calcEvaluate;
     window.calcCopyResult = calcCopyResult;
+    window.onQuizSelect = onQuizSelect;
+    window.gradeQuiz = gradeQuiz;
+    window.resetQuiz = resetQuiz;
 
     document.addEventListener('input', (e) => {
       if (e.target.classList.contains('math-only')) {
