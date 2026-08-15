@@ -717,7 +717,7 @@
         financialsTitle: "États Financiers Officiels",
         potentialGain: "Gain potentiel",
         submissionDeadline: "Échéance de soumission",
-        deadlineDate: "Samedi 15 Août 2026 à 09:00",
+        deadlineDate: "Dimanche 16 Août 2026 à 18:00",
         delayMax: "DÉLAI MAXIMUM : ",
         conformityTitle: "Indicateur de Conformité Financière",
         conformCount: "{count}/26 Conformes ({pct}%)",
@@ -786,7 +786,7 @@
         financialsTitle: "Official Financial Statements",
         potentialGain: "Potential reward",
         submissionDeadline: "Submission deadline",
-        deadlineDate: "Saturday August 15, 2026 at 09:00",
+        deadlineDate: "Sunday August 16, 2026 at 18:00",
         delayMax: "TIME REMAINING: ",
         conformityTitle: "Financial Compliance Tracker",
         conformCount: "{count}/26 Compliant ({pct}%)",
@@ -855,7 +855,7 @@
         financialsTitle: "القوائم المالية الرسمية",
         potentialGain: "العائد المحتمل",
         submissionDeadline: "الموعد النهائي للتقديم",
-        deadlineDate: "السبت 15 أغسطس 2026 على الساعة 09:00",
+        deadlineDate: "الأحد 16 أغسطس 2026 على الساعة 18:00",
         delayMax: "الوقت المتبقي: ",
         conformityTitle: "مؤشر الامتثال المالي",
         conformCount: "{count}/26 متوافق ({pct}%)",
@@ -1017,7 +1017,7 @@
 
     const FIXED_SOLDE_VALIDE_USD = 921.55;
     let activeMissionIndex = 0;
-    const TARGET_DEADLINE = new Date('2026-08-15T09:00:00');
+    const TARGET_DEADLINE = new Date('2026-08-16T18:00:00');
 
     /* ========================================================
        CONVERTISSEUR DE DEVISES DYNAMIQUE
@@ -1381,14 +1381,12 @@
       { id: 'q43', q: "Pourquoi l'inventaire physique annuel des stocks est-il obligatoire en audit ?", opt: ["Pour valider l'existence physique et détecter les pertes ou vols", "Pour compter le nombre d'employés", "Pour calculer le prix des machines", "Pour modifier les statuts"], c: 0, exp: "L'inventaire physique valide l'assertion d'existence et permet de corriger le stock théorique comptable." },
       { id: 'q44', q: "Qu'est-ce qu'un engagement hors bilan ?", opt: ["Un droit ou obligation potentiel (caution bancaire, leasing, nantissement)", "Une facture payée en espèces", "Un compte secret", "Un salaire non versé"], c: 0, exp: "Les engagements hors bilan sont décrits dans l'annexe car ils représentent des risques futurs pour l'entité." },
       { id: 'q45', q: "Quelle norme internationale régit la reconnaissance du revenu des contrats avec les clients ?", opt: ["IFRS 15", "IAS 2", "IFRS 16", "IAS 36"], c: 0, exp: "La norme IFRS 15 fixe le modèle en 5 étapes pour comptabiliser les produits des contrats clients." },
-      { id: 'q46', q: "Quelle norme internationale régit la comptabilisation des contrats de location (Leasing) ?", opt: ["IFRS 16 (Droit d'utilisation à l'actif & Dette de loyer au passif)", "IAS 7", "IAS 1", "IFRS 9"], c: 0, exp: "IFRS 16 oblige à inscrire un actif au titre du droit d'utilisation en contrepartie d'une dette de loyer." },
+      { id: 'q46', q: "Quelle norme internationale régit la comptabilisation des contrats de location (Leasing) ?", opt: ["IFRS 16 (Droit d'utilisation à l'actif & Dette de loyer au passif)", "IAS 7", "IAS 1", "IFRS 9"], c: 0, exp: "IFRS 16 oblige à inscrire un actif au titre du droit d'utilisation en contrepartie d'une document de loyer." },
       { id: 'q47', q: "Qu'exprime le principe comptable de 'Prudence' ?", opt: ["Ne pas surévaluer les actifs/produits et anticiper les pertes probables", "Dépenser le moins d'argent possible", "Refuser les nouveaux clients", "Cacher les bénéfices"], c: 0, exp: "La prudence impose de comptabiliser les pertes probables dès leur identification mais jamais les gains futurs." },
       { id: 'q48', q: "Quel est l' rôle du Tableau des Flux de Trésorerie (TFT) ?", opt: ["Expliquer la variation de trésorerie via l'exploitation, l'investissement et le financement", "Lister les clients en retard", "Remplacer le bilan", "Calculer le montant de la TVA"], c: 0, exp: "Le TFT décompose les flux de trésorerie en trois catégories fondamentales : OCF, ICF et FCF." },
       { id: 'q49', q: "Qu'est-ce qu'une 'opinion avec réserve' émise par un Commissaire aux Comptes / Auditeur ?", opt: ["Certification des comptes malgré des désaccords ou limites identifiés non bloquants", "Une démission de l'auditeur", "Un refus total de certifier", "Une félicitation écrite"], c: 0, exp: "L'auditeur certifie que les états sont sincères sauf sur un point spécifique délimité." },
       { id: 'q50', q: "Dans une analyse de solvabilité, que traduit un ratio Capitaux Propres / Total Actif supérieur à 0.40 ?", opt: ["Une structure financière solide et une forte indépendance financière", "Une faillite immédiate", "Un excès de dettes bancaires", "Une trésorerie bloquée"], c: 0, exp: "Un ratio > 40% prouve que près de la moitié des actifs est financée par les actionnaires sans dépendre des banques." }
     ];
-
-    let userQuizAnswers = {};
 
     function renderCourses() {
       const container = document.getElementById('coursesListContainer');
