@@ -4,7 +4,7 @@
   <link rel="manifest" href="./manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MicroTask Accounting - Corporate Asia</title>
+  <title>MicroTask Accounting - Corporate Africa</title>
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -76,9 +76,9 @@
           </div>
           <div>
             <h1 class="text-sm sm:text-xl font-black tracking-wide text-white leading-tight">
-              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Asia</span>
+              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Africa</span>
             </h1>
-            <p id="t_headerSubtitle" class="text-xs text-slate-300 font-semibold">Audit Financier Asiatique</p>
+            <p id="t_headerSubtitle" class="text-xs text-slate-300 font-semibold">Audit Financier Africain</p>
           </div>
         </div>
 
@@ -87,7 +87,7 @@
           <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-0.5 text-xs font-black">
             <button id="langBtnFR" onclick="setLanguage('fr')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition">FR</button>
             <button id="langBtnEN" onclick="setLanguage('en')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">EN</button>
-            <button id="langBtnAR" onclick="setLanguage('ar')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">عربي</button>
+            <button id="langBtnAR" onclick="setLanguage('ar')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">العربية</button>
           </div>
 
           <!-- Sélecteur de Devise ($ / MAD / €) -->
@@ -137,11 +137,11 @@
         <div class="flex items-center gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1 shrink-0">
           <div>
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">833,41 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">921,55 $</span>
           </div>
           <div class="border-l rtl:border-l-0 rtl:border-r border-slate-800 pl-3 rtl:pl-0 rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">100,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
           </div>
         </div>
 
@@ -160,7 +160,7 @@
           <div class="flex justify-between items-center">
             <h2 class="text-xs sm:text-base font-black text-white flex items-center gap-2">
               <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-              <span id="t_missionsTitle">Missions d'Audit (M1 à M10)</span>
+              <span id="t_missionsTitle">Missions d'Audit (M1 à M10 - Afrique)</span>
             </h2>
             <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full">0/10 Envoyées</span>
           </div>
@@ -292,7 +292,7 @@
               <div class="relative w-28 h-28 mx-auto flex items-center justify-center my-2">
                 <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                   <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path class="text-emerald-400" stroke-dasharray="88.4, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path class="text-emerald-400" stroke-dasharray="88.4, 100" stroke-width="3.5" stroke-linecap="round" stroke-currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                 </svg>
                 <div class="absolute flex flex-col items-center justify-center">
                   <span class="text-base font-black text-white">88,4%</span>
@@ -383,7 +383,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
@@ -418,7 +418,7 @@
       <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-          <span id="t_recModalTitle" class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Asia</span>
+          <span id="t_recModalTitle" class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Africa</span>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="exportReceiptPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
@@ -437,7 +437,7 @@
               M
             </div>
             <div>
-              <h2 class="text-base sm:text-lg font-black text-white leading-tight">MicroTask Asia Settlement Ltd</h2>
+              <h2 class="text-base sm:text-lg font-black text-white leading-tight">MicroTask Africa Settlement Ltd</h2>
               <p id="t_recDept" class="text-xs text-slate-400">Treasury & International Settlement Department</p>
             </div>
           </div>
@@ -466,14 +466,14 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800">
           <div class="space-y-1 border-b sm:border-b-0 sm:border-r rtl:sm:border-r-0 rtl:sm:border-l border-slate-800 pb-3 sm:pb-0 sm:pr-3 rtl:sm:pr-0 rtl:sm:pl-3">
             <span id="t_recDebtorLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Émetteur / Débiteur</span>
-            <p class="text-xs font-black text-white">MicroTask Asia Settlement Ltd</p>
-            <p class="text-[11px] text-slate-400">Hong Kong Financial Clearing Center</p>
-            <p class="text-[11px] text-emerald-400 font-mono">Compte : HK88-MTA-PAY-9921</p>
+            <p class="text-xs font-black text-white">MicroTask Africa Settlement Ltd</p>
+            <p class="text-[11px] text-slate-400">Casablanca Financial Clearing Center</p>
+            <p class="text-[11px] text-emerald-400 font-mono">Compte : MA88-MTA-PAY-9921</p>
           </div>
           <div class="space-y-1 sm:pl-3 rtl:sm:pl-0 rtl:sm:pr-3 pt-2 sm:pt-0">
             <span id="t_recBeneficiaryLabel" class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Bénéficiaire / Banque Réceptrice</span>
             <p class="text-xs font-black text-white">Aballagh Abderrahim</p>
-            <p class="text-[11px] text-slate-400">Banque : Attijariwafa Bank (Maroc)</p>
+            <p class="text-[11px] text-slate-400">Banque : Attijariwafa Bank</p>
             <p class="text-[11px] text-emerald-400 font-mono">RIB : 230780000000000000008206</p>
           </div>
         </div>
@@ -487,7 +487,7 @@
 
           <div class="w-24 h-24 rounded-full border-2 border-dashed border-emerald-400/80 p-1 flex items-center justify-center text-center rotate-[-6deg] shadow-lg shrink-0">
             <div class="w-full h-full rounded-full border border-emerald-500/40 flex flex-col items-center justify-center p-1 bg-emerald-500/5">
-              <span class="text-[7px] font-black uppercase text-emerald-400">MICROTASK ASIA</span>
+              <span class="text-[7px] font-black uppercase text-emerald-400">MICROTASK AFRICA</span>
               <span class="text-[9px] font-black text-white leading-tight my-0.5">TREASURY VALIDATED</span>
               <span class="text-[7px] font-mono font-bold text-emerald-300">08/08/2026</span>
             </div>
@@ -524,7 +524,7 @@
               M
             </div>
             <div>
-              <h2 class="text-xl sm:text-2xl font-black text-white tracking-wide">MicroTask Accounting Asia</h2>
+              <h2 class="text-xl sm:text-2xl font-black text-white tracking-wide">MicroTask Accounting Africa</h2>
               <p id="t_certDivision" class="text-xs text-slate-400 font-semibold">Corporate Financial Audit & Ratio Certification Division</p>
             </div>
           </div>
@@ -538,8 +538,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
             <span id="t_certAuditedEntityLabel" class="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Entité Auditée</span>
-            <h3 id="certCompanyName" class="text-base sm:text-lg font-black text-white mt-0.5">Honda Motor Co. (Japon)</h3>
-            <span id="certCompanyCode" class="text-xs text-emerald-400 font-mono font-bold">TYO: 7267</span>
+            <h3 id="certCompanyName" class="text-base sm:text-lg font-black text-white mt-0.5">Royal Air Maroc</h3>
+            <span id="certCompanyCode" class="text-xs text-emerald-400 font-mono font-bold">BVC: RAM</span>
           </div>
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
             <span id="t_certAuditorLabel" class="text-[10px] font-black uppercase tracking-wider text-slate-400 block">Auditeur Certifié Responsable</span>
@@ -571,7 +571,7 @@
           <div class="flex justify-center">
             <div class="w-28 h-28 rounded-full border-2 border-dashed border-emerald-400/80 p-1 flex items-center justify-center text-center rotate-[-6deg] shadow-lg">
               <div class="w-full h-full rounded-full border border-emerald-500/40 flex flex-col items-center justify-center p-1 bg-emerald-500/5">
-                <span class="text-[8px] font-black uppercase text-emerald-400 tracking-tighter">MicroTask Asia</span>
+                <span class="text-[8px] font-black uppercase text-emerald-400 tracking-tighter">MicroTask Africa</span>
                 <span class="text-[10px] font-black text-white leading-none my-0.5">AUDIT CERTIFIÉ</span>
                 <span class="text-[8px] font-mono font-bold text-emerald-300">SENIOR VERIFIED</span>
               </div>
@@ -621,7 +621,7 @@
         <button onclick="calcAppend('4')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">4</button>
         <button onclick="calcAppend('5')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">5</button>
         <button onclick="calcAppend('6')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">6</button>
-        <button onclick="calcAppend('-')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">−</button>
+        <button onclick="calcAppend('-')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">-</button>
 
         <button onclick="calcAppend('1')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">1</button>
         <button onclick="calcAppend('2')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">2</button>
@@ -655,7 +655,7 @@
       <button onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 active:border-emerald-500 rounded-xl text-left rtl:text-right flex justify-between items-center group transition">
         <div class="flex items-center gap-2.5">
           <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-          <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire (Maroc) - Aballagh Abderrahim</span>
+          <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire - Aballagh Abderrahim</span>
         </div>
         <svg class="w-4 h-4 text-emerald-400 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </button>
@@ -703,7 +703,7 @@
 
     const translations = {
       fr: {
-        headerSubtitle: "Audit Financier Asiatique",
+        headerSubtitle: "Audit Financier Africain",
         navAudit: "Audit",
         navCourses: "Cours",
         navQuizzes: "Contrôles (50 QCM)",
@@ -712,7 +712,7 @@
         labelValide: "Validé",
         labelAttente: "En Attente",
         btnWithdrawTop: "Retirer",
-        missionsTitle: "Missions d'Audit (M1 à M10)",
+        missionsTitle: "Missions d'Audit (M1 à M10 - Afrique)",
         sentCount: "{done}/10 Envoyées",
         financialsTitle: "États Financiers Officiels",
         potentialGain: "Gain potentiel",
@@ -772,7 +772,7 @@
         btnSubmitQuiz: "Valider & Corriger les 50 Questions"
       },
       en: {
-        headerSubtitle: "Asian Financial Audit Platform",
+        headerSubtitle: "African Financial Audit Platform",
         navAudit: "Audit",
         navCourses: "Courses",
         navQuizzes: "Assessments (50 MCQ)",
@@ -781,7 +781,7 @@
         labelValide: "Validated",
         labelAttente: "Pending",
         btnWithdrawTop: "Withdraw",
-        missionsTitle: "Audit Missions (M1 to M10)",
+        missionsTitle: "Audit Missions (M1 to M10 - Africa)",
         sentCount: "{done}/10 Submitted",
         financialsTitle: "Official Financial Statements",
         potentialGain: "Potential reward",
@@ -841,73 +841,73 @@
         btnSubmitQuiz: "Submit & Grade All 50 Questions"
       },
       ar: {
-        headerSubtitle: "منصة التدقيق المالي الآسيوي",
-        navAudit: "التدقيق",
-        navCourses: "الدروس",
-        navQuizzes: "الاختبارات (50 QCM)",
-        navWithdrawals: "السحوبات",
-        navEvaluation: "التقييم",
-        labelValide: "الرصيد المؤكد",
-        labelAttente: "قيد المعالجة",
-        btnWithdrawTop: "طلب سحب",
-        missionsTitle: "مهام التدقيق المالي (M1 إلى M10)",
-        sentCount: "{done}/10 تم إرسالها",
-        financialsTitle: "البيانات المالية الرسمية للشركة",
-        potentialGain: "المكافأة المكتسبة",
+        headerSubtitle: "منصة التدقيق المالي الإفريقي",
+        navAudit: "تدقيق",
+        navCourses: "دروس",
+        navQuizzes: "اختبارات (50 سؤال)",
+        navWithdrawals: "سحوبات",
+        navEvaluation: "تقييم",
+        labelValide: "معتمد",
+        labelAttente: "قيد الانتظار",
+        btnWithdrawTop: "سحب",
+        missionsTitle: "مهام التدقيق (M1 إلى M10 - إفريقيا)",
+        sentCount: "{done}/10 تم الإرسال",
+        financialsTitle: "القوائم المالية الرسمية",
+        potentialGain: "العائد المحتمل",
         submissionDeadline: "الموعد النهائي للتقديم",
-        deadlineDate: "السبت 15 أغسطس 2026 عند الساعة 09:00",
+        deadlineDate: "السبت 15 أغسطس 2026 على الساعة 09:00",
         delayMax: "الوقت المتبقي: ",
-        conformityTitle: "مؤشر المطابقة الحسابية الفورية",
-        conformCount: "{count}/26 مطابق ({pct}%)",
-        tasksTitle: "26 معادلة ونسبة مالية للإنجاز",
-        completedTasks: "{count}/26 منجز",
-        conformBadge: "مطابق",
-        toVerifyBadge: "بحاجة للمراجعة",
-        authorSummary: "التقرير التحليلي للمدقق",
-        btnSaveLock: "حفظ وتجميد المسودة",
+        conformityTitle: "مؤشر الامتثال المالي",
+        conformCount: "{count}/26 متوافق ({pct}%)",
+        tasksTitle: "26 معادلة ونسبة يجب إكمالها",
+        completedTasks: "{count}/26 مكتمل",
+        conformBadge: "متوافق",
+        toVerifyBadge: "يجب التحقق",
+        authorSummary: "خلاصة المدقق",
+        btnSaveLock: "حفظ وقفل المسودة",
         btnLockSubmit: "اعتماد وإرسال التقرير (+{amount})",
-        btnUnlock: "تعديل التقرير (إلغاء التجميد)",
-        reportLockedTitle: "تم حفظ التقرير وتجميده",
-        reportLockedDesc: "الحقول مقفلة حالياً. اضغط على الزر أدناه لإجراء التعديلات.",
-        reportCompletedTitle: "تم اعتماد التقرير وإرساله نهائياً",
-        reportCompletedDesc: "تم إرسال المهمة بنجاح وإضافة (+{amount}) إلى رصيدك قيد المعالجة.",
-        btnGenCertificate: "استخراج شهادة التدقيق المعتمدة PDF",
-        txTitle: "سجل العمليات والتحويلات البنكية",
-        txSubtitle: "اضغط على أي عملية لعرض وتحميل إشعار التحويل البنكي الرسمي",
+        btnUnlock: "تعديل التقرير (فتح القفل)",
+        reportLockedTitle: "التقرير مقفل (تم حفظ المسودة)",
+        reportLockedDesc: "الحقول مغلقة. انقر أدناه لفتح القفل وإجراء تعديلات.",
+        reportCompletedTitle: "تم إرسال التقرير وقفله نهائياً",
+        reportCompletedDesc: "تم إرسال هذه المهمة بنجاح (+{amount} تمت إضافتها إلى الرصيد المعلق).",
+        btnGenCertificate: "إنشاء ورقة التدقيق وتصدير PDF",
+        txTitle: "المعاملات والسحوبات",
+        txSubtitle: "انقر على أي معاملة لعرض إشعار التحويل البنكي الرسمي",
         btnNewWithdraw: "سحب جديد",
-        txPendingLabel: "المبلغ قيد الانتظار",
+        txPendingLabel: "المبلغ المعلق",
         txBankLabel: "البنك المستلم",
         txBeneficiaryLabel: "المستفيد",
-        txJournalTitle: "كشف المعاملات المصرفية",
-        txNoticeBadge: "الإشعارات الرسمية متوفرة",
-        evalHeaderTitle: "بطاقة تقييم الأداء المهني",
-        evalHeaderSubtitle: "التقرير الشامل ومؤشرات التدقيق المحاسبي",
-        evalLevelLabel: "الرتبة:",
-        evalUserLabel: "المدقق المالي",
-        evalScopeLabel: "نطاق الاختصاص",
-        evalScopeValue: "التدقيق المحاسبي للشركات الكبرى (+100 مهمة منجزة)",
-        evalCardsTitle: "تفاصيل النقاط والملاحظات الرقابية",
-        evalCard1Title: "1. دقة الحسابات والمعادلات",
+        txJournalTitle: "سجل العمليات البنكية",
+        txNoticeBadge: "الإشعارات المعتمدة متاحة",
+        evalHeaderTitle: "مراجعة الأداء المهني",
+        evalHeaderSubtitle: "التقييم الشامل ومقاييس التدقيق المالي",
+        evalLevelLabel: "المستوى:",
+        evalUserLabel: "المدقق",
+        evalScopeLabel: "نطاق التدخل",
+        evalScopeValue: "التدقيق المالي للشركات الكبرى (أكثر من 100 مهمة منجزة)",
+        evalCardsTitle: "تفاصيل النقاط والملاحظات",
+        evalCard1Title: "1. دقة الحسابات",
         evalCard1Badge: "مستوى تقني ممتاز",
-        evalCard1Desc: "أداء متوافق مع معايير رتبة Senior. يُنصح بمزيد من المراجعة والتأني في المعادلات الحسابية المركبة قبل الاعتماد النهائي.",
-        evalCard2Title: "2. جودة الملاحظات والتحليل المالي",
+        evalCard1Desc: "توافق جيد مع معايير مستوى خبير (Senior). يوصى بمنح المزيد من الوقت للتحقق من المعادلات المالية المعقدة قبل الاعتماد النهائي.",
+        evalCard2Title: "2. جودة الملاحظات والتحليلات",
         evalCard2Badge: "متوسط / قابل للتطوير",
-        evalCard2ScoreLabel: "التقييم الإجمالي",
-        evalCard2Desc: "الملاحظات الرقابية واضحة ومباشرة ولكنها مختصرة. يرجى إثراؤها بتحليلات فنية مخصصة وشاملة.",
-        evalCard3Title: "3. الامتثال لإجراءات المنصة",
-        evalCard3Badge: "تنبيهات أمنية وإجرائية",
-        evalCard3BoxTitle: "الالتزام بالنظام",
-        evalCard3BoxSub: "الإدخال المباشر مطلوب",
-        evalCard3Desc: "يُرجى تجنب الإكثار من لقطات الشاشة داخل المنصة وتدوين المعطيات مباشرة في الخانات لضمان حماية وسرية البيانات المالية.",
-        evalSummaryTitle: "الخلاصة والتقييم العام",
-        evalSummaryDesc: "ملف مهني ممتاز ومنتظم في معالجة التدفقات المحاسبية الكبرى. الأولوية الموصى بها هي التدقيق الرياضي المستمر وصياغة تقارير تحليلية شاملة.",
-        coursesHeaderTitle: "أكاديمية ودروس التدقيق المحاسبي المعمقة",
-        coursesHeaderSubtitle: "المرجع الشامل: المعايير الدولية IFRS، النسب المالية، الرقابة الداخلية وكشف الاحتيال",
-        coursesBadge: "6 وحدات تعليمية كبرى",
-        quizHeaderTitle: "الامتحان الشامل للتدقيق والمحاسبة (50 سؤالاً)",
-        quizHeaderSubtitle: "اختبار مهني شامل مع تصحيح فوري وشروحات محاسبية مفصلة في نفس الصفحة",
-        btnResetQuiz: "إعادة تعيين الاختبار",
-        btnSubmitQuiz: "تصحيح الـ 50 سؤالاً فوراً"
+        evalCard2ScoreLabel: "النتيجة الإجمالية",
+        evalCard2Desc: "ملاحظات التدقيق مفيدة ولكنها موجزة جداً. يُفضل إثرائها بتحليلات تقنية شخصية ومفصلة.",
+        evalCard3Title: "3. الامتثال للإجراءات وقواعد المنصة",
+        evalCard3Badge: "نقاط تنبيه محددة",
+        evalCard3BoxTitle: "احترام الإجراءات",
+        evalCard3BoxSub: "الإدخال المباشر إلزامي",
+        evalCard3Desc: "يرجى تجنب تكرار لقطات الشاشة. يجب توثيق العمليات والمبررات مباشرة في الحقول المخصصة لذلك.",
+        evalSummaryTitle: "الملخص التنفيذي",
+        evalSummaryDesc: "ملف تعريفي متميز ومنتظم في معالجة البيانات المالية. تتركز الأولوية التحسينية على دقة الوقت المخصص للمعادلات واستقلالية تحليلات التدقيق والامتثال التام للعمليات.",
+        coursesHeaderTitle: "أكاديمية التدقيق والمحاضرات المتقدمة",
+        coursesHeaderSubtitle: "دليل شامل: معايير IFRS، النسب المالية، الرقابة الداخلية واكتشاف الاحتيال",
+        coursesBadge: "6 وحدات شاملة",
+        quizHeaderTitle: "الامتحان الشامل في التدقيق والمحاسبة (50 سؤال)",
+        quizHeaderSubtitle: "تقييم شامل مع تصحيح فوري على الفور وشروحات تقنية مفصلة",
+        btnResetQuiz: "إعادة ضبط الاختبار",
+        btnSubmitQuiz: "اعتماد وتصحيح الأسئلة الـ 50"
       }
     };
 
@@ -1001,7 +1001,7 @@
         const el = document.getElementById(domId);
         if (el) {
           if (key === 'evalCard1Desc' || key === 'evalCard2Desc' || key === 'evalCard3Desc' || key === 'evalSummaryDesc') {
-            const prefix = (currentLanguage === 'ar') ? '<strong class="text-slate-100">الملاحظة : </strong>' : '<strong class="text-slate-100">Remarque : </strong>';
+            const prefix = (currentLanguage === 'ar') ? '<strong class="text-slate-100">ملاحظة : </strong>' : '<strong class="text-slate-100">Remarque : </strong>';
             el.innerHTML = prefix + t(key);
           } else {
             el.textContent = t(key);
@@ -1015,7 +1015,7 @@
       }
     }
 
-    const FIXED_SOLDE_VALIDE_USD = 833.41;
+    const FIXED_SOLDE_VALIDE_USD = 921.55;
     let activeMissionIndex = 0;
     const TARGET_DEADLINE = new Date('2026-08-15T09:00:00');
 
@@ -1050,7 +1050,7 @@
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
-      showToast(currentLanguage === 'ar' ? `تم تغيير العملة إلى ${curr}` : `Devise modifiée : ${curr}`, "info", currentLanguage === 'ar' ? "العملة" : "Convertisseur");
+      showToast(currentLanguage === 'ar' ? `تم تغيير العملة إلى ${curr}` : `Devise modifiée : ${curr}`, "info", currentLanguage === 'ar' ? "تحويل" : "Convertisseur");
     }
 
     /* ========================================================
@@ -1075,7 +1075,7 @@
         iconSvg = `<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
       } else if (type === 'warning') {
         borderStyle = 'bg-slate-900/95 border-amber-500/40 text-amber-300';
-        titleDefault = currentLanguage === 'ar' ? 'تنبيه' : (currentLanguage === 'en' ? 'Warning' : 'Avertissement');
+        titleDefault = currentLanguage === 'ar' ? 'تحذير' : (currentLanguage === 'en' ? 'Warning' : 'Avertissement');
         progressColor = 'bg-amber-400';
         iconSvg = `<svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
       } else if (type === 'error') {
@@ -1085,7 +1085,7 @@
         iconSvg = `<svg class="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
       } else {
         borderStyle = 'bg-slate-900/95 border-teal-500/40 text-teal-300';
-        titleDefault = currentLanguage === 'ar' ? 'معلومة' : (currentLanguage === 'en' ? 'Info' : 'Information');
+        titleDefault = currentLanguage === 'ar' ? 'معلومات' : (currentLanguage === 'en' ? 'Info' : 'Information');
         progressColor = 'bg-teal-400';
         iconSvg = `<svg class="w-5 h-5 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
       }
@@ -1121,23 +1121,20 @@
       }, duration);
     }
 
-    const operationFixe = {
-      id: 1723104000000,
-      date: "08/08/2026",
-      beneficiaire: "Aballagh Abderrahim",
-      montant: 100,
-      moyen: "Compte Bancaire (Maroc)",
-      details: "Attijariwafa Bank - RIB: ****8206",
-      statut: "En cours de traitement"
-    };
-
-    let defaultWithdrawals = [operationFixe];
-    let storedWithdrawals = JSON.parse(localStorage.getItem('audit_withdrawals'));
-    let withdrawals = (storedWithdrawals && storedWithdrawals.length > 0) ? storedWithdrawals : defaultWithdrawals;
-
-    if (!withdrawals.some(w => w.date === "08/08/2026" && w.montant === 100)) {
-      withdrawals.unshift(operationFixe);
-    }
+    let defaultWithdrawals = [
+      {
+        id: 1723118408206,
+        date: "08/08/2026 à 09:30",
+        beneficiaire: "Aballagh Abderrahim",
+        montant: 100,
+        moyen: "Compte Bancaire",
+        details: "Attijariwafa Bank - RIB: ****8206",
+        statut: "En cours de traitement"
+      }
+    ];
+    let withdrawals = defaultWithdrawals;
+    localStorage.removeItem('audit_missions');
+    localStorage.removeItem('audit_withdrawals');
     localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
 
     const taskDefinitions = [
@@ -1170,19 +1167,20 @@
     ];
 
     const defaultMissions = [
-      { id: "M1", company: "Honda Motor Co. (Japon)", code: "TYO: 7267", reward: 155, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "125 000 M$", "Coût des Ventes (COGS)": "98 000 M$", "Dépenses d'Exploitation": "18 500 M$", "Dotations Amortissements": "5 200 M$", "Charges Financières / Intérêts": "890 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "68 000 M$", "Stocks": "14 500 M$", "Créances Clients": "18 000 M$", "Trésorerie & Équivalents": "21 000 M$", "Passifs Circulants": "45 000 M$", "Dettes Fournisseurs": "12 800 M$", "Dette Totale": "52 000 M$", "Capitaux Propres": "74 000 M$", "Total Actifs": "162 000 M$", "Flux de Trésorerie d'Exploitation": "14 200 M$", "CAPEX": "6 100 M$" } },
-      { id: "M2", company: "Baidu Inc. (Chine)", code: "HKG: 9888", reward: 165, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "19 000 M$", "Coût des Ventes (COGS)": "9 800 M$", "Dépenses d'Exploitation": "6 200 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "310 M$", "Impôts sur Sociétés": "520 M$", "Actifs Circulants": "24 000 M$", "Stocks": "350 M$", "Créances Clients": "2 900 M$", "Trésorerie & Équivalents": "18 200 M$", "Passifs Circulants": "9 500 M$", "Dettes Fournisseurs": "1 800 M$", "Dette Totale": "11 200 M$", "Capitaux Propres": "32 000 M$", "Total Actifs": "56 000 M$", "Flux de Trésorerie d'Exploitation": "4 800 M$", "CAPEX": "1 900 M$" } },
-      { id: "M3", company: "LG Electronics (Corée)", code: "KRX: 066570", reward: 175, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "48 500 M$", "Dépenses d'Exploitation": "13 200 M$", "Dotations Amortissements": "2 900 M$", "Charges Financières / Intérêts": "480 M$", "Impôts sur Sociétés": "680 M$", "Actifs Circulants": "28 000 M$", "Stocks": "7 800 M$", "Créances Clients": "8 200 M$", "Trésorerie & Équivalents": "6 100 M$", "Passifs Circulants": "22 500 M$", "Dettes Fournisseurs": "6 900 M$", "Dette Totale": "16 400 M$", "Capitaux Propres": "18 200 M$", "Total Actifs": "47 000 M$", "Flux de Trésorerie d'Exploitation": "5 100 M$", "CAPEX": "2 400 M$" } },
-      { id: "M4", company: "Tata Motors (Inde)", code: "NSE: TATAMOTORS", reward: 185, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "44 000 M$", "Coût des Ventes (COGS)": "31 200 M$", "Dépenses d'Exploitation": "8 900 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "1 200 M$", "Impôts sur Sociétés": "650 M$", "Actifs Circulants": "19 500 M$", "Stocks": "5 400 M$", "Créances Clients": "3 800 M$", "Trésorerie & Équivalents": "5 900 M$", "Passifs Circulants": "18 000 M$", "Dettes Fournisseurs": "6 200 M$", "Dette Totale": "17 500 M$", "Capitaux Propres": "11 800 M$", "Total Actifs": "42 000 M$", "Flux de Trésorerie d'Exploitation": "4 200 M$", "CAPEX": "2 800 M$" } },
-      { id: "M5", company: "Panasonic Holdings (Japon)", code: "TYO: 6752", reward: 195, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "62 000 M$", "Coût des Ventes (COGS)": "44 000 M$", "Dépenses d'Exploitation": "14 800 M$", "Dotations Amortissements": "2 600 M$", "Charges Financières / Intérêts": "320 M$", "Impôts sur Sociétés": "710 M$", "Actifs Circulants": "31 000 M$", "Stocks": "8 100 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "8 200 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "7 100 M$", "Dette Totale": "14 200 M$", "Capitaux Propres": "26 000 M$", "Total Actifs": "59 000 M$", "Flux de Trésorerie d'Exploitation": "4 900 M$", "CAPEX": "2 300 M$" } },
-      { id: "M6", company: "JD.com Inc. (Chine)", code: "HKG: 9618", reward: 205, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "150 000 M$", "Coût des Ventes (COGS)": "128 000 M$", "Dépenses d'Exploitation": "18 200 M$", "Dotations Amortissements": "1 900 M$", "Charges Financières / Intérêts": "280 M$", "Impôts sur Sociétés": "820 M$", "Actifs Circulants": "41 000 M$", "Stocks": "11 200 M$", "Créances Clients": "3 100 M$", "Trésorerie & Équivalents": "21 500 M$", "Passifs Circulants": "36 000 M$", "Dettes Fournisseurs": "21 000 M$", "Dette Totale": "8 500 M$", "Capitaux Propres": "31 000 M$", "Total Actifs": "72 000 M$", "Flux de Trésorerie d'Exploitation": "7 800 M$", "CAPEX": "2 100 M$" } },
-      { id: "M7", company: "MediaTek Inc. (Taïwan)", code: "TWSE: 2454", reward: 215, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "17 500 M$", "Coût des Ventes (COGS)": "9 200 M$", "Dépenses d'Exploitation": "4 800 M$", "Dotations Amortissements": "680 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "620 M$", "Actifs Circulants": "14 200 M$", "Stocks": "2 100 M$", "Créances Clients": "2 400 M$", "Trésorerie & Équivalents": "7 800 M$", "Passifs Circulants": "5 100 M$", "Dettes Fournisseurs": "1 900 M$", "Dette Totale": "1 200 M$", "Capitaux Propres": "18 500 M$", "Total Actifs": "26 000 M$", "Flux de Trésorerie d'Exploitation": "3 600 M$", "CAPEX": "950 M$" } },
-      { id: "M8", company: "SK Hynix (Corée)", code: "KRX: 000660", reward: 225, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "32 000 M$", "Coût des Ventes (COGS)": "19 500 M$", "Dépenses d'Exploitation": "6 100 M$", "Dotations Amortissements": "7 200 M$", "Charges Financières / Intérêts": "810 M$", "Impôts sur Sociétés": "1 100 M$", "Actifs Circulants": "18 000 M$", "Stocks": "9 200 M$", "Créances Clients": "4 100 M$", "Trésorerie & Équivalents": "3 800 M$", "Passifs Circulants": "12 500 M$", "Dettes Fournisseurs": "3 200 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "39 000 M$", "Total Actifs": "71 000 M$", "Flux de Trésorerie d'Exploitation": "11 200 M$", "CAPEX": "9 800 M$" } },
-      { id: "M9", company: "Xiaomi Corp. (Chine)", code: "HKG: 1810", reward: 235, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "38 000 M$", "Coût des Ventes (COGS)": "30 200 M$", "Dépenses d'Exploitation": "5 900 M$", "Dotations Amortissements": "850 M$", "Charges Financières / Intérêts": "180 M$", "Impôts sur Sociétés": "380 M$", "Actifs Circulants": "26 000 M$", "Stocks": "6 800 M$", "Créances Clients": "2 900 M$", "Trésorerie & Équivalents": "12 400 M$", "Passifs Circulants": "19 200 M$", "Dettes Fournisseurs": "8 900 M$", "Dette Totale": "4 200 M$", "Capitaux Propres": "21 000 M$", "Total Actifs": "44 000 M$", "Flux de Trésorerie d'Exploitation": "4 100 M$", "CAPEX": "1 200 M$" } },
-      { id: "M10", company: "SoftBank Group (Japon)", code: "TYO: 9984", reward: 250, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "46 000 M$", "Coût des Ventes (COGS)": "22 000 M$", "Dépenses d'Exploitation": "15 000 M$", "Dotations Amortissements": "3 100 M$", "Charges Financières / Intérêts": "4 200 M$", "Impôts sur Sociétés": "1 200 M$", "Actifs Circulants": "52 000 M$", "Stocks": "1 100 M$", "Créances Clients": "6 200 M$", "Trésorerie & Équivalents": "38 000 M$", "Passifs Circulants": "39 000 M$", "Dettes Fournisseurs": "3 800 M$", "Dette Totale": "105 000 M$", "Capitaux Propres": "78 000 M$", "Total Actifs": "240 000 M$", "Flux de Trésorerie d'Exploitation": "8 200 M$", "CAPEX": "3 900 M$" } }
+      { id: "M1", company: "Royal Air Maroc", code: "BVC: RAM", reward: 165, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "1 800 M$", "Coût des Ventes (COGS)": "1 100 M$", "Dépenses d'Exploitation": "400 M$", "Dotations Amortissements": "150 M$", "Charges Financières / Intérêts": "80 M$", "Impôts sur Sociétés": "20 M$", "Actifs Circulants": "950 M$", "Stocks": "120 M$", "Créances Clients": "350 M$", "Trésorerie & Équivalents": "450 M$", "Passifs Circulants": "1 100 M$", "Dettes Fournisseurs": "400 M$", "Dette Totale": "1 200 M$", "Capitaux Propres": "800 M$", "Total Actifs": "3 100 M$", "Flux de Trésorerie d'Exploitation": "250 M$", "CAPEX": "180 M$" } },
+      { id: "M2", company: "Naspers", code: "JSE: NPN", reward: 210, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "6 500 M$", "Coût des Ventes (COGS)": "3 200 M$", "Dépenses d'Exploitation": "2 100 M$", "Dotations Amortissements": "400 M$", "Charges Financières / Intérêts": "150 M$", "Impôts sur Sociétés": "250 M$", "Actifs Circulants": "8 500 M$", "Stocks": "100 M$", "Créances Clients": "1 200 M$", "Trésorerie & Équivalents": "6 800 M$", "Passifs Circulants": "3 200 M$", "Dettes Fournisseurs": "800 M$", "Dette Totale": "4 500 M$", "Capitaux Propres": "18 000 M$", "Total Actifs": "26 000 M$", "Flux de Trésorerie d'Exploitation": "1 100 M$", "CAPEX": "300 M$" } },
+      { id: "M3", company: "Sonatel", code: "BRVM: SNTS", reward: 175, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 400 M$", "Coût des Ventes (COGS)": "900 M$", "Dépenses d'Exploitation": "600 M$", "Dotations Amortissements": "300 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "180 M$", "Actifs Circulants": "1 100 M$", "Stocks": "80 M$", "Créances Clients": "450 M$", "Trésorerie & Équivalents": "550 M$", "Passifs Circulants": "1 300 M$", "Dettes Fournisseurs": "500 M$", "Dette Totale": "850 M$", "Capitaux Propres": "1 400 M$", "Total Actifs": "3 800 M$", "Flux de Trésorerie d'Exploitation": "850 M$", "CAPEX": "350 M$" } },
+      { id: "M4", company: "Ecobank Transnational Inc.", code: "BRVM: ETIT", reward: 190, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 600 M$", "Coût des Ventes (COGS)": "800 M$", "Dépenses d'Exploitation": "950 M$", "Dotations Amortissements": "120 M$", "Charges Financières / Intérêts": "180 M$", "Impôts sur Sociétés": "160 M$", "Actifs Circulants": "15 000 M$", "Stocks": "0 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "13 500 M$", "Dettes Fournisseurs": "400 M$", "Dette Totale": "2 100 M$", "Capitaux Propres": "2 200 M$", "Total Actifs": "27 000 M$", "Flux de Trésorerie d'Exploitation": "750 M$", "CAPEX": "150 M$" } },
+      { id: "M5", company: "Banque Centrale Populaire - BCP", code: "CSE: BCP", reward: 185, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 100 M$", "Coût des Ventes (COGS)": "650 M$", "Dépenses d'Exploitation": "750 M$", "Dotations Amortissements": "110 M$", "Charges Financières / Intérêts": "140 M$", "Impôts sur Sociétés": "130 M$", "Actifs Circulants": "18 500 M$", "Stocks": "50 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "5 500 M$", "Passifs Circulants": "16 000 M$", "Dettes Fournisseurs": "600 M$", "Dette Totale": "1 800 M$", "Capitaux Propres": "2 500 M$", "Total Actifs": "32 000 M$", "Flux de Trésorerie d'Exploitation": "680 M$", "CAPEX": "120 M$" } },
+      { id: "M6", company: "Sasol", code: "JSE: SOL", reward: 220, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "14 500 M$", "Coût des Ventes (COGS)": "8 200 M$", "Dépenses d'Exploitation": "2 800 M$", "Dotations Amortissements": "1 500 M$", "Charges Financières / Intérêts": "450 M$", "Impôts sur Sociétés": "600 M$", "Actifs Circulants": "5 600 M$", "Stocks": "1 800 M$", "Créances Clients": "2 100 M$", "Trésorerie & Équivalents": "1 500 M$", "Passifs Circulants": "4 200 M$", "Dettes Fournisseurs": "1 900 M$", "Dette Totale": "7 500 M$", "Capitaux Propres": "9 800 M$", "Total Actifs": "24 500 M$", "Flux de Trésorerie d'Exploitation": "2 900 M$", "CAPEX": "1 600 M$" } },
+      { id: "M7", company: "KCB Group", code: "NSE: KCB", reward: 170, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "1 350 M$", "Coût des Ventes (COGS)": "420 M$", "Dépenses d'Exploitation": "450 M$", "Dotations Amortissements": "75 M$", "Charges Financières / Intérêts": "90 M$", "Impôts sur Sociétés": "100 M$", "Actifs Circulants": "6 500 M$", "Stocks": "20 M$", "Créances Clients": "4 100 M$", "Trésorerie & Équivalents": "1 800 M$", "Passifs Circulants": "5 800 M$", "Dettes Fournisseurs": "300 M$", "Dette Totale": "850 M$", "Capitaux Propres": "1 200 M$", "Total Actifs": "9 500 M$", "Flux de Trésorerie d'Exploitation": "380 M$", "CAPEX": "90 M$" } },
+      { id: "M8", company: "LafargeHolcim", code: "CSE: LHM", reward: 160, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "850 M$", "Coût des Ventes (COGS)": "380 M$", "Dépenses d'Exploitation": "150 M$", "Dotations Amortissements": "90 M$", "Charges Financières / Intérêts": "35 M$", "Impôts sur Sociétés": "75 M$", "Actifs Circulants": "420 M$", "Stocks": "120 M$", "Créances Clients": "180 M$", "Trésorerie & Équivalents": "110 M$", "Passifs Circulants": "550 M$", "Dettes Fournisseurs": "220 M$", "Dette Totale": "480 M$", "Capitaux Propres": "1 100 M$", "Total Actifs": "2 300 M$", "Flux de Trésorerie d'Exploitation": "240 M$", "CAPEX": "80 M$" } },
+      { id: "M9", company: "Orascom Construction", code: "EGX: ORAS", reward: 195, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "3 800 M$", "Coût des Ventes (COGS)": "3 100 M$", "Dépenses d'Exploitation": "300 M$", "Dotations Amortissements": "80 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "65 M$", "Actifs Circulants": "2 900 M$", "Stocks": "450 M$", "Créances Clients": "1 400 M$", "Trésorerie & Équivalents": "850 M$", "Passifs Circulants": "2 500 M$", "Dettes Fournisseurs": "1 600 M$", "Dette Totale": "750 M$", "Capitaux Propres": "800 M$", "Total Actifs": "4 200 M$", "Flux de Trésorerie d'Exploitation": "180 M$", "CAPEX": "60 M$" } },
+      { id: "M10", company: "Société Générale Côte d'Ivoire - SGCI", code: "BRVM: SIVC", reward: 155, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "450 M$", "Coût des Ventes (COGS)": "120 M$", "Dépenses d'Exploitation": "160 M$", "Dotations Amortissements": "25 M$", "Charges Financières / Intérêts": "30 M$", "Impôts sur Sociétés": "40 M$", "Actifs Circulants": "3 200 M$", "Stocks": "10 M$", "Créances Clients": "2 100 M$", "Trésorerie & Équivalents": "950 M$", "Passifs Circulants": "2 800 M$", "Dettes Fournisseurs": "150 M$", "Dette Totale": "350 M$", "Capitaux Propres": "450 M$", "Total Actifs": "4 100 M$", "Flux de Trésorerie d'Exploitation": "130 M$", "CAPEX": "30 M$" } }
     ];
 
-    let missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
+    let missions = defaultMissions;
+    localStorage.setItem('audit_missions', JSON.stringify(missions));
 
     /* ========================================================
        COURS LONGS D'AUDIT COMPTABLE (6 MODULES COMPLETS)
@@ -1195,67 +1193,67 @@
         readTime: "15 min",
         sections: [
           {
-            heading: { fr: "1.1 Le Bilan Comptable : Actif, Passif et Capitaux Propres", en: "1.1 The Balance Sheet: Assets, Liabilities and Equity", ar: "1.1 الميزانية العمومية: الأصول والخصوم وحقوق الملكية" },
+            heading: { fr: "1.1 Le Bilan Comptable : Actif, Passif et Capitaux Propres", en: "1.1 The Balance Sheet: Assets, Liabilities and Equity", ar: "1.1 الميزانية المحاسبية: الأصول، الخصوم وحقوق الملكية" },
             content: {
               fr: "Le bilan est la représentation du patrimoine d'une entité à une date donnée. L'Actif regroupe les emplois économiques (Actif Immobilisé incorporel, corporel et financier ; Actif Circulant comprenant stocks, créances d'exploitation et trésorerie d'actif). Le Passif regroupe les ressources et origines des fonds (Capitaux Propres : capital social, primes d'émission, réserves et report à nouveau ; Dettes Financières à long et moyen terme ; Passif Circulant : dettes fournisseurs, dettes fiscales et sociales). L'égalité mathématique absolue est : Total Actif = Total Passif.",
               en: "The balance sheet outlines an entity's financial position at a specific date. Assets represent economic resources (Fixed Assets, Current Assets like inventory, trade receivables, and cash). Liabilities and Equity represent funding sources (Shareholders' Equity, Long-Term Debt, Current Liabilities like accounts payable). The fundamental accounting identity is: Total Assets = Total Liabilities + Equity.",
-              ar: "الميزانية تمثل المركز المالي للمؤسسة في تاريخ معين. تتكون من الأصول (أصول غير متداولة وأصول متداولة كالمخزون والعملاء والنقدية) والخصوم وحقوق الملكية (رأس المال، الاحتياطيات، الديون طويلة وقصيرة الأجل). القاعدة الذهبية هي: مجموع الأصول = مجموع الخصوم."
+              ar: "الميزانية تعرض الوضع المالي للكيان في تاريخ معين. الأصول تمثل الموارد الاقتصادية (أصول ثابتة ومتداولة)، بينما الخصوم وحقوق الملكية تمثل مصادر التمويل. المعادلة الأساسية هي: إجمالي الأصول = إجمالي الخصوم وحقوق الملكية."
             }
           },
           {
-            heading: { fr: "1.2 Le Compte de Résultat (P&L) & Soldes Intermédiaires de Gestion (SIG)", en: "1.2 Income Statement & Intermediate Management Balances", ar: "1.2 قائمة الدخل وهوامش التسيير الوسيطة" },
+            heading: { fr: "1.2 Le Compte de Résultat (P&L) & Soldes Intermédiaires de Gestion (SIG)", en: "1.2 Income Statement & Intermediate Management Balances", ar: "1.2 قائمة الدخل وأرصدة الإدارة الوسيطة" },
             content: {
               fr: "Le compte de résultat retrace les flux d'enrichissement et d'appauvrissement durant l'exercice comptable (Produits - Charges). Les SIG permettent de décomposer la rentabilité : 1) Marge Commerciale (Ventes de marchandises - Achats de marchandises vendues) ; 2) Valeur Ajoutée (VA) mesurant la richesse créée par l'entreprise ; 3) Excédent Brut d'Exploitation (EBE / EBITDA), indicateur de performance purement opérationnelle indépendant des politiques d'amortissement et de financement ; 4) Résultat d'Exploitation (EBIT) ; 5) Résultat Courant Avant Impôts (RCAI) ; et 6) Résultat Net final distribuable sous forme de dividendes ou mis en réserve.",
               en: "The Income Statement tracks revenues and expenses over a fiscal period. Key management balances decompose profitability: Gross Margin, Value Added, EBITDA (cash operating profitability before D&A), EBIT (operating profit), EBT (pre-tax profit), and final Net Income available for distribution or retained earnings.",
-              ar: "قائمة الدخل تتبع الإيرادات والمصروفات. تفكك الهوامش عبر: الهامش التجاري، القيمة المضافة، الفائض الإجمالي للاستغلال (EBITDA)، النتيجة التشغيلية (EBIT)، النتيجة قبل الضرائب (EBT)، وصافي الربح النهائي."
+              ar: "قائمة الدخل تسجل الإيرادات والمصروفات خلال الفترة المحاسبية. أرصدة الإدارة الوسيطة تفصل الربحية: هامش المجمل، القيمة المضافة، الأرباح قبل الفوائد والضرائب والإهلاك (EBITDA)، الربح التشغيلي (EBIT)، والنتيجة الصافية."
             }
           }
         ]
       },
       {
         id: 'c2',
-        title: { fr: "Module 2 : Analyse Financière Approfondie & Guide des 26 Ratios d'Audit", en: "Module 2: In-Depth Financial Analysis & Guide to 26 Audit Ratios", ar: "الوحدة 2: التحليل المالي المعمق ودليل الـ 26 نسبة تدقيق" },
+        title: { fr: "Module 2 : Analyse Financière Approfondie & Guide des 26 Ratios d'Audit", en: "Module 2: In-Depth Financial Analysis & Guide to 26 Audit Ratios", ar: "الوحدة 2: التحليل المالي المعمق ودليل 26 نسبة تدقيق" },
         category: "Ratios & Équations",
         readTime: "20 min",
         sections: [
           {
-            heading: { fr: "2.1 Ratios de Rentabilité & de Rendement", en: "2.1 Profitability & Return Ratios", ar: "2.1 نسب المردودية والعائد" },
+            heading: { fr: "2.1 Ratios de Rentabilité & de Rendement", en: "2.1 Profitability & Return Ratios", ar: "2.1 نسب الربحية والعائد" },
             content: {
               fr: "• Taux de Marge Brute = (Marge Brute / Chiffre d'Affaires) × 100. Mesure la marge unitaire avant frais généraux.\n• Marge Opérationnelle = (EBIT / CA) × 100. Reflète la rentabilité industrielle et commerciale.\n• Marge Nette = (Résultat Net / CA) × 100. Pourcentage final restant après impôts et charges d'intérêts.\n• Return on Equity (ROE) = (Résultat Net / Capitaux Propres) × 100. Rentabilité des fonds investis par les actionnaires.\n• Return on Assets (ROA) = (Résultat Net / Total Actif) × 100. Efficacité productive de l'ensemble du parc d'actifs.",
               en: "• Gross Margin Ratio = (Gross Profit / Revenue) × 100.\n• Operating Margin = (EBIT / Revenue) × 100.\n• Net Profit Margin = (Net Income / Revenue) × 100.\n• Return on Equity (ROE) = (Net Income / Shareholders' Equity) × 100.\n• Return on Assets (ROA) = (Net Income / Total Assets) × 100.",
-              ar: "• نسبة الهامش الإجمالي = (الهامش الإجمالي / الإيرادات) × 100.\n• الهامش التشغيلي = (EBIT / الإيرادات) × 100.\n• هامش الربح الصافي = (صافي الربح / الإيرادات) × 100.\n• العائد على حقوق الملكية ROE = (صافي الربح / حقوق الملكية) × 100.\n• العائد على الأصول ROA = (صافي الربح / مجموع الأصول) × 100."
+              ar: "• نسبة الهامش الإجمالي = (إجمالي الربح / الإيرادات) × 100.\n• الهامش التشغيلي = (EBIT / الإيرادات) × 100.\n• هامش الصافي = (صافي الربح / الإيرادات) × 100.\n• العائد على حقوق الملكية ROE = (صافي الربح / حقوق الملكية) × 100.\n• العائد على الأصول ROA = (صافي الربح / إجمالي الأصول) × 100."
             }
           },
           {
-            heading: { fr: "2.2 Ratios de Solvabilité, Structure & Couverture", en: "2.2 Solvency, Leverage & Coverage Ratios", ar: "2.2 نسب الملاءة المالية والرافعة المالية والتغطية" },
+            heading: { fr: "2.2 Ratios de Solvabilité, Structure & Couverture", en: "2.2 Solvency, Leverage & Coverage Ratios", ar: "2.2 نسب الملاءة المالية والهيكل والتغطية" },
             content: {
               fr: "• Ratio d'Endettement Général = Dette Totale / Total Actif (Seuil d'alerte > 0.70).\n• Gearing / Debt-to-Equity = Dette Financière Nette / Capitaux Propres (Doit rester < 1.00 sous peine de sous-capitalisation).\n• Ratio de Couverture des Intérêts (Interest Coverage Ratio) = EBIT / Charges d'Intérêts. Un ratio inférieur à 2.50 signale une vulnérabilité critique face aux hausses de taux d'intérêt.",
               en: "• Debt-to-Assets Ratio = Total Debt / Total Assets (Alert threshold > 0.70).\n• Debt-to-Equity (Gearing) = Total Debt / Equity (Should remain below 1.0 to avoid overleveraging).\n• Interest Coverage Ratio = EBIT / Interest Expenses (Below 2.5 indicates high default risk).",
-              ar: "• نسبة المديونية العامة = إجمالي الديون / مجموع الأصول (خطر إذا تجاوزت 0.70).\n• نسبة الديون إلى حقوق الملكية = إجمالي الديون / حقوق الملكية.\n• نسبة تغطية الفوائد = EBIT / مصاريف الفوائد (أقل من 2.50 يعتبر مؤشر خطر)."
+              ar: "• نسبة المديونية العامة = إجمالي الدين / إجمالي الأصول (حد الإنذار > 0.70).\n• الرافعة المالية = صافي الدين المالي / حقوق الملكية.\n• نسبة تغطية الفوائد = EBIT / مصاريف الفوائد (أقل من 2.5 تشير لخطر تخلف عن السداد)."
             }
           }
         ]
       },
       {
         id: 'c3',
-        title: { fr: "Module 3 : Équilibre Financier, FRNG, BFR & Trésorerie Nette", en: "Module 3: Financial Equilibrium, Working Capital & Net Cash", ar: "الوحدة 3: التوازن المالي، رأس المال العامل والخزينة الصافية" },
+        title: { fr: "Module 3 : Équilibre Financier, FRNG, BFR & Trésorerie Nette", en: "Module 3: Financial Equilibrium, Working Capital & Net Cash", ar: "الوحدة 3: التوازن المالي، رأس المال العامل، الاحتياجات والخزينة" },
         category: "Gestion de Trésorerie",
         readTime: "18 min",
         sections: [
           {
-            heading: { fr: "3.1 L'Équation Fondamentale du Bilan Fonctionnel", en: "3.1 The Fundamental Functional Balance Sheet Equation", ar: "3.1 المعادلة الأساسية للتوازن الوظيفي" },
+            heading: { fr: "3.1 L'Équation Fondamentale du Bilan Fonctionnel", en: "3.1 The Fundamental Functional Balance Sheet Equation", ar: "3.1 المعادلة الأساسية للميزانية الوظيفية" },
             content: {
               fr: "La règle d'or financière stipule que les emplois stables (Actif Immobilisé brut) doivent être intégralement financés par des ressources durables (Capitaux Propres + Dettes financières à long terme). L'excédent dégagé constitue le Fonds de Roulement Net Global (FRNG).\nFormule par le bas du bilan : FRNG = Actifs Circulants - Passifs Circulants.\nLe Besoin en Fonds de Roulement (BFR) correspond aux capitaux immobilisés dans le cycle d'exploitation : BFR = Stocks + Créances Clients - Dettes Fournisseurs.\nLa relation fondamentale s'écrit : Trésorerie Nette = FRNG - BFR.",
               en: "Long-term fixed assets must be funded by long-term permanent capital. The excess forms the Net Working Capital (FRNG = Current Assets - Current Liabilities). The Working Capital Requirement (WCR/BFR = Inventory + Accounts Receivable - Accounts Payable) reflects operational cash tied up. The golden rule is: Net Cash = Working Capital - WCR.",
-              ar: "القاعدة الذهبية تفرض تمويل الأصول الثابتة برؤوس أموال دائمة. الفائض يشكل رأس المال العامل (FRNG = الأصول المتداولة - الخصوم المتداولة). احتياج رأس المال العامل (BFR = المخزون + العملاء - الموردين). المعادلة الذهبية: الخزينة الصافية = FRNG - BFR."
+              ar: "يجب تمويل الأصول الثابتة بموارد دائمة. الفائض يمثل رأس المال العامل الصافي الإجمالي (FRNG = الأصول المتداولة - الخصوم المتداولة). احتياجات رأس المال العامل (BFR = المخزون + العملاء - الموردين). العلاقة الأساسية هي: الخزينة الصافية = FRNG - BFR."
             }
           },
           {
-            heading: { fr: "3.2 Analyse des Délais du Cycle d'Exploitation (DSO, DPO, DIO)", en: "3.2 Working Capital Cycle Days (DSO, DPO, DIO)", ar: "3.2 مؤشرات دورة الاستغلال بالأيام" },
+            heading: { fr: "3.2 Analyse des Délais du Cycle d'Exploitation (DSO, DPO, DIO)", en: "3.2 Working Capital Cycle Days (DSO, DPO, DIO)", ar: "3.2 تحليل آجال دورة الاستغلال" },
             content: {
               fr: "• DSO (Days Sales Outstanding) = (Créances Clients / Chiffre d'Affaires) × 365. Délai moyen de recouvrement client (Cible recommandée < 60 jours).\n• DPO (Days Payable Outstanding) = (Dettes Fournisseurs / Coût d'Achat des Marchandises Vendues) × 365. Délai consenti par les fournisseurs.\n• DIO (Days Inventory Outstanding) = (Stock Moyen / Coût des Ventes) × 365. Délai de rotation des stocks.\n• Durée du Cycle de Conversion de Trésorerie (CCC) = DIO + DSO - DPO. Plus ce cycle est court ou négatif, plus l'entreprise génère de la trésorerie spontanément (modèle de la grande distribution).",
               en: "• DSO = (Accounts Receivable / Revenue) × 365 (Target < 60 days).\n• DPO = (Accounts Payable / COGS) × 365.\n• DIO = (Average Inventory / COGS) × 365.\n• Cash Conversion Cycle (CCC) = DIO + DSO - DPO. A shorter cycle frees up operating cash.",
-              ar: "• مدة تحصيل مستحقات العملاء DSO = (ذمم العملاء / المبيعات) × 365.\n• مدة سداد الموردين DPO = (ديون الموردين / تكلفة المبيعات) × 365.\n• دوران المخزون بالأيام DIO = (متوسط المخزون / تكلفة المبيعات) × 365.\n• دورة التحويل النقدي CCC = DIO + DSO - DPO."
+              ar: "• متوسط تحصيل العملاء DSO = (حسابات العملاء / الإيرادات) × 365.\n• متوسط سداد الموردين DPO = (حسابات الموردين / تكلفة المبيعات) × 365.\n• مدة المخزون DIO = (متوسط المخزون / تكلفة المبيعات) × 365.\n• دورة تحويل النقد CCC = DIO + DSO - DPO."
             }
           }
         ]
@@ -1267,19 +1265,19 @@
         readTime: "22 min",
         sections: [
           {
-            heading: { fr: "4.1 Les 7 Assertions d'Audit Fondamentales (Normes ISA / NEP)", en: "4.1 The 7 Core Audit Assertions (ISA Standards)", ar: "4.1 تأكيدات التدقيق السبعة الأساسية (معايير ISA)" },
+            heading: { fr: "4.1 Les 7 Assertions d'Audit Fondamentales (Normes ISA / NEP)", en: "4.1 The 7 Core Audit Assertions (ISA Standards)", ar: "4.1 تأكيدات التدقيق الأساسية السبعة (معايير ISA)" },
             content: {
               fr: "Lorsqu'il certifie des comptes réguliers, sincères et donnant une image fidèle, l'auditeur valide 7 assertions :\n1. Réalité / Existence : Les actifs, passifs et opérations enregistrés existent réellement.\n2. Exhaustivité : Toutes les transactions survenues ont été intégralement comptabilisées (aucune omission).\n3. Droits et Obligations : L'entité détient les droits de propriété sur ses actifs et est tenue de ses dettes.\n4. Évaluation et Imputation : Les montants sont valorisés conformément aux principes comptables (provisions, amortissements).\n5. Césure des Exercices (Cut-off) : Rattachement strict des charges et produits à leur exercice de réalisation.\n6. Exactitude Arithmétique : Calculs et équations rigoureusement exacts.\n7. Présentation et Information : Les notes annexes respectent le référentiel en vigueur.",
               en: "Auditors validate 7 financial statement assertions: Existence, Completeness, Rights and Obligations, Valuation, Cut-off (proper accounting period), Accuracy, and Presentation/Disclosure.",
-              ar: "يتحقق المدقق من 7 تأكيدات: 1) الوجود الفعلي؛ 2) الشمول والاكتمال؛ 3) الحقوق والالتزامات؛ 4) صحة التقييم؛ 5) استقلالية الدورات المحاسبية (Cut-off)؛ 6) الدقة الحسابية؛ 7) العرض والإفصاح القانوني."
+              ar: "يتحقق المدقق من 7 تأكيدات في القوائم المالية: الوجود، الاكتملال، الحقوق والالتزامات، التقييم، الفصل بين الدورات (Cut-off)، الدقة الحسابية، والعرض والإفصاح."
             }
           },
           {
-            heading: { fr: "4.2 Seuil de Signification & Sondages d'Audit", en: "4.2 Materiality & Audit Sampling", ar: "4.2 الأهمية النسبية والعينات الرقابية" },
+            heading: { fr: "4.2 Seuil de Signification & Sondages d'Audit", en: "4.2 Materiality & Audit Sampling", ar: "4.2 الأهمية النسبية وعينات التدقيق" },
             content: {
               fr: "Le Seuil de Signification (Materiality) est le montant au-delà duquel une anomalie non corrigée est susceptible d'influencer les décisions économiques des lecteurs des états financiers. Il est généralement fixé entre 0.5% et 1% du Chiffre d'Affaires, ou 5% du Résultat Net. L'auditeur définit également une 'erreur tolérable' et effectue des sondages statistiques pour orienter ses contrôles substantifs.",
               en: "Materiality is the benchmark above which misstatements could influence users' decisions. Commonly set at 0.5-1% of Revenue or 5% of Net Profit. Auditors use performance materiality and statistical sampling to execute substantive audit procedures.",
-              ar: "مستوى الأهمية النسبية هو السقف الذي يؤثر تجاوزه على قرارات مستخدمي القوائم المالية. يحدد عادة بنسبة 0.5% إلى 1% من الإيرادات أو 5% من صافي الأرباح."
+              ar: "الأهمية النسبية هي الحد الذي يمكن أن تؤثر عنده أي أخطاء غير معالجة على القرارات الاقتصادية لمستخدمي القوائم المالية. تُحدد عادة بين 0.5% إلى 1% من الإيرادات أو 5% من صافي الربح."
             }
           }
         ]
@@ -1291,43 +1289,43 @@
         readTime: "16 min",
         sections: [
           {
-            heading: { fr: "5.1 Les 5 Piliers du Référentiel COSO", en: "5.1 The 5 Pillars of the COSO Framework", ar: "5.1 الأركان الخمسة لإطار COSO" },
+            heading: { fr: "5.1 Les 5 Piliers du Référentiel COSO", en: "5.1 The 5 Pillars of the COSO Framework", ar: "5.1 الركائز الخمس لإطار عمل COSO" },
             content: {
               fr: "Le cadre de référence international COSO structure le contrôle interne autour de 5 composantes interdépendantes :\n1. Environnement de contrôle (éthique, intégrité, ton donné par la direction) ;\n2. Évaluation des risques (identification et cartographie des risques opérationnels et financiers) ;\n3. Activités de contrôle (procédures, vérifications doubles, contrôles physiques) ;\n4. Information et communication (traçabilité et circulation fluide des données) ;\n5. Pilotage et surveillance continue (audits internes réguliers).",
               en: "The COSO framework relies on 5 core pillars: 1. Control Environment; 2. Risk Assessment; 3. Control Activities; 4. Information & Communication; 5. Monitoring Activities.",
-              ar: "يقوم إطار COSO على 5 ركائز: بيئة الرقابة، تقييم المخاطر، أنشطة الرقابة، المعلومات والتواصل، والمتابعة المستمرة."
+              ar: "يرتكز إطار COSO على 5 ركائز أساسية: بيئة الرقابة، تقييم المخاطر، أنشطة الرقابة، المعلومات والاتصالات، والمتابعة المستمرة."
             }
           },
           {
-            heading: { fr: "5.2 Le Principe Fondamental de Séparation des Fonctions & Rapprochement à 3 Voies", en: "5.2 Segregation of Duties & 3-Way Matching", ar: "5.2 الفصل بين المهام والمطابقة الثلاثية" },
+            heading: { fr: "5.2 Le Principe Fondamental de Séparation des Fonctions & Rapprochement à 3 Voies", en: "5.2 Segregation of Duties & 3-Way Matching", ar: "5.2 مبدأ الفصل بين المهام والمطابقة الثلاثية" },
             content: {
               fr: "La séparation des fonctions interdit d'attribuer à un même collaborateur la décision d'engagement (bon de commande), la réception physique (bon de livraison), l'enregistrement comptable (facture) et le paiement (virement bancaire). Dans le cycle Achats, la règle du '3-Way Match' (Bon de commande = Bon de réception = Facture fournisseur) est obligatoire avant toute validation de décaissement pour éviter les facturations fictives et les doublons.",
               en: "Segregation of duties prevents fraud by separating authorization, custody, recording, and reconciliation. The 3-way match (Purchase Order = Delivery Slip = Supplier Invoice) is mandatory before authorizing any bank disbursement.",
-              ar: "يمنع مبدأ الفصل بين المهام إسناد الطلب والاستلام والتقييد المحاسبي والأداء لشخص واحد. المطابقة الثلاثية (طلب الشراء = وصل الاستلام = الفاتورة) إلزامية قبل أي سداد بنكي."
+              ar: "يمنع الفصل بين المهام أن يقوم شخص واحد باعتماد الطلب، الاستلام، التسجيل المحاسبي والدفع. المطابقة الثلاثية (أمر الشراء = إيصال الاستلام = فاتورة المورد) إلزامية قبل اعتماد أي صرف نقدي."
             }
           }
         ]
       },
       {
         id: 'c6',
-        title: { fr: "Module 6 : Détection des Fraudes Comptables & Prévention des Faillites", en: "Module 6: Fraud Detection & Insolvency Risk Modeling", ar: "الوحدة 6: كشف الاحتيال المحاسبي ونماذج التنبؤ بالإفلاس" },
+        title: { fr: "Module 6 : Détection des Fraudes Comptables & Prévention des Faillites", en: "Module 6: Fraud Detection & Insolvency Risk Modeling", ar: "الوحدة 6: اكتشاف الاحتيال المحاسبي ونمذجة مخاطر الإفلاس" },
         category: "Fraude & Solvabilité",
         readTime: "18 min",
         sections: [
           {
-            heading: { fr: "6.1 Le Triangle de la Fraude de Cressey & Techniques de Détection", en: "6.1 Cressey's Fraud Triangle & Detection Techniques", ar: "6.1 مثلث الاحتيال لكريسي وتقنيات الكشف" },
+            heading: { fr: "6.1 Le Triangle de la Fraude de Cressey & Techniques de Détection", en: "6.1 Cressey's Fraud Triangle & Detection Techniques", ar: "6.1 مثلث الاحتيال لكرسي وتقنيات الاكتشاف" },
             content: {
               fr: "Selon Donald Cressey, la fraude comptable survient à la convergence de trois facteurs : 1) La Pression/Motivation (objectifs financiers irréalistes, endettement personnel) ; 2) L'Opportunité (défaillance ou absence de contrôles internes) ; 3) La Rationalisation (justification morale de l'acte délictueux).\nLes techniques de détection incluent : l'analyse de la loi de Benford sur le premier chiffre des montants facturés, la recherche d'écritures manuelles passées le week-end ou en fin de période de clôture, et l'analyse des avoirs non justifiés émis juste après la clôture.",
               en: "Cressey's Fraud Triangle consists of Pressure, Opportunity, and Rationalization. Detection methods include Benford's Law analysis, investigating manual journal entries made on weekends or closing dates, and scrutinizing sudden credit notes after year-end.",
-              ar: "يتكون مثلث الاحتيال من: الضغط المالي، الفرصة المتاحة (غياب الرقابة)، والتبرير الأخلاقي. تشمل تقنيات الكشف: تحليل قانون بنفورد، تدقيق القيود اليدوية في عطل نهاية الأسبوع وفحص إشعارات الخصم المشبوهة."
+              ar: "يتكون مثلث الاحتيال لكرسي من ثلاثة عناصر: الضغط/الحاجة، الفرصة، والتبرير. تشمل تقنيات الاكتشاف قانون بنفورد، التحقيق في القيود اليدوية في عطلات نهاية الأسبوع، وفحص الإشعارات الدائنة غير المبررة."
             }
           },
           {
-            heading: { fr: "6.2 Le Score Z d'Altman pour la Prédiction des Faillites", en: "6.2 Altman Z-Score for Bankruptcy Prediction", ar: "6.2 نموذج ألتمان (Altman Z) للتنبؤ بالتعثر المالي" },
+            heading: { fr: "6.2 Le Score Z d'Altman pour la Prédiction des Faillites", en: "6.2 Altman Z-Score for Bankruptcy Prediction", ar: "6.2 نموذج ألتمان Z للتنبؤ بالإفلاس" },
             content: {
               fr: "Le modèle statistique d'Edward Altman combine 5 ratios pondérés pour évaluer la probabilité de faillite à 2 ans :\nZ = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5)\nOù X1 = BFR / Total Actif ; X2 = Réserves Réinvesties / Total Actif ; X3 = EBIT / Total Actif ; X4 = Capitaux Propres / Dette Totale ; X5 = Chiffre d'Affaires / Total Actif.\nInterprétation :\n• Z > 2.99 : Zone Sûre (Entreprise financièrement très solide) ;\n• 1.81 < Z < 2.99 : Zone Grise (Risque modéré, surveillance requise) ;\n• Z < 1.81 : Zone de Détresse (Risque de faillite imminent dans les 24 mois).",
               en: "Altman Z-Score predicts financial distress: Z = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5). Z > 2.99: Safe Zone; 1.81-2.99: Grey Zone; Z < 1.81: Distress Zone (high bankruptcy probability).",
-              ar: "نموذج ألتمان يدمج 5 نسب مالية مرجحة. إذا كان Z أكبر من 2.99 فالشركة آمنة. بين 1.81 و 2.99 منطقة رمادية تحتاج للمراقبة. أقل من 1.81 منطقة خطر وإفلاس وشيك خلال سنتين."
+              ar: "يجمع نموذج ألتمان بين 5 نسب لتقييم احتمال الإفلاس خلال عامين. إذا كان Z > 2.99 فالمنطقة آمنة، بين 1.81 و 2.99 منطقة رمادية، وأقل من 1.81 منطقة خطر إفلاس وشيك."
             }
           }
         ]
@@ -1365,7 +1363,7 @@
       { id: 'q25', q: "Quelle anomalie d'audit traduit un ratio de rotation des stocks anormalement faible ?", opt: ["Surévaluation potentielle ou stocks obsolètes/dormants", "Une surchauffe des ventes", "Une rupture de stock", "Une baisse des impôts"], c: 0, exp: "Une faible rotation des stocks indique que les marchandises dorment en entrepôt, risquant une dépréciation." },
       { id: 'q26', q: "Qu'est-ce que le 'Seuil de Signification' en audit comptable ?", opt: ["Le montant d'erreur toléré au-delà duquel l'opinion d'audit est altérée", "Le salaire de l'auditeur", "Le montant minimum pour ouvrir un compte", "Le taux de TVA"], c: 0, exp: "C'est la limite chiffrée à partir de laquelle les erreurs impactent la sincérité des états financiers." },
       { id: 'q27', q: "Quelle méthode d'évaluation des stocks est formellement interdite par les normes IFRS (IAS 2) ?", opt: ["LIFO (Last In, First Out)", "FIFO (First In, First Out)", "CUMP (Coût Unitaire Moyen Pondéré)", "Coût Standard"], c: 0, exp: "La norme IAS 2 proscrit formellement la méthode LIFO (Dernier Entré, Premier Sorti)." },
-      { id: 'q28', q: "Quel compte figure au Passif parmi les suivants ?", opt: ["Dettes Fournisseurs", "Créances Clients", "Immobilisations corporelles", "Trésorerie active"], c: 0, exp: "Les dettes fournisseurs représentent une dette exigible envers un tiers, inscrite au passif circulant." },
+      { id: 'q28', q: "Quel compte figure au Passif parmi les suivants ?", opt: ["Dettes Fournisseurs", "Créances Clients", "Immobilisations corporelles", "Trésorerie active"], c: 0, exp: "Les dettes fournisseurs représentent une debt exigible envers un tiers, inscrite au passif circulant." },
       { id: 'q29', q: "Qu'est-ce qu'une charge constatée d'avance (CCA) ?", opt: ["Une charge payée durant l'exercice mais concernant l'exercice suivant", "Une facture impayée", "Un dividende", "Une provision pour litige"], c: 0, exp: "Une CCA est un actif qui permet de respecter le principe d'indépendance des exercices (Cut-off)." },
       { id: 'q30', q: "Que constitue un produit constaté d'avance (PCA) au bilan ?", opt: ["Une dette / passif de régularisation", "Un actif immobilisé", "Un compte bancaire", "Une charge financière"], c: 0, exp: "Un PCA est inscrit au passif car l'entreprise a encaissé un revenu pour une prestation non encore livrée." },
       { id: 'q31', q: "Quel est l'impact de l'amortissement comptable d'une machine sur la trésorerie immédiate ?", opt: ["Aucun impact direct (charge non décaissable)", "Une sortie de cash immédiate", "Une entrée de cash", "Un virement bancaire"], c: 0, exp: "L'amortissement est une charge purement comptable (non décaissée) constatant l'usure de l'actif." },
@@ -1385,7 +1383,7 @@
       { id: 'q45', q: "Quelle norme internationale régit la reconnaissance du revenu des contrats avec les clients ?", opt: ["IFRS 15", "IAS 2", "IFRS 16", "IAS 36"], c: 0, exp: "La norme IFRS 15 fixe le modèle en 5 étapes pour comptabiliser les produits des contrats clients." },
       { id: 'q46', q: "Quelle norme internationale régit la comptabilisation des contrats de location (Leasing) ?", opt: ["IFRS 16 (Droit d'utilisation à l'actif & Dette de loyer au passif)", "IAS 7", "IAS 1", "IFRS 9"], c: 0, exp: "IFRS 16 oblige à inscrire un actif au titre du droit d'utilisation en contrepartie d'une dette de loyer." },
       { id: 'q47', q: "Qu'exprime le principe comptable de 'Prudence' ?", opt: ["Ne pas surévaluer les actifs/produits et anticiper les pertes probables", "Dépenser le moins d'argent possible", "Refuser les nouveaux clients", "Cacher les bénéfices"], c: 0, exp: "La prudence impose de comptabiliser les pertes probables dès leur identification mais jamais les gains futurs." },
-      { id: 'q48', q: "Quel est le rôle du Tableau des Flux de Trésorerie (TFT) ?", opt: ["Expliquer la variation de trésorerie via l'exploitation, l'investissement et le financement", "Lister les clients en retard", "Remplacer le bilan", "Calculer le montant de la TVA"], c: 0, exp: "Le TFT décompose les flux de trésorerie en trois catégories fondamentales : OCF, ICF et FCF." },
+      { id: 'q48', q: "Quel est l' rôle du Tableau des Flux de Trésorerie (TFT) ?", opt: ["Expliquer la variation de trésorerie via l'exploitation, l'investissement et le financement", "Lister les clients en retard", "Remplacer le bilan", "Calculer le montant de la TVA"], c: 0, exp: "Le TFT décompose les flux de trésorerie en trois catégories fondamentales : OCF, ICF et FCF." },
       { id: 'q49', q: "Qu'est-ce qu'une 'opinion avec réserve' émise par un Commissaire aux Comptes / Auditeur ?", opt: ["Certification des comptes malgré des désaccords ou limites identifiés non bloquants", "Une démission de l'auditeur", "Un refus total de certifier", "Une félicitation écrite"], c: 0, exp: "L'auditeur certifie que les états sont sincères sauf sur un point spécifique délimité." },
       { id: 'q50', q: "Dans une analyse de solvabilité, que traduit un ratio Capitaux Propres / Total Actif supérieur à 0.40 ?", opt: ["Une structure financière solide et une forte indépendance financière", "Une faillite immédiate", "Un excès de dettes bancaires", "Une trésorerie bloquée"], c: 0, exp: "Un ratio > 40% prouve que près de la moitié des actifs est financée par les actionnaires sans dépendre des banques." }
     ];
@@ -1424,7 +1422,7 @@
               <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">${course.category}</span>
               <h3 class="text-base sm:text-lg font-black text-white mt-1.5">${title}</h3>
             </div>
-            <span class="text-xs text-slate-400 font-bold bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 self-start sm:self-auto">⏱️ ${course.readTime}</span>
+            <span class="text-xs text-slate-400 font-bold bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 self-start sm:self-auto">⏱ ${course.readTime}</span>
           </div>
           <div class="space-y-3">
             ${sectionsHtml}
@@ -1482,7 +1480,7 @@
         showToast(
           currentLanguage === 'ar' ? `يرجى الإجابة على جميع الأسئلة (${answeredCount}/${quizQuestions.length})` : `Veuillez répondre aux 50 questions (${answeredCount}/${quizQuestions.length})`,
           "warning",
-          currentLanguage === 'ar' ? 'تنبيه' : 'Contrôle Incomplet'
+          currentLanguage === 'ar' ? 'تحذير' : 'Contrôle Incomplet'
         );
         return;
       }
@@ -1527,7 +1525,7 @@
           ? "p-3 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-200 text-xs leading-relaxed mt-2" 
           : "p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-200 text-xs leading-relaxed mt-2";
         
-        const prefix = currentLanguage === 'ar' ? '<strong>الشرح المحاسبي : </strong>' : '<strong>Explication d\'audit : </strong>';
+        const prefix = currentLanguage === 'ar' ? '<strong>شرح التدقيق : </strong>' : '<strong>Explication d\'audit : </strong>';
         expBox.innerHTML = prefix + q.exp;
       });
 
@@ -1546,26 +1544,26 @@
         banner.className = "p-5 rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-950 shadow-xl";
         scoreIcon.className = "w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-black text-2xl shadow-inner";
         scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'ممتاز ! شهادة التميز في التدقيق (Senior Expert)' : 'Excellent ! Niveau Senior Expert Validé';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `لقد حققت نتيجة استثنائية (${pct}%) تعكس إتقاناً شاملاً للرقابة والمعايير المحاسبية الدولية.` : `Vous avez brillamment réussi l'examen (${pct}%) avec une maîtrise approfondie des normes.`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'ممتاز! مستوى خبير معتمد' : 'Excellent ! Niveau Senior Expert Validé';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `لقد اجتزت الاختبار بامتياز (${pct}%) مع إتقان تام للمعايير.` : `Vous avez brillamment réussi l'examen (${pct}%) avec une maîtrise approfondie des normes.`;
       } else if (pct >= 50) {
         banner.className = "p-5 rounded-2xl border border-teal-500/50 bg-gradient-to-r from-teal-950/40 via-slate-900 to-slate-950 shadow-xl";
         scoreIcon.className = "w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-black text-2xl shadow-inner";
         scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'مستوى جيد / قابل للتعزيز' : 'Bon niveau / En progression';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `حصلت على (${pct}%). راجع الأسئلة الخاطئة والدروس لترسيخ المفاهيم المتبقية.` : `Résultat honorable (${pct}%). Consultez les explications détaillées sous chaque question pour progresser.`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'مستوى جيد / قيد التقدم' : 'Bon niveau / En progression';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `نتيجة مشرفة (${pct}%). راجع الشروحات التفصيلية أسفل الأسئلة للتقدم.` : `Résultat honorable (${pct}%). Consultez les explications détaillées sous chaque question pour progresser.`;
       } else {
         banner.className = "p-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-950 shadow-xl";
         scoreIcon.className = "w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-black text-2xl shadow-inner";
         scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'يحتاج إلى مراجعة شاملة للدروس' : 'Révision recommandée des modules de cours';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `حصلت على (${pct}%). نوصي بإعادة قراءة الدروس الستة وإعادة إجراء الاختبار.` : `Score de ${pct}%. Nous vous conseillons de revoir les 6 modules de formation et de repasser le test.`;
+        scoreTitle.textContent = currentLanguage === 'ar' ? 'يُوصى بمراجعة وحدات الدروس' : 'Révision recommandée des modules de cours';
+        scoreFeedback.textContent = currentLanguage === 'ar' ? `النتيجة ${pct}%. نوصي بمراجعة الوحدات الست وإعادة الاختبار.` : `Score de ${pct}%. Nous vous conseillons de revoir les 6 modules de formation et de repasser le test.`;
       }
 
       showToast(
-        currentLanguage === 'ar' ? `تم تصحيح الـ 50 سؤالاً : ${correctCount}/50 (${pct}%)` : `Test corrigé : Note finale de ${correctCount}/50 (${pct}%)`,
+        currentLanguage === 'ar' ? `تصحيح الاختبار : ${correctCount}/50 (${pct}%)` : `Test corrigé : Note finale de ${correctCount}/50 (${pct}%)`,
         pct >= 50 ? "success" : "warning",
-        currentLanguage === 'ar' ? 'نتيجة الامتحان' : 'Correction QCM'
+        currentLanguage === 'ar' ? 'تصحيح الاختبار' : 'Correction QCM'
       );
 
       banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1576,7 +1574,7 @@
       const banner = document.getElementById('quizScoreBanner');
       if (banner) banner.classList.add('hidden');
       renderQuiz();
-      showToast(currentLanguage === 'ar' ? 'تمت إعادة تعيين الـ 50 سؤالاً.' : 'Les 50 questions ont été réinitialisées.', "info", currentLanguage === 'ar' ? 'إعادة التعيين' : 'QCM');
+      showToast(currentLanguage === 'ar' ? 'تمت إعادة تعيين الأسئلة الـ 50.' : 'Les 50 questions ont été réinitialisées.', "info", currentLanguage === 'ar' ? 'إعادة ضبط' : 'QCM');
     }
 
     /* ========================================================
@@ -1696,6 +1694,7 @@
 
     function renderMissionButtons() {
       const btnContainer = document.getElementById('missionButtonsContainer');
+      if (!btnContainer) return;
       btnContainer.innerHTML = '';
 
       missions.forEach((m, idx) => {
@@ -1744,7 +1743,7 @@
         timerElement.innerHTML = `
           <span class="inline-flex items-center gap-1.5 text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            ${currentLanguage === 'ar' ? 'انتهت المهلة المحددة!' : (currentLanguage === 'en' ? 'Deadline Exceeded!' : 'Date limite dépassée !')}
+            ${currentLanguage === 'ar' ? 'انتهى الموعد النهائي!' : (currentLanguage === 'en' ? 'Deadline Exceeded!' : 'Date limite dépassée !')}
           </span>`;
         return;
       }
@@ -1772,6 +1771,7 @@
 
     function renderMegaMission() {
       const container = document.getElementById('megaMissionContainer');
+      if (!container) return;
       const m = missions[activeMissionIndex];
       const isLocked = m.locked === true;
       const isCompleted = m.completed === true;
@@ -2018,7 +2018,7 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
-      showToast(currentLanguage === 'ar' ? 'تم حفظ وتجميد المسودة بنجاح.' : (currentLanguage === 'en' ? 'Draft saved and locked.' : 'Brouillon sauvegardé et verrouillé.'), "info", currentLanguage === 'ar' ? 'حفظ المسودة' : 'Rapport Sauvegardé');
+      showToast(currentLanguage === 'ar' ? 'تم حفظ القفل والمسودة بنجاح.' : (currentLanguage === 'en' ? 'Draft saved and locked.' : 'Brouillon sauvegardé et verrouillé.'), "info", currentLanguage === 'ar' ? 'حفظ التقرير' : 'Rapport Sauvegardé');
     }
 
     function lockAndSubmitMission(missionIdx) {
@@ -2032,7 +2032,7 @@
       });
 
       if (missingCount > 0) {
-        showToast(currentLanguage === 'ar' ? `يتبقى ${missingCount} حقول غير مكتملة.` : (currentLanguage === 'en' ? `There are ${missingCount} incomplete fields.` : `Il reste ${missingCount} champ(s) non rempli(s).`), "warning", currentLanguage === 'ar' ? 'تنبيه' : 'Champs Incomplets');
+        showToast(currentLanguage === 'ar' ? `يوجد ${missingCount} حقول غير مكتملة.` : (currentLanguage === 'en' ? `There are ${missingCount} incomplete fields.` : `Il reste ${missingCount} champ(s) non rempli(s).`), "warning", currentLanguage === 'ar' ? 'تنبيه' : 'Champs Incomplets');
         return;
       }
 
@@ -2044,7 +2044,7 @@
       renderMissionButtons();
       renderMegaMission();
 
-      showToast(currentLanguage === 'ar' ? `تم اعتماد وإرسال المهمة ${m.id} بنجاح!` : `Mission ${m.id} transmise avec succès ! +${formatMoney(m.reward)}`, "success", currentLanguage === 'ar' ? 'تم الاعتماد' : 'Mission Validée');
+      showToast(currentLanguage === 'ar' ? `تم إرسال المهمة ${m.id} بنجاح! +${formatMoney(m.reward)}` : `Mission ${m.id} transmise avec succès ! +${formatMoney(m.reward)}`, "success", currentLanguage === 'ar' ? 'اعتماد المهمة' : 'Mission Validée');
     }
 
     function unlockMission(missionIdx) {
@@ -2056,7 +2056,7 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
-      showToast(currentLanguage === 'ar' ? 'تم إلغاء التجميد وإتاحة الحقول للتعديل.' : 'Les champs du rapport sont maintenant modifiables.', "info", currentLanguage === 'ar' ? 'تعديل التقرير' : 'Rapport Déverrouillé');
+      showToast(currentLanguage === 'ar' ? 'حقول التقرير قابلة للتعديل الآن.' : 'Les champs du rapport sont maintenant modifiables.', "info", currentLanguage === 'ar' ? 'فتح التقرير' : 'Rapport Déverrouillé');
     }
 
     /* ========================================================
@@ -2134,7 +2134,7 @@
             <div>
               <div class="logo-box">M</div>
               <div style="overflow: hidden;">
-                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Asia Settlement Ltd</h1>
+                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Africa Settlement Ltd</h1>
                 <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0;">Treasury & International Settlement Department</p>
               </div>
             </div>
@@ -2154,14 +2154,14 @@
           <div class="grid-2">
             <div class="card">
               <div class="card-label">Émetteur / Débiteur</div>
-              <p class="card-val">MicroTask Asia Settlement Ltd</p>
-              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Compte de Règlement : HK88-MTA-PAY-9921</div>
+              <p class="card-val">MicroTask Africa Settlement Ltd</p>
+              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Compte de Règlement : MA88-MTA-PAY-9921</div>
               <div style="font-size: 11px; color: #047857; margin-top: 4px; font-weight: bold;">Réseau : International Settlement Network</div>
             </div>
             <div class="card">
               <div class="card-label">Bénéficiaire / Banque Réceptrice</div>
               <p class="card-val">${currentReceiptData.beneficiary}</p>
-              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Banque Réceptrice : ${currentReceiptData.bank} (Maroc)</div>
+              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Banque Réceptrice : ${currentReceiptData.bank}</div>
               <div style="font-size: 11px; font-family: monospace; color: #047857; margin-top: 4px; font-weight: bold;">RIB : ${currentReceiptData.rib}</div>
             </div>
           </div>
@@ -2175,12 +2175,12 @@
 
           <div class="footer">
             <div style="font-size: 10px; color: #64748b; line-height: 1.4;">
-              Avis d'opération certifié et émis par le Département Trésorerie de MicroTask Asia.<br>
+              Avis d'opération certifié et émis par le Département Trésorerie de MicroTask Africa.<br>
               Enregistrement sécurisé : SHA256:4b892a01ce904b77f198124d98a0021c9b2.
             </div>
 
             <div class="stamp">
-              <div style="font-size: 7px; font-weight: 900; text-transform: uppercase;">MICROTASK ASIA</div>
+              <div style="font-size: 7px; font-weight: 900; text-transform: uppercase;">MICROTASK AFRICA</div>
               <div style="font-size: 9px; font-weight: 900; margin: 2px 0;">TREASURY VALIDATED</div>
               <div style="font-size: 7px; font-weight: bold;">08/08/2026</div>
             </div>
@@ -2220,7 +2220,7 @@
             <div class="flex items-center gap-2">
               <span class="text-xs text-slate-400 font-bold">${w.date}</span>
               <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition flex items-center gap-0.5">
-                <span>📄 ${currentLanguage === 'ar' ? 'عرض الإشعار' : (currentLanguage === 'en' ? 'View Remittance' : 'Voir l\'avis')}</span>
+                <span>👁 ${currentLanguage === 'ar' ? 'عرض الإشعار' : (currentLanguage === 'en' ? 'View Remittance' : 'Voir l\'avis')}</span>
               </span>
             </div>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${isPending ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'}">
@@ -2285,7 +2285,7 @@
         date: dateStr,
         beneficiaire: "Aballagh Abderrahim",
         montant: amt,
-        moyen: "Compte Bancaire (Maroc)",
+        moyen: "Compte Bancaire",
         details: "Attijariwafa Bank - RIB: ****8206",
         statut: "En attente"
       });
@@ -2466,7 +2466,7 @@
             <div>
               <div class="logo-box">M</div>
               <div style="overflow: hidden;">
-                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Accounting Asia</h1>
+                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Accounting Africa</h1>
                 <p style="font-size: 12px; color: #64748b; margin: 3px 0 0 0;">Corporate Financial Audit & Certification Division</p>
               </div>
             </div>
@@ -2514,7 +2514,7 @@
             </div>
 
             <div class="stamp">
-              <div class="stamp-title">MicroTask Asia</div>
+              <div class="stamp-title">MicroTask Africa</div>
               <div class="stamp-main">AUDIT CERTIFIÉ</div>
               <div class="stamp-sub">SENIOR VERIFIED</div>
             </div>
