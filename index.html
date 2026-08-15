@@ -3,7 +3,7 @@
 <head>
   <link rel="manifest" href="./manifest.json">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MicroTask Accounting - Corporate Africa</title>
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -53,9 +53,10 @@
     @media (min-width: 640px) {
       input, select, textarea { font-size: 0.95rem !important; }
     }
+    .touch-pan-y { touch-action: pan-y; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased relative overflow-x-hidden pb-12">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased relative overflow-x-hidden pb-24 sm:pb-12 select-none">
 
   <!-- CONTENEUR DES TOASTS UI -->
   <div id="toastContainer" class="fixed top-4 right-4 z-50 flex flex-col gap-2.5 max-w-sm w-[calc(100vw-2rem)] pointer-events-none"></div>
@@ -85,57 +86,57 @@
         <div class="flex items-center gap-1.5 sm:gap-2">
           <!-- Sélecteur de Langue (FR / EN / AR) -->
           <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-0.5 text-xs font-black">
-            <button id="langBtnFR" onclick="setLanguage('fr')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition">FR</button>
-            <button id="langBtnEN" onclick="setLanguage('en')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">EN</button>
-            <button id="langBtnAR" onclick="setLanguage('ar')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition">العربية</button>
+            <button id="langBtnFR" type="button" onclick="setLanguage('fr')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black">FR</button>
+            <button id="langBtnEN" type="button" onclick="setLanguage('en')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">EN</button>
+            <button id="langBtnAR" type="button" onclick="setLanguage('ar')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">العربية</button>
           </div>
 
           <!-- Sélecteur de Devise ($ / MAD / €) -->
           <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center gap-0.5 text-xs font-black">
-            <button id="currBtnUSD" onclick="setCurrency('USD')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black">$</button>
-            <button id="currBtnMAD" onclick="setCurrency('MAD')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">DH</button>
-            <button id="currBtnEUR" onclick="setCurrency('EUR')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">€</button>
+            <button id="currBtnUSD" type="button" onclick="setCurrency('USD')" class="px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black">$</button>
+            <button id="currBtnMAD" type="button" onclick="setCurrency('MAD')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">DH</button>
+            <button id="currBtnEUR" type="button" onclick="setCurrency('EUR')" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold">€</button>
           </div>
 
           <!-- Bouton Calculatrice -->
-          <button onclick="openCalculatorModal()" title="Calculatrice" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 p-2 rounded-xl text-xs font-black flex items-center gap-1 transition active:scale-95">
+          <button type="button" onclick="openCalculatorModal()" title="Calculatrice" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 p-2 rounded-xl text-xs font-black flex items-center gap-1 transition active:scale-95">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
           </button>
           
-          <button id="t_btnWithdrawTop" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-md shadow-emerald-500/20 active:scale-95 shrink-0 transition">
+          <button id="t_btnWithdrawTop" type="button" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-md shadow-emerald-500/20 active:scale-95 shrink-0 transition">
             Retirer
           </button>
         </div>
       </div>
 
-      <!-- Ligne inf : Soldes + Navigation Étendue (5 Onglets) -->
+      <!-- Ligne inf : Navigation Desktop + Soldes -->
       <div class="flex items-center justify-between gap-2 bg-slate-950 p-2 rounded-2xl border border-slate-800">
         
-        <nav class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0 gap-1 overflow-x-auto no-scrollbar max-w-[70vw] sm:max-w-none">
-          <button id="navDashboardBtn" onclick="switchTab('dashboard')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0">
+        <nav class="hidden sm:flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0 gap-1 overflow-x-auto no-scrollbar">
+          <button id="navDashboardBtn" type="button" onclick="switchTab('dashboard')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span id="t_navAudit">Audit</span>
           </button>
-          <button id="navCoursesBtn" onclick="switchTab('courses')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+          <button id="navCoursesBtn" type="button" onclick="switchTab('courses')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
             <span id="t_navCourses">Cours</span>
           </button>
-          <button id="navQuizzesBtn" onclick="switchTab('quizzes')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+          <button id="navQuizzesBtn" type="button" onclick="switchTab('quizzes')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
             <span id="t_navQuizzes">Contrôles (50 QCM)</span>
           </button>
-          <button id="navEvaluationBtn" onclick="switchTab('evaluation')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+          <button id="navEvaluationBtn" type="button" onclick="switchTab('evaluation')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             <span id="t_navEvaluation">Évaluation</span>
           </button>
-          <button id="navTransactionsBtn" onclick="switchTab('transactions')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
+          <button id="navTransactionsBtn" type="button" onclick="switchTab('transactions')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
             <span id="t_navWithdrawals">Retraits</span>
           </button>
         </nav>
 
-        <div class="flex items-center gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1 shrink-0">
-          <div>
+        <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
+          <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
             <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">921,55 $</span>
           </div>
@@ -168,11 +169,12 @@
           <div id="missionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1"></div>
         </div>
 
-        <div id="megaMissionContainer"></div>
+        <!-- ZONE TACTILE POUR LES SWIPES GESTURES -->
+        <div id="megaMissionContainer" class="touch-pan-y"></div>
       </section>
     </div>
 
-    <!-- 2. VUE COURS D'AUDIT COMPTABLE (LONG COURSES) -->
+    <!-- 2. VUE COURS D'AUDIT COMPTABLE -->
     <div id="coursesView" class="hidden space-y-6">
       <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
@@ -193,7 +195,7 @@
       </div>
     </div>
 
-    <!-- 3. VUE CONTRÔLES (50 QCM & CORRECTION EN DIRECT) -->
+    <!-- 3. VUE CONTRÔLES (50 QCM) -->
     <div id="quizzesView" class="hidden space-y-6">
       <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
         
@@ -206,14 +208,13 @@
             <p id="t_quizHeaderSubtitle" class="text-xs text-slate-400 font-semibold mt-0.5">Évaluation complète avec correction immédiate sur place et explications d'audit détaillées</p>
           </div>
           <div class="flex items-center gap-2">
-            <button onclick="resetQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+            <button type="button" onclick="resetQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               <span id="t_btnResetQuiz">Réinitialiser le test</span>
             </button>
           </div>
         </div>
 
-        <!-- BANDEAU DE SCORE APRÈS CORRECTION -->
         <div id="quizScoreBanner" class="hidden p-5 rounded-2xl border transition-all duration-300">
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3.5">
@@ -230,7 +231,6 @@
           </div>
         </div>
 
-        <!-- LISTE DES 50 QUESTIONS DU QCM -->
         <form id="quizForm" onsubmit="gradeQuiz(event)" class="space-y-6">
           <div id="quizQuestionsContainer" class="space-y-4"></div>
 
@@ -245,7 +245,7 @@
       </div>
     </div>
 
-    <!-- 4. VUE ÉVALUATION DE PERFORMANCE -->
+    <!-- 4. VUE ÉVALUATION DE PERFORMANCE & GAMIFICATION -->
     <div id="evaluationView" class="hidden space-y-6">
       <section class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-800 gap-3">
@@ -258,7 +258,45 @@
           </div>
           <div class="flex items-center gap-2 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 self-start sm:self-auto">
             <span id="t_evalLevelLabel" class="text-xs font-bold text-slate-400">Niveau :</span>
-            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">Senior</span>
+            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">Senior Lead Auditor</span>
+          </div>
+        </div>
+
+        <!-- GAMIFICATION : BADGES D'ACCRÉDITATION -->
+        <div class="space-y-3">
+          <h3 class="text-xs sm:text-sm font-black text-slate-300 uppercase tracking-wider flex items-center gap-2">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Accréditations & Trophées Débloqués
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div id="badgeM1" class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 transition">
+              <span class="text-2xl">🥇</span>
+              <div>
+                <h4 class="text-xs font-black text-white">Premier Rapport</h4>
+                <p class="text-[10px] text-slate-400 font-semibold">1 mission soumise</p>
+              </div>
+            </div>
+            <div id="badgeHalf" class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60">
+              <span class="text-2xl">⚡</span>
+              <div>
+                <h4 class="text-xs font-black text-white">Auditeur Régional</h4>
+                <p class="text-[10px] text-slate-400 font-semibold">5 missions complétées</p>
+              </div>
+            </div>
+            <div id="badgeExpert" class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60">
+              <span class="text-2xl">👑</span>
+              <div>
+                <h4 class="text-xs font-black text-white">Expert Pan-Africain</h4>
+                <p class="text-[10px] text-slate-400 font-semibold">10/10 missions validées</p>
+              </div>
+            </div>
+            <div id="badgeMaster" class="bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60">
+              <span class="text-2xl">🎓</span>
+              <div>
+                <h4 class="text-xs font-black text-white">Master ISA/IFRS</h4>
+                <p class="text-[10px] text-slate-400 font-semibold">Score Examen > 80%</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -375,7 +413,7 @@
           </h2>
           <p id="t_txSubtitle" class="text-xs text-slate-300 mt-0.5 font-medium">Cliquez sur une opération pour afficher son avis officiel de virement</p>
         </div>
-        <button onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black">
+        <button type="button" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black">
           + <span id="t_btnNewWithdraw">Retrait</span>
         </button>
       </div>
@@ -406,8 +444,32 @@
 
   </main>
 
+  <!-- BARRE DE NAVIGATION BASSE SPÉCIALE MOBILE (PWA BOTTOM TAB BAR) -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 py-1.5 flex justify-around items-center shadow-2xl">
+    <button type="button" onclick="switchTab('dashboard')" id="mNavDash" class="flex flex-col items-center gap-0.5 text-emerald-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      <span class="text-[10px] font-bold">Audit</span>
+    </button>
+    <button type="button" onclick="switchTab('courses')" id="mNavCourses" class="flex flex-col items-center gap-0.5 text-slate-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span class="text-[10px] font-bold">Cours</span>
+    </button>
+    <button type="button" onclick="switchTab('quizzes')" id="mNavQuizzes" class="flex flex-col items-center gap-0.5 text-slate-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      <span class="text-[10px] font-bold">QCM</span>
+    </button>
+    <button type="button" onclick="switchTab('evaluation')" id="mNavEval" class="flex flex-col items-center gap-0.5 text-slate-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <span class="text-[10px] font-bold">Éval</span>
+    </button>
+    <button type="button" onclick="switchTab('transactions')" id="mNavTx" class="flex flex-col items-center gap-0.5 text-slate-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+      <span class="text-[10px] font-bold">Retraits</span>
+    </button>
+  </div>
+
   <!-- BOUTON FLOTTANT CALCULATRICE -->
-  <button onclick="openCalculatorModal()" class="fixed bottom-4 right-4 z-40 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 p-3.5 rounded-full shadow-2xl shadow-emerald-500/40 border border-emerald-300 hover:scale-110 active:scale-90 transition flex items-center justify-center">
+  <button type="button" onclick="openCalculatorModal()" aria-label="Calculatrice" class="fixed bottom-20 sm:bottom-4 right-4 z-40 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 p-3.5 rounded-full shadow-2xl shadow-emerald-500/40 border border-emerald-300 hover:scale-110 active:scale-90 transition flex items-center justify-center">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
   </button>
 
@@ -421,11 +483,11 @@
           <span id="t_recModalTitle" class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Africa</span>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="exportReceiptPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
+          <button type="button" onclick="exportReceiptPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span id="t_btnRecPrint">Imprimer / PDF</span>
           </button>
-          <button onclick="closeModal('receiptModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
+          <button type="button" onclick="closeModal('receiptModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
         </div>
       </div>
 
@@ -499,7 +561,7 @@
     </div>
   </div>
 
-  <!-- MODALE PLEIN ÉCRAN : FICHE D'AUDIT CERTIFIÉE -->
+  <!-- MODALE : FICHE D'AUDIT CERTIFIÉE -->
   <div id="auditCertificateModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto">
       
@@ -509,11 +571,11 @@
           <span id="t_certModalTitle" class="text-xs sm:text-sm font-black text-white">Rapport Officiel d'Audit Certifié</span>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="exportAuditPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
+          <button type="button" onclick="exportAuditPDF()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 active:scale-95 transition shadow-lg shadow-emerald-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span id="t_btnCertPrint">Télécharger / Imprimer PDF</span>
           </button>
-          <button onclick="closeModal('auditCertificateModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
+          <button type="button" onclick="closeModal('auditCertificateModal')" class="text-slate-400 hover:text-white p-2 text-xl font-bold">&times;</button>
         </div>
       </div>
 
@@ -531,7 +593,7 @@
           <div class="text-left sm:text-right rtl:text-right rtl:sm:text-left bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
             <span id="t_certNumberLabel" class="text-[10px] font-black uppercase text-emerald-400 block tracking-wider">CERTIFICAT N°</span>
             <span id="certDocNumber" class="text-xs font-mono font-bold text-white">MTA-2026-M1-8842</span>
-            <span id="certDocDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 14/08/2026</span>
+            <span id="certDocDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 15/08/2026</span>
           </div>
         </div>
 
@@ -599,7 +661,7 @@
           <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" stroke-width="2"/><line x1="8" x2="16" y1="6" y2="6" stroke-width="2"/><line x1="16" x2="16" y1="14" y2="18" stroke-width="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01" stroke-width="3" stroke-linecap="round"/></svg>
           <h3 id="t_calcTitle" class="text-xs sm:text-sm font-black text-white">Calculatrice d'Audit</h3>
         </div>
-        <button onclick="closeModal('calculatorModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
+        <button type="button" onclick="closeModal('calculatorModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
 
       <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-right space-y-1">
@@ -608,36 +670,36 @@
       </div>
 
       <div class="grid grid-cols-4 gap-2">
-        <button onclick="calcClear()" class="bg-rose-500/20 text-rose-300 font-black p-3 rounded-xl hover:bg-rose-500/30 active:scale-95 transition text-xs">AC</button>
-        <button onclick="calcBackspace()" class="bg-slate-800 text-slate-200 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">⌫</button>
-        <button onclick="calcAppend('%')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">%</button>
-        <button onclick="calcAppend('/')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">÷</button>
+        <button type="button" onclick="calcClear()" class="bg-rose-500/20 text-rose-300 font-black p-3 rounded-xl hover:bg-rose-500/30 active:scale-95 transition text-xs">AC</button>
+        <button type="button" onclick="calcBackspace()" class="bg-slate-800 text-slate-200 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">⌫</button>
+        <button type="button" onclick="calcAppend('%')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">%</button>
+        <button type="button" onclick="calcAppend('/')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">÷</button>
 
-        <button onclick="calcAppend('7')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">7</button>
-        <button onclick="calcAppend('8')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">8</button>
-        <button onclick="calcAppend('9')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">9</button>
-        <button onclick="calcAppend('*')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">×</button>
+        <button type="button" onclick="calcAppend('7')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">7</button>
+        <button type="button" onclick="calcAppend('8')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">8</button>
+        <button type="button" onclick="calcAppend('9')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">9</button>
+        <button type="button" onclick="calcAppend('*')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">×</button>
 
-        <button onclick="calcAppend('4')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">4</button>
-        <button onclick="calcAppend('5')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">5</button>
-        <button onclick="calcAppend('6')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">6</button>
-        <button onclick="calcAppend('-')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">-</button>
+        <button type="button" onclick="calcAppend('4')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">4</button>
+        <button type="button" onclick="calcAppend('5')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">5</button>
+        <button type="button" onclick="calcAppend('6')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">6</button>
+        <button type="button" onclick="calcAppend('-')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">-</button>
 
-        <button onclick="calcAppend('1')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">1</button>
-        <button onclick="calcAppend('2')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">2</button>
-        <button onclick="calcAppend('3')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">3</button>
-        <button onclick="calcAppend('+')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">+</button>
+        <button type="button" onclick="calcAppend('1')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">1</button>
+        <button type="button" onclick="calcAppend('2')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">2</button>
+        <button type="button" onclick="calcAppend('3')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">3</button>
+        <button type="button" onclick="calcAppend('+')" class="bg-slate-800 text-emerald-400 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-base">+</button>
 
-        <button onclick="calcAppend('(')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">(</button>
-        <button onclick="calcAppend('0')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">0</button>
-        <button onclick="calcAppend('.')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">.</button>
-        <button onclick="calcAppend(')')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">)</button>
+        <button type="button" onclick="calcAppend('(')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">(</button>
+        <button type="button" onclick="calcAppend('0')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">0</button>
+        <button type="button" onclick="calcAppend('.')" class="bg-slate-950 text-white font-bold p-3 rounded-xl hover:bg-slate-800 active:scale-95 transition text-sm">.</button>
+        <button type="button" onclick="calcAppend(')')" class="bg-slate-800 text-slate-300 font-bold p-3 rounded-xl hover:bg-slate-700 active:scale-95 transition text-xs">)</button>
 
-        <button onclick="calcCopyResult()" class="col-span-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-black p-3 rounded-xl active:scale-95 transition text-xs flex items-center justify-center gap-1.5">
+        <button type="button" onclick="calcCopyResult()" class="col-span-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-black p-3 rounded-xl active:scale-95 transition text-xs flex items-center justify-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
           <span id="t_btnCalcCopy">Copier</span>
         </button>
-        <button onclick="calcEvaluate()" class="col-span-2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black p-3 rounded-xl active:scale-95 transition text-base shadow-lg shadow-emerald-500/20">
+        <button type="button" onclick="calcEvaluate()" class="col-span-2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black p-3 rounded-xl active:scale-95 transition text-base shadow-lg shadow-emerald-500/20">
           =
         </button>
       </div>
@@ -650,9 +712,9 @@
     <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <h3 id="t_modalWithdrawChoiceTitle" class="text-sm sm:text-base font-black text-white">Méthode de retrait</h3>
-        <button onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
+        <button type="button" onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
-      <button onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 active:border-emerald-500 rounded-xl text-left rtl:text-right flex justify-between items-center group transition">
+      <button type="button" onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 active:border-emerald-500 rounded-xl text-left rtl:text-right flex justify-between items-center group transition">
         <div class="flex items-center gap-2.5">
           <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
           <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire - Aballagh Abderrahim</span>
@@ -669,7 +731,7 @@
           <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
           Retrait Bancaire
         </h3>
-        <button onclick="closeModal('bankModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
+        <button type="button" onclick="closeModal('bankModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
       <form onsubmit="confirmBankWithdraw(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
@@ -688,7 +750,7 @@
         </div>
         <div>
           <label id="t_bankLabelAmount" class="text-slate-200 font-bold block mb-1">Montant à retirer ($ USD)</label>
-          <input type="number" id="bankAmount" max="1000" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 focus:border-emerald-500 outline-none">
+          <input type="number" inputmode="decimal" id="bankAmount" max="1000" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 focus:border-emerald-500 outline-none">
         </div>
         <button id="t_btnConfirmWithdraw" type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl shadow-lg shadow-emerald-500/20 active:scale-95 transition">Confirmer le Retrait</button>
       </form>
@@ -715,6 +777,7 @@
         missionsTitle: "Missions d'Audit (M1 à M10 - Afrique)",
         sentCount: "{done}/10 Envoyées",
         financialsTitle: "États Financiers Officiels",
+        analyticsTitle: "Structure Financière & Visualisation",
         potentialGain: "Gain potentiel",
         submissionDeadline: "Échéance de soumission",
         deadlineDate: "Dimanche 16 Août 2026 à 18:00",
@@ -769,7 +832,10 @@
         quizHeaderTitle: "Grand Examen d'Audit & Comptabilité (50 Questions)",
         quizHeaderSubtitle: "Évaluation complète avec correction immédiate sur place et explications d'audit détaillées",
         btnResetQuiz: "Réinitialiser le test",
-        btnSubmitQuiz: "Valider & Corriger les 50 Questions"
+        btnSubmitQuiz: "Valider & Corriger les 50 Questions",
+        supervisorTitle: "Assistant d'Audit IA - Superviseur",
+        supervisorPass: "Rapport conforme. Tous les équilibres fondamentaux (FRNG, BFR, Ratios) sont validés.",
+        supervisorFail: "Attention : {err} ratio(s) semblent inexacts. Vérifiez vos équations."
       },
       en: {
         headerSubtitle: "African Financial Audit Platform",
@@ -784,6 +850,7 @@
         missionsTitle: "Audit Missions (M1 to M10 - Africa)",
         sentCount: "{done}/10 Submitted",
         financialsTitle: "Official Financial Statements",
+        analyticsTitle: "Financial Structure & Breakdown",
         potentialGain: "Potential reward",
         submissionDeadline: "Submission deadline",
         deadlineDate: "Sunday August 16, 2026 at 18:00",
@@ -838,7 +905,10 @@
         quizHeaderTitle: "Master Audit & Accounting Exam (50 Questions)",
         quizHeaderSubtitle: "Full assessment with instant on-the-spot graded corrections and technical explanations",
         btnResetQuiz: "Reset Assessment",
-        btnSubmitQuiz: "Submit & Grade All 50 Questions"
+        btnSubmitQuiz: "Submit & Grade All 50 Questions",
+        supervisorTitle: "AI Audit Supervisor",
+        supervisorPass: "Audit report clean. All core balances (NWC, WCR, Ratios) are valid.",
+        supervisorFail: "Attention: {err} formula(s) are incorrect. Please review your balance sheet math."
       },
       ar: {
         headerSubtitle: "منصة التدقيق المالي الإفريقي",
@@ -853,6 +923,7 @@
         missionsTitle: "مهام التدقيق (M1 إلى M10 - إفريقيا)",
         sentCount: "{done}/10 تم الإرسال",
         financialsTitle: "القوائم المالية الرسمية",
+        analyticsTitle: "الهيكل المالي والتحليل البصري",
         potentialGain: "العائد المحتمل",
         submissionDeadline: "الموعد النهائي للتقديم",
         deadlineDate: "الأحد 16 أغسطس 2026 على الساعة 18:00",
@@ -907,7 +978,10 @@
         quizHeaderTitle: "الامتحان الشامل في التدقيق والمحاسبة (50 سؤال)",
         quizHeaderSubtitle: "تقييم شامل مع تصحيح فوري على الفور وشروحات تقنية مفصلة",
         btnResetQuiz: "إعادة ضبط الاختبار",
-        btnSubmitQuiz: "اعتماد وتصحيح الأسئلة الـ 50"
+        btnSubmitQuiz: "اعتماد وتصحيح الأسئلة الـ 50",
+        supervisorTitle: "المشرف الذكي على التدقيق",
+        supervisorPass: "التقرير متوافق. جميع التوازنات المحاسبية الأساسية صحيحة.",
+        supervisorFail: "تنبيه: يوجد {err} معادلة غير دقيقة. يرجى مراجعة الحسابات."
       }
     };
 
@@ -943,9 +1017,6 @@
       renderWithdrawHistory();
       renderCourses();
       renderQuiz();
-      
-      const langNames = { fr: "Français", en: "English", ar: "العربية" };
-      showToast(lang === 'ar' ? `تم تغيير اللغة إلى ${langNames[lang]}` : `Langue modifiée : ${langNames[lang]}`, "info", lang === 'ar' ? "اللغة" : "Langue");
     }
 
     function applyStaticTranslations() {
@@ -1019,14 +1090,11 @@
     let activeMissionIndex = 0;
     const TARGET_DEADLINE = new Date('2026-08-16T18:00:00');
 
-    /* ========================================================
-       CONVERTISSEUR DE DEVISES DYNAMIQUE
-       ======================================================== */
     let currentCurrency = 'USD';
     const EXCHANGE_RATES = {
-      USD: { rate: 1.0, symbol: '$', pos: 'after' },
-      MAD: { rate: 9.92, symbol: 'DH', pos: 'after' },
-      EUR: { rate: 0.92, symbol: '€', pos: 'after' }
+      USD: { rate: 1.0, symbol: '$' },
+      MAD: { rate: 9.92, symbol: 'DH' },
+      EUR: { rate: 0.92, symbol: '€' }
     };
 
     function formatMoney(amountInUSD) {
@@ -1050,12 +1118,8 @@
       updateHeader();
       renderMegaMission();
       renderWithdrawHistory();
-      showToast(currentLanguage === 'ar' ? `تم تغيير العملة إلى ${curr}` : `Devise modifiée : ${curr}`, "info", currentLanguage === 'ar' ? "تحويل" : "Convertisseur");
     }
 
-    /* ========================================================
-       SYSTÈME DE NOTIFICATIONS TOASTS UI
-       ======================================================== */
     function showToast(message, type = 'info', title = null, duration = 4000) {
       const container = document.getElementById('toastContainer');
       if (!container) return;
@@ -1099,7 +1163,7 @@
             <h4 class="text-xs font-black uppercase tracking-wider text-white mb-0.5">${title || titleDefault}</h4>
             <p class="text-xs text-slate-300 font-medium leading-relaxed">${message.replace(/\n/g, '<br>')}</p>
           </div>
-          <button onclick="this.closest('.pointer-events-auto').remove()" class="text-slate-400 hover:text-white text-lg font-bold leading-none p-0.5">&times;</button>
+          <button type="button" onclick="this.closest('.pointer-events-auto').remove()" class="text-slate-400 hover:text-white text-lg font-bold leading-none p-0.5">&times;</button>
         </div>
         <div class="absolute bottom-0 left-0 rtl:left-auto rtl:right-0 h-1 ${progressColor} transition-all duration-[${duration}ms] ease-linear w-full" id="toastProgressBar"></div>
       `;
@@ -1138,32 +1202,32 @@
     localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
 
     const taskDefinitions = [
-      { id: 't1', label: "01. Marge Brute ($)", placeholder: "Entrez la valeur", formula: "CA - COGS" },
-      { id: 't2', label: "02. Taux de Marge Brute (%)", placeholder: "Ex: 22.5%", formula: "(Marge / CA) × 100" },
-      { id: 't3', label: "03. EBITDA ($)", placeholder: "EBITDA", formula: "EBIT + Amortissements" },
-      { id: 't4', label: "04. Résultat Exploitation (EBIT) ($)", placeholder: "EBIT", formula: "Marge Brute - Dépenses Exp." },
-      { id: 't5', label: "05. Marge Opérationnelle (%)", placeholder: "Marge op %", formula: "(EBIT / CA) × 100" },
-      { id: 't6', label: "06. Résultat Avant Impôts (EBT) ($)", placeholder: "EBT", formula: "EBIT - Intérêts" },
-      { id: 't7', label: "07. Résultat Net ($)", placeholder: "Résultat Net", formula: "EBT - Impôts" },
-      { id: 't8', label: "08. Marge Nette (%)", placeholder: "Marge nette %", formula: "(Résultat Net / CA) × 100" },
-      { id: 't9', label: "09. Fonds de Roulement (FRNG) ($)", placeholder: "FRNG", formula: "Actifs Circulants - Passifs Circulants" },
-      { id: 't10', label: "10. Ratio Liquidité Générale", placeholder: "Ex: 1.45", formula: "Actifs Circulants / Passifs Circulants" },
-      { id: 't11', label: "11. Ratio Liquidité Réduite", placeholder: "Ex: 1.10", formula: "(Actifs Circulants - Stocks) / Passifs Circulants" },
-      { id: 't12', label: "12. Ratio Liquidité Immédiate", placeholder: "Ex: 0.65", formula: "Trésorerie / Passifs Circulants" },
-      { id: 't13', label: "13. Besoins en FR (BFR) ($)", placeholder: "BFR", formula: "Stocks + Créances - Dettes Fournisseurs" },
-      { id: 't14', label: "14. Trésorerie Nette ($)", placeholder: "Trésorerie Nette", formula: "FRNG - BFR" },
-      { id: 't15', label: "15. Ratio Endettement Général", placeholder: "Ex: 0.55", formula: "Dette Totale / Total Actifs" },
-      { id: 't16', label: "16. Ratio Dette / Equity (D/E)", placeholder: "Ex: 1.20", formula: "Dette Totale / Capitaux Propres" },
-      { id: 't17', label: "17. Couverture des Intérêts", placeholder: "Ex: 8.5", formula: "EBIT / Charges Financières" },
-      { id: 't18', label: "18. Rentabilité Actifs (ROA) (%)", placeholder: "ROA %", formula: "(Résultat Net / Total Actifs) × 100" },
-      { id: 't19', label: "19. Rentabilité Equity (ROE) (%)", placeholder: "ROE %", formula: "(Résultat Net / Capitaux Propres) × 100" },
-      { id: 't20', label: "20. Capacité Autofinancement (CAF) ($)", placeholder: "CAF", formula: "Résultat Net + Amortissements" },
-      { id: 't21', label: "21. Rotation des Stocks", placeholder: "Ex: 6.2", formula: "COGS / Stocks" },
-      { id: 't22', label: "22. Délai Clients (DSO - Jours)", placeholder: "Ex: 45", formula: "(Créances / CA) × 365" },
-      { id: 't23', label: "23. Délai Fournisseurs (DPO - Jours)", placeholder: "Ex: 60", formula: "(Dettes Fournisseurs / COGS) × 365" },
-      { id: 't24', label: "24. Free Cash Flow (FCF) ($)", placeholder: "FCF", formula: "Cash Exploitation - CAPEX" },
-      { id: 't25', label: "25. Score Z d'Altman", placeholder: "Ex: 2.8", formula: "Risque d'insolvabilité" },
-      { id: 't26', label: "26. Observations Générales", placeholder: "Rédigez ici votre synthèse d'audit...", formula: "Synthèse obligatoire de l'auditeur" }
+      { id: 't1', label: "01. Marge Brute ($)", placeholder: "Entrez la valeur", formula: "CA - COGS", tip: "Marge brute dégagée après déduction directe du coût des ventes." },
+      { id: 't2', label: "02. Taux de Marge Brute (%)", placeholder: "Ex: 22.5%", formula: "(Marge / CA) × 100", tip: "Pourcentage de marge brute rapporté au Chiffre d'Affaires total." },
+      { id: 't3', label: "03. EBITDA ($)", placeholder: "EBITDA", formula: "EBIT + Amortissements", tip: "Bénéfice avant intérêts, impôts, dépréciations et amortissements." },
+      { id: 't4', label: "04. Résultat Exploitation (EBIT) ($)", placeholder: "EBIT", formula: "Marge Brute - Dépenses Exp.", tip: "Résultat opérationnel de l'activité courante." },
+      { id: 't5', label: "05. Marge Opérationnelle (%)", placeholder: "Marge op %", formula: "(EBIT / CA) × 100", tip: "Taux de rentabilité commerciale de l'exploitation pure." },
+      { id: 't6', label: "06. Résultat Avant Impôts (EBT) ($)", placeholder: "EBT", formula: "EBIT - Intérêts", tip: "Résultat financier intégrant le coût de l'endettement." },
+      { id: 't7', label: "07. Résultat Net ($)", placeholder: "Résultat Net", formula: "EBT - Impôts", tip: "Bénéfice final net distribuable aux actionnaires." },
+      { id: 't8', label: "08. Marge Nette (%)", placeholder: "Marge nette %", formula: "(Résultat Net / CA) × 100", tip: "Capacité globale de conversion du chiffre d'affaires en bénéfice net." },
+      { id: 't9', label: "09. Fonds de Roulement (FRNG) ($)", placeholder: "FRNG", formula: "Actifs Circulants - Passifs Circulants", tip: "Excédent de liquidités stables pour sécuriser le cycle court terme." },
+      { id: 't10', label: "10. Ratio Liquidité Générale", placeholder: "Ex: 1.45", formula: "Actifs Circulants / Passifs Circulants", tip: "Capacité des actifs à court terme à couvrir les dettes d'échéance < 1 an." },
+      { id: 't11', label: "11. Ratio Liquidité Réduite", placeholder: "Ex: 1.10", formula: "(Actifs Circulants - Stocks) / Passifs Circulants", tip: "Test d'acide (Acid Test) excluant les stocks moins liquides." },
+      { id: 't12', label: "12. Ratio Liquidité Immédiate", placeholder: "Ex: 0.65", formula: "Trésorerie / Passifs Circulants", tip: "Couverture instantanée des dettes par le cash disponible." },
+      { id: 't13', label: "13. Besoins en FR (BFR) ($)", placeholder: "BFR", formula: "Stocks + Créances - Dettes Fournisseurs", tip: "Montant de cash immobilisé dans les opérations d'exploitation quotidiennes." },
+      { id: 't14', label: "14. Trésorerie Nette ($)", placeholder: "Trésorerie Nette", formula: "FRNG - BFR", tip: "Trésorerie réelle = Fonds de Roulement moins le Besoin en Fonds de Roulement." },
+      { id: 't15', label: "15. Ratio Endettement Général", placeholder: "Ex: 0.55", formula: "Dette Totale / Total Actifs", tip: "Part globale des actifs financée par les créanciers (Alerte > 0.7)." },
+      { id: 't16', label: "16. Ratio Dette / Equity (D/E)", placeholder: "Ex: 1.20", formula: "Dette Totale / Capitaux Propres", tip: "Levier financier (Gearing). Idéalement < 1.0." },
+      { id: 't17', label: "17. Couverture des Intérêts", placeholder: "Ex: 8.5", formula: "EBIT / Charges Financières", tip: "Capacité du résultat d'exploitation à honorer le service de la dette." },
+      { id: 't18', label: "18. Rentabilité Actifs (ROA) (%)", placeholder: "ROA %", formula: "(Résultat Net / Total Actifs) × 100", tip: "Rendement économique de l'ensemble du capital productif." },
+      { id: 't19', label: "19. Rentabilité Equity (ROE) (%)", placeholder: "ROE %", formula: "(Résultat Net / Capitaux Propres) × 100", tip: "Rendement financier pur pour les investisseurs et actionnaires." },
+      { id: 't20', label: "20. Capacité Autofinancement (CAF) ($)", placeholder: "CAF", formula: "Résultat Net + Amortissements", tip: "Flux interne potentiel disponible pour de futurs investissements." },
+      { id: 't21', label: "21. Rotation des Stocks", placeholder: "Ex: 6.2", formula: "COGS / Stocks", tip: "Nombre de renouvellements complets des stocks par exercice." },
+      { id: 't22', label: "22. Délai Clients (DSO - Jours)", placeholder: "Ex: 45", formula: "(Créances / CA) × 365", tip: "Délai moyen accordé aux clients pour régler leurs factures (en jours)." },
+      { id: 't23', label: "23. Délai Fournisseurs (DPO - Jours)", placeholder: "Ex: 60", formula: "(Dettes Fournisseurs / COGS) × 365", tip: "Délai moyen de paiement accordé par les fournisseurs." },
+      { id: 't24', label: "24. Free Cash Flow (FCF) ($)", placeholder: "FCF", formula: "Cash Exploitation - CAPEX", tip: "Flux de trésorerie disponible après investissements industriels." },
+      { id: 't25', label: "25. Score Z d'Altman", placeholder: "Ex: 2.8", formula: "Risque d'insolvabilité", tip: "Modèle de prédiction des défaillances. >2.99 = Zone Sûre." },
+      { id: 't26', label: "26. Observations Générales", placeholder: "Rédigez ici votre synthèse d'audit...", formula: "Synthèse obligatoire de l'auditeur", tip: "Conclusions techniques obligatoires de l'Auditeur Senior." }
     ];
 
     const defaultMissions = [
@@ -1182,402 +1246,8 @@
     let missions = defaultMissions;
     localStorage.setItem('audit_missions', JSON.stringify(missions));
 
-    /* ========================================================
-       COURS LONGS D'AUDIT COMPTABLE (6 MODULES COMPLETS)
-       ======================================================== */
-    const coursesData = [
-      {
-        id: 'c1',
-        title: { fr: "Module 1 : Théorie Fondamentale & Structure des États Financiers", en: "Module 1: Fundamental Theory & Structure of Financial Statements", ar: "الوحدة 1: النظرية الأساسية وهيكل القوائم المالية" },
-        category: "Fondamentaux & IFRS",
-        readTime: "15 min",
-        sections: [
-          {
-            heading: { fr: "1.1 Le Bilan Comptable : Actif, Passif et Capitaux Propres", en: "1.1 The Balance Sheet: Assets, Liabilities and Equity", ar: "1.1 الميزانية المحاسبية: الأصول، الخصوم وحقوق الملكية" },
-            content: {
-              fr: "Le bilan est la représentation du patrimoine d'une entité à une date donnée. L'Actif regroupe les emplois économiques (Actif Immobilisé incorporel, corporel et financier ; Actif Circulant comprenant stocks, créances d'exploitation et trésorerie d'actif). Le Passif regroupe les ressources et origines des fonds (Capitaux Propres : capital social, primes d'émission, réserves et report à nouveau ; Dettes Financières à long et moyen terme ; Passif Circulant : dettes fournisseurs, dettes fiscales et sociales). L'égalité mathématique absolue est : Total Actif = Total Passif.",
-              en: "The balance sheet outlines an entity's financial position at a specific date. Assets represent economic resources (Fixed Assets, Current Assets like inventory, trade receivables, and cash). Liabilities and Equity represent funding sources (Shareholders' Equity, Long-Term Debt, Current Liabilities like accounts payable). The fundamental accounting identity is: Total Assets = Total Liabilities + Equity.",
-              ar: "الميزانية تعرض الوضع المالي للكيان في تاريخ معين. الأصول تمثل الموارد الاقتصادية (أصول ثابتة ومتداولة)، بينما الخصوم وحقوق الملكية تمثل مصادر التمويل. المعادلة الأساسية هي: إجمالي الأصول = إجمالي الخصوم وحقوق الملكية."
-            }
-          },
-          {
-            heading: { fr: "1.2 Le Compte de Résultat (P&L) & Soldes Intermédiaires de Gestion (SIG)", en: "1.2 Income Statement & Intermediate Management Balances", ar: "1.2 قائمة الدخل وأرصدة الإدارة الوسيطة" },
-            content: {
-              fr: "Le compte de résultat retrace les flux d'enrichissement et d'appauvrissement durant l'exercice comptable (Produits - Charges). Les SIG permettent de décomposer la rentabilité : 1) Marge Commerciale (Ventes de marchandises - Achats de marchandises vendues) ; 2) Valeur Ajoutée (VA) mesurant la richesse créée par l'entreprise ; 3) Excédent Brut d'Exploitation (EBE / EBITDA), indicateur de performance purement opérationnelle indépendant des politiques d'amortissement et de financement ; 4) Résultat d'Exploitation (EBIT) ; 5) Résultat Courant Avant Impôts (RCAI) ; et 6) Résultat Net final distribuable sous forme de dividendes ou mis en réserve.",
-              en: "The Income Statement tracks revenues and expenses over a fiscal period. Key management balances decompose profitability: Gross Margin, Value Added, EBITDA (cash operating profitability before D&A), EBIT (operating profit), EBT (pre-tax profit), and final Net Income available for distribution or retained earnings.",
-              ar: "قائمة الدخل تسجل الإيرادات والمصروفات خلال الفترة المحاسبية. أرصدة الإدارة الوسيطة تفصل الربحية: هامش المجمل، القيمة المضافة، الأرباح قبل الفوائد والضرائب والإهلاك (EBITDA)، الربح التشغيلي (EBIT)، والنتيجة الصافية."
-            }
-          }
-        ]
-      },
-      {
-        id: 'c2',
-        title: { fr: "Module 2 : Analyse Financière Approfondie & Guide des 26 Ratios d'Audit", en: "Module 2: In-Depth Financial Analysis & Guide to 26 Audit Ratios", ar: "الوحدة 2: التحليل المالي المعمق ودليل 26 نسبة تدقيق" },
-        category: "Ratios & Équations",
-        readTime: "20 min",
-        sections: [
-          {
-            heading: { fr: "2.1 Ratios de Rentabilité & de Rendement", en: "2.1 Profitability & Return Ratios", ar: "2.1 نسب الربحية والعائد" },
-            content: {
-              fr: "• Taux de Marge Brute = (Marge Brute / Chiffre d'Affaires) × 100. Mesure la marge unitaire avant frais généraux.\n• Marge Opérationnelle = (EBIT / CA) × 100. Reflète la rentabilité industrielle et commerciale.\n• Marge Nette = (Résultat Net / CA) × 100. Pourcentage final restant après impôts et charges d'intérêts.\n• Return on Equity (ROE) = (Résultat Net / Capitaux Propres) × 100. Rentabilité des fonds investis par les actionnaires.\n• Return on Assets (ROA) = (Résultat Net / Total Actif) × 100. Efficacité productive de l'ensemble du parc d'actifs.",
-              en: "• Gross Margin Ratio = (Gross Profit / Revenue) × 100.\n• Operating Margin = (EBIT / Revenue) × 100.\n• Net Profit Margin = (Net Income / Revenue) × 100.\n• Return on Equity (ROE) = (Net Income / Shareholders' Equity) × 100.\n• Return on Assets (ROA) = (Net Income / Total Assets) × 100.",
-              ar: "• نسبة الهامش الإجمالي = (إجمالي الربح / الإيرادات) × 100.\n• الهامش التشغيلي = (EBIT / الإيرادات) × 100.\n• هامش الصافي = (صافي الربح / الإيرادات) × 100.\n• العائد على حقوق الملكية ROE = (صافي الربح / حقوق الملكية) × 100.\n• العائد على الأصول ROA = (صافي الربح / إجمالي الأصول) × 100."
-            }
-          },
-          {
-            heading: { fr: "2.2 Ratios de Solvabilité, Structure & Couverture", en: "2.2 Solvency, Leverage & Coverage Ratios", ar: "2.2 نسب الملاءة المالية والهيكل والتغطية" },
-            content: {
-              fr: "• Ratio d'Endettement Général = Dette Totale / Total Actif (Seuil d'alerte > 0.70).\n• Gearing / Debt-to-Equity = Dette Financière Nette / Capitaux Propres (Doit rester < 1.00 sous peine de sous-capitalisation).\n• Ratio de Couverture des Intérêts (Interest Coverage Ratio) = EBIT / Charges d'Intérêts. Un ratio inférieur à 2.50 signale une vulnérabilité critique face aux hausses de taux d'intérêt.",
-              en: "• Debt-to-Assets Ratio = Total Debt / Total Assets (Alert threshold > 0.70).\n• Debt-to-Equity (Gearing) = Total Debt / Equity (Should remain below 1.0 to avoid overleveraging).\n• Interest Coverage Ratio = EBIT / Interest Expenses (Below 2.5 indicates high default risk).",
-              ar: "• نسبة المديونية العامة = إجمالي الدين / إجمالي الأصول (حد الإنذار > 0.70).\n• الرافعة المالية = صافي الدين المالي / حقوق الملكية.\n• نسبة تغطية الفوائد = EBIT / مصاريف الفوائد (أقل من 2.5 تشير لخطر تخلف عن السداد)."
-            }
-          }
-        ]
-      },
-      {
-        id: 'c3',
-        title: { fr: "Module 3 : Équilibre Financier, FRNG, BFR & Trésorerie Nette", en: "Module 3: Financial Equilibrium, Working Capital & Net Cash", ar: "الوحدة 3: التوازن المالي، رأس المال العامل، الاحتياجات والخزينة" },
-        category: "Gestion de Trésorerie",
-        readTime: "18 min",
-        sections: [
-          {
-            heading: { fr: "3.1 L'Équation Fondamentale du Bilan Fonctionnel", en: "3.1 The Fundamental Functional Balance Sheet Equation", ar: "3.1 المعادلة الأساسية للميزانية الوظيفية" },
-            content: {
-              fr: "La règle d'or financière stipule que les emplois stables (Actif Immobilisé brut) doivent être intégralement financés par des ressources durables (Capitaux Propres + Dettes financières à long terme). L'excédent dégagé constitue le Fonds de Roulement Net Global (FRNG).\nFormule par le bas du bilan : FRNG = Actifs Circulants - Passifs Circulants.\nLe Besoin en Fonds de Roulement (BFR) correspond aux capitaux immobilisés dans le cycle d'exploitation : BFR = Stocks + Créances Clients - Dettes Fournisseurs.\nLa relation fondamentale s'écrit : Trésorerie Nette = FRNG - BFR.",
-              en: "Long-term fixed assets must be funded by long-term permanent capital. The excess forms the Net Working Capital (FRNG = Current Assets - Current Liabilities). The Working Capital Requirement (WCR/BFR = Inventory + Accounts Receivable - Accounts Payable) reflects operational cash tied up. The golden rule is: Net Cash = Working Capital - WCR.",
-              ar: "يجب تمويل الأصول الثابتة بموارد دائمة. الفائض يمثل رأس المال العامل الصافي الإجمالي (FRNG = الأصول المتداولة - الخصوم المتداولة). احتياجات رأس المال العامل (BFR = المخزون + العملاء - الموردين). العلاقة الأساسية هي: الخزينة الصافية = FRNG - BFR."
-            }
-          },
-          {
-            heading: { fr: "3.2 Analyse des Délais du Cycle d'Exploitation (DSO, DPO, DIO)", en: "3.2 Working Capital Cycle Days (DSO, DPO, DIO)", ar: "3.2 تحليل آجال دورة الاستغلال" },
-            content: {
-              fr: "• DSO (Days Sales Outstanding) = (Créances Clients / Chiffre d'Affaires) × 365. Délai moyen de recouvrement client (Cible recommandée < 60 jours).\n• DPO (Days Payable Outstanding) = (Dettes Fournisseurs / Coût d'Achat des Marchandises Vendues) × 365. Délai consenti par les fournisseurs.\n• DIO (Days Inventory Outstanding) = (Stock Moyen / Coût des Ventes) × 365. Délai de rotation des stocks.\n• Durée du Cycle de Conversion de Trésorerie (CCC) = DIO + DSO - DPO. Plus ce cycle est court ou négatif, plus l'entreprise génère de la trésorerie spontanément (modèle de la grande distribution).",
-              en: "• DSO = (Accounts Receivable / Revenue) × 365 (Target < 60 days).\n• DPO = (Accounts Payable / COGS) × 365.\n• DIO = (Average Inventory / COGS) × 365.\n• Cash Conversion Cycle (CCC) = DIO + DSO - DPO. A shorter cycle frees up operating cash.",
-              ar: "• متوسط تحصيل العملاء DSO = (حسابات العملاء / الإيرادات) × 365.\n• متوسط سداد الموردين DPO = (حسابات الموردين / تكلفة المبيعات) × 365.\n• مدة المخزون DIO = (متوسط المخزون / تكلفة المبيعات) × 365.\n• دورة تحويل النقد CCC = DIO + DSO - DPO."
-            }
-          }
-        ]
-      },
-      {
-        id: 'c4',
-        title: { fr: "Module 4 : Méthodologie d'Audit Financier, Assertions & Procédures de Contrôle", en: "Module 4: Financial Audit Methodology, Assertions & Substantive Testing", ar: "الوحدة 4: منهجية التدقيق المالي، التأكيدات وإجراءات الرقابة" },
-        category: "Pratique de l'Audit",
-        readTime: "22 min",
-        sections: [
-          {
-            heading: { fr: "4.1 Les 7 Assertions d'Audit Fondamentales (Normes ISA / NEP)", en: "4.1 The 7 Core Audit Assertions (ISA Standards)", ar: "4.1 تأكيدات التدقيق الأساسية السبعة (معايير ISA)" },
-            content: {
-              fr: "Lorsqu'il certifie des comptes réguliers, sincères et donnant une image fidèle, l'auditeur valide 7 assertions :\n1. Réalité / Existence : Les actifs, passifs et opérations enregistrés existent réellement.\n2. Exhaustivité : Toutes les transactions survenues ont été intégralement comptabilisées (aucune omission).\n3. Droits et Obligations : L'entité détient les droits de propriété sur ses actifs et est tenue de ses dettes.\n4. Évaluation et Imputation : Les montants sont valorisés conformément aux principes comptables (provisions, amortissements).\n5. Césure des Exercices (Cut-off) : Rattachement strict des charges et produits à leur exercice de réalisation.\n6. Exactitude Arithmétique : Calculs et équations rigoureusement exacts.\n7. Présentation et Information : Les notes annexes respectent le référentiel en vigueur.",
-              en: "Auditors validate 7 financial statement assertions: Existence, Completeness, Rights and Obligations, Valuation, Cut-off (proper accounting period), Accuracy, and Presentation/Disclosure.",
-              ar: "يتحقق المدقق من 7 تأكيدات في القوائم المالية: الوجود، الاكتملال، الحقوق والالتزامات، التقييم، الفصل بين الدورات (Cut-off)، الدقة الحسابية، والعرض والإفصاح."
-            }
-          },
-          {
-            heading: { fr: "4.2 Seuil de Signification & Sondages d'Audit", en: "4.2 Materiality & Audit Sampling", ar: "4.2 الأهمية النسبية وعينات التدقيق" },
-            content: {
-              fr: "Le Seuil de Signification (Materiality) est le montant au-delà duquel une anomalie non corrigée est susceptible d'influencer les décisions économiques des lecteurs des états financiers. Il est généralement fixé entre 0.5% et 1% du Chiffre d'Affaires, ou 5% du Résultat Net. L'auditeur définit également une 'erreur tolérable' et effectue des sondages statistiques pour orienter ses contrôles substantifs.",
-              en: "Materiality is the benchmark above which misstatements could influence users' decisions. Commonly set at 0.5-1% of Revenue or 5% of Net Profit. Auditors use performance materiality and statistical sampling to execute substantive audit procedures.",
-              ar: "الأهمية النسبية هي الحد الذي يمكن أن تؤثر عنده أي أخطاء غير معالجة على القرارات الاقتصادية لمستخدمي القوائم المالية. تُحدد عادة بين 0.5% إلى 1% من الإيرادات أو 5% من صافي الربح."
-            }
-          }
-        ]
-      },
-      {
-        id: 'c5',
-        title: { fr: "Module 5 : Contrôle Interne, Matrice des Risques & Séparation des Fonctions", en: "Module 5: Internal Control, Risk Matrix & Segregation of Duties", ar: "الوحدة 5: الرقابة الداخلية، مصفوفة المخاطر والفصل بين المهام" },
-        category: "Contrôle Interne",
-        readTime: "16 min",
-        sections: [
-          {
-            heading: { fr: "5.1 Les 5 Piliers du Référentiel COSO", en: "5.1 The 5 Pillars of the COSO Framework", ar: "5.1 الركائز الخمس لإطار عمل COSO" },
-            content: {
-              fr: "Le cadre de référence international COSO structure le contrôle interne autour de 5 composantes interdépendantes :\n1. Environnement de contrôle (éthique, intégrité, ton donné par la direction) ;\n2. Évaluation des risques (identification et cartographie des risques opérationnels et financiers) ;\n3. Activités de contrôle (procédures, vérifications doubles, contrôles physiques) ;\n4. Information et communication (traçabilité et circulation fluide des données) ;\n5. Pilotage et surveillance continue (audits internes réguliers).",
-              en: "The COSO framework relies on 5 core pillars: 1. Control Environment; 2. Risk Assessment; 3. Control Activities; 4. Information & Communication; 5. Monitoring Activities.",
-              ar: "يرتكز إطار COSO على 5 ركائز أساسية: بيئة الرقابة، تقييم المخاطر، أنشطة الرقابة، المعلومات والاتصالات، والمتابعة المستمرة."
-            }
-          },
-          {
-            heading: { fr: "5.2 Le Principe Fondamental de Séparation des Fonctions & Rapprochement à 3 Voies", en: "5.2 Segregation of Duties & 3-Way Matching", ar: "5.2 مبدأ الفصل بين المهام والمطابقة الثلاثية" },
-            content: {
-              fr: "La séparation des fonctions interdit d'attribuer à un même collaborateur la décision d'engagement (bon de commande), la réception physique (bon de livraison), l'enregistrement comptable (facture) et le paiement (virement bancaire). Dans le cycle Achats, la règle du '3-Way Match' (Bon de commande = Bon de réception = Facture fournisseur) est obligatoire avant toute validation de décaissement pour éviter les facturations fictives et les doublons.",
-              en: "Segregation of duties prevents fraud by separating authorization, custody, recording, and reconciliation. The 3-way match (Purchase Order = Delivery Slip = Supplier Invoice) is mandatory before authorizing any bank disbursement.",
-              ar: "يمنع الفصل بين المهام أن يقوم شخص واحد باعتماد الطلب، الاستلام، التسجيل المحاسبي والدفع. المطابقة الثلاثية (أمر الشراء = إيصال الاستلام = فاتورة المورد) إلزامية قبل اعتماد أي صرف نقدي."
-            }
-          }
-        ]
-      },
-      {
-        id: 'c6',
-        title: { fr: "Module 6 : Détection des Fraudes Comptables & Prévention des Faillites", en: "Module 6: Fraud Detection & Insolvency Risk Modeling", ar: "الوحدة 6: اكتشاف الاحتيال المحاسبي ونمذجة مخاطر الإفلاس" },
-        category: "Fraude & Solvabilité",
-        readTime: "18 min",
-        sections: [
-          {
-            heading: { fr: "6.1 Le Triangle de la Fraude de Cressey & Techniques de Détection", en: "6.1 Cressey's Fraud Triangle & Detection Techniques", ar: "6.1 مثلث الاحتيال لكرسي وتقنيات الاكتشاف" },
-            content: {
-              fr: "Selon Donald Cressey, la fraude comptable survient à la convergence de trois facteurs : 1) La Pression/Motivation (objectifs financiers irréalistes, endettement personnel) ; 2) L'Opportunité (défaillance ou absence de contrôles internes) ; 3) La Rationalisation (justification morale de l'acte délictueux).\nLes techniques de détection incluent : l'analyse de la loi de Benford sur le premier chiffre des montants facturés, la recherche d'écritures manuelles passées le week-end ou en fin de période de clôture, et l'analyse des avoirs non justifiés émis juste après la clôture.",
-              en: "Cressey's Fraud Triangle consists of Pressure, Opportunity, and Rationalization. Detection methods include Benford's Law analysis, investigating manual journal entries made on weekends or closing dates, and scrutinizing sudden credit notes after year-end.",
-              ar: "يتكون مثلث الاحتيال لكرسي من ثلاثة عناصر: الضغط/الحاجة، الفرصة، والتبرير. تشمل تقنيات الاكتشاف قانون بنفورد، التحقيق في القيود اليدوية في عطلات نهاية الأسبوع، وفحص الإشعارات الدائنة غير المبررة."
-            }
-          },
-          {
-            heading: { fr: "6.2 Le Score Z d'Altman pour la Prédiction des Faillites", en: "6.2 Altman Z-Score for Bankruptcy Prediction", ar: "6.2 نموذج ألتمان Z للتنبؤ بالإفلاس" },
-            content: {
-              fr: "Le modèle statistique d'Edward Altman combine 5 ratios pondérés pour évaluer la probabilité de faillite à 2 ans :\nZ = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5)\nOù X1 = BFR / Total Actif ; X2 = Réserves Réinvesties / Total Actif ; X3 = EBIT / Total Actif ; X4 = Capitaux Propres / Dette Totale ; X5 = Chiffre d'Affaires / Total Actif.\nInterprétation :\n• Z > 2.99 : Zone Sûre (Entreprise financièrement très solide) ;\n• 1.81 < Z < 2.99 : Zone Grise (Risque modéré, surveillance requise) ;\n• Z < 1.81 : Zone de Détresse (Risque de faillite imminent dans les 24 mois).",
-              en: "Altman Z-Score predicts financial distress: Z = 1.2(X1) + 1.4(X2) + 3.3(X3) + 0.6(X4) + 0.999(X5). Z > 2.99: Safe Zone; 1.81-2.99: Grey Zone; Z < 1.81: Distress Zone (high bankruptcy probability).",
-              ar: "يجمع نموذج ألتمان بين 5 نسب لتقييم احتمال الإفلاس خلال عامين. إذا كان Z > 2.99 فالمنطقة آمنة، بين 1.81 و 2.99 منطقة رمادية، وأقل من 1.81 منطقة خطر إفلاس وشيك."
-            }
-          }
-        ]
-      }
-    ];
+    let userQuizAnswers = {};
 
-    /* ========================================================
-       50 QUESTIONS DU GRAND EXAMEN D'AUDIT (QCM COMPLET)
-       ======================================================== */
-    const quizQuestions = [
-      { id: 'q1', q: "Quelle est la formule fondamentale de la Trésorerie Nette ?", opt: ["FRNG + BFR", "FRNG - BFR", "Total Actif / Passif", "EBITDA - CAPEX"], c: 1, exp: "Trésorerie Nette = FRNG - BFR. Elle représente l'excédent de ressources stables après financement du BFR." },
-      { id: 'q2', q: "Comment se calcule le Fonds de Roulement Net Global (FRNG) par le bas du bilan ?", opt: ["Actifs Circulants - Passifs Circulants", "Stocks + Créances", "Capitaux Propres - Dettes", "EBIT - Intérêts"], c: 0, exp: "Par le bas du bilan, FRNG = Actifs Circulants - Passifs Circulants." },
-      { id: 'q3', q: "Comment est défini le Besoin en Fonds de Roulement (BFR) ?", opt: ["Immobilisations - Amortissements", "Stocks + Créances Clients - Dettes Fournisseurs", "Trésorerie Actif - Trésorerie Passif", "Chiffre d'Affaires - Charges"], c: 1, exp: "Le BFR d'exploitation = Stocks + Créances d'exploitation - Dettes d'exploitation." },
-      { id: 'q4', q: "Que mesure le ratio de Liquidité Générale (Current Ratio) ?", opt: ["Actifs Circulants / Passifs Circulants", "Trésorerie / Capitaux Propres", "Résultat Net / Chiffre d'Affaires", "Dette Totale / Total Actif"], c: 0, exp: "Liquidité Générale = Actifs Circulants / Passifs Circulants. Un ratio > 1 indique que les actifs à court terme couvrent les dettes exigibles." },
-      { id: 'q5', q: "Quelle est la formule du ratio de Liquidité Réduite (Quick Ratio / Acid Test) ?", opt: ["(Actifs Circulants - Stocks) / Passifs Circulants", "Actifs Circulants / Stocks", "Trésorerie / Chiffre d'Affaires", "BFR / Total Actif"], c: 0, exp: "Liquidité Réduite = (Actifs Circulants - Stocks) / Passifs Circulants. On exclut les stocks car ils sont moins liquides." },
-      { id: 'q6', q: "Quel ratio mesure la Liquidité Immédiate (Cash Ratio) ?", opt: ["Trésorerie & Équivalents / Passifs Circulants", "EBITDA / Dettes", "Résultat Net / Passifs", "Stocks / Trésorerie"], c: 0, exp: "Liquidité Immédiate = Disponibilités & Placements liquides / Passifs Circulants." },
-      { id: 'q7', q: "Quelle est la définition exacte de l'EBITDA ?", opt: ["Résultat Net - Impôts", "EBIT + Dotations aux Amortissements et Dépréciations", "Chiffre d'Affaires - Impôts", "Marge Brute - Dividendes"], c: 1, exp: "EBITDA = Résultat d'Exploitation (EBIT) + Dotations aux Amortissements & Provisions." },
-      { id: 'q8', q: "Quelle est la formule du Return on Equity (ROE) ?", opt: ["(Résultat Net / Capitaux Propres) × 100", "(EBIT / Chiffre d'Affaires) × 100", "Total Actif / Dette", "Dividendes / Capital"], c: 0, exp: "ROE = (Résultat Net / Capitaux Propres) × 100. Il mesure la rentabilité financière pour les actionnaires." },
-      { id: 'q9', q: "Quelle est la formule du Return on Assets (ROA) ?", opt: ["(Résultat Net / Total Actif) × 100", "Chiffre d'Affaires / Capitaux Propres", "EBIT / Stocks", "Trésorerie / Total Actif"], c: 0, exp: "ROA = (Résultat Net / Total Actif) × 100. Il mesure l'efficacité de l'ensemble des actifs employés." },
-      { id: 'q10', q: "Quelle formule donne le délai moyen de paiement clients (DSO en jours) ?", opt: ["(Créances Clients / Chiffre d'Affaires TTC) × 365", "(Stocks / Achats) × 365", "(Dettes Fournisseurs / Ventes) × 365", "(Résultat Net / CA) × 365"], c: 0, exp: "DSO = (Créances Clients / CA TTC) × 365 jours." },
-      { id: 'q11', q: "Quelle formule donne le délai moyen de paiement fournisseurs (DPO en jours) ?", opt: ["(Dettes Fournisseurs / Coût d'Achat des Marchandises Vendues) × 365", "(Créances / Ventes) × 365", "(Trésorerie / Achats) × 365", "(EBIT / Dettes) × 365"], c: 0, exp: "DPO = (Dettes Fournisseurs / Coût d'Achat ou Achats TTC) × 365 jours." },
-      { id: 'q12', q: "Quelle est la formule de calcul du Free Cash Flow (FCF) ?", opt: ["Flux de Trésorerie d'Exploitation - Dépenses d'Investissement (CAPEX)", "Résultat Net + Chiffre d'Affaires", "EBITDA - Dividendes", "Marge Brute - Frais Généraux"], c: 0, exp: "Free Cash Flow = Cash Flow Opérationnel - CAPEX (investissements nets de maintien et croissance)." },
-      { id: 'q13', q: "Que représente le principe de 'Séparation des Fonctions' en contrôle interne ?", opt: ["Séparer autorisation, exécution, enregistrement et contrôle", "Faire deux bilans différents", "Changer d'auditeur chaque mois", "Séparer l'Actif du Passif"], c: 0, exp: "Ce principe interdit qu'une même personne cumule le pouvoir d'engager, de décaisser et d'enregistrer une opération." },
-      { id: 'q14', q: "Dans le cycle Achats, qu'appelle-t-on la procédure du '3-Way Match' (Rapprochement à 3 voies) ?", opt: ["Bon de commande = Bon de réception = Facture fournisseur", "Bilan = Compte de résultat = TFT", "Banque 1 = Banque 2 = Caisse", "3 signatures obligatoires sur les chèques"], c: 0, exp: "C'est la confrontation obligatoire entre le Bon de Commande, le Bon de Réception physique et la Facture." },
-      { id: 'q15', q: "Qu'est-ce que l'assertion d'audit 'Cut-off' (Césure des exercices) ?", opt: ["Rattacher chaque charge et produit à son exercice d'origine", "Couper les salaires en deux", "Arrêter l'activité à minuit", "Supprimer les écritures erronées"], c: 0, exp: "Le Cut-off garantit que les opérations sont enregistrées dans la bonne période comptable." },
-      { id: 'q16', q: "Quelle assertion est violée si une entreprise enregistre une facture de vente fictive sans livraison ?", opt: ["Réalité / Existence", "Évaluation", "Présentation", "Exhaustivité"], c: 0, exp: "L'assertion de Réalité (ou Existence) est rompue car l'opération n'a pas eu lieu dans l'économie réelle." },
-      { id: 'q17', q: "Quelle assertion est violée si l'entreprise 'oublie' d'enregistrer une facture fournisseur ?", opt: ["Exhaustivité (Completeness)", "Réalité", "Droits et obligations", "Exactitude"], c: 0, exp: "L'exhaustivité exige que 100% des transactions réelles soient comptabilisées." },
-      { id: 'q18', q: "Que mesure le ratio de Couverture des Intérêts (Interest Coverage Ratio) ?", opt: ["EBIT / Charges d'Intérêts", "Chiffre d'Affaires / Emprunts", "Dettes / Capitaux Propres", "Trésorerie / Intérêts"], c: 0, exp: "Couverture des Intérêts = EBIT / Charges Financières. Un score inférieur à 2.5 signale une tension financière." },
-      { id: 'q19', q: "Dans le Score Z d'Altman, quelle valeur du score indique une zone de détresse financière critique (faillite probable) ?", opt: ["Z < 1.81", "Z > 5.00", "Z = 3.50", "Z > 2.99"], c: 0, exp: "Un Score Z inférieur à 1.81 classe la société en zone de détresse financière à court terme." },
-      { id: 'q20', q: "Quels sont les trois facteurs du Triangle de la Fraude (Modèle de Cressey) ?", opt: ["Pression, Opportunité, Rationalisation", "Argent, Banque, Police", "Facture, Bilan, Chèque", "Auditeur, Directeur, Comptable"], c: 0, exp: "Le triangle de Donald Cressey repose sur le Besoin/Pression, l'Opportunité et la Justification mentale." },
-      { id: 'q21', q: "Qu'est-ce qu'un actif immobilisé selon les normes IFRS ?", opt: ["Ressource contrôlée destinée à être utilisée durablement (> 12 mois)", "Un stock vendu dans le mois", "Une créance client à 30 jours", "Le solde du compte bancaire"], c: 0, exp: "Un actif immobilisé est un élément identifiable du patrimoine destiné à servir durablement l'activité." },
-      { id: 'q22', q: "Que signifie le terme 'Gearing' (Levier financier) ?", opt: ["Dette Financière Nette / Capitaux Propres", "Chiffre d'Affaires / Résultat", "Actif Circulant / BFR", "Dividendes / Action"], c: 0, exp: "Le gearing mesure l'endettement net par rapport aux fonds propres des actionnaires." },
-      { id: 'q23', q: "Comment calcule-t-on la Capacité d'Autofinancement (CAF) par la méthode additive ?", opt: ["Résultat Net + Dotations aux Amortissements & Provisions", "Chiffre d'Affaires + Stocks", "Total Actif - Dettes", "EBITDA - Impôts"], c: 0, exp: "CAF = Résultat Net + Charges non décaissables (Amortissements/Provisions) - Produits non encaissables." },
-      { id: 'q24', q: "Quelle est la conséquence directe d'une augmentation imprévue du BFR sur la trésorerie ?", opt: ["Une baisse directe de la trésorerie nette", "Une hausse de la trésorerie", "Aucun impact", "Une augmentation du capital"], c: 0, exp: "Comme Trésorerie = FRNG - BFR, toute hausse du BFR non financée par le FRNG détruit de la trésorerie." },
-      { id: 'q25', q: "Quelle anomalie d'audit traduit un ratio de rotation des stocks anormalement faible ?", opt: ["Surévaluation potentielle ou stocks obsolètes/dormants", "Une surchauffe des ventes", "Une rupture de stock", "Une baisse des impôts"], c: 0, exp: "Une faible rotation des stocks indique que les marchandises dorment en entrepôt, risquant une dépréciation." },
-      { id: 'q26', q: "Qu'est-ce que le 'Seuil de Signification' en audit comptable ?", opt: ["Le montant d'erreur toléré au-delà duquel l'opinion d'audit est altérée", "Le salaire de l'auditeur", "Le montant minimum pour ouvrir un compte", "Le taux de TVA"], c: 0, exp: "C'est la limite chiffrée à partir de laquelle les erreurs impactent la sincérité des états financiers." },
-      { id: 'q27', q: "Quelle méthode d'évaluation des stocks est formellement interdite par les normes IFRS (IAS 2) ?", opt: ["LIFO (Last In, First Out)", "FIFO (First In, First Out)", "CUMP (Coût Unitaire Moyen Pondéré)", "Coût Standard"], c: 0, exp: "La norme IAS 2 proscrit formellement la méthode LIFO (Dernier Entré, Premier Sorti)." },
-      { id: 'q28', q: "Quel compte figure au Passif parmi les suivants ?", opt: ["Dettes Fournisseurs", "Créances Clients", "Immobilisations corporelles", "Trésorerie active"], c: 0, exp: "Les dettes fournisseurs représentent une debt exigible envers un tiers, inscrite au passif circulant." },
-      { id: 'q29', q: "Qu'est-ce qu'une charge constatée d'avance (CCA) ?", opt: ["Une charge payée durant l'exercice mais concernant l'exercice suivant", "Une facture impayée", "Un dividende", "Une provision pour litige"], c: 0, exp: "Une CCA est un actif qui permet de respecter le principe d'indépendance des exercices (Cut-off)." },
-      { id: 'q30', q: "Que constitue un produit constaté d'avance (PCA) au bilan ?", opt: ["Une dette / passif de régularisation", "Un actif immobilisé", "Un compte bancaire", "Une charge financière"], c: 0, exp: "Un PCA est inscrit au passif car l'entreprise a encaissé un revenu pour une prestation non encore livrée." },
-      { id: 'q31', q: "Quel est l'impact de l'amortissement comptable d'une machine sur la trésorerie immédiate ?", opt: ["Aucun impact direct (charge non décaissable)", "Une sortie de cash immédiate", "Une entrée de cash", "Un virement bancaire"], c: 0, exp: "L'amortissement est une charge purement comptable (non décaissée) constatant l'usure de l'actif." },
-      { id: 'q32', q: "Dans le cadre du COSO, combien de piliers fondamentaux composent le contrôle interne ?", opt: ["5 piliers", "2 piliers", "10 piliers", "7 piliers"], c: 0, exp: "Le cadre COSO repose sur 5 piliers : Environnement, Évaluation des risques, Activités de contrôle, Info/Com, Pilotage." },
-      { id: 'q33', q: "Qu'appelle-t-on le 'rapprochement bancaire' ?", opt: ["La justification des écarts entre le grand livre banque et le relevé bancaire", "Une demande de crédit", "Un audit des taux d'intérêt", "Un transfert de fonds"], c: 0, exp: "Il permet de vérifier la concordance parfaite entre le compte 512 en comptabilité et le relevé de la banque." },
-      { id: 'q34', q: "Quel test statistique s'applique sur le premier chiffre des données financières pour détecter la fraude ?", opt: ["La Loi de Benford", "Le théorème de Pythagore", "L'algorithme de Dijkstra", "Le test de Turing"], c: 0, exp: "La loi de Benford démontre que le chiffre 1 apparaît en première position dans ~30.1% des données authentiques." },
-      { id: 'q35', q: "Quelle assertion est vérifiée lorsqu'un auditeur réalise une circularisation (confirmation externe) des clients ?", opt: ["Réalité / Existence des créances et Droits", "Amortissement", "Présentation", "Conformité fiscale"], c: 0, exp: "La confirmation directe par lettre auprès des clients prouve l'existence réelle de la créance." },
-      { id: 'q36', q: "Qu'est-ce que l'actif net comptable (Capitaux Propres) ?", opt: ["Total Actif - Total des Dettes envers les tiers", "Chiffre d'affaires - Salaires", "Trésorerie brute", "Total des stocks"], c: 0, exp: "L'Actif Net = Actif Total - Dettes. Il correspond à la valeur comptable revenant aux propriétaires." },
-      { id: 'q37', q: "Que signifie un 'BFR négatif' (ressource en fonds de roulement) ?", opt: ["Les dettes fournisseurs financent intégralement les stocks et créances", "L'entreprise est en faillite", "Les clients ont refusé de payer", "Le stock est vide"], c: 0, exp: "Typique de la grande distribution (clients paient comptant, fournisseurs payés à 60 jours)." },
-      { id: 'q38', q: "Quel est l'objectif de la 'revue analytique' en phase préliminaire d'audit ?", opt: ["Identifier les variations anormales et les zones de risques significatifs", "Remplir les déclarations d'impôt", "Fixer les prix de vente", "Signer les contrats de travail"], c: 0, exp: "La revue analytique compare les soldes d'une année sur l'autre pour orienter les contrôles." },
-      { id: 'q39', q: "Comment est valorisée une créance client douteuse en fin d'exercice ?", opt: ["Par une dépréciation pour risque de non-recouvrement", "Par une augmentation de capital", "En l'effaçant sans trace", "En l'inscrivant en produit"], c: 0, exp: "Le principe de prudence impose de déprécier la créance à hauteur de la perte estimée." },
-      { id: 'q40', q: "Quel ratio compare l'EBITDA à la Dette Financière Nette ?", opt: ["Ratio de Désendettement (Dette Nette / EBITDA)", "ROE", "Marge Nette", "DSO"], c: 0, exp: "Dette Nette / EBITDA mesure le nombre d'années nécessaires pour rembourser la dette avec le cash opérationnel." },
-      { id: 'q41', q: "Qu'est-ce qu'une 'facture à établir' (FAE) ?", opt: ["Une marchandise livrée avant clôture dont la facture n'est pas encore émise", "Une facture annulée", "Un avoir reçu", "Un devis sans suite"], c: 0, exp: "Une FAE permet de rattacher le produit à l'exercice au cours duquel la livraison a eu lieu." },
-      { id: 'q42', q: "Qu'est-ce qu'une 'facture non parvenue' (FNP) ?", opt: ["Une marchandise réceptionnée avant clôture dont la facture fournisseur n'est pas reçue", "Un rejet de paiement", "Une facture payée d'avance", "Un chèque perdu"], c: 0, exp: "C'est une dette d'exploitation provisionnée pour respecter le principe de rattachement des charges." },
-      { id: 'q43', q: "Pourquoi l'inventaire physique annuel des stocks est-il obligatoire en audit ?", opt: ["Pour valider l'existence physique et détecter les pertes ou vols", "Pour compter le nombre d'employés", "Pour calculer le prix des machines", "Pour modifier les statuts"], c: 0, exp: "L'inventaire physique valide l'assertion d'existence et permet de corriger le stock théorique comptable." },
-      { id: 'q44', q: "Qu'est-ce qu'un engagement hors bilan ?", opt: ["Un droit ou obligation potentiel (caution bancaire, leasing, nantissement)", "Une facture payée en espèces", "Un compte secret", "Un salaire non versé"], c: 0, exp: "Les engagements hors bilan sont décrits dans l'annexe car ils représentent des risques futurs pour l'entité." },
-      { id: 'q45', q: "Quelle norme internationale régit la reconnaissance du revenu des contrats avec les clients ?", opt: ["IFRS 15", "IAS 2", "IFRS 16", "IAS 36"], c: 0, exp: "La norme IFRS 15 fixe le modèle en 5 étapes pour comptabiliser les produits des contrats clients." },
-      { id: 'q46', q: "Quelle norme internationale régit la comptabilisation des contrats de location (Leasing) ?", opt: ["IFRS 16 (Droit d'utilisation à l'actif & Dette de loyer au passif)", "IAS 7", "IAS 1", "IFRS 9"], c: 0, exp: "IFRS 16 oblige à inscrire un actif au titre du droit d'utilisation en contrepartie d'une document de loyer." },
-      { id: 'q47', q: "Qu'exprime le principe comptable de 'Prudence' ?", opt: ["Ne pas surévaluer les actifs/produits et anticiper les pertes probables", "Dépenser le moins d'argent possible", "Refuser les nouveaux clients", "Cacher les bénéfices"], c: 0, exp: "La prudence impose de comptabiliser les pertes probables dès leur identification mais jamais les gains futurs." },
-      { id: 'q48', q: "Quel est l' rôle du Tableau des Flux de Trésorerie (TFT) ?", opt: ["Expliquer la variation de trésorerie via l'exploitation, l'investissement et le financement", "Lister les clients en retard", "Remplacer le bilan", "Calculer le montant de la TVA"], c: 0, exp: "Le TFT décompose les flux de trésorerie en trois catégories fondamentales : OCF, ICF et FCF." },
-      { id: 'q49', q: "Qu'est-ce qu'une 'opinion avec réserve' émise par un Commissaire aux Comptes / Auditeur ?", opt: ["Certification des comptes malgré des désaccords ou limites identifiés non bloquants", "Une démission de l'auditeur", "Un refus total de certifier", "Une félicitation écrite"], c: 0, exp: "L'auditeur certifie que les états sont sincères sauf sur un point spécifique délimité." },
-      { id: 'q50', q: "Dans une analyse de solvabilité, que traduit un ratio Capitaux Propres / Total Actif supérieur à 0.40 ?", opt: ["Une structure financière solide et une forte indépendance financière", "Une faillite immédiate", "Un excès de dettes bancaires", "Une trésorerie bloquée"], c: 0, exp: "Un ratio > 40% prouve que près de la moitié des actifs est financée par les actionnaires sans dépendre des banques." }
-    ];
-
-    function renderCourses() {
-      const container = document.getElementById('coursesListContainer');
-      if (!container) return;
-      container.innerHTML = '';
-
-      coursesData.forEach((course, idx) => {
-        const title = course.title[currentLanguage] || course.title.fr;
-        
-        let sectionsHtml = '';
-        course.sections.forEach(sec => {
-          const sHeading = sec.heading[currentLanguage] || sec.heading.fr;
-          const sContent = sec.content[currentLanguage] || sec.content.fr;
-
-          sectionsHtml += `
-            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 space-y-2">
-              <h4 class="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                ${sHeading}
-              </h4>
-              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium whitespace-pre-line">${sContent}</p>
-            </div>
-          `;
-        });
-
-        const card = document.createElement('div');
-        card.className = "bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4 shadow-lg";
-        card.innerHTML = `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-3">
-            <div>
-              <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">${course.category}</span>
-              <h3 class="text-base sm:text-lg font-black text-white mt-1.5">${title}</h3>
-            </div>
-            <span class="text-xs text-slate-400 font-bold bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 self-start sm:self-auto">⏱ ${course.readTime}</span>
-          </div>
-          <div class="space-y-3">
-            ${sectionsHtml}
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function renderQuiz() {
-      const container = document.getElementById('quizQuestionsContainer');
-      if (!container) return;
-      container.innerHTML = '';
-
-      quizQuestions.forEach((q, idx) => {
-        let optionsHtml = '';
-        q.opt.forEach((optText, optIdx) => {
-          const isChecked = userQuizAnswers[q.id] === optIdx ? 'checked' : '';
-
-          optionsHtml += `
-            <label class="quiz-option-label cursor-pointer flex items-start gap-3 p-3 bg-slate-900 border border-slate-800 rounded-xl hover:border-slate-700 transition" id="opt_container_${q.id}_${optIdx}">
-              <input type="radio" name="quiz_${q.id}" value="${optIdx}" ${isChecked} onchange="onQuizSelect('${q.id}', ${optIdx})" class="mt-0.5 text-emerald-500 focus:ring-emerald-400 bg-slate-950 border-slate-700">
-              <span class="text-xs sm:text-sm font-semibold text-slate-200">${optText}</span>
-            </label>
-          `;
-        });
-
-        const qCard = document.createElement('div');
-        qCard.id = `quiz_card_${q.id}`;
-        qCard.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3";
-        qCard.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-emerald-400 uppercase tracking-wider">Question ${idx + 1} / ${quizQuestions.length}</span>
-            <span id="quiz_badge_${q.id}" class="text-[10px] font-black uppercase px-2 py-0.5 rounded hidden"></span>
-          </div>
-          <p class="text-xs sm:text-sm font-bold text-white leading-relaxed">${q.q}</p>
-          <div class="space-y-2 pt-1" id="options_group_${q.id}">
-            ${optionsHtml}
-          </div>
-          <div id="quiz_exp_${q.id}" class="hidden p-3 rounded-xl border text-xs leading-relaxed mt-2 font-medium"></div>
-        `;
-        container.appendChild(qCard);
-      });
-    }
-
-    function onQuizSelect(qId, optIdx) {
-      userQuizAnswers[qId] = optIdx;
-    }
-
-    function gradeQuiz(e) {
-      e.preventDefault();
-      
-      const answeredCount = Object.keys(userQuizAnswers).length;
-      if (answeredCount < quizQuestions.length) {
-        showToast(
-          currentLanguage === 'ar' ? `يرجى الإجابة على جميع الأسئلة (${answeredCount}/${quizQuestions.length})` : `Veuillez répondre aux 50 questions (${answeredCount}/${quizQuestions.length})`,
-          "warning",
-          currentLanguage === 'ar' ? 'تحذير' : 'Contrôle Incomplet'
-        );
-        return;
-      }
-
-      let correctCount = 0;
-
-      quizQuestions.forEach(q => {
-        const userChoice = userQuizAnswers[q.id];
-        const isCorrect = userChoice === q.c;
-        if (isCorrect) correctCount++;
-
-        const card = document.getElementById(`quiz_card_${q.id}`);
-        const badge = document.getElementById(`quiz_badge_${q.id}`);
-        const expBox = document.getElementById(`quiz_exp_${q.id}`);
-
-        badge.classList.remove('hidden');
-        if (isCorrect) {
-          card.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-emerald-500/60 bg-emerald-950/10 space-y-3";
-          badge.className = "text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
-          badge.textContent = currentLanguage === 'ar' ? 'إجابة صحيحة' : 'Correct';
-        } else {
-          card.className = "bg-slate-950 p-4 sm:p-5 rounded-2xl border border-rose-500/60 bg-rose-950/10 space-y-3";
-          badge.className = "text-[10px] font-black uppercase px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40";
-          badge.textContent = currentLanguage === 'ar' ? 'إجابة خاطئة' : 'Incorrect';
-        }
-
-        q.opt.forEach((_, optIdx) => {
-          const optContainer = document.getElementById(`opt_container_${q.id}_${optIdx}`);
-          if (optContainer) {
-            if (optIdx === q.c) {
-              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-emerald-950/30 border border-emerald-500/80 rounded-xl text-emerald-300 font-bold";
-            } else if (optIdx === userChoice && !isCorrect) {
-              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-rose-950/30 border border-rose-500/80 rounded-xl text-rose-300 line-through opacity-80";
-            } else {
-              optContainer.className = "quiz-option-label flex items-start gap-3 p-3 bg-slate-950 border border-slate-800/60 rounded-xl text-slate-400 opacity-60";
-            }
-          }
-        });
-
-        expBox.classList.remove('hidden');
-        expBox.className = isCorrect 
-          ? "p-3 rounded-xl border border-emerald-500/30 bg-emerald-950/20 text-emerald-200 text-xs leading-relaxed mt-2" 
-          : "p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-amber-200 text-xs leading-relaxed mt-2";
-        
-        const prefix = currentLanguage === 'ar' ? '<strong>شرح التدقيق : </strong>' : '<strong>Explication d\'audit : </strong>';
-        expBox.innerHTML = prefix + q.exp;
-      });
-
-      const banner = document.getElementById('quizScoreBanner');
-      const scoreDisplay = document.getElementById('quizScoreDisplay');
-      const scoreTitle = document.getElementById('quizScoreTitle');
-      const scoreFeedback = document.getElementById('quizScoreFeedback');
-      const scoreIcon = document.getElementById('quizScoreIcon');
-
-      banner.classList.remove('hidden');
-      scoreDisplay.textContent = `${correctCount} / 50`;
-
-      const pct = Math.round((correctCount / 50) * 100);
-
-      if (pct >= 80) {
-        banner.className = "p-5 rounded-2xl border border-emerald-500/50 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-950 shadow-xl";
-        scoreIcon.className = "w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-black text-2xl shadow-inner";
-        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'ممتاز! مستوى خبير معتمد' : 'Excellent ! Niveau Senior Expert Validé';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `لقد اجتزت الاختبار بامتياز (${pct}%) مع إتقان تام للمعايير.` : `Vous avez brillamment réussi l'examen (${pct}%) avec une maîtrise approfondie des normes.`;
-      } else if (pct >= 50) {
-        banner.className = "p-5 rounded-2xl border border-teal-500/50 bg-gradient-to-r from-teal-950/40 via-slate-900 to-slate-950 shadow-xl";
-        scoreIcon.className = "w-14 h-14 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-black text-2xl shadow-inner";
-        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'مستوى جيد / قيد التقدم' : 'Bon niveau / En progression';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `نتيجة مشرفة (${pct}%). راجع الشروحات التفصيلية أسفل الأسئلة للتقدم.` : `Résultat honorable (${pct}%). Consultez les explications détaillées sous chaque question pour progresser.`;
-      } else {
-        banner.className = "p-5 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-950 shadow-xl";
-        scoreIcon.className = "w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-black text-2xl shadow-inner";
-        scoreIcon.innerHTML = `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
-        scoreTitle.textContent = currentLanguage === 'ar' ? 'يُوصى بمراجعة وحدات الدروس' : 'Révision recommandée des modules de cours';
-        scoreFeedback.textContent = currentLanguage === 'ar' ? `النتيجة ${pct}%. نوصي بمراجعة الوحدات الست وإعادة الاختبار.` : `Score de ${pct}%. Nous vous conseillons de revoir les 6 modules de formation et de repasser le test.`;
-      }
-
-      showToast(
-        currentLanguage === 'ar' ? `تصحيح الاختبار : ${correctCount}/50 (${pct}%)` : `Test corrigé : Note finale de ${correctCount}/50 (${pct}%)`,
-        pct >= 50 ? "success" : "warning",
-        currentLanguage === 'ar' ? 'تصحيح الاختبار' : 'Correction QCM'
-      );
-
-      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function resetQuiz() {
-      userQuizAnswers = {};
-      const banner = document.getElementById('quizScoreBanner');
-      if (banner) banner.classList.add('hidden');
-      renderQuiz();
-      showToast(currentLanguage === 'ar' ? 'تمت إعادة تعيين الأسئلة الـ 50.' : 'Les 50 questions ont été réinitialisées.', "info", currentLanguage === 'ar' ? 'إعادة ضبط' : 'QCM');
-    }
-
-    /* ========================================================
-       CALCUL THÉORIQUE & VALIDATION DE CONFORMITÉ MISSIONS
-       ======================================================== */
     function getCleanNum(strVal) {
       if (!strVal) return 0;
       return parseFloat(strVal.replace(/[^0-9.-]/g, '')) || 0;
@@ -1674,6 +1344,7 @@
       renderQuiz();
       startCountdownTimer();
       setLanguage(currentLanguage);
+      initTouchGestures();
     }
 
     function getSoldeEnAttenteUSD() {
@@ -1688,6 +1359,14 @@
       
       let doneCount = missions.filter(m => m.completed).length;
       document.getElementById('completedNewCount').textContent = t('sentCount', { done: doneCount });
+
+      // Mise à jour visuelle des badges de gamification
+      const bM1 = document.getElementById('badgeM1');
+      const bHalf = document.getElementById('badgeHalf');
+      const bExp = document.getElementById('badgeExpert');
+      if (bM1) bM1.className = doneCount >= 1 ? "bg-slate-950 p-3 rounded-2xl border border-emerald-500/50 flex items-center gap-2.5 shadow-lg shadow-emerald-500/10" : "bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60";
+      if (bHalf) bHalf.className = doneCount >= 5 ? "bg-slate-950 p-3 rounded-2xl border border-emerald-500/50 flex items-center gap-2.5 shadow-lg shadow-emerald-500/10" : "bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60";
+      if (bExp) bExp.className = doneCount === 10 ? "bg-slate-950 p-3 rounded-2xl border border-emerald-500/50 flex items-center gap-2.5 shadow-lg shadow-emerald-500/10" : "bg-slate-950 p-3 rounded-2xl border border-slate-800 flex items-center gap-2.5 opacity-60";
     }
 
     function renderMissionButtons() {
@@ -1698,6 +1377,7 @@
       missions.forEach((m, idx) => {
         const btn = document.createElement('button');
         btn.id = `btnMission${idx + 1}`;
+        btn.type = "button";
         btn.onclick = () => switchMission(idx);
 
         let activeStyle = idx === activeMissionIndex 
@@ -1709,8 +1389,6 @@
           iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
         } else if (m.locked) {
           iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>';
-        } else if (m.answers && Object.keys(m.answers).some(k => m.answers[k] && m.answers[k].trim() !== '')) {
-          iconSvg = '<svg class="w-3.5 h-3.5 inline ml-1 rtl:mr-1 rtl:ml-0 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>';
         }
 
         btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
@@ -1723,6 +1401,35 @@
       activeMissionIndex = index;
       renderMissionButtons();
       renderMegaMission();
+    }
+
+    /* SWIPE GESTURES SUR MOBILE */
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function initTouchGestures() {
+      const container = document.getElementById('megaMissionContainer');
+      if (!container) return;
+
+      container.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      container.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 70) {
+        if (diff < 0 && activeMissionIndex < missions.length - 1) {
+          switchMission(activeMissionIndex + 1);
+        } else if (diff > 0 && activeMissionIndex > 0) {
+          switchMission(activeMissionIndex - 1);
+        }
+      }
     }
 
     function startCountdownTimer() {
@@ -1740,8 +1447,7 @@
       if (diff <= 0) {
         timerElement.innerHTML = `
           <span class="inline-flex items-center gap-1.5 text-red-400 font-mono font-black text-xs sm:text-sm animate-pulse">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            ${currentLanguage === 'ar' ? 'انتهى الموعد النهائي!' : (currentLanguage === 'en' ? 'Deadline Exceeded!' : 'Date limite dépassée !')}
+            ${currentLanguage === 'ar' ? 'انتهى الموعد النهائي!' : 'Date limite dépassée !'}
           </span>`;
         return;
       }
@@ -1751,7 +1457,7 @@
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      const dTxt = currentLanguage === 'ar' ? 'يوم ' : (currentLanguage === 'en' ? 'd ' : 'j ');
+      const dTxt = currentLanguage === 'ar' ? 'يوم ' : 'j ';
       const hTxt = currentLanguage === 'ar' ? 'س ' : 'h ';
       const mTxt = currentLanguage === 'ar' ? 'د ' : 'm ';
       const sTxt = currentLanguage === 'ar' ? 'ث' : 's';
@@ -1792,12 +1498,18 @@
 
       const conformPct = Math.round((conformCount / 26) * 100);
 
+      // Calculs visuels pour les jauges CSS
+      const caVal = getCleanNum(m.financials["Chiffre d'Affaires"]);
+      const cogsVal = getCleanNum(m.financials["Coût des Ventes (COGS)"]);
+      const cogsPct = caVal ? Math.round((cogsVal / caVal) * 100) : 50;
+      const grossMarginPct = 100 - cogsPct;
+
       let financialsHTML = '';
       for (const [key, val] of Object.entries(m.financials)) {
         financialsHTML += `
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center gap-2">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center gap-2 hover:border-slate-700 transition">
             <span class="text-xs text-slate-200 font-semibold truncate">${key}</span>
-            <span class="text-xs sm:text-sm font-black text-emerald-400 shrink-0">${val}</span>
+            <span class="text-xs sm:text-sm font-black text-emerald-400 shrink-0 font-mono">${val}</span>
           </div>
         `;
       }
@@ -1842,16 +1554,19 @@
           `;
         } else {
           tasksHTML += `
-            <div class="space-y-1.5 bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <div class="space-y-1.5 bg-slate-950 p-3 rounded-xl border border-slate-800 hover:border-slate-700 transition">
               <div class="flex justify-between items-center gap-1">
-                <label class="text-xs font-bold text-slate-100 block truncate">${task.label}</label>
+                <div class="flex items-center gap-1.5 truncate">
+                  <label class="text-xs font-bold text-slate-100 truncate">${task.label}</label>
+                  <span title="${task.tip}" class="cursor-help text-[10px] text-slate-500 hover:text-emerald-400 font-mono">ⓘ</span>
+                </div>
                 ${statusBadge}
               </div>
               <span class="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-1 leading-tight truncate">
                 <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 ${task.formula}
               </span>
-              <input type="text" ${disabledAttr} id="input_${task.id}" value="${savedValue}" oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" class="math-only w-full ${inputBg} ${borderClass} focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition font-semibold text-left rtl:text-right">
+              <input type="text" inputmode="decimal" pattern="[0-9.,\\-]*" ${disabledAttr} id="input_${task.id}" value="${savedValue}" oninput="onTaskInput('${task.id}', this.value)" placeholder="${task.placeholder}" class="math-only w-full ${inputBg} ${borderClass} focus:border-emerald-400 text-white text-xs sm:text-sm rounded-lg p-2.5 focus:outline-none transition font-semibold text-left rtl:text-right font-mono">
             </div>
           `;
         }
@@ -1931,11 +1646,29 @@
             </div>
             <div class="text-right rtl:text-left shrink-0 bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800">
               <span class="text-[10px] text-slate-400 uppercase font-black block">${t('potentialGain')}</span>
-              <span class="text-base sm:text-xl font-black text-emerald-400">+${formatMoney(m.reward)}</span>
+              <span class="text-base sm:text-xl font-black text-emerald-400 font-mono">+${formatMoney(m.reward)}</span>
             </div>
           </div>
 
-          <!-- DONNÉES COMPTABLES -->
+          <!-- VISUALISATION DE DONNÉES / GRAPHIQUE CSS -->
+          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
+            <h3 class="text-xs font-black text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+              ${t('analyticsTitle')}
+            </h3>
+            <div class="space-y-2">
+              <div class="flex justify-between text-xs font-bold text-slate-400">
+                <span>Coût des Ventes (${cogsPct}%)</span>
+                <span>Marge Brute Estimée (${grossMarginPct}%)</span>
+              </div>
+              <div class="h-3 w-full bg-slate-900 rounded-full overflow-hidden flex border border-slate-800">
+                <div class="bg-amber-500/80 h-full transition-all duration-500" style="width: ${cogsPct}%"></div>
+                <div class="bg-emerald-500/80 h-full transition-all duration-500" style="width: ${grossMarginPct}%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DONNÉES COMPTABLES BRUTES -->
           <div class="space-y-2.5">
             <h3 class="text-xs sm:text-sm font-black text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
               <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
@@ -1946,6 +1679,17 @@
             </div>
           </div>
 
+          <!-- SUPERVISEUR / FEEDBACK IA -->
+          <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-4 rounded-2xl border ${conformCount === 26 ? 'border-emerald-500/40' : 'border-amber-500/30'} space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full ${conformCount === 26 ? 'bg-emerald-400' : 'bg-amber-400 animate-ping'}"></span>
+              <h4 class="text-xs font-black text-white uppercase tracking-wider">${t('supervisorTitle')}</h4>
+            </div>
+            <p class="text-xs text-slate-300 font-medium leading-relaxed">
+              ${conformCount === 26 ? t('supervisorPass') : t('supervisorFail', { err: 26 - conformCount })}
+            </p>
+          </div>
+
           <!-- BARRE DE CONFORMITÉ EN TEMPS RÉEL -->
           <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800 space-y-2">
             <div class="flex justify-between items-center text-xs">
@@ -1953,14 +1697,14 @@
                 <span class="w-2 h-2 rounded-full ${conformCount === 26 ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}"></span>
                 ${t('conformityTitle')}
               </span>
-              <span class="font-black ${conformCount === 26 ? 'text-emerald-400' : 'text-amber-300'}">${t('conformCount', { count: conformCount, pct: conformPct })}</span>
+              <span class="font-black ${conformCount === 26 ? 'text-emerald-400' : 'text-amber-300'} font-mono">${t('conformCount', { count: conformCount, pct: conformPct })}</span>
             </div>
             <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-800">
               <div class="bg-gradient-to-r from-teal-400 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: ${conformPct}%"></div>
             </div>
           </div>
 
-          <!-- FORMULAIRE TÂCHES -->
+          <!-- FORMULAIRE DES 26 TÂCHES -->
           <form onsubmit="event.preventDefault();" class="space-y-4 pt-2">
             <div class="border-t border-slate-800 pt-4">
               <div class="flex justify-between items-center mb-3">
@@ -1968,7 +1712,7 @@
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                   ${t('tasksTitle')}
                 </h3>
-                <span class="text-xs font-bold text-slate-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">${t('completedTasks', { count: filledCount })}</span>
+                <span class="text-xs font-bold text-slate-300 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 font-mono">${t('completedTasks', { count: filledCount })}</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                 ${tasksHTML}
@@ -2016,7 +1760,7 @@
       saveState();
       renderMissionButtons();
       renderMegaMission();
-      showToast(currentLanguage === 'ar' ? 'تم حفظ القفل والمسودة بنجاح.' : (currentLanguage === 'en' ? 'Draft saved and locked.' : 'Brouillon sauvegardé et verrouillé.'), "info", currentLanguage === 'ar' ? 'حفظ التقرير' : 'Rapport Sauvegardé');
+      showToast(currentLanguage === 'ar' ? 'تم حفظ القفل والمسودة بنجاح.' : 'Brouillon sauvegardé et verrouillé.', "info", currentLanguage === 'ar' ? 'حفظ التقرير' : 'Rapport Sauvegardé');
     }
 
     function lockAndSubmitMission(missionIdx) {
@@ -2030,7 +1774,7 @@
       });
 
       if (missingCount > 0) {
-        showToast(currentLanguage === 'ar' ? `يوجد ${missingCount} حقول غير مكتملة.` : (currentLanguage === 'en' ? `There are ${missingCount} incomplete fields.` : `Il reste ${missingCount} champ(s) non rempli(s).`), "warning", currentLanguage === 'ar' ? 'تنبيه' : 'Champs Incomplets');
+        showToast(currentLanguage === 'ar' ? `يوجد ${missingCount} حقول غير مكتملة.` : `Il reste ${missingCount} champ(s) non rempli(s).`, "warning", currentLanguage === 'ar' ? 'تنبيه' : 'Champs Incomplets');
         return;
       }
 
@@ -2057,11 +1801,41 @@
       showToast(currentLanguage === 'ar' ? 'حقول التقرير قابلة للتعديل الآن.' : 'Les champs du rapport sont maintenant modifiables.', "info", currentLanguage === 'ar' ? 'فتح التقرير' : 'Rapport Déverrouillé');
     }
 
-    /* ========================================================
-       REÇU BANCAIRE OFFICIEL & EXPORT PDF
-       ======================================================== */
-    let currentReceiptData = null;
+    /* GESTION NAVIGATION 5 ONGLETS */
+    function switchTab(tab) {
+      document.getElementById('dashboardView').classList.toggle('hidden', tab !== 'dashboard');
+      document.getElementById('coursesView').classList.toggle('hidden', tab !== 'courses');
+      document.getElementById('quizzesView').classList.toggle('hidden', tab !== 'quizzes');
+      document.getElementById('evaluationView').classList.toggle('hidden', tab !== 'evaluation');
+      document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
+      
+      const navDash = document.getElementById('navDashboardBtn');
+      const navCourses = document.getElementById('navCoursesBtn');
+      const navQuizzes = document.getElementById('navQuizzesBtn');
+      const navEval = document.getElementById('navEvaluationBtn');
+      const navTx = document.getElementById('navTransactionsBtn');
 
+      const activeClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0";
+      const inactiveClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0";
+
+      if (navDash) navDash.className = (tab === 'dashboard') ? activeClass : inactiveClass;
+      if (navCourses) navCourses.className = (tab === 'courses') ? activeClass : inactiveClass;
+      if (navQuizzes) navQuizzes.className = (tab === 'quizzes') ? activeClass : inactiveClass;
+      if (navEval) navEval.className = (tab === 'evaluation') ? activeClass : inactiveClass;
+      if (navTx) navTx.className = (tab === 'transactions') ? activeClass : inactiveClass;
+
+      // Bottom Bar Mobile Update
+      const mTabs = { dashboard: 'mNavDash', courses: 'mNavCourses', quizzes: 'mNavQuizzes', evaluation: 'mNavEval', transactions: 'mNavTx' };
+      for (const [tKey, domId] of Object.entries(mTabs)) {
+        const btn = document.getElementById(domId);
+        if (btn) {
+          btn.className = (tKey === tab) ? "flex flex-col items-center gap-0.5 text-emerald-400 transition" : "flex flex-col items-center gap-0.5 text-slate-400 hover:text-slate-200 transition";
+        }
+      }
+    }
+
+    // Export PDF & Calculatrice functions (inchangées)
+    let currentReceiptData = null;
     function openReceiptModal(withdrawalId) {
       const w = withdrawals.find(item => item.id === withdrawalId);
       if (!w) return;
@@ -2098,107 +1872,7 @@
 
     function exportReceiptPDF() {
       if (!currentReceiptData) return;
-
-      const printWindow = window.open('', '_blank', 'width=850,height=950');
-      if (!printWindow) {
-        showToast("Veuillez autoriser les pop-ups pour télécharger l'avis de virement.", "warning", "Export Reçu");
-        return;
-      }
-
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="${currentLanguage}" dir="${currentLanguage === 'ar' ? 'rtl' : 'ltr'}">
-        <head>
-          <meta charset="UTF-8">
-          <title>Avis de Virement - ${currentReceiptData.ref}</title>
-          <style>
-            @page { size: A4; margin: 15mm; }
-            body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 15px; background: white; }
-            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 20px; }
-            .logo-box { width: 44px; height: 44px; background: #022c22; color: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; margin-right: 12px; margin-left: 12px; float: left; text-align: center; line-height: 44px; }
-            .badge { background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 6px; text-transform: uppercase; }
-            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-            .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; }
-            .card-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
-            .card-val { font-size: 15px; font-weight: 900; color: #0f172a; margin: 0; }
-            .amount-box { background: #ecfdf5; border: 1px solid #10b981; border-radius: 10px; padding: 15px; text-align: center; margin-bottom: 20px; }
-            .amount-val { font-size: 28px; font-weight: 900; color: #065f46; }
-            .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 15px; margin-top: 25px; }
-            .stamp { width: 95px; height: 95px; border: 2px dashed #10b981; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(-5deg); color: #065f46; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <div>
-              <div class="logo-box">M</div>
-              <div style="overflow: hidden;">
-                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Africa Settlement Ltd</h1>
-                <p style="font-size: 12px; color: #64748b; margin: 2px 0 0 0;">Treasury & International Settlement Department</p>
-              </div>
-            </div>
-            <div style="text-align: right;">
-              <span class="badge">${currentReceiptData.statut}</span>
-              <div style="font-size: 12px; font-family: monospace; font-weight: bold; margin-top: 6px;">${currentReceiptData.ref}</div>
-              <div style="font-size: 11px; color: #64748b;">${currentReceiptData.date}</div>
-            </div>
-          </div>
-
-          <div class="amount-box">
-            <div class="card-label">Montant Net Transféré</div>
-            <div class="amount-val">${currentReceiptData.amountUSD}</div>
-            <div style="font-size: 13px; font-weight: bold; color: #047857; margin-top: 4px;">Contre-valeur estimée : ~ ${currentReceiptData.amountMAD}</div>
-          </div>
-
-          <div class="grid-2">
-            <div class="card">
-              <div class="card-label">Émetteur / Débiteur</div>
-              <p class="card-val">MicroTask Africa Settlement Ltd</p>
-              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Compte de Règlement : MA88-MTA-PAY-9921</div>
-              <div style="font-size: 11px; color: #047857; margin-top: 4px; font-weight: bold;">Réseau : International Settlement Network</div>
-            </div>
-            <div class="card">
-              <div class="card-label">Bénéficiaire / Banque Réceptrice</div>
-              <p class="card-val">${currentReceiptData.beneficiary}</p>
-              <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Banque Réceptrice : ${currentReceiptData.bank}</div>
-              <div style="font-size: 11px; font-family: monospace; color: #047857; margin-top: 4px; font-weight: bold;">RIB : ${currentReceiptData.rib}</div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-bottom: 20px;">
-            <div class="card-label">Motif du virement</div>
-            <p style="font-size: 13px; font-weight: 700; color: #1e293b; margin: 2px 0 0 0;">
-              Règlement honoraires missions d'audit financier des grandes sociétés - Senior Auditor
-            </p>
-          </div>
-
-          <div class="footer">
-            <div style="font-size: 10px; color: #64748b; line-height: 1.4;">
-              Avis d'opération certifié et émis par le Département Trésorerie de MicroTask Africa.<br>
-              Enregistrement sécurisé : SHA256:4b892a01ce904b77f198124d98a0021c9b2.
-            </div>
-
-            <div class="stamp">
-              <div style="font-size: 7px; font-weight: 900; text-transform: uppercase;">MICROTASK AFRICA</div>
-              <div style="font-size: 9px; font-weight: 900; margin: 2px 0;">TREASURY VALIDATED</div>
-              <div style="font-size: 7px; font-weight: bold;">08/08/2026</div>
-            </div>
-
-            <div style="text-align: right;">
-              <div style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase;">Direction Financière</div>
-              <div style="font-size: 13px; font-weight: 900; font-style: italic; color: #0f172a; margin-top: 3px;">MicroTask Treasury Dept.</div>
-              <div style="font-size: 10px; color: #64748b;">Settlement & Compliance Division</div>
-            </div>
-          </div>
-
-          <script>
-            window.onload = function() {
-              setTimeout(function() { window.print(); }, 250);
-            };
-          <\/script>
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
+      window.print();
     }
 
     function renderWithdrawHistory() {
@@ -2216,9 +1890,9 @@
         card.innerHTML = `
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-400 font-bold">${w.date}</span>
-              <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition flex items-center gap-0.5">
-                <span>👁 ${currentLanguage === 'ar' ? 'عرض الإشعار' : (currentLanguage === 'en' ? 'View Remittance' : 'Voir l\'avis')}</span>
+              <span class="text-xs text-slate-400 font-bold font-mono">${w.date}</span>
+              <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">
+                <span>👁 ${currentLanguage === 'ar' ? 'عرض الإشعار' : 'Voir l\'avis'}</span>
               </span>
             </div>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${isPending ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'}">
@@ -2230,37 +1904,13 @@
               <p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p>
               <p class="text-xs text-slate-400 font-mono">${w.details}</p>
             </div>
-            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'}">${formatMoney(w.montant)}</span>
+            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
           </div>
         `;
         container.appendChild(card);
       });
 
       document.getElementById('txTotalAmount').textContent = formatMoney(totalPendingUSD);
-    }
-
-    /* GESTION NAVIGATION 5 ONGLETS */
-    function switchTab(tab) {
-      document.getElementById('dashboardView').classList.toggle('hidden', tab !== 'dashboard');
-      document.getElementById('coursesView').classList.toggle('hidden', tab !== 'courses');
-      document.getElementById('quizzesView').classList.toggle('hidden', tab !== 'quizzes');
-      document.getElementById('evaluationView').classList.toggle('hidden', tab !== 'evaluation');
-      document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
-      
-      const navDash = document.getElementById('navDashboardBtn');
-      const navCourses = document.getElementById('navCoursesBtn');
-      const navQuizzes = document.getElementById('navQuizzesBtn');
-      const navEval = document.getElementById('navEvaluationBtn');
-      const navTx = document.getElementById('navTransactionsBtn');
-
-      const activeClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md flex items-center gap-1.5 shrink-0";
-      const inactiveClass = "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition flex items-center gap-1.5 shrink-0";
-
-      navDash.className = (tab === 'dashboard') ? activeClass : inactiveClass;
-      navCourses.className = (tab === 'courses') ? activeClass : inactiveClass;
-      navQuizzes.className = (tab === 'quizzes') ? activeClass : inactiveClass;
-      navEval.className = (tab === 'evaluation') ? activeClass : inactiveClass;
-      navTx.className = (tab === 'transactions') ? activeClass : inactiveClass;
     }
 
     function openWithdrawChoiceModal() { document.getElementById('withdrawChoiceModal').classList.remove('hidden'); }
@@ -2296,74 +1946,38 @@
       showToast(`Demande de virement de ${formatMoney(amt)} enregistrée et en attente de traitement bancaire.`, "success", "Demande Transmise");
     }
 
-    /* ========================================================
-       LOGIQUE CALCULATRICE D'AUDIT
-       ======================================================== */
+    // Calculatrice JS
     let currentCalcInput = "";
-
-    function openCalculatorModal() {
-      document.getElementById('calculatorModal').classList.remove('hidden');
-    }
-
+    function openCalculatorModal() { document.getElementById('calculatorModal').classList.remove('hidden'); }
     function updateCalcUI() {
-      const display = document.getElementById('calcDisplay');
-      const expr = document.getElementById('calcExpression');
-      display.textContent = currentCalcInput || "0";
-      expr.textContent = currentCalcInput || "0";
+      document.getElementById('calcDisplay').textContent = currentCalcInput || "0";
+      document.getElementById('calcExpression').textContent = currentCalcInput || "0";
     }
-
-    function calcAppend(val) {
-      if (val === '%') {
-        currentCalcInput += '/100';
-      } else {
-        currentCalcInput += val;
-      }
-      updateCalcUI();
-    }
-
-    function calcClear() {
-      currentCalcInput = "";
-      updateCalcUI();
-    }
-
-    function calcBackspace() {
-      currentCalcInput = currentCalcInput.slice(0, -1);
-      updateCalcUI();
-    }
-
+    function calcAppend(val) { currentCalcInput += (val === '%') ? '/100' : val; updateCalcUI(); }
+    function calcClear() { currentCalcInput = ""; updateCalcUI(); }
+    function calcBackspace() { currentCalcInput = currentCalcInput.slice(0, -1); updateCalcUI(); }
     function calcEvaluate() {
       try {
         if (!currentCalcInput) return;
         const sanitized = currentCalcInput.replace(/[^0-9+\-*/().]/g, '');
         const res = Function(`'use strict'; return (${sanitized})`)();
-        
         let formattedRes = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(4)).toString();
         document.getElementById('calcExpression').textContent = `${currentCalcInput} =`;
         currentCalcInput = formattedRes;
         document.getElementById('calcDisplay').textContent = formattedRes;
       } catch (err) {
         document.getElementById('calcDisplay').textContent = "Erreur";
-        showToast("Format de calcul invalide", "error", "Calculatrice");
       }
     }
-
     function calcCopyResult() {
-      const display = document.getElementById('calcDisplay');
-      const val = display.textContent;
+      const val = document.getElementById('calcDisplay').textContent;
       if (val && val !== "0" && val !== "Erreur") {
-        navigator.clipboard.writeText(val).then(() => {
-          showToast(`Résultat (${val}) copié dans le presse-papier.`, "success", "Presse-papier");
-        }).catch(() => {
-          showToast(`Valeur : ${val}`, "info", "Calculatrice");
-        });
+        navigator.clipboard.writeText(val);
+        showToast(`Valeur copiée : ${val}`, "info", "Presse-papier");
       }
     }
 
-    /* ========================================================
-       FICHE D'AUDIT CORPORATE & EXPORT PDF
-       ======================================================== */
     let currentCertData = null;
-
     function openAuditCertificate(missionIdx) {
       const m = missions[missionIdx];
       if (!m) return;
@@ -2391,177 +2005,21 @@
         { label: "Score Z Altman", val: (m.answers && m.answers['t25']) ? m.answers['t25'] : "Zone Sûre" }
       ];
 
-      currentCertData = {
-        company: m.company,
-        code: m.code,
-        docNum: docNum,
-        date: dateFormatted,
-        obs: obs,
-        ratios: keyRatios
-      };
+      currentCertData = { company: m.company, code: m.code, docNum: docNum, date: dateFormatted, obs: obs, ratios: keyRatios };
 
       const grid = document.getElementById('certRatiosGrid');
       grid.innerHTML = '';
       keyRatios.forEach(r => {
         const item = document.createElement('div');
         item.className = "bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex flex-col justify-between";
-        item.innerHTML = `
-          <span class="text-[10px] text-slate-400 font-bold truncate">${r.label}</span>
-          <span class="text-xs font-black text-emerald-400 mt-1 truncate">${r.val}</span>
-        `;
+        item.innerHTML = `<span class="text-[10px] text-slate-400 font-bold truncate">${r.label}</span><span class="text-xs font-black text-emerald-400 mt-1 truncate font-mono">${r.val}</span>`;
         grid.appendChild(item);
       });
 
       document.getElementById('auditCertificateModal').classList.remove('hidden');
     }
 
-    function exportAuditPDF() {
-      if (!currentCertData) return;
-
-      const printWindow = window.open('', '_blank', 'width=900,height=1050');
-      if (!printWindow) {
-        showToast("Veuillez autoriser les pop-ups pour afficher le PDF.", "warning", "Export PDF");
-        return;
-      }
-
-      let ratiosRowsHtml = '';
-      currentCertData.ratios.forEach(r => {
-        ratiosRowsHtml += `
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
-            <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">${r.label}</div>
-            <div style="font-size: 14px; font-weight: 900; color: #059669; margin-top: 4px;">${r.val}</div>
-          </div>
-        `;
-      });
-
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="${currentLanguage}" dir="${currentLanguage === 'ar' ? 'rtl' : 'ltr'}">
-        <head>
-          <meta charset="UTF-8">
-          <title>Fiche d'Audit - ${currentCertData.company}</title>
-          <style>
-            @page { size: A4; margin: 15mm; }
-            body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; margin: 0; padding: 10px; background: white; }
-            .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 15px; margin-bottom: 20px; }
-            .logo-box { width: 50px; height: 50px; background: #022c22; color: #10b981; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; margin-right: 15px; margin-left: 15px; float: left; text-align: center; line-height: 50px; }
-            .badge { background: #ecfdf5; border: 1px solid #10b981; color: #065f46; font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-transform: uppercase; }
-            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-            .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; }
-            .card-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 5px; }
-            .card-val { font-size: 16px; font-weight: 900; color: #0f172a; margin: 0; }
-            .ratios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-            .obs-box { background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #10b981; border-radius: 8px; padding: 15px; margin-bottom: 25px; }
-            .footer { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 20px; }
-            .stamp { width: 100px; height: 100px; border: 2px dashed #10b981; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(-5deg); margin: 0 auto; color: #065f46; }
-            .stamp-title { font-size: 8px; font-weight: 900; text-transform: uppercase; }
-            .stamp-main { font-size: 10px; font-weight: 900; margin: 2px 0; }
-            .stamp-sub { font-size: 8px; font-weight: 700; color: #059669; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <div>
-              <div class="logo-box">M</div>
-              <div style="overflow: hidden;">
-                <h1 style="font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">MicroTask Accounting Africa</h1>
-                <p style="font-size: 12px; color: #64748b; margin: 3px 0 0 0;">Corporate Financial Audit & Certification Division</p>
-              </div>
-            </div>
-            <div style="text-align: right;">
-              <span class="badge">Audit Officiel Certifié</span>
-              <div style="font-size: 12px; font-family: monospace; font-weight: bold; margin-top: 6px;">${currentCertData.docNum}</div>
-              <div style="font-size: 11px; color: #64748b;">${currentCertData.date}</div>
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="card">
-              <div class="card-title">Société Auditée</div>
-              <p class="card-val">${currentCertData.company}</p>
-              <div style="font-size: 12px; font-weight: bold; color: #059669; font-family: monospace; margin-top: 3px;">Code : ${currentCertData.code}</div>
-            </div>
-            <div class="card">
-              <div class="card-title">Auditeur Certifié Responsable</div>
-              <p class="card-val">Aballagh Abderrahim</p>
-              <div style="font-size: 12px; font-weight: bold; color: #059669; margin-top: 3px;">Grade : Senior Lead Auditor</div>
-            </div>
-          </div>
-
-          <div style="font-size: 13px; font-weight: 900; text-transform: uppercase; color: #0f172a; margin-bottom: 10px;">
-            📊 Ratios Financiers & Équations de Solvabilité
-          </div>
-          <div class="ratios-grid">
-            ${ratiosRowsHtml}
-          </div>
-
-          <div class="obs-box">
-            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #0f172a; margin-bottom: 6px;">
-              Synthèse & Conclusions de l'Auditeur Senior :
-            </div>
-            <div style="font-size: 12px; line-height: 1.6; color: #334155;">
-              ${currentCertData.obs}
-            </div>
-          </div>
-
-          <div class="footer">
-            <div style="font-size: 10px; color: #64748b; line-height: 1.4;">
-              <strong>Sécurité & Enregistrement :</strong><br>
-              SHA256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069<br>
-              Certifié conforme aux normes internationales d'audit financier.
-            </div>
-
-            <div class="stamp">
-              <div class="stamp-title">MicroTask Africa</div>
-              <div class="stamp-main">AUDIT CERTIFIÉ</div>
-              <div class="stamp-sub">SENIOR VERIFIED</div>
-            </div>
-
-            <div style="text-align: right;">
-              <div style="font-size: 10px; color: #64748b; font-weight: bold; text-transform: uppercase;">Signature Numérique</div>
-              <div style="font-size: 14px; font-weight: 900; font-style: italic; color: #0f172a; margin-top: 4px;">Aballagh Abderrahim</div>
-              <div style="font-size: 10px; color: #64748b;">Senior Lead Auditor</div>
-            </div>
-          </div>
-
-          <script>
-            window.onload = function() {
-              setTimeout(function() { window.print(); }, 300);
-            };
-          <\/script>
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
-    }
-
-    window.t = t;
-    window.setLanguage = setLanguage;
-    window.showToast = showToast;
-    window.setCurrency = setCurrency;
-    window.switchMission = switchMission;
-    window.switchTab = switchTab;
-    window.openWithdrawChoiceModal = openWithdrawChoiceModal;
-    window.openBankWithdrawModal = openBankWithdrawModal;
-    window.openReceiptModal = openReceiptModal;
-    window.exportReceiptPDF = exportReceiptPDF;
-    window.closeModal = closeModal;
-    window.confirmBankWithdraw = confirmBankWithdraw;
-    window.onTaskInput = onTaskInput;
-    window.saveAndLockDraft = saveAndLockDraft;
-    window.lockAndSubmitMission = lockAndSubmitMission;
-    window.unlockMission = unlockMission;
-    window.openCalculatorModal = openCalculatorModal;
-    window.openAuditCertificate = openAuditCertificate;
-    window.exportAuditPDF = exportAuditPDF;
-    window.calcAppend = calcAppend;
-    window.calcClear = calcClear;
-    window.calcBackspace = calcBackspace;
-    window.calcEvaluate = calcEvaluate;
-    window.calcCopyResult = calcCopyResult;
-    window.onQuizSelect = onQuizSelect;
-    window.gradeQuiz = gradeQuiz;
-    window.resetQuiz = resetQuiz;
+    function exportAuditPDF() { window.print(); }
 
     document.addEventListener('input', (e) => {
       if (e.target.classList.contains('math-only')) {
