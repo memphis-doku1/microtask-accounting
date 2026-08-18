@@ -4,7 +4,7 @@
   <link rel="manifest" href="./manifest.json">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MicroTask Accounting - Corporate Africa</title>
+  <title>MicroTask Accounting - Corporate Europe</title>
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -108,9 +108,9 @@
           </div>
           <div>
             <h1 class="text-sm sm:text-xl font-black tracking-wide text-white dark:text-white leading-tight">
-              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Africa</span>
+              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Europe</span>
             </h1>
-            <p id="t_headerSubtitle" class="text-xs text-slate-300 font-semibold">Audit Financier Africain</p>
+            <p id="t_headerSubtitle" class="text-xs text-slate-300 font-semibold">Audit Financier Européen</p>
           </div>
         </div>
 
@@ -174,7 +174,7 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">921,55 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 032,77 $</span>
           </div>
           <div class="border-l rtl:border-l-0 rtl:border-r border-slate-800 pl-3 rtl:pl-0 rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
@@ -207,7 +207,7 @@
           <div class="flex justify-between items-center">
             <h2 class="text-xs sm:text-base font-black text-white flex items-center gap-2">
               <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-              <span id="t_missionsTitle">Missions d'Audit (M1 à M10 - Afrique)</span>
+              <span id="t_missionsTitle">Missions d'Audit (M1 à M10 - Europe)</span>
             </h2>
             <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full">0/10 Envoyées</span>
           </div>
@@ -305,7 +305,7 @@
           <div class="space-y-3">
             <div>
               <div class="flex justify-between text-xs font-bold mb-1">
-                <span class="text-slate-300">Missions Classiques (M1 à M10)</span>
+                <span class="text-slate-300">Missions Classiques (M1 à M10 - Europe)</span>
                 <span id="evalClassicStats" class="text-emerald-400 font-mono">0 / 10</span>
               </div>
               <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
@@ -382,7 +382,7 @@
 
   </main>
 
-  <!-- MODALE : CERTIFICAT D'AUDIT OFFICIEL (STYLE MODERNE & SIGNATURE APP) -->
+  <!-- MODALE : CERTIFICAT D'AUDIT OFFICIEL -->
   <div id="certificateModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-emerald-500/30 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto max-h-[92vh] flex flex-col">
       <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center shrink-0">
@@ -390,7 +390,7 @@
           <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-sm">M</div>
           <div>
             <h2 class="text-xs sm:text-sm font-black text-white uppercase tracking-wider">Certificat d'Audit Officiel & Fiche Détaillée</h2>
-            <p class="text-[10px] text-emerald-400 font-bold">MicroTask Africa - Corporate Governance & Compliance</p>
+            <p class="text-[10px] text-emerald-400 font-bold">MicroTask Europe - Corporate Governance & Compliance</p>
           </div>
         </div>
         <div class="flex items-center gap-2 print-hidden">
@@ -402,7 +402,7 @@
         </div>
       </div>
 
-      <!-- Corps du PDF / Certificat (Design Moderne) -->
+      <!-- Corps du PDF / Certificat -->
       <div class="p-6 sm:p-8 space-y-6 text-slate-100 bg-slate-900 overflow-y-auto" id="certificateContent">
         
         <!-- En-tête mission -->
@@ -412,13 +412,13 @@
             <div>
               <span id="certSectionBadge" class="text-[10px] font-black uppercase text-teal-400 tracking-wider bg-teal-500/10 px-2.5 py-1 rounded-full border border-teal-500/20">Mission Classique</span>
               <h3 id="certCompanyName" class="text-lg sm:text-xl font-black text-white mt-1 leading-tight">Entreprise Auditée</h3>
-              <p id="certCompanyCode" class="text-xs text-slate-400 font-mono font-bold mt-0.5">REF: MTA-AUDIT</p>
+              <p id="certCompanyCode" class="text-xs text-slate-400 font-mono font-bold mt-0.5">REF: MTE-AUDIT</p>
             </div>
           </div>
           <div class="text-right rtl:text-left bg-slate-950/80 p-3 rounded-xl border border-slate-800 w-full sm:w-auto">
             <span class="text-[9px] font-black uppercase text-amber-400 block tracking-wider">STATUT DE CERTIFICATION</span>
             <span class="text-xs font-black text-emerald-400 block mt-0.5">✓ CERTIFIÉ CONFORME</span>
-            <span id="certDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 16/08/2026</span>
+            <span id="certDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 19/08/2026</span>
           </div>
         </div>
 
@@ -444,9 +444,7 @@
             <h4 class="text-xs font-black uppercase tracking-wider text-white">Détail des Indicateurs & Formules Saisies</h4>
             <span class="text-[10px] text-emerald-400 font-bold uppercase">Données enregistrées</span>
           </div>
-          <div id="certAnswersList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <!-- Injecté dynamiquement -->
-          </div>
+          <div id="certAnswersList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"></div>
         </div>
 
         <!-- Signature Numérique Officielle de l'App -->
@@ -456,12 +454,12 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
               <p class="text-xs font-black text-white uppercase tracking-wider">Validation Numérique Sécurisée</p>
             </div>
-            <p class="text-[11px] text-slate-300 font-medium">Ce document fait office de rapport certifié d'audit financier sur la plateforme MicroTask Africa.</p>
+            <p class="text-[11px] text-slate-300 font-medium">Ce document fait office de rapport certifié d'audit financier sur la plateforme MicroTask Europe.</p>
           </div>
           <div class="text-center bg-slate-950 p-3 rounded-xl border border-slate-800 shrink-0 w-full sm:w-auto">
             <p class="text-[10px] uppercase font-bold text-slate-400">Signature officielle</p>
-            <p class="text-sm font-black bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent font-serif italic mt-0.5">MicroTask Africa AI System</p>
-            <p class="text-[9px] text-emerald-400/80 font-mono mt-0.5">ID: SIGN-MTA-2026-SECURE</p>
+            <p class="text-sm font-black bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent font-serif italic mt-0.5">MicroTask Europe AI System</p>
+            <p class="text-[9px] text-emerald-400/80 font-mono mt-0.5">ID: SIGN-MTE-2026-SECURE</p>
           </div>
         </div>
 
@@ -528,7 +526,7 @@
       <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-          <span class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Africa</span>
+          <span class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Europe</span>
         </div>
         <div class="flex items-center gap-2 print-hidden">
           <button type="button" onclick="window.print()" class="text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-lg border border-emerald-500/30 font-bold hover:bg-emerald-500/30 transition">Imprimer PDF</button>
@@ -540,20 +538,20 @@
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 bg-slate-950 rounded-xl border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-xl shadow-inner shrink-0">M</div>
             <div>
-              <h2 class="text-base sm:text-lg font-black text-white leading-tight">MicroTask Africa Settlement Ltd</h2>
+              <h2 class="text-base sm:text-lg font-black text-white leading-tight">MicroTask Europe Settlement Ltd</h2>
               <p class="text-xs text-slate-400">Treasury & International Settlement Department</p>
             </div>
           </div>
           <div class="text-right rtl:text-left">
             <span class="text-[10px] font-black uppercase text-amber-400 block tracking-wider">RÉFÉRENCE TRANSACTION</span>
-            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTA-20260808-8206</span>
-            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 08/08/2026</span>
+            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTE-20260819-8206</span>
+            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 19/08/2026</span>
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Montant du Virement</span>
-            <div id="recAmountUSD" class="text-2xl font-black text-emerald-400">100,00 $</div>
+            <div id="recAmountUSD" class="text-2xl font-black text-emerald-400">0,00 $</div>
           </div>
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Statut de Traitement</span>
@@ -621,7 +619,7 @@
       <form onsubmit="confirmBankWithdraw(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
           <label class="text-slate-300 font-bold block mb-1">Montant à retirer ($ USD)</label>
-          <input type="number" inputmode="decimal" id="bankAmount" max="1000" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
+          <input type="number" inputmode="decimal" id="bankAmount" max="1032.77" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
         </div>
         <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl transition">Confirmer le Retrait</button>
       </form>
@@ -633,7 +631,7 @@
 
     const translations = {
       fr: {
-        headerSubtitle: "Audit Financier Africain",
+        headerSubtitle: "Audit Financier Européen",
         navAudit: "Audit",
         navSpecial: "Spéciales",
         navAdvanced: "Avancées (Cyber & IA)",
@@ -642,7 +640,7 @@
         labelValide: "Validé",
         labelAttente: "En Attente",
         btnWithdrawTop: "Retirer",
-        missionsTitle: "Missions d'Audit (M1 à M10 - Afrique)",
+        missionsTitle: "Missions d'Audit (M1 à M10 - Europe)",
         specialTitle: "Missions Spéciales (ESG, Fintech & Logistique - 40$ à 100$)",
         advancedTitle: "Missions Avancées (Cybersécurité, CX, M&A & IP - 50$ à 120$)",
         sentCount: "{done}/10 Envoyées",
@@ -653,14 +651,14 @@
         analyticsTitle: "Structure Financière & Visualisation",
         potentialGain: "Gain potentiel",
         submissionDeadline: "Échéance de soumission",
-        deadlineDateClassic: "16/08/2026 à 18:00",
-        deadlineDateSpecial: "17/08/2026 à 15:00",
-        deadlineDateAdvanced: "17/08/2026 à 20:00",
+        deadlineDateClassic: "19/08/2026 à 23:00",
+        deadlineDateSpecial: "19/08/2026 à 23:00",
+        deadlineDateAdvanced: "19/08/2026 à 23:00",
         delayMax: "DÉLAI MAXIMUM : ",
         conformityTitle: "Indicateur de Conformité Spécifique",
-        conformCount: "{count}/10 Conformes ({pct}%)",
-        tasksTitle: "10 Formules & Indicateurs à Remplir",
-        completedTasks: "{count}/10 complétés",
+        conformCount: "{count}/26 Conformes ({pct}%)",
+        tasksTitle: "26 Formules & Indicateurs à Remplir",
+        completedTasks: "{count}/26 complétés",
         conformBadge: "Conforme",
         toVerifyBadge: "À vérifier",
         authorSummary: "Synthèse de l'auditeur",
@@ -684,7 +682,7 @@
         popupDesc: "Des audits de Cybersécurité, Expérience Client, M&A et Propriété Intellectuelle avec des gains de <strong class='text-indigo-400'>50$ à 120$</strong> sont disponibles."
       },
       en: {
-        headerSubtitle: "African Financial Audit Platform",
+        headerSubtitle: "European Financial Audit Platform",
         navAudit: "Audit",
         navSpecial: "Special",
         navAdvanced: "Advanced (Cyber & AI)",
@@ -693,7 +691,7 @@
         labelValide: "Validated",
         labelAttente: "Pending",
         btnWithdrawTop: "Withdraw",
-        missionsTitle: "Audit Missions (M1 to M10 - Africa)",
+        missionsTitle: "Audit Missions (M1 to M10 - Europe)",
         specialTitle: "Special Missions (ESG, Fintech & Logistics - $40 to $100)",
         advancedTitle: "Advanced Missions (Cybersecurity, CX, M&A & IP - $50 to $120)",
         sentCount: "{done}/10 Submitted",
@@ -704,14 +702,14 @@
         analyticsTitle: "Financial Structure & Breakdown",
         potentialGain: "Potential reward",
         submissionDeadline: "Submission deadline",
-        deadlineDateClassic: "08/16/2026 at 18:00",
-        deadlineDateSpecial: "08/17/2026 at 15:00",
-        deadlineDateAdvanced: "08/17/2026 at 20:00",
+        deadlineDateClassic: "08/19/2026 at 23:00",
+        deadlineDateSpecial: "08/19/2026 at 23:00",
+        deadlineDateAdvanced: "08/19/2026 at 23:00",
         delayMax: "TIME REMAINING: ",
         conformityTitle: "Specific Compliance Tracker",
-        conformCount: "{count}/10 Compliant ({pct}%)",
-        tasksTitle: "10 Formulas & Metrics to Complete",
-        completedTasks: "{count}/10 completed",
+        conformCount: "{count}/26 Compliant ({pct}%)",
+        tasksTitle: "26 Formulas & Metrics to Complete",
+        completedTasks: "{count}/26 completed",
         conformBadge: "Compliant",
         toVerifyBadge: "Check values",
         authorSummary: "Auditor's summary",
@@ -735,55 +733,55 @@
         popupDesc: "Cybersecurity, CX, M&A, and IP audits with rewards from <strong class='text-indigo-400'>$50 to $120</strong> are now open."
       },
       ar: {
-        headerSubtitle: "منصة التدقيق المالي الإفريقي",
+        headerSubtitle: "منصة التدقيق المالي الأوروبي",
         navAudit: "التدقيق",
         navSpecial: "مهام خاصة",
-        navAdvanced: "مهام متقدمة (أمن سيبراني وذكاء اصطناعي)",
+        navAdvanced: "مهام متقدمة (الأمن السيبراني والذكاء الاصطناعي)",
         navWithdrawals: "السحوبات",
         navEvaluation: "التقييم",
-        labelValide: "صالح",
+        labelValide: "مؤكد",
         labelAttente: "قيد الانتظار",
         btnWithdrawTop: "سحب",
-        missionsTitle: "مهام التدقيق (M1 إلى M10 - إفريقيا)",
+        missionsTitle: "مهام التدقيق (M1 إلى M10 - أوروبا)",
         specialTitle: "مهام خاصة (ESG، التكنولوجيا المالية واللوجستيات - 40$ إلى 100$)",
-        advancedTitle: "مهام متقدمة (أمن سيبراني، تجربة عملاء، اندماج وملكية فكرية - 50$ إلى 120$)",
+        advancedTitle: "مهام متقدمة (الأمن السيبراني، تجربة العميل، الاندماج والملكية الفكرية - 50$ إلى 120$)",
         sentCount: "{done}/10 مرسلة",
         specialSentCount: "{done}/5 مرسلة",
         advancedSentCount: "{done}/4 مرسلة",
         globalProgressLabel: "التقدم الإجمالي لعمليات التدقيق",
-        financialsTitle: "القوائم المالية والمؤشرات الرئيسية",
+        financialsTitle: "البيانات المالية والمؤشرات الرئيسية",
         analyticsTitle: "الهيكل المالي والتحليل",
         potentialGain: "المكافأة المحتملة",
         submissionDeadline: "الموعد النهائي للتقديم",
-        deadlineDateClassic: "16/08/2026 على الساعة 18:00",
-        deadlineDateSpecial: "17/08/2026 على الساعة 15:00",
-        deadlineDateAdvanced: "17/08/2026 على الساعة 20:00",
+        deadlineDateClassic: "19/08/2026 في تمام 23:00",
+        deadlineDateSpecial: "19/08/2026 في تمام 23:00",
+        deadlineDateAdvanced: "19/08/2026 في تمام 23:00",
         delayMax: "الوقت المتبقي: ",
-        conformityTitle: "مؤشر الامتثال المحدد",
-        conformCount: "{count}/10 متوافق ({pct}%)",
-        tasksTitle: "10 معادلات ومؤشر لإكمالها",
-        completedTasks: "{count}/10 مكتملة",
-        conformBadge: "متوافق",
+        conformityTitle: "مؤشر المطابقة المحدد",
+        conformCount: "{count}/26 مطابق ({pct}%)",
+        tasksTitle: "26 معادلة ومؤشراً للإدخال",
+        completedTasks: "{count}/26 مكتمل",
+        conformBadge: "مطابق",
         toVerifyBadge: "قيد التحقق",
         authorSummary: "ملخص المدقق",
         btnSaveLock: "حفظ وقفل المسودة",
-        btnLockSubmit: "اعتماد وإرسال التقرير (+{amount})",
-        btnUnlock: "تعديل التقرير (فتح القفل)",
+        btnLockSubmit: "تأكيد وإرسال التقرير (+{amount})",
+        btnUnlock: "تعديل التقرير (إلغاء القفل)",
         reportLockedTitle: "التقرير مقفل (تم حفظ المسودة)",
-        reportLockedDesc: "الحقول مغلقة. انقر أدناه لفتح القفل وإجراء تعديلات.",
-        reportCompletedTitle: "تم إرسال التقرير وقفله نهائياً",
+        reportLockedDesc: "الحقول مغلقة. انقر أدناه لإجراء التعديلات المطلوبة.",
+        reportCompletedTitle: "تم تسليم التقرير وقفله نهائياً",
         reportCompletedDesc: "تم إرسال هذه المهمة بنجاح (+{amount} أضيفت إلى الرصيد المعلق).",
-        btnGenCertificate: "إنشاء ورقة التدقيق المعتمدة وتصدير PDF",
+        btnGenCertificate: "إصدار شهادة التدقيق وتصدير PDF",
         txTitle: "المعاملات والسحوبات",
-        txSubtitle: "انقر فوق أي معاملة لعرض إشعار التحويل المصرفي الرسمي",
-        btnNewWithdraw: "طلب سحب",
-        txPendingLabel: "المبلغ المعلق",
+        txSubtitle: "انقر على أي معاملة لعرض إشعار التحويل البنكي الرسمي",
+        btnNewWithdraw: "سحب جديد",
+        txPendingLabel: "الرصيد المعلق",
         txBankLabel: "البنك المستلم",
         txBeneficiaryLabel: "المستفيد",
-        txJournalTitle: "سجل العمليات المصرفية",
-        txNoticeBadge: "الإشعارات المعتمدة متاحة",
-        popupTitle: "قسم المهام المتقدمة الجديد متاح!",
-        popupDesc: "تدقيقات الأمن السيبراني، تجربة العملاء، عمليات الدمج والملكية الفكرية بمكافآت تصل إلى <strong class='text-indigo-400'>120$</strong> أصبحت متاحة الآن."
+        txJournalTitle: "سجل العمليات البنكية",
+        txNoticeBadge: "الإشعارات المعتمدة متوفرة",
+        popupTitle: "قسم جديد للمهام المتقدمة متاح الآن!",
+        popupDesc: "تدقيقات تشمل الأمن السيبراني، تجربة العميل، والملكية الفكرية بمكافآت من <strong class='text-indigo-400'>50$ إلى 120$</strong> جاهزة الآن."
       }
     };
 
@@ -806,10 +804,12 @@
 
       ['FR', 'EN', 'AR'].forEach(l => {
         const btn = document.getElementById(`langBtn${l}`);
-        if (l.toLowerCase() === lang) {
-          btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
-        } else {
-          btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+        if (btn) {
+          if (l.toLowerCase() === lang) {
+            btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
+          } else {
+            btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+          }
         }
       });
 
@@ -867,14 +867,15 @@
       }
     }
 
-    const FIXED_SOLDE_VALIDE_USD = 921.55;
+    const FIXED_SOLDE_VALIDE_USD = 1032.77;
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
     let activeAdvancedIndex = 0;
 
-    const DEADLINE_CLASSIC = new Date('2026-08-16T18:00:00');
-    const DEADLINE_SPECIAL = new Date('2026-08-17T15:00:00');
-    const DEADLINE_ADVANCED = new Date('2026-08-17T20:00:00');
+    // DATE DU COMPTE À REBOURS MODIFIÉE : 19/08/2026 À 23:00:00
+    const DEADLINE_CLASSIC = new Date('2026-08-19T23:00:00');
+    const DEADLINE_SPECIAL = new Date('2026-08-19T23:00:00');
+    const DEADLINE_ADVANCED = new Date('2026-08-19T23:00:00');
 
     let currentCurrency = 'USD';
     const EXCHANGE_RATES = {
@@ -894,10 +895,12 @@
       currentCurrency = curr;
       ['USD', 'MAD', 'EUR'].forEach(c => {
         const btn = document.getElementById(`currBtn${c}`);
-        if (c === curr) {
-          btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
-        } else {
-          btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+        if (btn) {
+          if (c === curr) {
+            btn.className = "px-2 py-1 rounded-lg bg-emerald-500 text-slate-950 transition font-black";
+          } else {
+            btn.className = "px-2 py-1 rounded-lg text-slate-400 hover:text-white transition font-bold";
+          }
         }
       });
       updateHeader();
@@ -956,28 +959,13 @@
       withdrawals = [];
     }
 
-    const forcedWithdrawal = {
-      id: 1723118408206,
-      date: "08/08/2026 à 09:30",
-      beneficiaire: "Aballagh Abderrahim",
-      montant: 100,
-      moyen: "Compte Bancaire",
-      details: "Attijariwafa Bank - RIB: ****8206",
-      statut: "En cours de traitement"
-    };
-
-    if (!withdrawals.some(w => w.id === 1723118408206)) {
-      withdrawals.unshift(forcedWithdrawal);
-      localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
-    }
-
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
       { id: 't2', label: "02. Taux de Marge Brute (%)", formula: "(Marge Brute / CA) × 100" },
       { id: 't3', label: "03. EBITDA ($)", formula: "EBIT + Amortissements" },
       { id: 't4', label: "04. Résultat Exploitation (EBIT) ($)", formula: "Marge Brute - Dépenses Exploitation" },
       { id: 't5', label: "05. Marge Opérationnelle (%)", formula: "(EBIT / CA) × 100" },
-      { id: 't6', label: "06. Résultat Avant Impôts (EBT) ($)", formula: "EBIT - Intérêts / Charges Financières" },
+      { id: 't6', label: "06. Résultat Avant Impôts (EBT) ($)", formula: "EBIT - Charges Financières" },
       { id: 't7', label: "07. Résultat Net ($)", formula: "EBT - Impôts sur Sociétés" },
       { id: 't8', label: "08. Marge Nette (%)", formula: "(Résultat Net / CA) × 100" },
       { id: 't9', label: "09. Fonds de Roulement (FRNG) ($)", formula: "Actifs Circulants - Passifs Circulants" },
@@ -1028,32 +1016,33 @@
       { id: 'at10', label: "10. Note de Synthèse Stratégique", formula: "Conclusions et recommandations de haut niveau" }
     ];
 
+    // 10 GRANDES SOCIÉTÉS EUROPÉENNES (RÉMUNÉRATION 50$ - 100$)
     const defaultMissions = [
-      { id: "M1", company: "Royal Air Maroc", code: "BVC: RAM", reward: 165, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "1 800 M$", "Coût des Ventes (COGS)": "1 100 M$", "Dépenses d'Exploitation": "400 M$", "Dotations Amortissements": "150 M$", "Charges Financières / Intérêts": "80 M$", "Impôts sur Sociétés": "20 M$", "Actifs Circulants": "950 M$", "Stocks": "120 M$", "Créances Clients": "350 M$", "Trésorerie & Équivalents": "450 M$", "Passifs Circulants": "1 100 M$", "Dettes Fournisseurs": "400 M$", "Dette Totale": "1 200 M$", "Capitaux Propres": "800 M$", "Total Actifs": "3 100 M$", "Flux de Trésorerie d'Exploitation": "250 M$", "CAPEX": "180 M$" } },
-      { id: "M2", company: "Naspers", code: "JSE: NPN", reward: 210, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "6 500 M$", "Coût des Ventes (COGS)": "3 200 M$", "Dépenses d'Exploitation": "2 100 M$", "Dotations Amortissements": "400 M$", "Charges Financières / Intérêts": "150 M$", "Impôts sur Sociétés": "250 M$", "Actifs Circulants": "8 500 M$", "Stocks": "100 M$", "Créances Clients": "1 200 M$", "Trésorerie & Équivalents": "6 800 M$", "Passifs Circulants": "3 200 M$", "Dettes Fournisseurs": "800 M$", "Dette Totale": "4 500 M$", "Capitaux Propres": "18 000 M$", "Total Actifs": "26 000 M$", "Flux de Trésorerie d'Exploitation": "1 100 M$", "CAPEX": "300 M$" } },
-      { id: "M3", company: "Sonatel", code: "BRVM: SNTS", reward: 175, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 400 M$", "Coût des Ventes (COGS)": "900 M$", "Dépenses d'Exploitation": "600 M$", "Dotations Amortissements": "300 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "180 M$", "Actifs Circulants": "1 100 M$", "Stocks": "80 M$", "Créances Clients": "450 M$", "Trésorerie & Équivalents": "550 M$", "Passifs Circulants": "1 300 M$", "Dettes Fournisseurs": "500 M$", "Dette Totale": "850 M$", "Capitaux Propres": "1 400 M$", "Total Actifs": "3 800 M$", "Flux de Trésorerie d'Exploitation": "850 M$", "CAPEX": "350 M$" } },
-      { id: "M4", company: "Ecobank Transnational Inc.", code: "BRVM: ETIT", reward: 190, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 600 M$", "Coût des Ventes (COGS)": "800 M$", "Dépenses d'Exploitation": "950 M$", "Dotations Amortissements": "120 M$", "Charges Financières / Intérêts": "180 M$", "Impôts sur Sociétés": "160 M$", "Actifs Circulants": "15 000 M$", "Stocks": "0 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "13 500 M$", "Dettes Fournisseurs": "400 M$", "Dette Totale": "2 100 M$", "Capitaux Propres": "2 200 M$", "Total Actifs": "27 000 M$", "Flux de Trésorerie d'Exploitation": "750 M$", "CAPEX": "150 M$" } },
-      { id: "M5", company: "Banque Centrale Populaire - BCP", code: "CSE: BCP", reward: 185, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "2 100 M$", "Coût des Ventes (COGS)": "650 M$", "Dépenses d'Exploitation": "750 M$", "Dotations Amortissements": "110 M$", "Charges Financières / Intérêts": "140 M$", "Impôts sur Sociétés": "130 M$", "Actifs Circulants": "18 500 M$", "Stocks": "50 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "5 500 M$", "Passifs Circulants": "16 000 M$", "Dettes Fournisseurs": "600 M$", "Dette Totale": "1 800 M$", "Capitaux Propres": "2 500 M$", "Total Actifs": "32 000 M$", "Flux de Trésorerie d'Exploitation": "680 M$", "CAPEX": "120 M$" } },
-      { id: "M6", company: "Sasol", code: "JSE: SOL", reward: 220, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "14 500 M$", "Coût des Ventes (COGS)": "8 200 M$", "Dépenses d'Exploitation": "2 800 M$", "Dotations Amortissements": "1 500 M$", "Charges Financières / Intérêts": "450 M$", "Impôts sur Sociétés": "600 M$", "Actifs Circulants": "5 600 M$", "Stocks": "1 800 M$", "Créances Clients": "2 100 M$", "Trésorerie & Équivalents": "1 500 M$", "Passifs Circulants": "4 200 M$", "Dettes Fournisseurs": "1 900 M$", "Dette Totale": "7 500 M$", "Capitaux Propres": "9 800 M$", "Total Actifs": "24 500 M$", "Flux de Trésorerie d'Exploitation": "2 900 M$", "CAPEX": "1 600 M$" } },
-      { id: "M7", company: "KCB Group", code: "NSE: KCB", reward: 170, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "1 350 M$", "Coût des Ventes (COGS)": "420 M$", "Dépenses d'Exploitation": "450 M$", "Dotations Amortissements": "75 M$", "Charges Financières / Intérêts": "90 M$", "Impôts sur Sociétés": "100 M$", "Actifs Circulants": "6 500 M$", "Stocks": "20 M$", "Créances Clients": "4 100 M$", "Trésorerie & Équivalents": "1 800 M$", "Passifs Circulants": "5 800 M$", "Dettes Fournisseurs": "300 M$", "Dette Totale": "850 M$", "Capitaux Propres": "1 200 M$", "Total Actifs": "9 500 M$", "Flux de Trésorerie d'Exploitation": "380 M$", "CAPEX": "90 M$" } },
-      { id: "M8", company: "LafargeHolcim", code: "CSE: LHM", reward: 160, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "850 M$", "Coût des Ventes (COGS)": "380 M$", "Dépenses d'Exploitation": "150 M$", "Dotations Amortissements": "90 M$", "Charges Financières / Intérêts": "35 M$", "Impôts sur Sociétés": "75 M$", "Actifs Circulants": "420 M$", "Stocks": "120 M$", "Créances Clients": "180 M$", "Trésorerie & Équivalents": "110 M$", "Passifs Circulants": "550 M$", "Dettes Fournisseurs": "220 M$", "Dette Totale": "480 M$", "Capitaux Propres": "1 100 M$", "Total Actifs": "2 300 M$", "Flux de Trésorerie d'Exploitation": "240 M$", "CAPEX": "80 M$" } },
-      { id: "M9", company: "Orascom Construction", code: "EGX: ORAS", reward: 195, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "3 800 M$", "Coût des Ventes (COGS)": "3 100 M$", "Dépenses d'Exploitation": "300 M$", "Dotations Amortissements": "80 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "65 M$", "Actifs Circulants": "2 900 M$", "Stocks": "450 M$", "Créances Clients": "1 400 M$", "Trésorerie & Équivalents": "850 M$", "Passifs Circulants": "2 500 M$", "Dettes Fournisseurs": "1 600 M$", "Dette Totale": "750 M$", "Capitaux Propres": "800 M$", "Total Actifs": "4 200 M$", "Flux de Trésorerie d'Exploitation": "180 M$", "CAPEX": "60 M$" } },
-      { id: "M10", company: "Société Générale Côte d'Ivoire - SGCI", code: "BRVM: SIVC", reward: 155, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "450 M$", "Coût des Ventes (COGS)": "120 M$", "Dépenses d'Exploitation": "160 M$", "Dotations Amortissements": "25 M$", "Charges Financières / Intérêts": "30 M$", "Impôts sur Sociétés": "40 M$", "Actifs Circulants": "3 200 M$", "Stocks": "10 M$", "Créances Clients": "2 100 M$", "Trésorerie & Équivalents": "950 M$", "Passifs Circulants": "2 800 M$", "Dettes Fournisseurs": "150 M$", "Dette Totale": "350 M$", "Capitaux Propres": "450 M$", "Total Actifs": "4 100 M$", "Flux de Trésorerie d'Exploitation": "130 M$", "CAPEX": "30 M$" } }
+      { id: "M1", company: "TotalEnergies SE", code: "EURONEXT: TTE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "237 000 M$", "Coût des Ventes (COGS)": "142 000 M$", "Dépenses d'Exploitation": "48 000 M$", "Dotations Amortissements": "14 000 M$", "Charges Financières / Intérêts": "2 100 M$", "Impôts sur Sociétés": "11 500 M$", "Actifs Circulants": "98 000 M$", "Stocks": "24 000 M$", "Créances Clients": "31 000 M$", "Trésorerie & Équivalents": "33 000 M$", "Passifs Circulants": "79 000 M$", "Dettes Fournisseurs": "34 000 M$", "Dette Totale": "46 000 M$", "Capitaux Propres": "118 000 M$", "Total Actifs": "285 000 M$", "Flux de Trésorerie d'Exploitation": "38 000 M$", "CAPEX": "16 000 M$" } },
+      { id: "M2", company: "ASML Holding NV", code: "AMS: ASML", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "27 500 M$", "Coût des Ventes (COGS)": "13 400 M$", "Dépenses d'Exploitation": "4 800 M$", "Dotations Amortissements": "950 M$", "Charges Financières / Intérêts": "120 M$", "Impôts sur Sociétés": "1 450 M$", "Actifs Circulants": "22 500 M$", "Stocks": "8 900 M$", "Créances Clients": "5 800 M$", "Trésorerie & Équivalents": "7 100 M$", "Passifs Circulants": "14 200 M$", "Dettes Fournisseurs": "4 200 M$", "Dette Totale": "4 900 M$", "Capitaux Propres": "14 100 M$", "Total Actifs": "39 800 M$", "Flux de Trésorerie d'Exploitation": "8 400 M$", "CAPEX": "2 100 M$" } },
+      { id: "M3", company: "LVMH Moët Hennessy Louis Vuitton", code: "EURONEXT: MC", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "86 200 M$", "Coût des Ventes (COGS)": "27 000 M$", "Dépenses d'Exploitation": "36 400 M$", "Dotations Amortissements": "5 800 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "4 600 M$", "Actifs Circulants": "42 000 M$", "Stocks": "21 500 M$", "Créances Clients": "5 400 M$", "Trésorerie & Équivalents": "11 200 M$", "Passifs Circulants": "33 000 M$", "Dettes Fournisseurs": "9 100 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "62 500 M$", "Total Actifs": "143 000 M$", "Flux de Trésorerie d'Exploitation": "21 000 M$", "CAPEX": "7 500 M$" } },
+      { id: "M4", company: "SAP SE", code: "XETRA: SAP", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "31 200 M$", "Coût des Ventes (COGS)": "8 700 M$", "Dépenses d'Exploitation": "16 000 M$", "Dotations Amortissements": "2 300 M$", "Charges Financières / Intérêts": "340 M$", "Impôts sur Sociétés": "1 600 M$", "Actifs Circulants": "19 400 M$", "Stocks": "0 M$", "Créances Clients": "8 100 M$", "Trésorerie & Équivalents": "9 800 M$", "Passifs Circulants": "17 200 M$", "Dettes Fournisseurs": "2 400 M$", "Dette Totale": "9 800 M$", "Capitaux Propres": "44 000 M$", "Total Actifs": "72 500 M$", "Flux de Trésorerie d'Exploitation": "6 200 M$", "CAPEX": "1 100 M$" } },
+      { id: "M5", company: "Siemens AG", code: "XETRA: SIE", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "77 800 M$", "Coût des Ventes (COGS)": "48 200 M$", "Dépenses d'Exploitation": "19 500 M$", "Dotations Amortissements": "3 400 M$", "Charges Financières / Intérêts": "620 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "58 000 M$", "Stocks": "16 200 M$", "Créances Clients": "21 000 M$", "Trésorerie & Équivalents": "12 500 M$", "Passifs Circulants": "47 500 M$", "Dettes Fournisseurs": "14 000 M$", "Dette Totale": "39 000 M$", "Capitaux Propres": "52 000 M$", "Total Actifs": "148 000 M$", "Flux de Trésorerie d'Exploitation": "10 500 M$", "CAPEX": "3 200 M$" } },
+      { id: "M6", company: "Airbus SE", code: "EURONEXT: AIR", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 400 M$", "Coût des Ventes (COGS)": "53 800 M$", "Dépenses d'Exploitation": "6 800 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "410 M$", "Impôts sur Sociétés": "950 M$", "Actifs Circulants": "64 000 M$", "Stocks": "32 000 M$", "Créances Clients": "11 500 M$", "Trésorerie & Équivalents": "15 200 M$", "Passifs Circulants": "62 000 M$", "Dettes Fournisseurs": "18 000 M$", "Dette Totale": "14 500 M$", "Capitaux Propres": "17 000 M$", "Total Actifs": "115 000 M$", "Flux de Trésorerie d'Exploitation": "5 800 M$", "CAPEX": "2 400 M$" } },
+      { id: "M7", company: "L'Oréal SA", code: "EURONEXT: OR", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "41 200 M$", "Coût des Ventes (COGS)": "10 800 M$", "Dépenses d'Exploitation": "22 100 M$", "Dotations Amortissements": "1 600 M$", "Charges Financières / Intérêts": "190 M$", "Impôts sur Sociétés": "1 950 M$", "Actifs Circulants": "16 500 M$", "Stocks": "4 200 M$", "Créances Clients": "5 800 M$", "Trésorerie & Équivalents": "4 800 M$", "Passifs Circulants": "15 000 M$", "Dettes Fournisseurs": "6 100 M$", "Dette Totale": "5 200 M$", "Capitaux Propres": "29 000 M$", "Total Actifs": "53 000 M$", "Flux de Trésorerie d'Exploitation": "7 100 M$", "CAPEX": "1 500 M$" } },
+      { id: "M8", company: "Sanofi SA", code: "EURONEXT: SAN", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "43 100 M$", "Coût des Ventes (COGS)": "14 200 M$", "Dépenses d'Exploitation": "19 400 M$", "Dotations Amortissements": "4 200 M$", "Charges Financières / Intérêts": "380 M$", "Impôts sur Sociétés": "1 550 M$", "Actifs Circulants": "28 500 M$", "Stocks": "9 800 M$", "Créances Clients": "8 200 M$", "Trésorerie & Équivalents": "8 100 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "7 500 M$", "Dette Totale": "19 000 M$", "Capitaux Propres": "75 000 M$", "Total Actifs": "128 000 M$", "Flux de Trésorerie d'Exploitation": "9 800 M$", "CAPEX": "2 200 M$" } },
+      { id: "M9", company: "Ferrari NV", code: "BIT: RACE", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "5 970 M$", "Coût des Ventes (COGS)": "2 990 M$", "Dépenses d'Exploitation": "1 370 M$", "Dotations Amortissements": "480 M$", "Charges Financières / Intérêts": "55 M$", "Impôts sur Sociétés": "290 M$", "Actifs Circulants": "3 100 M$", "Stocks": "720 M$", "Créances Clients": "580 M$", "Trésorerie & Équivalents": "1 450 M$", "Passifs Circulants": "2 300 M$", "Dettes Fournisseurs": "920 M$", "Dette Totale": "2 800 M$", "Capitaux Propres": "3 200 M$", "Total Actifs": "8 600 M$", "Flux de Trésorerie d'Exploitation": "1 850 M$", "CAPEX": "890 M$" } },
+      { id: "M10", company: "Schneider Electric SE", code: "EURONEXT: SU", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 900 M$", "Coût des Ventes (COGS)": "21 000 M$", "Dépenses d'Exploitation": "8 900 M$", "Dotations Amortissements": "1 450 M$", "Charges Financières / Intérêts": "390 M$", "Impôts sur Sociétés": "1 250 M$", "Actifs Circulants": "19 800 M$", "Stocks": "5 600 M$", "Créances Clients": "8 400 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "17 500 M$", "Dettes Fournisseurs": "6 300 M$", "Dette Totale": "12 800 M$", "Capitaux Propres": "27 000 M$", "Total Actifs": "61 000 M$", "Flux de Trésorerie d'Exploitation": "5 400 M$", "CAPEX": "1 300 M$" } }
     ];
 
     const defaultSpecialMissions = [
-      { id: "SM1", company: "OCP Group (Green Transition & Carbon Audit)", code: "ESG: OCP-ENV", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "18 500 ktCO2", "Chiffre d'Affaires": "9 400 M$", "Investissements Verts (CAPEX Vert)": "1 200 M$", "CAPEX Total": "3 500 M$", "Score Environnemental": "88 / 100", "Score Social": "82 / 100" } },
-      { id: "SM2", company: "M-Pesa / Safaricom (Fintech AML & KYC Compliance)", code: "FIN: SAF-KYC", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "1 250 000", "Dossiers KYC Conformes": "1 230 000", "Alertes AML Non Déclarées": "3", "Volume Flux Journalier": "450 M$", "Écart Rapprochement API": "0,01 $", "Indice de Gouvernance": "94 / 100" } },
-      { id: "SM3", company: "Tanger Med Port Authority (Supply Chain Audit)", code: "LOG: TMSA-PORT", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "3.8 Jours", "Coûts Logistiques Totaux": "210 M$", "Chiffre d'Affaires": "2 800 M$", "Actifs Roulants Immobilisés": "12 %", "Indice Efficacité Portuaire": "91 / 100", "Score Sécurité": "95 / 100" } },
-      { id: "SM4", company: "Wave Digital Finance (Trust Account Reconciliation)", code: "WAVE: SENEGAL", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "480 M$", "Actifs Liquides de Couverture": "510 M$", "Transactions Journalières": "2 100 000", "Taux de Réussite API": "99.8 %", "Ratio LCR (Liquidité)": "165 %", "Rétention Utilisateurs": "89 %" } },
-      { id: "SM5", company: "Dangote Cement (Extra-Financial & Governance Audit)", code: "ESG: DANGCEM", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "580 kg", "Chiffre d'Affaires": "5 200 M$", "Investissement Communautaire": "45 M$", "Board Indépendance": "55 %", "Score ESG Global": "79 / 100", "Audits Internes Réalisés": "12" } }
+      { id: "SM1", company: "Iberdrola SA (Green Energy Transition)", code: "ESG: IBE-ES", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "14 200 ktCO2", "Chiffre d'Affaires": "49 300 M$", "Investissements Verts (CAPEX Vert)": "9 500 M$", "CAPEX Total": "11 300 M$", "Score Environnemental": "92 / 100", "Score Social": "88 / 100" } },
+      { id: "SM2", company: "Adyen NV (European Fintech & AML Compliance)", code: "FIN: ADYEN-NL", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "2 850 000", "Dossiers KYC Conformes": "2 835 000", "Alertes AML Non Déclarées": "2", "Volume Flux Journalier": "2 450 M$", "Écart Rapprochement API": "0,00 $", "Indice de Gouvernance": "96 / 100" } },
+      { id: "SM3", company: "Port of Rotterdam Authority (Supply Chain Audit)", code: "LOG: ROTTERDAM-EU", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "2.4 Jours", "Coûts Logistiques Totaux": "820 M$", "Chiffre d'Affaires": "9 100 M$", "Actifs Roulants Immobilisés": "7 %", "Indice Efficacité Portuaire": "97 / 100", "Score Sécurité": "98 / 100" } },
+      { id: "SM4", company: "Revolut Ltd (Treasury & Safeguarding Reconciliation)", code: "WAVE: REVOLUT-UK", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "14 200 M$", "Actifs Liquides de Couverture": "14 900 M$", "Transactions Journalières": "18 500 000", "Taux de Réussite API": "99.98 %", "Ratio LCR (Liquidité)": "185 %", "Rétention Utilisateurs": "94 %" } },
+      { id: "SM5", company: "Enel SpA (Decarbonization & ESG Governance)", code: "ESG: ENEL-IT", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "210 kg", "Chiffre d'Affaires": "95 000 M$", "Investissement Communautaire": "120 M$", "Board Indépendance": "75 %", "Score ESG Global": "89 / 100", "Audits Internes Réalisés": "24" } }
     ];
 
     const defaultAdvancedMissions = [
-      { id: "AM1", company: "Maroc Telecom (Cybersecurity & IT Infrastructure Audit)", code: "CYBER: IAM-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "4 200", "Vulnérabilités Critiques Détectées": "12", "Délai Résolution (MTTR)": "2.8 Heures", "Indice ISO 27001": "92 / 100", "Incidents Bloqués": "1 450" } },
-      { id: "AM2", company: "Attijariwafa Bank (Customer Experience & Mystery Shopping)", code: "CX: AWB-RETAIL", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "150", "Temps d'Attente Moyen": "2.4 Minutes", "Score NPS Client": "72 / 100", "Conformité Accueil": "96 %", "Réclamations Traitées à J+1": "98 %" } },
-      { id: "AM3", company: "Jumia Africa (M&A Post-Acquisition Accounting Integration)", code: "MA: JUMIA-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "180 M$", "Actifs Nets Cibles Repris": "135 M$", "Écart Goodwill Calculé": "45 M$", "Taux Migration Données": "99.95 %", "Synergies Réalisées": "18 M$" } },
-      { id: "AM4", company: "Inwi (Intellectual Property & Software Patents Valuation)", code: "IP: INWI-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "28", "Dépenses R&D Annuelles": "65 M$", "Chiffre d'Affaires": "1 400 M$", "Licences Logicielles Concédées": "14", "Valeur Actifs Immatériels": "230 M$" } }
+      { id: "AM1", company: "Deutsche Telekom (IT Infrastructure & Cyber Resiliency)", code: "CYBER: DTE-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "14 500", "Vulnérabilités Critiques Détectées": "4", "Délai Résolution (MTTR)": "1.4 Heures", "Indice ISO 27001": "98 / 100", "Incidents Bloqués": "42 000" } },
+      { id: "AM2", company: "BNP Paribas (Omnichannel Customer Experience Audit)", code: "CX: BNP-EU", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "320", "Temps d'Attente Moyen": "1.8 Minutes", "Score NPS Client": "78 / 100", "Conformité Accueil": "98 %", "Réclamations Traitées à J+1": "99 %" } },
+      { id: "AM3", company: "Delivery Hero (Post-Acquisition Balance Integration)", code: "MA: DHER-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "950 M$", "Actifs Nets Cibles Repris": "720 M$", "Écart Goodwill Calculé": "230 M$", "Taux Migration Données": "99.99 %", "Synergies Réalisées": "85 M$" } },
+      { id: "AM4", company: "Nokia (5G Patent Portfolio & IP Valuation)", code: "IP: NOKIA-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "20 500", "Dépenses R&D Annuelles": "4 400 M$", "Chiffre d'Affaires": "22 200 M$", "Licences Logicielles Concédées": "420", "Valeur Actifs Immatériels": "8 900 M$" } }
     ];
 
     let missions = defaultMissions;
@@ -1061,9 +1050,9 @@
     let advancedMissions = defaultAdvancedMissions;
 
     try {
-      missions = JSON.parse(localStorage.getItem('audit_missions')) || defaultMissions;
-      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions')) || defaultSpecialMissions;
-      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions')) || defaultAdvancedMissions;
+      missions = JSON.parse(localStorage.getItem('audit_missions_eu')) || defaultMissions;
+      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions_eu')) || defaultSpecialMissions;
+      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions_eu')) || defaultAdvancedMissions;
     } catch(e) {}
 
     function getCleanNum(strVal) {
@@ -1133,9 +1122,9 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_advanced_missions', JSON.stringify(advancedMissions));
+      localStorage.setItem('audit_missions_eu', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_advanced_missions_eu', JSON.stringify(advancedMissions));
       localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
       updateGlobalProgress();
       renderEvaluationView();
@@ -1323,7 +1312,7 @@
           : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
         let iconSvg = m.completed ? '<svg class="w-3.5 h-3.5 inline ml-1 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : m.locked ? '<svg class="w-3.5 h-3.5 inline ml-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>' : '';
         btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
-        btn.innerHTML = `M${idx + 1}${iconSvg}`;
+        btn.innerHTML = `M${idx + 1} (${m.reward}$)${iconSvg}`;
         btnContainer.appendChild(btn);
       });
     }
@@ -1339,7 +1328,7 @@
         let activeStyle = idx === activeSpecialIndex 
           ? 'bg-gradient-to-r from-teal-400 to-emerald-400 text-slate-950 font-black shadow-lg shadow-teal-500/20 scale-105 border-teal-300' 
           : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
-        let iconSvg = sm.completed ? '<svg class="w-3.5 h-3.5 inline ml-1 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : sm.locked ? '<svg class="w-3.5 h-3.5 inline ml-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>' : '';
+        let iconSvg = sm.completed ? '<svg class="w-3.5 h-3.5 inline ml-1 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : sm.locked ? '<svg class="w-3.5 h-3.5 inline ml-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/></svg>' : '';
         btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
         btn.innerHTML = `SM${idx + 1} (${sm.reward}$)${iconSvg}`;
         btnContainer.appendChild(btn);
@@ -1357,7 +1346,7 @@
         let activeStyle = idx === activeAdvancedIndex 
           ? 'bg-gradient-to-r from-indigo-500 to-teal-400 text-slate-950 font-black shadow-lg shadow-indigo-500/20 scale-105 border-indigo-300' 
           : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
-        let iconSvg = am.completed ? '<svg class="w-3.5 h-3.5 inline ml-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : am.locked ? '<svg class="w-3.5 h-3.5 inline ml-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/></svg>' : '';
+        let iconSvg = am.completed ? '<svg class="w-3.5 h-3.5 inline ml-1 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : am.locked ? '<svg class="w-3.5 h-3.5 inline ml-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" stroke-width="2"/></svg>' : '';
         btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
         btn.innerHTML = `AM${idx + 1} (${am.reward}$)${iconSvg}`;
         btnContainer.appendChild(btn);
@@ -1740,6 +1729,10 @@
         filteredWithdrawals = withdrawals.filter(w => w.statut === "En attente" || w.statut === "En cours de traitement");
       }
 
+      if (filteredWithdrawals.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500 font-bold bg-slate-950/50 rounded-xl border border-slate-900">Aucune transaction enregistrée</div>`;
+      }
+
       filteredWithdrawals.forEach(w => {
         const isPending = w.statut === "En attente" || w.statut === "En cours de traitement";
         const card = document.createElement('div');
@@ -1769,7 +1762,7 @@
     function openReceiptModal(withdrawalId) {
       const w = withdrawals.find(item => item.id === withdrawalId);
       if (!w) return;
-      document.getElementById('recTxRef').textContent = `TXN-MTA-${w.date.replace(/[^0-9]/g, '').slice(0, 8)}-${w.id.toString().slice(-4)}`;
+      document.getElementById('recTxRef').textContent = `TXN-MTE-${w.date.replace(/[^0-9]/g, '').slice(0, 8)}-${w.id.toString().slice(-4)}`;
       document.getElementById('recTxDate').textContent = `Date : ${w.date}`;
       document.getElementById('recAmountUSD').textContent = `${w.montant.toFixed(2).replace('.', ',')} $`;
       document.getElementById('receiptModal').classList.remove('hidden');
