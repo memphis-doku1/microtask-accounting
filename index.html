@@ -174,7 +174,7 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 032,77 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 189,41 $</span>
           </div>
           <div class="border-l rtl:border-l-0 rtl:border-r border-slate-800 pl-3 rtl:pl-0 rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
@@ -418,7 +418,7 @@
           <div class="text-right rtl:text-left bg-slate-950/80 p-3 rounded-xl border border-slate-800 w-full sm:w-auto">
             <span class="text-[9px] font-black uppercase text-amber-400 block tracking-wider">STATUT DE CERTIFICATION</span>
             <span class="text-xs font-black text-emerald-400 block mt-0.5">✓ CERTIFIÉ CONFORME</span>
-            <span id="certDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 19/08/2026</span>
+            <span id="certDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 24/08/2026</span>
           </div>
         </div>
 
@@ -544,8 +544,8 @@
           </div>
           <div class="text-right rtl:text-left">
             <span class="text-[10px] font-black uppercase text-amber-400 block tracking-wider">RÉFÉRENCE TRANSACTION</span>
-            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTE-20260819-8206</span>
-            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 19/08/2026</span>
+            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTE-20260824-8206</span>
+            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 24/08/2026</span>
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -619,7 +619,7 @@
       <form onsubmit="confirmBankWithdraw(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
           <label class="text-slate-300 font-bold block mb-1">Montant à retirer ($ USD)</label>
-          <input type="number" inputmode="decimal" id="bankAmount" max="1032.77" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
+          <input type="number" inputmode="decimal" id="bankAmount" max="1189.41" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
         </div>
         <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl transition">Confirmer le Retrait</button>
       </form>
@@ -651,9 +651,9 @@
         analyticsTitle: "Structure Financière & Visualisation",
         potentialGain: "Gain potentiel",
         submissionDeadline: "Échéance de soumission",
-        deadlineDateClassic: "19/08/2026 à 23:00",
-        deadlineDateSpecial: "19/08/2026 à 23:00",
-        deadlineDateAdvanced: "19/08/2026 à 23:00",
+        deadlineDateClassic: "24/08/2026 à 18:00",
+        deadlineDateSpecial: "24/08/2026 à 18:00",
+        deadlineDateAdvanced: "24/08/2026 à 18:00",
         delayMax: "DÉLAI MAXIMUM : ",
         conformityTitle: "Indicateur de Conformité Spécifique",
         conformCount: "{count}/26 Conformes ({pct}%)",
@@ -702,9 +702,9 @@
         analyticsTitle: "Financial Structure & Breakdown",
         potentialGain: "Potential reward",
         submissionDeadline: "Submission deadline",
-        deadlineDateClassic: "08/19/2026 at 23:00",
-        deadlineDateSpecial: "08/19/2026 at 23:00",
-        deadlineDateAdvanced: "08/19/2026 at 23:00",
+        deadlineDateClassic: "08/24/2026 at 18:00",
+        deadlineDateSpecial: "08/24/2026 at 18:00",
+        deadlineDateAdvanced: "08/24/2026 at 18:00",
         delayMax: "TIME REMAINING: ",
         conformityTitle: "Specific Compliance Tracker",
         conformCount: "{count}/26 Compliant ({pct}%)",
@@ -753,9 +753,9 @@
         analyticsTitle: "الهيكل المالي والتحليل",
         potentialGain: "المكافأة المحتملة",
         submissionDeadline: "الموعد النهائي للتقديم",
-        deadlineDateClassic: "19/08/2026 في تمام 23:00",
-        deadlineDateSpecial: "19/08/2026 في تمام 23:00",
-        deadlineDateAdvanced: "19/08/2026 في تمام 23:00",
+        deadlineDateClassic: "24/08/2026 في تمام 18:00",
+        deadlineDateSpecial: "24/08/2026 في تمام 18:00",
+        deadlineDateAdvanced: "24/08/2026 في تمام 18:00",
         delayMax: "الوقت المتبقي: ",
         conformityTitle: "مؤشر المطابقة المحدد",
         conformCount: "{count}/26 مطابق ({pct}%)",
@@ -867,15 +867,15 @@
       }
     }
 
-    const FIXED_SOLDE_VALIDE_USD = 1032.77;
+    const FIXED_SOLDE_VALIDE_USD = 1189.41;
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
     let activeAdvancedIndex = 0;
 
-    // DATE DU COMPTE À REBOURS MODIFIÉE : 19/08/2026 À 23:00:00
-    const DEADLINE_CLASSIC = new Date('2026-08-19T23:00:00');
-    const DEADLINE_SPECIAL = new Date('2026-08-19T23:00:00');
-    const DEADLINE_ADVANCED = new Date('2026-08-19T23:00:00');
+    // DATE DU COMPTE À REBOURS : 24/08/2026 À 18:00:00
+    const DEADLINE_CLASSIC = new Date('2026-08-24T18:00:00');
+    const DEADLINE_SPECIAL = new Date('2026-08-24T18:00:00');
+    const DEADLINE_ADVANCED = new Date('2026-08-24T18:00:00');
 
     let currentCurrency = 'USD';
     const EXCHANGE_RATES = {
@@ -1016,33 +1016,35 @@
       { id: 'at10', label: "10. Note de Synthèse Stratégique", formula: "Conclusions et recommandations de haut niveau" }
     ];
 
-    // 10 GRANDES SOCIÉTÉS EUROPÉENNES (RÉMUNÉRATION 50$ - 100$)
+    // NOUVELLES MISSIONS CLASSIQUES EUROPÉENNES (M1 à M10)
     const defaultMissions = [
-      { id: "M1", company: "TotalEnergies SE", code: "EURONEXT: TTE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "237 000 M$", "Coût des Ventes (COGS)": "142 000 M$", "Dépenses d'Exploitation": "48 000 M$", "Dotations Amortissements": "14 000 M$", "Charges Financières / Intérêts": "2 100 M$", "Impôts sur Sociétés": "11 500 M$", "Actifs Circulants": "98 000 M$", "Stocks": "24 000 M$", "Créances Clients": "31 000 M$", "Trésorerie & Équivalents": "33 000 M$", "Passifs Circulants": "79 000 M$", "Dettes Fournisseurs": "34 000 M$", "Dette Totale": "46 000 M$", "Capitaux Propres": "118 000 M$", "Total Actifs": "285 000 M$", "Flux de Trésorerie d'Exploitation": "38 000 M$", "CAPEX": "16 000 M$" } },
-      { id: "M2", company: "ASML Holding NV", code: "AMS: ASML", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "27 500 M$", "Coût des Ventes (COGS)": "13 400 M$", "Dépenses d'Exploitation": "4 800 M$", "Dotations Amortissements": "950 M$", "Charges Financières / Intérêts": "120 M$", "Impôts sur Sociétés": "1 450 M$", "Actifs Circulants": "22 500 M$", "Stocks": "8 900 M$", "Créances Clients": "5 800 M$", "Trésorerie & Équivalents": "7 100 M$", "Passifs Circulants": "14 200 M$", "Dettes Fournisseurs": "4 200 M$", "Dette Totale": "4 900 M$", "Capitaux Propres": "14 100 M$", "Total Actifs": "39 800 M$", "Flux de Trésorerie d'Exploitation": "8 400 M$", "CAPEX": "2 100 M$" } },
-      { id: "M3", company: "LVMH Moët Hennessy Louis Vuitton", code: "EURONEXT: MC", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "86 200 M$", "Coût des Ventes (COGS)": "27 000 M$", "Dépenses d'Exploitation": "36 400 M$", "Dotations Amortissements": "5 800 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "4 600 M$", "Actifs Circulants": "42 000 M$", "Stocks": "21 500 M$", "Créances Clients": "5 400 M$", "Trésorerie & Équivalents": "11 200 M$", "Passifs Circulants": "33 000 M$", "Dettes Fournisseurs": "9 100 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "62 500 M$", "Total Actifs": "143 000 M$", "Flux de Trésorerie d'Exploitation": "21 000 M$", "CAPEX": "7 500 M$" } },
-      { id: "M4", company: "SAP SE", code: "XETRA: SAP", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "31 200 M$", "Coût des Ventes (COGS)": "8 700 M$", "Dépenses d'Exploitation": "16 000 M$", "Dotations Amortissements": "2 300 M$", "Charges Financières / Intérêts": "340 M$", "Impôts sur Sociétés": "1 600 M$", "Actifs Circulants": "19 400 M$", "Stocks": "0 M$", "Créances Clients": "8 100 M$", "Trésorerie & Équivalents": "9 800 M$", "Passifs Circulants": "17 200 M$", "Dettes Fournisseurs": "2 400 M$", "Dette Totale": "9 800 M$", "Capitaux Propres": "44 000 M$", "Total Actifs": "72 500 M$", "Flux de Trésorerie d'Exploitation": "6 200 M$", "CAPEX": "1 100 M$" } },
-      { id: "M5", company: "Siemens AG", code: "XETRA: SIE", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "77 800 M$", "Coût des Ventes (COGS)": "48 200 M$", "Dépenses d'Exploitation": "19 500 M$", "Dotations Amortissements": "3 400 M$", "Charges Financières / Intérêts": "620 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "58 000 M$", "Stocks": "16 200 M$", "Créances Clients": "21 000 M$", "Trésorerie & Équivalents": "12 500 M$", "Passifs Circulants": "47 500 M$", "Dettes Fournisseurs": "14 000 M$", "Dette Totale": "39 000 M$", "Capitaux Propres": "52 000 M$", "Total Actifs": "148 000 M$", "Flux de Trésorerie d'Exploitation": "10 500 M$", "CAPEX": "3 200 M$" } },
-      { id: "M6", company: "Airbus SE", code: "EURONEXT: AIR", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 400 M$", "Coût des Ventes (COGS)": "53 800 M$", "Dépenses d'Exploitation": "6 800 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "410 M$", "Impôts sur Sociétés": "950 M$", "Actifs Circulants": "64 000 M$", "Stocks": "32 000 M$", "Créances Clients": "11 500 M$", "Trésorerie & Équivalents": "15 200 M$", "Passifs Circulants": "62 000 M$", "Dettes Fournisseurs": "18 000 M$", "Dette Totale": "14 500 M$", "Capitaux Propres": "17 000 M$", "Total Actifs": "115 000 M$", "Flux de Trésorerie d'Exploitation": "5 800 M$", "CAPEX": "2 400 M$" } },
-      { id: "M7", company: "L'Oréal SA", code: "EURONEXT: OR", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "41 200 M$", "Coût des Ventes (COGS)": "10 800 M$", "Dépenses d'Exploitation": "22 100 M$", "Dotations Amortissements": "1 600 M$", "Charges Financières / Intérêts": "190 M$", "Impôts sur Sociétés": "1 950 M$", "Actifs Circulants": "16 500 M$", "Stocks": "4 200 M$", "Créances Clients": "5 800 M$", "Trésorerie & Équivalents": "4 800 M$", "Passifs Circulants": "15 000 M$", "Dettes Fournisseurs": "6 100 M$", "Dette Totale": "5 200 M$", "Capitaux Propres": "29 000 M$", "Total Actifs": "53 000 M$", "Flux de Trésorerie d'Exploitation": "7 100 M$", "CAPEX": "1 500 M$" } },
-      { id: "M8", company: "Sanofi SA", code: "EURONEXT: SAN", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "43 100 M$", "Coût des Ventes (COGS)": "14 200 M$", "Dépenses d'Exploitation": "19 400 M$", "Dotations Amortissements": "4 200 M$", "Charges Financières / Intérêts": "380 M$", "Impôts sur Sociétés": "1 550 M$", "Actifs Circulants": "28 500 M$", "Stocks": "9 800 M$", "Créances Clients": "8 200 M$", "Trésorerie & Équivalents": "8 100 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "7 500 M$", "Dette Totale": "19 000 M$", "Capitaux Propres": "75 000 M$", "Total Actifs": "128 000 M$", "Flux de Trésorerie d'Exploitation": "9 800 M$", "CAPEX": "2 200 M$" } },
-      { id: "M9", company: "Ferrari NV", code: "BIT: RACE", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "5 970 M$", "Coût des Ventes (COGS)": "2 990 M$", "Dépenses d'Exploitation": "1 370 M$", "Dotations Amortissements": "480 M$", "Charges Financières / Intérêts": "55 M$", "Impôts sur Sociétés": "290 M$", "Actifs Circulants": "3 100 M$", "Stocks": "720 M$", "Créances Clients": "580 M$", "Trésorerie & Équivalents": "1 450 M$", "Passifs Circulants": "2 300 M$", "Dettes Fournisseurs": "920 M$", "Dette Totale": "2 800 M$", "Capitaux Propres": "3 200 M$", "Total Actifs": "8 600 M$", "Flux de Trésorerie d'Exploitation": "1 850 M$", "CAPEX": "890 M$" } },
-      { id: "M10", company: "Schneider Electric SE", code: "EURONEXT: SU", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 900 M$", "Coût des Ventes (COGS)": "21 000 M$", "Dépenses d'Exploitation": "8 900 M$", "Dotations Amortissements": "1 450 M$", "Charges Financières / Intérêts": "390 M$", "Impôts sur Sociétés": "1 250 M$", "Actifs Circulants": "19 800 M$", "Stocks": "5 600 M$", "Créances Clients": "8 400 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "17 500 M$", "Dettes Fournisseurs": "6 300 M$", "Dette Totale": "12 800 M$", "Capitaux Propres": "27 000 M$", "Total Actifs": "61 000 M$", "Flux de Trésorerie d'Exploitation": "5 400 M$", "CAPEX": "1 300 M$" } }
+      { id: "M1", company: "Novo Nordisk A/S", code: "CPH: NOVO-B", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "33 700 M$", "Coût des Ventes (COGS)": "5 200 M$", "Dépenses d'Exploitation": "13 100 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "210 M$", "Impôts sur Sociétés": "3 150 M$", "Actifs Circulants": "18 400 M$", "Stocks": "4 600 M$", "Créances Clients": "5 900 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "15 800 M$", "Dettes Fournisseurs": "2 800 M$", "Dette Totale": "6 400 M$", "Capitaux Propres": "16 500 M$", "Total Actifs": "36 200 M$", "Flux de Trésorerie d'Exploitation": "12 800 M$", "CAPEX": "3 900 M$" } },
+      { id: "M2", company: "AstraZeneca PLC", code: "LSE: AZN", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "45 800 M$", "Coût des Ventes (COGS)": "8 200 M$", "Dépenses d'Exploitation": "23 400 M$", "Dotations Amortissements": "4 600 M$", "Charges Financières / Intérêts": "1 250 M$", "Impôts sur Sociétés": "1 850 M$", "Actifs Circulants": "24 500 M$", "Stocks": "6 100 M$", "Créances Clients": "9 200 M$", "Trésorerie & Équivalents": "5 800 M$", "Passifs Circulants": "28 300 M$", "Dettes Fournisseurs": "6 400 M$", "Dette Totale": "28 500 M$", "Capitaux Propres": "38 200 M$", "Total Actifs": "98 500 M$", "Flux de Trésorerie d'Exploitation": "10 500 M$", "CAPEX": "1 400 M$" } },
+      { id: "M3", company: "Hermès International", code: "EURONEXT: RMS", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "13 400 M$", "Coût des Ventes (COGS)": "3 800 M$", "Dépenses d'Exploitation": "3 950 M$", "Dotations Amortissements": "780 M$", "Charges Financières / Intérêts": "95 M$", "Impôts sur Sociétés": "1 480 M$", "Actifs Circulants": "12 800 M$", "Stocks": "2 450 M$", "Créances Clients": "820 M$", "Trésorerie & Équivalents": "9 100 M$", "Passifs Circulants": "4 600 M$", "Dettes Fournisseurs": "890 M$", "Dette Totale": "2 100 M$", "Capitaux Propres": "13 900 M$", "Total Actifs": "20 500 M$", "Flux de Trésorerie d'Exploitation": "5 100 M$", "CAPEX": "850 M$" } },
+      { id: "M4", company: "Nestlé SA", code: "SIX: NESN", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "93 000 M$", "Coût des Ventes (COGS)": "48 500 M$", "Dépenses d'Exploitation": "28 400 M$", "Dotations Amortissements": "3 800 M$", "Charges Financières / Intérêts": "1 420 M$", "Impôts sur Sociétés": "3 450 M$", "Actifs Circulants": "36 200 M$", "Stocks": "14 800 M$", "Créances Clients": "12 500 M$", "Trésorerie & Équivalents": "5 600 M$", "Passifs Circulants": "44 500 M$", "Dettes Fournisseurs": "20 100 M$", "Dette Totale": "56 000 M$", "Capitaux Propres": "37 500 M$", "Total Actifs": "132 000 M$", "Flux de Trésorerie d'Exploitation": "15 900 M$", "CAPEX": "5 200 M$" } },
+      { id: "M5", company: "Roche Holding AG", code: "SIX: ROG", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "58 700 M$", "Coût des Ventes (COGS)": "14 900 M$", "Dépenses d'Exploitation": "24 200 M$", "Dotations Amortissements": "4 100 M$", "Charges Financières / Intérêts": "680 M$", "Impôts sur Sociétés": "3 200 M$", "Actifs Circulants": "31 500 M$", "Stocks": "8 200 M$", "Créances Clients": "13 100 M$", "Trésorerie & Équivalents": "6 400 M$", "Passifs Circulants": "26 800 M$", "Dettes Fournisseurs": "5 900 M$", "Dette Totale": "29 400 M$", "Capitaux Propres": "34 800 M$", "Total Actifs": "92 000 M$", "Flux de Trésorerie d'Exploitation": "17 200 M$", "CAPEX": "4 300 M$" } },
+      { id: "M6", company: "Inditex SA (Zara)", code: "BME: ITX", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 950 M$", "Coût des Ventes (COGS)": "15 200 M$", "Dépenses d'Exploitation": "13 900 M$", "Dotations Amortissements": "2 950 M$", "Charges Financières / Intérêts": "135 M$", "Impôts sur Sociétés": "1 420 M$", "Actifs Circulants": "16 400 M$", "Stocks": "3 650 M$", "Créances Clients": "1 150 M$", "Trésorerie & Équivalents": "11 400 M$", "Passifs Circulants": "12 800 M$", "Dettes Fournisseurs": "8 200 M$", "Dette Totale": "5 400 M$", "Capitaux Propres": "18 900 M$", "Total Actifs": "32 500 M$", "Flux de Trésorerie d'Exploitation": "7 800 M$", "CAPEX": "1 850 M$" } },
+      { id: "M7", company: "Kering SA", code: "EURONEXT: KER", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "19 600 M$", "Coût des Ventes (COGS)": "4 800 M$", "Dépenses d'Exploitation": "9 850 M$", "Dotations Amortissements": "1 750 M$", "Charges Financières / Intérêts": "480 M$", "Impôts sur Sociétés": "1 100 M$", "Actifs Circulants": "10 500 M$", "Stocks": "4 300 M$", "Créances Clients": "1 450 M$", "Trésorerie & Équivalents": "3 900 M$", "Passifs Circulants": "9 800 M$", "Dettes Fournisseurs": "2 350 M$", "Dette Totale": "14 200 M$", "Capitaux Propres": "15 400 M$", "Total Actifs": "39 500 M$", "Flux de Trésorerie d'Exploitation": "4 200 M$", "CAPEX": "1 250 M$" } },
+      { id: "M8", company: "Mercedes-Benz Group AG", code: "XETRA: MBG", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "153 200 M$", "Coût des Ventes (COGS)": "118 400 M$", "Dépenses d'Exploitation": "15 100 M$", "Dotations Amortissements": "6 200 M$", "Charges Financières / Intérêts": "890 M$", "Impôts sur Sociétés": "4 300 M$", "Actifs Circulants": "96 000 M$", "Stocks": "28 500 M$", "Créances Clients": "18 900 M$", "Trésorerie & Équivalents": "21 500 M$", "Passifs Circulants": "74 000 M$", "Dettes Fournisseurs": "19 400 M$", "Dette Totale": "98 000 M$", "Capitaux Propres": "89 500 M$", "Total Actifs": "260 000 M$", "Flux de Trésorerie d'Exploitation": "19 800 M$", "CAPEX": "6 700 M$" } },
+      { id: "M9", company: "Heineken NV", code: "AMS: HEIA", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "30 300 M$", "Coût des Ventes (COGS)": "18 900 M$", "Dépenses d'Exploitation": "7 600 M$", "Dotations Amortissements": "2 350 M$", "Charges Financières / Intérêts": "510 M$", "Impôts sur Sociétés": "720 M$", "Actifs Circulants": "10 800 M$", "Stocks": "3 100 M$", "Créances Clients": "3 800 M$", "Trésorerie & Équivalents": "2 650 M$", "Passifs Circulants": "13 900 M$", "Dettes Fournisseurs": "6 700 M$", "Dette Totale": "17 400 M$", "Capitaux Propres": "18 200 M$", "Total Actifs": "51 000 M$", "Flux de Trésorerie d'Exploitation": "4 600 M$", "CAPEX": "1 950 M$" } },
+      { id: "M10", company: "STMicroelectronics NV", code: "EURONEXT: STMPA", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "17 300 M$", "Coût des Ventes (COGS)": "9 100 M$", "Dépenses d'Exploitation": "3 600 M$", "Dotations Amortissements": "1 850 M$", "Charges Financières / Intérêts": "75 M$", "Impôts sur Sociétés": "620 M$", "Actifs Circulants": "9 900 M$", "Stocks": "2 950 M$", "Créances Clients": "2 700 M$", "Trésorerie & Équivalents": "3 650 M$", "Passifs Circulants": "4 800 M$", "Dettes Fournisseurs": "1 850 M$", "Dette Totale": "2 700 M$", "Capitaux Propres": "16 100 M$", "Total Actifs": "23 800 M$", "Flux de Trésorerie d'Exploitation": "5 800 M$", "CAPEX": "3 900 M$" } }
     ];
 
+    // NOUVELLES MISSIONS SPÉCIALES (ESG & FINTECH - SM1 à SM5)
     const defaultSpecialMissions = [
-      { id: "SM1", company: "Iberdrola SA (Green Energy Transition)", code: "ESG: IBE-ES", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "14 200 ktCO2", "Chiffre d'Affaires": "49 300 M$", "Investissements Verts (CAPEX Vert)": "9 500 M$", "CAPEX Total": "11 300 M$", "Score Environnemental": "92 / 100", "Score Social": "88 / 100" } },
-      { id: "SM2", company: "Adyen NV (European Fintech & AML Compliance)", code: "FIN: ADYEN-NL", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "2 850 000", "Dossiers KYC Conformes": "2 835 000", "Alertes AML Non Déclarées": "2", "Volume Flux Journalier": "2 450 M$", "Écart Rapprochement API": "0,00 $", "Indice de Gouvernance": "96 / 100" } },
-      { id: "SM3", company: "Port of Rotterdam Authority (Supply Chain Audit)", code: "LOG: ROTTERDAM-EU", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "2.4 Jours", "Coûts Logistiques Totaux": "820 M$", "Chiffre d'Affaires": "9 100 M$", "Actifs Roulants Immobilisés": "7 %", "Indice Efficacité Portuaire": "97 / 100", "Score Sécurité": "98 / 100" } },
-      { id: "SM4", company: "Revolut Ltd (Treasury & Safeguarding Reconciliation)", code: "WAVE: REVOLUT-UK", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "14 200 M$", "Actifs Liquides de Couverture": "14 900 M$", "Transactions Journalières": "18 500 000", "Taux de Réussite API": "99.98 %", "Ratio LCR (Liquidité)": "185 %", "Rétention Utilisateurs": "94 %" } },
-      { id: "SM5", company: "Enel SpA (Decarbonization & ESG Governance)", code: "ESG: ENEL-IT", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "210 kg", "Chiffre d'Affaires": "95 000 M$", "Investissement Communautaire": "120 M$", "Board Indépendance": "75 %", "Score ESG Global": "89 / 100", "Audits Internes Réalisés": "24" } }
+      { id: "SM1", company: "Ørsted A/S (Offshore Wind & Green Transition)", code: "ESG: ORSTED-DK", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "11 400 ktCO2", "Chiffre d'Affaires": "38 200 M$", "Investissements Verts (CAPEX Vert)": "8 400 M$", "CAPEX Total": "9 800 M$", "Score Environnemental": "95 / 100", "Score Social": "91 / 100" } },
+      { id: "SM2", company: "Klarna Group (Digital Banking & Fraud Compliance)", code: "FIN: KLARNA-SE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "3 400 000", "Dossiers KYC Conformes": "3 382 000", "Alertes AML Non Déclarées": "1", "Volume Flux Journalier": "3 100 M$", "Écart Rapprochement API": "0,00 $", "Indice de Gouvernance": "94 / 100" } },
+      { id: "SM3", company: "Maersk Logistics (Decarbonized Maritime Audit)", code: "LOG: MAERSK-DK", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "2.1 Jours", "Coûts Logistiques Totaux": "1 250 M$", "Chiffre d'Affaires": "51 000 M$", "Actifs Roulants Immobilisés": "5 %", "Indice Efficacité Portuaire": "96 / 100", "Score Sécurité": "99 / 100" } },
+      { id: "SM4", company: "Wise PLC (Cross-Border Liquidity & Safeguarding)", code: "WAVE: WISE-UK", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "11 800 M$", "Actifs Liquides de Couverture": "12 400 M$", "Transactions Journalières": "22 100 000", "Taux de Réussite API": "99.99 %", "Ratio LCR (Liquidité)": "192 %", "Rétention Utilisateurs": "96 %" } },
+      { id: "SM5", company: "Vestas Wind Systems (Renewable Supply Chain Audit)", code: "ESG: VESTAS-DK", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "180 kg", "Chiffre d'Affaires": "15 400 M$", "Investissement Communautaire": "95 M$", "Board Indépendance": "80 %", "Score ESG Global": "93 / 100", "Audits Internes Réalisés": "32" } }
     ];
 
+    // NOUVELLES MISSIONS AVANCÉES (CYBER & IA - AM1 à AM4)
     const defaultAdvancedMissions = [
-      { id: "AM1", company: "Deutsche Telekom (IT Infrastructure & Cyber Resiliency)", code: "CYBER: DTE-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "14 500", "Vulnérabilités Critiques Détectées": "4", "Délai Résolution (MTTR)": "1.4 Heures", "Indice ISO 27001": "98 / 100", "Incidents Bloqués": "42 000" } },
-      { id: "AM2", company: "BNP Paribas (Omnichannel Customer Experience Audit)", code: "CX: BNP-EU", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "320", "Temps d'Attente Moyen": "1.8 Minutes", "Score NPS Client": "78 / 100", "Conformité Accueil": "98 %", "Réclamations Traitées à J+1": "99 %" } },
-      { id: "AM3", company: "Delivery Hero (Post-Acquisition Balance Integration)", code: "MA: DHER-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "950 M$", "Actifs Nets Cibles Repris": "720 M$", "Écart Goodwill Calculé": "230 M$", "Taux Migration Données": "99.99 %", "Synergies Réalisées": "85 M$" } },
-      { id: "AM4", company: "Nokia (5G Patent Portfolio & IP Valuation)", code: "IP: NOKIA-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "20 500", "Dépenses R&D Annuelles": "4 400 M$", "Chiffre d'Affaires": "22 200 M$", "Licences Logicielles Concédées": "420", "Valeur Actifs Immatériels": "8 900 M$" } }
+      { id: "AM1", company: "Orange Cyberdefense (Cloud Threat & SOC Audit)", code: "CYBER: OCG-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "18 200", "Vulnérabilités Critiques Détectées": "2", "Délai Résolution (MTTR)": "1.1 Heures", "Indice ISO 27001": "99 / 100", "Incidents Bloqués": "68 000" } },
+      { id: "AM2", company: "Spotify Technology SA (User Retention & Recommendation CX)", code: "CX: SPOT-EU", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "450", "Temps d'Attente Moyen": "1.2 Minutes", "Score NPS Client": "84 / 100", "Conformité Accueil": "99 %", "Réclamations Traitées à J+1": "99.5 %" } },
+      { id: "AM3", company: "Arm Holdings PLC (Semiconductor IP Portfolio Integration)", code: "MA: ARM-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "1 450 M$", "Actifs Nets Cibles Repris": "1 100 M$", "Écart Goodwill Calculé": "350 M$", "Taux Migration Données": "100.00 %", "Synergies Réalisées": "140 M$" } },
+      { id: "AM4", company: "Ericsson (6G Patent Valuation & Licensing Asset Audit)", code: "IP: ERIC-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "24 800", "Dépenses R&D Annuelles": "5 100 M$", "Chiffre d'Affaires": "24 500 M$", "Licences Logicielles Concédées": "580", "Valeur Actifs Immatériels": "11 200 M$" } }
     ];
 
     let missions = defaultMissions;
@@ -1751,7 +1753,7 @@
               <p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p>
               <p class="text-xs text-slate-400 font-mono">${w.details}</p>
             </div>
-            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
+            <span class="font-black text-sm sm:base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
           </div>
         `;
         container.appendChild(card);
