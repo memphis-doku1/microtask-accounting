@@ -174,11 +174,11 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 189,41 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 286,55 $</span>
           </div>
           <div class="border-l rtl:border-l-0 rtl:border-r border-slate-800 pl-3 rtl:pl-0 rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">100,00 $</span>
           </div>
         </div>
       </div>
@@ -348,6 +348,7 @@
         <div class="flex items-center gap-2 w-full sm:w-auto">
           <select id="txFilterSelect" onchange="renderWithdrawHistory()" class="bg-slate-950 border border-slate-800 text-xs text-slate-200 rounded-xl px-3 py-2 outline-none font-bold">
             <option value="all">Toutes les opérations</option>
+            <option value="completed">Effectuées / Confirmées</option>
             <option value="pending">En attente / En cours</option>
           </select>
           <button type="button" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap">
@@ -359,7 +360,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Réceptrice</span>
@@ -367,7 +368,7 @@
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire</span>
-          <span class="text-sm sm:text-base font-black text-white block mt-1 truncate">Aballagh Abderrahim</span>
+          <span class="text-sm sm:text-base font-black text-white block mt-1 truncate">Abderrahim aballagh</span>
         </div>
       </div>
 
@@ -426,7 +427,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Auditeur Principal</span>
-            <div class="text-sm font-black text-white">Aballagh Abderrahim</div>
+            <div class="text-sm font-black text-white">Abderrahim aballagh</div>
           </div>
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Prime de Mission</span>
@@ -525,7 +526,7 @@
     <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto">
       <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-400"></span>
           <span class="text-xs sm:text-sm font-black text-white">Avis d'Opération de Virement - MicroTask Europe</span>
         </div>
         <div class="flex items-center gap-2 print-hidden">
@@ -544,18 +545,18 @@
           </div>
           <div class="text-right rtl:text-left">
             <span class="text-[10px] font-black uppercase text-amber-400 block tracking-wider">RÉFÉRENCE TRANSACTION</span>
-            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTE-20260824-8206</span>
-            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 24/08/2026</span>
+            <span id="recTxRef" class="text-xs font-mono font-black text-white">TXN-MTE-20260808-8206</span>
+            <span id="recTxDate" class="text-[10px] text-slate-400 block mt-0.5">Date : 08/08/2026</span>
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Montant du Virement</span>
-            <div id="recAmountUSD" class="text-2xl font-black text-emerald-400">0,00 $</div>
+            <div id="recAmountUSD" class="text-2xl font-black text-amber-300">100,00 $</div>
           </div>
           <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-1">
             <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Statut de Traitement</span>
-            <div id="recStatusBadge" class="inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30">En cours de traitement</div>
+            <div id="recStatusBadge" class="inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30">En attente</div>
           </div>
         </div>
       </div>
@@ -605,7 +606,7 @@
         <button type="button" onclick="closeModal('withdrawChoiceModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
       <button type="button" onclick="openBankWithdrawModal()" class="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-left flex justify-between items-center group transition">
-        <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire - Aballagh Abderrahim</span>
+        <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400">Compte Bancaire - Abderrahim aballagh</span>
       </button>
     </div>
   </div>
@@ -619,7 +620,7 @@
       <form onsubmit="confirmBankWithdraw(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
           <label class="text-slate-300 font-bold block mb-1">Montant à retirer ($ USD)</label>
-          <input type="number" inputmode="decimal" id="bankAmount" max="1189.41" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
+          <input type="number" inputmode="decimal" id="bankAmount" max="1286.55" min="10" step="0.01" required class="w-full bg-slate-950 border border-slate-700 text-emerald-400 font-black rounded-xl p-3 outline-none">
         </div>
         <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl transition">Confirmer le Retrait</button>
       </form>
@@ -627,6 +628,11 @@
   </div>
 
   <script>
+    // --- RESET CACHE AUTOMATIQUE DES VERSIONS PRÉCÉDENTES ---
+    ['audit_missions_eu', 'audit_special_missions_eu', 'audit_advanced_missions_eu', 
+     'audit_missions_eu_v2', 'audit_special_missions_eu_v2', 'audit_advanced_missions_eu_v2',
+     'audit_withdrawals', 'audit_withdrawals_v2', 'audit_withdrawals_v3', 'audit_withdrawals_v4', 'audit_withdrawals_v5'].forEach(key => localStorage.removeItem(key));
+
     let currentLanguage = localStorage.getItem('audit_lang') || 'fr';
 
     const translations = {
@@ -867,12 +873,11 @@
       }
     }
 
-    const FIXED_SOLDE_VALIDE_USD = 1189.41;
+    const FIXED_SOLDE_VALIDE_USD = 1286.55;
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
     let activeAdvancedIndex = 0;
 
-    // DATE DU COMPTE À REBOURS : 24/08/2026 À 18:00:00
     const DEADLINE_CLASSIC = new Date('2026-08-24T18:00:00');
     const DEADLINE_SPECIAL = new Date('2026-08-24T18:00:00');
     const DEADLINE_ADVANCED = new Date('2026-08-24T18:00:00');
@@ -926,10 +931,10 @@
         progressColor = 'bg-emerald-400';
         iconSvg = `<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
       } else {
-        borderStyle = 'bg-slate-900/95 border-teal-500/40 text-teal-300';
+        borderStyle = 'bg-slate-900/95 border-amber-500/40 text-amber-300';
         titleDefault = 'Information';
-        progressColor = 'bg-teal-400';
-        iconSvg = `<svg class="w-5 h-5 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+        progressColor = 'bg-amber-400';
+        iconSvg = `<svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
       }
 
       toast.className += ` ${borderStyle}`;
@@ -952,11 +957,24 @@
       setTimeout(() => { toast.classList.add('animate-toast-out'); setTimeout(() => toast.remove(), 200); }, duration);
     }
 
-    let withdrawals = [];
+    // RETRAIT INITIAL CONFIGURÉ SUR 100.00 $ EN ATTENTE
+    const defaultWithdrawals = [
+      {
+        id: 1723118400000,
+        date: "08/08/2026 à 14:30",
+        beneficiaire: "Abderrahim aballagh",
+        montant: 100.00,
+        moyen: "Compte Bancaire",
+        details: "Attijariwafa Bank - RIB: ****8206",
+        statut: "En attente"
+      }
+    ];
+
+    let withdrawals = defaultWithdrawals;
     try {
-      withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals')) || [];
+      withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals_v6')) || defaultWithdrawals;
     } catch(e) {
-      withdrawals = [];
+      withdrawals = defaultWithdrawals;
     }
 
     const taskDefinitions = [
@@ -1016,35 +1034,32 @@
       { id: 'at10', label: "10. Note de Synthèse Stratégique", formula: "Conclusions et recommandations de haut niveau" }
     ];
 
-    // NOUVELLES MISSIONS CLASSIQUES EUROPÉENNES (M1 à M10)
     const defaultMissions = [
-      { id: "M1", company: "Novo Nordisk A/S", code: "CPH: NOVO-B", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "33 700 M$", "Coût des Ventes (COGS)": "5 200 M$", "Dépenses d'Exploitation": "13 100 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "210 M$", "Impôts sur Sociétés": "3 150 M$", "Actifs Circulants": "18 400 M$", "Stocks": "4 600 M$", "Créances Clients": "5 900 M$", "Trésorerie & Équivalents": "4 200 M$", "Passifs Circulants": "15 800 M$", "Dettes Fournisseurs": "2 800 M$", "Dette Totale": "6 400 M$", "Capitaux Propres": "16 500 M$", "Total Actifs": "36 200 M$", "Flux de Trésorerie d'Exploitation": "12 800 M$", "CAPEX": "3 900 M$" } },
-      { id: "M2", company: "AstraZeneca PLC", code: "LSE: AZN", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "45 800 M$", "Coût des Ventes (COGS)": "8 200 M$", "Dépenses d'Exploitation": "23 400 M$", "Dotations Amortissements": "4 600 M$", "Charges Financières / Intérêts": "1 250 M$", "Impôts sur Sociétés": "1 850 M$", "Actifs Circulants": "24 500 M$", "Stocks": "6 100 M$", "Créances Clients": "9 200 M$", "Trésorerie & Équivalents": "5 800 M$", "Passifs Circulants": "28 300 M$", "Dettes Fournisseurs": "6 400 M$", "Dette Totale": "28 500 M$", "Capitaux Propres": "38 200 M$", "Total Actifs": "98 500 M$", "Flux de Trésorerie d'Exploitation": "10 500 M$", "CAPEX": "1 400 M$" } },
-      { id: "M3", company: "Hermès International", code: "EURONEXT: RMS", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "13 400 M$", "Coût des Ventes (COGS)": "3 800 M$", "Dépenses d'Exploitation": "3 950 M$", "Dotations Amortissements": "780 M$", "Charges Financières / Intérêts": "95 M$", "Impôts sur Sociétés": "1 480 M$", "Actifs Circulants": "12 800 M$", "Stocks": "2 450 M$", "Créances Clients": "820 M$", "Trésorerie & Équivalents": "9 100 M$", "Passifs Circulants": "4 600 M$", "Dettes Fournisseurs": "890 M$", "Dette Totale": "2 100 M$", "Capitaux Propres": "13 900 M$", "Total Actifs": "20 500 M$", "Flux de Trésorerie d'Exploitation": "5 100 M$", "CAPEX": "850 M$" } },
-      { id: "M4", company: "Nestlé SA", code: "SIX: NESN", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "93 000 M$", "Coût des Ventes (COGS)": "48 500 M$", "Dépenses d'Exploitation": "28 400 M$", "Dotations Amortissements": "3 800 M$", "Charges Financières / Intérêts": "1 420 M$", "Impôts sur Sociétés": "3 450 M$", "Actifs Circulants": "36 200 M$", "Stocks": "14 800 M$", "Créances Clients": "12 500 M$", "Trésorerie & Équivalents": "5 600 M$", "Passifs Circulants": "44 500 M$", "Dettes Fournisseurs": "20 100 M$", "Dette Totale": "56 000 M$", "Capitaux Propres": "37 500 M$", "Total Actifs": "132 000 M$", "Flux de Trésorerie d'Exploitation": "15 900 M$", "CAPEX": "5 200 M$" } },
-      { id: "M5", company: "Roche Holding AG", code: "SIX: ROG", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "58 700 M$", "Coût des Ventes (COGS)": "14 900 M$", "Dépenses d'Exploitation": "24 200 M$", "Dotations Amortissements": "4 100 M$", "Charges Financières / Intérêts": "680 M$", "Impôts sur Sociétés": "3 200 M$", "Actifs Circulants": "31 500 M$", "Stocks": "8 200 M$", "Créances Clients": "13 100 M$", "Trésorerie & Équivalents": "6 400 M$", "Passifs Circulants": "26 800 M$", "Dettes Fournisseurs": "5 900 M$", "Dette Totale": "29 400 M$", "Capitaux Propres": "34 800 M$", "Total Actifs": "92 000 M$", "Flux de Trésorerie d'Exploitation": "17 200 M$", "CAPEX": "4 300 M$" } },
-      { id: "M6", company: "Inditex SA (Zara)", code: "BME: ITX", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 950 M$", "Coût des Ventes (COGS)": "15 200 M$", "Dépenses d'Exploitation": "13 900 M$", "Dotations Amortissements": "2 950 M$", "Charges Financières / Intérêts": "135 M$", "Impôts sur Sociétés": "1 420 M$", "Actifs Circulants": "16 400 M$", "Stocks": "3 650 M$", "Créances Clients": "1 150 M$", "Trésorerie & Équivalents": "11 400 M$", "Passifs Circulants": "12 800 M$", "Dettes Fournisseurs": "8 200 M$", "Dette Totale": "5 400 M$", "Capitaux Propres": "18 900 M$", "Total Actifs": "32 500 M$", "Flux de Trésorerie d'Exploitation": "7 800 M$", "CAPEX": "1 850 M$" } },
-      { id: "M7", company: "Kering SA", code: "EURONEXT: KER", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "19 600 M$", "Coût des Ventes (COGS)": "4 800 M$", "Dépenses d'Exploitation": "9 850 M$", "Dotations Amortissements": "1 750 M$", "Charges Financières / Intérêts": "480 M$", "Impôts sur Sociétés": "1 100 M$", "Actifs Circulants": "10 500 M$", "Stocks": "4 300 M$", "Créances Clients": "1 450 M$", "Trésorerie & Équivalents": "3 900 M$", "Passifs Circulants": "9 800 M$", "Dettes Fournisseurs": "2 350 M$", "Dette Totale": "14 200 M$", "Capitaux Propres": "15 400 M$", "Total Actifs": "39 500 M$", "Flux de Trésorerie d'Exploitation": "4 200 M$", "CAPEX": "1 250 M$" } },
-      { id: "M8", company: "Mercedes-Benz Group AG", code: "XETRA: MBG", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "153 200 M$", "Coût des Ventes (COGS)": "118 400 M$", "Dépenses d'Exploitation": "15 100 M$", "Dotations Amortissements": "6 200 M$", "Charges Financières / Intérêts": "890 M$", "Impôts sur Sociétés": "4 300 M$", "Actifs Circulants": "96 000 M$", "Stocks": "28 500 M$", "Créances Clients": "18 900 M$", "Trésorerie & Équivalents": "21 500 M$", "Passifs Circulants": "74 000 M$", "Dettes Fournisseurs": "19 400 M$", "Dette Totale": "98 000 M$", "Capitaux Propres": "89 500 M$", "Total Actifs": "260 000 M$", "Flux de Trésorerie d'Exploitation": "19 800 M$", "CAPEX": "6 700 M$" } },
-      { id: "M9", company: "Heineken NV", code: "AMS: HEIA", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "30 300 M$", "Coût des Ventes (COGS)": "18 900 M$", "Dépenses d'Exploitation": "7 600 M$", "Dotations Amortissements": "2 350 M$", "Charges Financières / Intérêts": "510 M$", "Impôts sur Sociétés": "720 M$", "Actifs Circulants": "10 800 M$", "Stocks": "3 100 M$", "Créances Clients": "3 800 M$", "Trésorerie & Équivalents": "2 650 M$", "Passifs Circulants": "13 900 M$", "Dettes Fournisseurs": "6 700 M$", "Dette Totale": "17 400 M$", "Capitaux Propres": "18 200 M$", "Total Actifs": "51 000 M$", "Flux de Trésorerie d'Exploitation": "4 600 M$", "CAPEX": "1 950 M$" } },
-      { id: "M10", company: "STMicroelectronics NV", code: "EURONEXT: STMPA", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "17 300 M$", "Coût des Ventes (COGS)": "9 100 M$", "Dépenses d'Exploitation": "3 600 M$", "Dotations Amortissements": "1 850 M$", "Charges Financières / Intérêts": "75 M$", "Impôts sur Sociétés": "620 M$", "Actifs Circulants": "9 900 M$", "Stocks": "2 950 M$", "Créances Clients": "2 700 M$", "Trésorerie & Équivalents": "3 650 M$", "Passifs Circulants": "4 800 M$", "Dettes Fournisseurs": "1 850 M$", "Dette Totale": "2 700 M$", "Capitaux Propres": "16 100 M$", "Total Actifs": "23 800 M$", "Flux de Trésorerie d'Exploitation": "5 800 M$", "CAPEX": "3 900 M$" } }
+      { id: "M1", company: "Volkswagen AG", code: "XETRA: VOW3", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "285 000 M$", "Coût des Ventes (COGS)": "172 000 M$", "Dépenses d'Exploitation": "58 000 M$", "Dotations Amortissements": "16 000 M$", "Charges Financières / Intérêts": "2 500 M$", "Impôts sur Sociétés": "12 000 M$", "Actifs Circulants": "105 000 M$", "Stocks": "28 000 M$", "Créances Clients": "35 000 M$", "Trésorerie & Équivalents": "38 000 M$", "Passifs Circulants": "82 000 M$", "Dettes Fournisseurs": "37 000 M$", "Dette Totale": "52 000 M$", "Capitaux Propres": "125 000 M$", "Total Actifs": "310 000 M$", "Flux de Trésorerie d'Exploitation": "42 000 M$", "CAPEX": "18 000 M$" } },
+      { id: "M2", company: "Nestlé S.A.", code: "SWX: NESN", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "95 000 M$", "Coût des Ventes (COGS)": "48 000 M$", "Dépenses d'Exploitation": "22 000 M$", "Dotations Amortissements": "5 000 M$", "Charges Financières / Intérêts": "800 M$", "Impôts sur Sociétés": "3 500 M$", "Actifs Circulants": "45 000 M$", "Stocks": "12 000 M$", "Créances Clients": "15 000 M$", "Trésorerie & Équivalents": "10 000 M$", "Passifs Circulants": "32 000 M$", "Dettes Fournisseurs": "14 000 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "65 000 M$", "Total Actifs": "135 000 M$", "Flux de Trésorerie d'Exploitation": "18 000 M$", "CAPEX": "6 000 M$" } },
+      { id: "M3", company: "Novartis AG", code: "SWX: NOVN", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "50 000 M$", "Coût des Ventes (COGS)": "15 000 M$", "Dépenses d'Exploitation": "20 000 M$", "Dotations Amortissements": "4 500 M$", "Charges Financières / Intérêts": "600 M$", "Impôts sur Sociétés": "1 800 M$", "Actifs Circulants": "30 000 M$", "Stocks": "8 000 M$", "Créances Clients": "10 000 M$", "Trésorerie & Équivalents": "9 000 M$", "Passifs Circulants": "25 000 M$", "Dettes Fournisseurs": "8 500 M$", "Dette Totale": "20 000 M$", "Capitaux Propres": "70 000 M$", "Total Actifs": "120 000 M$", "Flux de Trésorerie d'Exploitation": "12 000 M$", "CAPEX": "3 000 M$" } },
+      { id: "M4", company: "Roche Holding AG", code: "SWX: ROG", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "20 000 M$", "Dépenses d'Exploitation": "25 000 M$", "Dotations Amortissements": "5 500 M$", "Charges Financières / Intérêts": "750 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "35 000 M$", "Stocks": "9 000 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "11 000 M$", "Passifs Circulants": "28 000 M$", "Dettes Fournisseurs": "9 500 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "75 000 M$", "Total Actifs": "130 000 M$", "Flux de Trésorerie d'Exploitation": "15 000 M$", "CAPEX": "4 000 M$" } },
+      { id: "M5", company: "Shell plc", code: "LSE: SHEL", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "300 000 M$", "Coût des Ventes (COGS)": "190 000 M$", "Dépenses d'Exploitation": "65 000 M$", "Dotations Amortissements": "18 000 M$", "Charges Financières / Intérêts": "3 000 M$", "Impôts sur Sociétés": "15 000 M$", "Actifs Circulants": "120 000 M$", "Stocks": "35 000 M$", "Créances Clients": "45 000 M$", "Trésorerie & Équivalents": "40 000 M$", "Passifs Circulants": "95 000 M$", "Dettes Fournisseurs": "42 000 M$", "Dette Totale": "60 000 M$", "Capitaux Propres": "140 000 M$", "Total Actifs": "350 000 M$", "Flux de Trésorerie d'Exploitation": "50 000 M$", "CAPEX": "20 000 M$" } },
+      { id: "M6", company: "Unilever plc", code: "LSE: ULVR", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "60 000 M$", "Coût des Ventes (COGS)": "28 000 M$", "Dépenses d'Exploitation": "18 000 M$", "Dotations Amortissements": "3 000 M$", "Charges Financières / Intérêts": "500 M$", "Impôts sur Sociétés": "1 500 M$", "Actifs Circulants": "25 000 M$", "Stocks": "7 000 M$", "Créances Clients": "8 000 M$", "Trésorerie & Équivalents": "6 000 M$", "Passifs Circulants": "18 000 M$", "Dettes Fournisseurs": "9 000 M$", "Dette Totale": "15 000 M$", "Capitaux Propres": "40 000 M$", "Total Actifs": "70 000 M$", "Flux de Trésorerie d'Exploitation": "10 000 M$", "CAPEX": "2 500 M$" } },
+      { id: "M7", company: "Allianz SE", code: "XETRA: ALV", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "150 000 M$", "Coût des Ventes (COGS)": "95 000 M$", "Dépenses d'Exploitation": "35 000 M$", "Dotations Amortissements": "4 500 M$", "Charges Financières / Intérêts": "1 200 M$", "Impôts sur Sociétés": "3 800 M$", "Actifs Circulants": "80 000 M$", "Stocks": "0 M$", "Créances Clients": "25 000 M$", "Trésorerie & Équivalents": "30 000 M$", "Passifs Circulants": "65 000 M$", "Dettes Fournisseurs": "15 000 M$", "Dette Totale": "45 000 M$", "Capitaux Propres": "90 000 M$", "Total Actifs": "250 000 M$", "Flux de Trésorerie d'Exploitation": "22 000 M$", "CAPEX": "3 500 M$" } },
+      { id: "M8", company: "BP plc", code: "LSE: BP", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "250 000 M$", "Coût des Ventes (COGS)": "160 000 M$", "Dépenses d'Exploitation": "55 000 M$", "Dotations Amortissements": "15 000 M$", "Charges Financières / Intérêts": "2 800 M$", "Impôts sur Sociétés": "12 000 M$", "Actifs Circulants": "95 000 M$", "Stocks": "25 000 M$", "Créances Clients": "30 000 M$", "Trésorerie & Équivalents": "28 000 M$", "Passifs Circulants": "75 000 M$", "Dettes Fournisseurs": "35 000 M$", "Dette Totale": "55 000 M$", "Capitaux Propres": "110 000 M$", "Total Actifs": "300 000 M$", "Flux de Trésorerie d'Exploitation": "35 000 M$", "CAPEX": "16 000 M$" } },
+      { id: "M9", company: "Inditex S.A.", code: "BME: ITX", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 000 M$", "Coût des Ventes (COGS)": "15 000 M$", "Dépenses d'Exploitation": "12 000 M$", "Dotations Amortissements": "2 000 M$", "Charges Financières / Intérêts": "150 M$", "Impôts sur Sociétés": "1 200 M$", "Actifs Circulants": "18 000 M$", "Stocks": "4 500 M$", "Créances Clients": "2 500 M$", "Trésorerie & Équivalents": "10 000 M$", "Passifs Circulants": "12 000 M$", "Dettes Fournisseurs": "6 500 M$", "Dette Totale": "5 000 M$", "Capitaux Propres": "25 000 M$", "Total Actifs": "45 000 M$", "Flux de Trésorerie d'Exploitation": "8 500 M$", "CAPEX": "1 800 M$" } },
+      { id: "M10", company: "Eni S.p.A.", code: "BIT: ENI", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "130 000 M$", "Coût des Ventes (COGS)": "85 000 M$", "Dépenses d'Exploitation": "28 000 M$", "Dotations Amortissements": "8 000 M$", "Charges Financières / Intérêts": "1 500 M$", "Impôts sur Sociétés": "4 500 M$", "Actifs Circulants": "50 000 M$", "Stocks": "12 000 M$", "Créances Clients": "18 000 M$", "Trésorerie & Équivalents": "15 000 M$", "Passifs Circulants": "42 000 M$", "Dettes Fournisseurs": "18 000 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "60 000 M$", "Total Actifs": "160 000 M$", "Flux de Trésorerie d'Exploitation": "18 000 M$", "CAPEX": "8 500 M$" } }
     ];
 
-    // NOUVELLES MISSIONS SPÉCIALES (ESG & FINTECH - SM1 à SM5)
     const defaultSpecialMissions = [
-      { id: "SM1", company: "Ørsted A/S (Offshore Wind & Green Transition)", code: "ESG: ORSTED-DK", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "11 400 ktCO2", "Chiffre d'Affaires": "38 200 M$", "Investissements Verts (CAPEX Vert)": "8 400 M$", "CAPEX Total": "9 800 M$", "Score Environnemental": "95 / 100", "Score Social": "91 / 100" } },
-      { id: "SM2", company: "Klarna Group (Digital Banking & Fraud Compliance)", code: "FIN: KLARNA-SE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "3 400 000", "Dossiers KYC Conformes": "3 382 000", "Alertes AML Non Déclarées": "1", "Volume Flux Journalier": "3 100 M$", "Écart Rapprochement API": "0,00 $", "Indice de Gouvernance": "94 / 100" } },
-      { id: "SM3", company: "Maersk Logistics (Decarbonized Maritime Audit)", code: "LOG: MAERSK-DK", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "2.1 Jours", "Coûts Logistiques Totaux": "1 250 M$", "Chiffre d'Affaires": "51 000 M$", "Actifs Roulants Immobilisés": "5 %", "Indice Efficacité Portuaire": "96 / 100", "Score Sécurité": "99 / 100" } },
-      { id: "SM4", company: "Wise PLC (Cross-Border Liquidity & Safeguarding)", code: "WAVE: WISE-UK", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "11 800 M$", "Actifs Liquides de Couverture": "12 400 M$", "Transactions Journalières": "22 100 000", "Taux de Réussite API": "99.99 %", "Ratio LCR (Liquidité)": "192 %", "Rétention Utilisateurs": "96 %" } },
-      { id: "SM5", company: "Vestas Wind Systems (Renewable Supply Chain Audit)", code: "ESG: VESTAS-DK", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "180 kg", "Chiffre d'Affaires": "15 400 M$", "Investissement Communautaire": "95 M$", "Board Indépendance": "80 %", "Score ESG Global": "93 / 100", "Audits Internes Réalisés": "32" } }
+      { id: "SM1", company: "Ørsted A/S", code: "ESG: ORSTED-DK", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "12 500 ktCO2", "Chiffre d'Affaires": "55 000 M$", "Investissements Verts (CAPEX Vert)": "11 200 M$", "CAPEX Total": "12 500 M$", "Score Environnemental": "95 / 100", "Score Social": "89 / 100" } },
+      { id: "SM2", company: "Klarna Bank AB", code: "FIN: KLARNA-SE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients Totaux": "3 200 000", "Dossiers KYC Conformes": "3 185 000", "Alertes AML Non Déclarées": "1", "Volume Flux Journalier": "3 100 M$", "Écart Rapprochement API": "0,00 $", "Indice de Gouvernance": "94 / 100" } },
+      { id: "SM3", company: "A.P. Møller - Mærsk A/S", code: "LOG: MAERSK-DK", reward: 75, completed: false, locked: false, answers: {}, financials: { "Temps de Séjour Conteneurs": "2.1 Jours", "Coûts Logistiques Totaux": "950 M$", "Chiffre d'Affaires": "11 200 M$", "Actifs Roulants Immobilisés": "6 %", "Indice Efficacité Portuaire": "95 / 100", "Score Sécurité": "99 / 100" } },
+      { id: "SM4", company: "N26 GmbH", code: "WAVE: N26-DE", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Utilisateurs (Cantonnement)": "18 500 M$", "Actifs Liquides de Couverture": "19 200 M$", "Transactions Journalières": "22 100 000", "Taux de Réussite API": "99.97 %", "Ratio LCR (Liquidité)": "190 %", "Rétention Utilisateurs": "92 %" } },
+      { id: "SM5", company: "Vestas Wind Systems A/S", code: "ESG: VWS-DK", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2 par Tonne": "185 kg", "Chiffre d'Affaires": "105 000 M$", "Investissement Communautaire": "145 M$", "Board Indépendance": "80 %", "Score ESG Global": "92 / 100", "Audits Internes Réalisés": "30" } }
     ];
 
-    // NOUVELLES MISSIONS AVANCÉES (CYBER & IA - AM1 à AM4)
     const defaultAdvancedMissions = [
-      { id: "AM1", company: "Orange Cyberdefense (Cloud Threat & SOC Audit)", code: "CYBER: OCG-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "18 200", "Vulnérabilités Critiques Détectées": "2", "Délai Résolution (MTTR)": "1.1 Heures", "Indice ISO 27001": "99 / 100", "Incidents Bloqués": "68 000" } },
-      { id: "AM2", company: "Spotify Technology SA (User Retention & Recommendation CX)", code: "CX: SPOT-EU", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "450", "Temps d'Attente Moyen": "1.2 Minutes", "Score NPS Client": "84 / 100", "Conformité Accueil": "99 %", "Réclamations Traitées à J+1": "99.5 %" } },
-      { id: "AM3", company: "Arm Holdings PLC (Semiconductor IP Portfolio Integration)", code: "MA: ARM-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "1 450 M$", "Actifs Nets Cibles Repris": "1 100 M$", "Écart Goodwill Calculé": "350 M$", "Taux Migration Données": "100.00 %", "Synergies Réalisées": "140 M$" } },
-      { id: "AM4", company: "Ericsson (6G Patent Valuation & Licensing Asset Audit)", code: "IP: ERIC-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "24 800", "Dépenses R&D Annuelles": "5 100 M$", "Chiffre d'Affaires": "24 500 M$", "Licences Logicielles Concédées": "580", "Valeur Actifs Immatériels": "11 200 M$" } }
+      { id: "AM1", company: "Ericsson", code: "CYBER: ERIC-SEC", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "18 200", "Vulnérabilités Critiques Détectées": "2", "Délai Résolution (MTTR)": "1.1 Heures", "Indice ISO 27001": "99 / 100", "Incidents Bloqués": "55 000" } },
+      { id: "AM2", company: "Spotify Technology S.A.", code: "CX: SPOT-EU", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "410", "Temps d'Attente Moyen": "1.5 Minutes", "Score NPS Client": "82 / 100", "Conformité Accueil": "99 %", "Réclamations Traitées à J+1": "97 %" } },
+      { id: "AM3", company: "Just Eat Takeaway.com N.V.", code: "MA: JET-TECH", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix d'Acquisition Cible": "1 200 M$", "Actifs Nets Cibles Repris": "850 M$", "Écart Goodwill Calculé": "350 M$", "Taux Migration Données": "99.95 %", "Synergies Réalisées": "110 M$" } },
+      { id: "AM4", company: "Dassault Systèmes SE", code: "IP: DSY-PAT", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Technologiques Actifs": "24 100", "Dépenses R&D Annuelles": "5 200 M$", "Chiffre d'Affaires": "28 500 M$", "Licences Logicielles Concédées": "530", "Valeur Actifs Immatériels": "11 400 M$" } }
     ];
 
     let missions = defaultMissions;
@@ -1052,9 +1067,9 @@
     let advancedMissions = defaultAdvancedMissions;
 
     try {
-      missions = JSON.parse(localStorage.getItem('audit_missions_eu')) || defaultMissions;
-      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions_eu')) || defaultSpecialMissions;
-      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions_eu')) || defaultAdvancedMissions;
+      missions = JSON.parse(localStorage.getItem('audit_missions_eu_v6')) || defaultMissions;
+      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions_eu_v6')) || defaultSpecialMissions;
+      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions_eu_v6')) || defaultAdvancedMissions;
     } catch(e) {}
 
     function getCleanNum(strVal) {
@@ -1124,10 +1139,10 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions_eu', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_advanced_missions_eu', JSON.stringify(advancedMissions));
-      localStorage.setItem('audit_withdrawals', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_missions_eu_v6', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v6', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_advanced_missions_eu_v6', JSON.stringify(advancedMissions));
+      localStorage.setItem('audit_withdrawals_v6', JSON.stringify(withdrawals));
       updateGlobalProgress();
       renderEvaluationView();
     }
@@ -1729,6 +1744,8 @@
       let filteredWithdrawals = withdrawals;
       if (filterVal === 'pending') {
         filteredWithdrawals = withdrawals.filter(w => w.statut === "En attente" || w.statut === "En cours de traitement");
+      } else if (filterVal === 'completed') {
+        filteredWithdrawals = withdrawals.filter(w => w.statut === "Effectué" || w.statut === "Validé");
       }
 
       if (filteredWithdrawals.length === 0) {
@@ -1753,7 +1770,7 @@
               <p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p>
               <p class="text-xs text-slate-400 font-mono">${w.details}</p>
             </div>
-            <span class="font-black text-sm sm:base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
+            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
           </div>
         `;
         container.appendChild(card);
@@ -1767,6 +1784,17 @@
       document.getElementById('recTxRef').textContent = `TXN-MTE-${w.date.replace(/[^0-9]/g, '').slice(0, 8)}-${w.id.toString().slice(-4)}`;
       document.getElementById('recTxDate').textContent = `Date : ${w.date}`;
       document.getElementById('recAmountUSD').textContent = `${w.montant.toFixed(2).replace('.', ',')} $`;
+      
+      const statusBadge = document.getElementById('recStatusBadge');
+      if (statusBadge) {
+        if (w.statut === "Effectué") {
+          statusBadge.textContent = "Effectué avec succès";
+          statusBadge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
+        } else {
+          statusBadge.textContent = w.statut;
+          statusBadge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30";
+        }
+      }
       document.getElementById('receiptModal').classList.remove('hidden');
     }
 
@@ -1780,7 +1808,7 @@
       if (!amt || amt <= 0) return;
       const now = new Date();
       const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()} à ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-      withdrawals.unshift({ id: Date.now(), date: dateStr, beneficiaire: "Aballagh Abderrahim", montant: amt, moyen: "Compte Bancaire", details: "Attijariwafa Bank - RIB: ****8206", statut: "En attente" });
+      withdrawals.unshift({ id: Date.now(), date: dateStr, beneficiaire: "Abderrahim aballagh", montant: amt, moyen: "Compte Bancaire", details: "Attijariwafa Bank - RIB: ****8206", statut: "En attente" });
       saveState();
       updateHeader();
       renderWithdrawHistory();
