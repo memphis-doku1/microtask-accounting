@@ -691,20 +691,33 @@
     </div>
   </div>
 
-  <!-- BARRE DE NAVIGATION BASSE MOBILE -->
-  <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-1 py-1.5 flex justify-around items-center shadow-2xl">
-    <button onclick="switchTab('dashboard')" class="flex flex-col items-center gap-0.5 text-emerald-400"><span class="text-[10px] font-bold">Audit</span></button>
-    <button onclick="switchTab('special')" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="text-[10px] font-bold">Spéciales</span></button>
-    <button onclick="switchTab('advanced')" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="text-[10px] font-bold">Avancées</span></button>
-    <button onclick="switchTab('inbox')" class="flex flex-col items-center gap-0.5 text-indigo-400 relative">
-      <span class="text-[10px] font-bold">Boîte</span>
-      <span id="mobileUnreadBadge" class="absolute top-0 right-1 w-2 h-2 rounded-full bg-indigo-400 animate-ping hidden"></span>
+  <!-- BARRE DE NAVIGATION BASSE MOBILE (Améliorée) -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] flex justify-around items-center shadow-2xl">
+    
+    <button id="mobNavDashboardBtn" onclick="switchTab('dashboard')" class="flex flex-col items-center gap-1 text-emerald-400 transition active:scale-95">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      <span id="t_mobNavAudit" class="text-[10px] font-bold">Audit</span>
     </button>
-    <button onclick="switchTab('transactions')" class="flex flex-col items-center gap-0.5 text-slate-400"><span class="text-[10px] font-bold">Retraits</span></button>
+
+    <button id="mobNavSpecialBtn" onclick="switchTab('special')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2h0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      <span id="t_mobNavSpecial" class="text-[10px] font-bold">Spéciales</span>
+    </button>
+
+    <button id="mobNavAdvancedBtn" onclick="switchTab('advanced')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+      <span id="t_mobNavAdvanced" class="text-[10px] font-bold">Avancées</span>
+    </button>
+
+    <button id="mobNavTransactionsBtn" onclick="switchTab('transactions')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+      <span id="t_mobNavTransactions" class="text-[10px] font-bold">Retraits</span>
+    </button>
+
   </div>
 
   <script>
-    // NETTOYAGE DES ANCIENNES DONNÉES (Passage en v10 pour forcer la mise à jour complète)
+    // NETTOYAGE DES ANCIENNES DONNÉES
     ['audit_missions_eu', 'audit_special_missions_eu', 'audit_advanced_missions_eu', 
      'audit_missions_eu_v2', 'audit_special_missions_eu_v2', 'audit_advanced_missions_eu_v2',
      'audit_withdrawals', 'audit_withdrawals_v2', 'audit_withdrawals_v3', 'audit_withdrawals_v4', 'audit_withdrawals_v5', 'audit_withdrawals_v7', 'audit_withdrawals_v8', 'audit_withdrawals_v9'].forEach(key => localStorage.removeItem(key));
@@ -712,6 +725,7 @@
     let currentLanguage = localStorage.getItem('audit_lang') || 'fr';
     let currentSelectedMethod = 'bank';
 
+    // Ajout des traductions pour le menu mobile
     const translations = {
       fr: {
         headerSubtitle: "Terminal d'Audit Sécurisé",
@@ -720,6 +734,10 @@
         navAdvanced: "Avancées",
         navWithdrawals: "Retraits",
         navEvaluation: "Évaluation",
+        mobNavAudit: "Audit",
+        mobNavSpecial: "Spéciales",
+        mobNavAdvanced: "Avancées",
+        mobNavTransactions: "Retraits",
         labelValide: "Validé",
         labelAttente: "En Attente",
         btnWithdrawTop: "Retirer",
@@ -756,6 +774,10 @@
         navAdvanced: "Advanced",
         navWithdrawals: "Withdrawals",
         navEvaluation: "Evaluation",
+        mobNavAudit: "Audit",
+        mobNavSpecial: "Special",
+        mobNavAdvanced: "Advanced",
+        mobNavTransactions: "Withdrawals",
         labelValide: "Validated",
         labelAttente: "Pending",
         btnWithdrawTop: "Withdraw",
@@ -792,6 +814,10 @@
         navAdvanced: "مهام متقدمة",
         navWithdrawals: "السحوبات",
         navEvaluation: "التقييم",
+        mobNavAudit: "التدقيق",
+        mobNavSpecial: "مهام خاصة",
+        mobNavAdvanced: "مهام متقدمة",
+        mobNavTransactions: "السحوبات",
         labelValide: "مؤكد",
         labelAttente: "قيد الانتظار",
         btnWithdrawTop: "سحب",
@@ -866,6 +892,10 @@
         t_navAdvanced: 'navAdvanced',
         t_navWithdrawals: 'navWithdrawals',
         t_navEvaluation: 'navEvaluation',
+        t_mobNavAudit: 'mobNavAudit',
+        t_mobNavSpecial: 'mobNavSpecial',
+        t_mobNavAdvanced: 'mobNavAdvanced',
+        t_mobNavTransactions: 'mobNavTransactions',
         t_labelValide: 'labelValide',
         t_labelAttente: 'labelAttente',
         t_btnWithdrawTop: 'btnWithdrawTop',
@@ -1031,9 +1061,7 @@
       });
 
       const badgeDesk = document.getElementById('unreadBadge');
-      const badgeMob = document.getElementById('mobileUnreadBadge');
       if (badgeDesk) badgeDesk.style.display = unreadCount > 0 ? 'flex' : 'none';
-      if (badgeMob) badgeMob.style.display = unreadCount > 0 ? 'block' : 'none';
       document.getElementById('inboxCount').textContent = inboxMessages.length;
     }
 
@@ -1315,6 +1343,9 @@
       if (!localStorage.getItem('popup_advanced_seen_v10')) {
         setTimeout(() => { document.getElementById('newMissionPopupModal').classList.remove('hidden'); }, 800);
       }
+      
+      // Assurer que le menu mobile reflète le bon onglet actif au démarrage
+      switchTab('dashboard');
     }
 
     function goToAdvancedMissions() {
@@ -1604,6 +1635,7 @@
       document.getElementById('evaluationView').classList.toggle('hidden', tab !== 'evaluation');
       document.getElementById('transactionsView').classList.toggle('hidden', tab !== 'transactions');
       
+      // Mise à jour de la navigation Desktop
       const navIds = ['navDashboardBtn', 'navSpecialBtn', 'navAdvancedBtn', 'navInboxBtn', 'navEvaluationBtn', 'navTransactionsBtn'];
       navIds.forEach(id => {
         const btn = document.getElementById(id);
@@ -1619,6 +1651,30 @@
           btn.className = "px-3 py-1.5 rounded-lg text-xs font-black text-slate-300 hover:text-white transition";
         }
       });
+
+      // Mise à jour de la navigation Mobile
+      const mobNavMap = {
+        'dashboard': 'mobNavDashboardBtn',
+        'special': 'mobNavSpecialBtn',
+        'advanced': 'mobNavAdvancedBtn',
+        'transactions': 'mobNavTransactionsBtn'
+      };
+
+      // Réinitialiser tous les boutons mobiles à l'état inactif
+      ['mobNavDashboardBtn', 'mobNavSpecialBtn', 'mobNavAdvancedBtn', 'mobNavTransactionsBtn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if(!btn) return;
+        btn.className = "flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95";
+      });
+
+      // Appliquer le style actif au bouton mobile concerné
+      if(mobNavMap[tab]) {
+        const activeBtn = document.getElementById(mobNavMap[tab]);
+        if(activeBtn) {
+          activeBtn.className = "flex flex-col items-center gap-1 text-emerald-400 transition active:scale-95";
+        }
+      }
+
       if (tab === 'evaluation') renderEvaluationView();
       if (tab === 'transactions') renderWithdrawHistory();
     }
