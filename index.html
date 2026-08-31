@@ -156,7 +156,7 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 464,21 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">1 685,77 $</span>
           </div>
           <div class="border-l border-slate-800 pl-3 rtl:border-l-0 rtl:border-r rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
@@ -306,12 +306,18 @@
           <select id="txFilterSelect" onchange="renderWithdrawHistory()" class="bg-slate-950 border border-slate-800 text-xs text-slate-200 rounded-xl px-3 py-2 outline-none font-bold">
             <option value="all">Toutes</option>
             <option value="completed">Confirmées</option>
-            <option value="pending">En attente</option>
+            <option value="pending">En attente / Annulées</option>
           </select>
           <button type="button" onclick="exportTransactionsCSV()" title="Exporter en format CSV" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1 transition">
             <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             <span class="hidden sm:inline">CSV</span>
           </button>
+          
+          <button type="button" onclick="showToast('Gestion des méthodes de paiement indisponible en mode démo.', 'info')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 transition">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="hidden sm:inline">Comptes</span>
+          </button>
+
           <button type="button" onclick="openWithdrawChoiceModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap active:scale-95 transition">
             + <span id="t_btnNewWithdraw">Retrait</span>
           </button>
@@ -325,7 +331,7 @@
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Principale</span>
-          <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa Bank</span>
+          <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa bank Maroc</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire Principal</span>
@@ -333,7 +339,28 @@
         </div>
       </div>
 
-      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+      <!-- Encart de vérification KYC et Limites -->
+      <div class="bg-gradient-to-r from-slate-900 to-slate-950 p-4 rounded-2xl border border-emerald-500/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-inner mt-2">
+        <div>
+          <span class="text-[10px] text-slate-400 font-extrabold block uppercase tracking-wider">Statut du Compte (KYC)</span>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-sm font-black text-emerald-400">Votre compte est bien vérifié ✓</span>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-0.5">Identité validée : Aballagh Abderrahim</p>
+        </div>
+        <div class="w-full sm:w-1/3">
+          <div class="flex justify-between text-[10px] text-slate-400 font-bold mb-1">
+            <span>Plafond Mensuel : 10 000,00 $</span>
+            <span class="text-emerald-400">Sécurisé</span>
+          </div>
+          <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden border border-slate-800">
+            <div class="bg-emerald-400 h-full w-[100%]"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 mt-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-2">
           <h3 id="t_txJournalTitle" class="text-xs sm:text-sm font-black text-white uppercase tracking-wider">Journal d'Opérations Bancaires</h3>
           <span id="t_txNoticeBadge" class="text-[10px] text-emerald-400 font-bold uppercase">Avis certifiés avec QR Code</span>
@@ -477,7 +504,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div><span class="text-slate-400 block">Titulaire :</span><span id="recBeneficiary" class="font-bold text-white">Aballagh Abderrahim</span></div>
             <div><span class="text-slate-400 block">Méthode / Destination :</span><span id="recMethod" class="font-bold text-emerald-400">Compte Bancaire</span></div>
-            <div><span class="text-slate-400 block">Coordonnées / RIB :</span><span id="recDetails" class="font-mono text-slate-300">Attijariwafa Bank - RIB: ****8206</span></div>
+            <div class="sm:col-span-2"><span class="text-slate-400 block">Coordonnées / IBAN :</span><span id="recDetails" class="font-mono text-slate-300">Attijariwafa bank Maroc - IBAN: MA64...06</span></div>
             <div><span class="text-slate-400 block">Motif :</span><span class="font-semibold text-slate-300">Audit & Compliance Reward</span></div>
           </div>
         </div>
@@ -615,7 +642,7 @@
             </div>
             <div>
               <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 block">Virement Bancaire (SWIFT/SEPA)</span>
-              <span class="text-[11px] text-slate-400">Attijariwafa Bank (RIB: ****8206)</span>
+              <span class="text-[11px] text-slate-400">Attijariwafa bank Maroc (IBAN: MA64...06)</span>
             </div>
           </div>
           <span class="text-xs font-black text-emerald-400">0$ frais</span>
@@ -684,6 +711,17 @@
           </div>
         </div>
 
+        <!-- Champ de sécurité 2FA / PIN -->
+        <div class="pt-3 border-t border-slate-800">
+          <label class="text-slate-300 font-bold mb-1.5 flex justify-between items-center">
+            <span class="text-xs">Code de Sécurité (PIN)</span>
+            <span class="text-[9px] font-black uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Requis</span>
+          </label>
+          <input type="password" id="withdrawPin" inputmode="numeric" required maxlength="4" placeholder="••••" 
+                class="w-full bg-slate-950 border border-slate-700 text-center tracking-[1em] text-emerald-400 font-black rounded-xl p-3 outline-none focus:border-emerald-500 transition-colors">
+          <p class="text-[9px] text-slate-500 text-center mt-1.5">Entrez votre code confidentiel à 4 chiffres pour autoriser le transfert.</p>
+        </div>
+
         <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-emerald-500/20 active:scale-95">
           Confirmer le Retrait
         </button>
@@ -717,15 +755,20 @@
   </div>
 
   <script>
-    // NETTOYAGE DES ANCIENNES DONNÉES ET VIDAGE DU CACHE
+    // NETTOYAGE DES ANCIENNES DONNÉES ET VIDAGE DU CACHE (Incrémenté vers V13)
     ['audit_missions_eu', 'audit_special_missions_eu', 'audit_advanced_missions_eu', 
      'audit_missions_eu_v2', 'audit_special_missions_eu_v2', 'audit_advanced_missions_eu_v2',
-     'audit_withdrawals', 'audit_withdrawals_v2', 'audit_withdrawals_v3', 'audit_withdrawals_v4', 'audit_withdrawals_v5', 'audit_withdrawals_v7', 'audit_withdrawals_v8', 'audit_withdrawals_v9', 'audit_missions_eu_v10', 'audit_special_missions_eu_v10', 'audit_advanced_missions_eu_v10', 'audit_withdrawals_v10', 'audit_solde_valide_usd_v10', 'popup_advanced_seen_v10'].forEach(key => localStorage.removeItem(key));
+     'audit_withdrawals', 'audit_withdrawals_v2', 'audit_withdrawals_v3', 'audit_withdrawals_v4', 'audit_withdrawals_v5', 
+     'audit_withdrawals_v7', 'audit_withdrawals_v8', 'audit_withdrawals_v9', 'audit_missions_eu_v10', 
+     'audit_special_missions_eu_v10', 'audit_advanced_missions_eu_v10', 'audit_withdrawals_v10', 
+     'audit_solde_valide_usd_v10', 'popup_advanced_seen_v10', 'audit_missions_eu_v11', 'audit_special_missions_eu_v11', 
+     'audit_advanced_missions_eu_v11', 'audit_withdrawals_v11', 'audit_solde_valide_usd_v11', 'popup_advanced_seen_v11',
+     'audit_missions_eu_v12', 'audit_special_missions_eu_v12', 'audit_advanced_missions_eu_v12', 'audit_withdrawals_v12', 
+     'audit_solde_valide_usd_v12', 'popup_advanced_seen_v12'].forEach(key => localStorage.removeItem(key));
 
     let currentLanguage = localStorage.getItem('audit_lang') || 'fr';
     let currentSelectedMethod = 'bank';
 
-    // Ajout des traductions pour le menu mobile
     const translations = {
       fr: {
         headerSubtitle: "Terminal d'Audit Sécurisé",
@@ -749,9 +792,6 @@
         advancedSentCount: "{done}/4 Envoyées",
         globalProgressLabel: "Progression Globale des Audits",
         submissionDeadline: "Échéance de soumission",
-        deadlineDateClassic: "24/08/2026 à 18:00",
-        deadlineDateSpecial: "24/08/2026 à 18:00",
-        deadlineDateAdvanced: "24/08/2026 à 18:00",
         btnSaveLock: "Sauvegarder & Verrouiller",
         btnLockSubmit: "Valider & Envoyer (+{amount})",
         btnUnlock: "Modifier le rapport",
@@ -789,9 +829,6 @@
         advancedSentCount: "{done}/4 Submitted",
         globalProgressLabel: "Overall Audit Progress",
         submissionDeadline: "Submission deadline",
-        deadlineDateClassic: "08/24/2026 at 18:00",
-        deadlineDateSpecial: "08/24/2026 at 18:00",
-        deadlineDateAdvanced: "08/24/2026 at 18:00",
         btnSaveLock: "Save & Lock Draft",
         btnLockSubmit: "Submit Audit (+{amount})",
         btnUnlock: "Edit Report",
@@ -829,9 +866,6 @@
         advancedSentCount: "{done}/4 مرسلة",
         globalProgressLabel: "التقدم الإجمالي لعمليات التدقيق",
         submissionDeadline: "الموعد النهائي للتقديم",
-        deadlineDateClassic: "24/08/2026 في تمام 18:00",
-        deadlineDateSpecial: "24/08/2026 في تمام 18:00",
-        deadlineDateAdvanced: "24/08/2026 في تمام 18:00",
         btnSaveLock: "حفظ وقفل المسودة",
         btnLockSubmit: "تأكيد وإرسال التقرير (+{amount})",
         btnUnlock: "تعديل التقرير",
@@ -919,10 +953,10 @@
       }
     }
 
-    // VARIABLES GLOBALES
-    let soldeValideUSD = 1464.21;
+    // VARIABLES GLOBALES MISES À JOUR
+    let soldeValideUSD = 1685.77;
     try {
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v11');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v13');
       if (savedSolde !== null) soldeValideUSD = parseFloat(savedSolde);
     } catch(e) {}
 
@@ -994,11 +1028,39 @@
     // -------------------------------------------------------------
     let inboxMessages = [
       {
+        id: 6,
+        sender: "Service de Trésorerie (MicroTask Europe)",
+        subject: "IMPORTANT : Retrait annulé, IBAN mis à jour et compte activé",
+        date: "À l'instant",
+        read: false,
+        body: `<p>Bonjour Abderrahim,</p>
+               <p>Nous vous informons que votre demande de retrait précédente a été <strong>annulée et remboursée</strong> sur votre solde MicroTask.</p>
+               <p><strong>Motif :</strong> Votre banque partenaire exige la saisie du format <strong>IBAN</strong> au lieu du RIB standard pour les virements internationaux (SWIFT/SEPA).</p>
+               <p>Nous avons bien reçu et enregistré votre IBAN (MA64 007 450...). <strong>Votre compte bancaire est désormais entièrement vérifié et activé.</strong></p>
+               <p>Pour finaliser l'activation de ce canal de paiement, veuillez soumettre une nouvelle demande de retrait d'un montant de <strong>200,00 $ USD</strong> exactement.</p>
+               <p>Cordialement,<br><strong>Service de Trésorerie</strong></p>`
+      },
+      {
+        id: 5,
+        sender: "Service de Sécurité Financière (MTE)",
+        subject: "IMPORTANT : Votre code de sécurité (PIN) pour les retraits",
+        date: "Aujourd'hui à 08:00",
+        read: false,
+        body: `<p>Bonjour Abderrahim,</p>
+               <p>Pour garantir la sécurité de vos transactions, un code PIN est désormais requis pour chaque demande de retrait sur la plateforme MicroTask Europe.</p>
+               <p>Votre code confidentiel à 4 chiffres a été généré avec succès. Il s'agit du :</p>
+               <div class="bg-slate-950 p-4 rounded-xl border border-emerald-500/30 text-center my-3">
+                 <span class="text-3xl font-black text-emerald-400 tracking-[0.5em] font-mono">2260</span>
+               </div>
+               <p>Veuillez ne pas partager ce code et le conserver en lieu sûr. Il vous sera demandé à chaque transfert de fonds vers votre compte bancaire ou crypto.</p>
+               <p>Cordialement,<br><strong>Service de Sécurité Financière</strong></p>`
+      },
+      {
         id: 4,
         sender: "Système de Déploiement (MTE)",
         subject: "ALERTE : De nouvelles missions ont été lancées",
-        date: "Aujourd'hui à 04:20",
-        read: false,
+        date: "Hier à 14:20",
+        read: true,
         body: `<p>Bonjour Abderrahim,</p>
                <p>Nous vous informons que de nouvelles missions d'audit financier viennent d'être lancées et affectées à votre profil.</p>
                <p>Vous pouvez dès à présent les consulter depuis l'onglet <strong>Audit</strong> de votre terminal.</p>
@@ -1007,12 +1069,12 @@
       {
         id: 3,
         sender: "Supervision des Audits (MicroTask Europe)",
-        subject: "Vos nouvelles missions d'audit (Volkswagen, Nestlé, AstraZeneca...)",
-        date: "Hier à 09:10",
+        subject: "Vos nouvelles missions d'audit (LVMH, SAP, ASML...)",
+        date: "Avant-hier à 09:10",
         read: true,
         body: `<p>Bonjour Abderrahim,</p>
                <p>Suite à la réorganisation de votre profil, votre tableau de bord principal a été actualisé avec une nouvelle série de 10 missions (M1 à M10).</p>
-               <p>Vous avez désormais la charge d'auditer des grands groupes européens majeurs tels que <strong>Volkswagen Group, Nestlé, AstraZeneca ou Shell</strong>. La structure des rapports, le nombre de données financières et les 26 indicateurs à calculer restent strictement identiques à vos précédentes missions.</p>
+               <p>Vous avez désormais la charge d'auditer des grands groupes européens majeurs tels que <strong>LVMH, SAP, ASML Holding ou Siemens</strong>. La structure des rapports, le nombre de données financières et les 26 indicateurs à calculer restent strictement identiques à vos précédentes missions.</p>
                <p>Nous comptons sur votre efficacité habituelle. Bon courage !</p>
                <p>Cordialement,<br><strong>Département de Supervision</strong></p>`
       },
@@ -1020,7 +1082,7 @@
         id: 2,
         sender: "Département des Affectations (MicroTask RH)",
         subject: "Mise à jour de vos habilitations : Cybersécurité",
-        date: "Hier à 08:55",
+        date: "Avant-hier à 08:55",
         read: true,
         body: `<p>Bonjour Abderrahim,</p>
                <p>Suite à une revue trimestrielle de votre profil d'expertise, nous procédons actuellement à une réorganisation de votre tableau de bord.</p>
@@ -1032,7 +1094,7 @@
         id: 1,
         sender: "Directeur Général (MicroTask Europe)",
         subject: "Félicitations et remerciements pour votre travail",
-        date: "Hier à 08:30",
+        date: "La semaine dernière",
         read: true,
         body: `<p>Bonjour Monsieur <strong>Aballagh Abderrahim</strong>,</p>
                <p>Je prends le temps ce matin de vous écrire personnellement pour vous remercier de la qualité exceptionnelle de vos récents rapports d'audit. Votre rigueur, votre précision et votre professionnalisme sont grandement appréciés par nos équipes et nos partenaires institutionnels.</p>
@@ -1093,14 +1155,14 @@
 
 
     // -------------------------------------------------------------
-    // DONNÉES DES MISSIONS ET LOGIQUE D'AUDIT
+    // DONNÉES DES MISSIONS ET LOGIQUE D'AUDIT (V13)
     // -------------------------------------------------------------
     const defaultWithdrawals = [
-      { id: 1723118400000, ref: "TXN-MTE-20260808-8206", date: "08/08/2026 à 14:30", beneficiaire: "Aballagh Abderrahim", montant: 100.00, moyen: "Compte Bancaire", details: "Attijariwafa Bank - RIB: ****8206", statut: "Effectué" }
+      { id: 1723118400000, ref: "TXN-MTE-20260808-8206", date: "08/08/2026 à 14:30", beneficiaire: "Aballagh Abderrahim", montant: 100.00, moyen: "Compte Bancaire", details: "Attijariwafa bank Maroc - IBAN: MA64 007 450 0007133300402782 06", statut: "Annulé et remboursé" }
     ];
 
     let withdrawals = defaultWithdrawals;
-    try { withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals_v11')) || defaultWithdrawals; } catch(e) {}
+    try { withdrawals = JSON.parse(localStorage.getItem('audit_withdrawals_v13')) || defaultWithdrawals; } catch(e) {}
 
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
@@ -1160,31 +1222,31 @@
     ];
 
     const defaultMissions = [
-      { id: "M1", company: "Volkswagen Group", code: "XETRA: VOW3", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "250 000 M$", "Coût des Ventes (COGS)": "200 000 M$", "Dépenses d'Exploitation": "25 000 M$", "Dotations Amortissements": "12 000 M$", "Charges Financières / Intérêts": "1 500 M$", "Impôts sur Sociétés": "4 000 M$", "Actifs Circulants": "90 000 M$", "Stocks": "35 000 M$", "Créances Clients": "15 000 M$", "Trésorerie & Équivalents": "20 000 M$", "Passifs Circulants": "80 000 M$", "Dettes Fournisseurs": "40 000 M$", "Dette Totale": "120 000 M$", "Capitaux Propres": "130 000 M$", "Total Actifs": "350 000 M$", "Flux de Trésorerie d'Exploitation": "22 000 M$", "CAPEX": "14 000 M$" } },
-      { id: "M2", company: "Nestlé S.A.", code: "SWX: NESN", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "95 000 M$", "Coût des Ventes (COGS)": "48 000 M$", "Dépenses d'Exploitation": "22 000 M$", "Dotations Amortissements": "4 500 M$", "Charges Financières / Intérêts": "900 M$", "Impôts sur Sociétés": "3 500 M$", "Actifs Circulants": "35 000 M$", "Stocks": "12 000 M$", "Créances Clients": "9 000 M$", "Trésorerie & Équivalents": "8 000 M$", "Passifs Circulants": "30 000 M$", "Dettes Fournisseurs": "14 000 M$", "Dette Totale": "45 000 M$", "Capitaux Propres": "50 000 M$", "Total Actifs": "140 000 M$", "Flux de Trésorerie d'Exploitation": "16 000 M$", "CAPEX": "5 000 M$" } },
-      { id: "M3", company: "Novo Nordisk", code: "CPH: NOVO-B", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "33 000 M$", "Coût des Ventes (COGS)": "5 500 M$", "Dépenses d'Exploitation": "10 000 M$", "Dotations Amortissements": "1 200 M$", "Charges Financières / Intérêts": "100 M$", "Impôts sur Sociétés": "3 200 M$", "Actifs Circulants": "12 000 M$", "Stocks": "3 000 M$", "Créances Clients": "4 500 M$", "Trésorerie & Équivalents": "4 000 M$", "Passifs Circulants": "9 000 M$", "Dettes Fournisseurs": "2 000 M$", "Dette Totale": "3 500 M$", "Capitaux Propres": "15 000 M$", "Total Actifs": "35 000 M$", "Flux de Trésorerie d'Exploitation": "12 000 M$", "CAPEX": "2 500 M$" } },
-      { id: "M4", company: "AstraZeneca", code: "LSE: AZN", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "45 000 M$", "Coût des Ventes (COGS)": "14 000 M$", "Dépenses d'Exploitation": "22 000 M$", "Dotations Amortissements": "3 800 M$", "Charges Financières / Intérêts": "950 M$", "Impôts sur Sociétés": "1 500 M$", "Actifs Circulants": "20 000 M$", "Stocks": "6 000 M$", "Créances Clients": "8 000 M$", "Trésorerie & Équivalents": "5 000 M$", "Passifs Circulants": "22 000 M$", "Dettes Fournisseurs": "9 000 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "38 000 M$", "Total Actifs": "98 000 M$", "Flux de Trésorerie d'Exploitation": "10 000 M$", "CAPEX": "3 000 M$" } },
-      { id: "M5", company: "Roche Holding", code: "SWX: ROG", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "18 000 M$", "Dépenses d'Exploitation": "28 000 M$", "Dotations Amortissements": "4 000 M$", "Charges Financières / Intérêts": "500 M$", "Impôts sur Sociétés": "3 000 M$", "Actifs Circulants": "32 000 M$", "Stocks": "9 000 M$", "Créances Clients": "11 000 M$", "Trésorerie & Équivalents": "8 000 M$", "Passifs Circulants": "24 000 M$", "Dettes Fournisseurs": "6 000 M$", "Dette Totale": "18 000 M$", "Capitaux Propres": "42 000 M$", "Total Actifs": "95 000 M$", "Flux de Trésorerie d'Exploitation": "14 000 M$", "CAPEX": "4 500 M$" } },
-      { id: "M6", company: "Shell plc", code: "LSE: SHEL", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "320 000 M$", "Coût des Ventes (COGS)": "250 000 M$", "Dépenses d'Exploitation": "25 000 M$", "Dotations Amortissements": "18 000 M$", "Charges Financières / Intérêts": "3 000 M$", "Impôts sur Sociétés": "12 000 M$", "Actifs Circulants": "110 000 M$", "Stocks": "30 000 M$", "Créances Clients": "45 000 M$", "Trésorerie & Équivalents": "35 000 M$", "Passifs Circulants": "90 000 M$", "Dettes Fournisseurs": "45 000 M$", "Dette Totale": "80 000 M$", "Capitaux Propres": "180 000 M$", "Total Actifs": "410 000 M$", "Flux de Trésorerie d'Exploitation": "50 000 M$", "CAPEX": "22 000 M$" } },
-      { id: "M7", company: "Novartis", code: "SWX: NOVN", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "50 000 M$", "Coût des Ventes (COGS)": "15 000 M$", "Dépenses d'Exploitation": "20 000 M$", "Dotations Amortissements": "3 500 M$", "Charges Financières / Intérêts": "600 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "25 000 M$", "Stocks": "7 000 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "6 500 M$", "Passifs Circulants": "20 000 M$", "Dettes Fournisseurs": "5 500 M$", "Dette Totale": "22 000 M$", "Capitaux Propres": "55 000 M$", "Total Actifs": "110 000 M$", "Flux de Trésorerie d'Exploitation": "13 000 M$", "CAPEX": "3 200 M$" } },
-      { id: "M8", company: "HSBC Holdings", code: "LSE: HSBA", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "12 000 M$", "Dépenses d'Exploitation": "32 000 M$", "Dotations Amortissements": "3 500 M$", "Charges Financières / Intérêts": "0 M$", "Impôts sur Sociétés": "4 800 M$", "Actifs Circulants": "950 000 M$", "Stocks": "0 M$", "Créances Clients": "750 000 M$", "Trésorerie & Équivalents": "200 000 M$", "Passifs Circulants": "850 000 M$", "Dettes Fournisseurs": "0 M$", "Dette Totale": "300 000 M$", "Capitaux Propres": "180 000 M$", "Total Actifs": "2 900 000 M$", "Flux de Trésorerie d'Exploitation": "18 000 M$", "CAPEX": "3 000 M$" } },
-      { id: "M9", company: "Unilever", code: "LSE: ULVR", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "60 000 M$", "Coût des Ventes (COGS)": "35 000 M$", "Dépenses d'Exploitation": "14 000 M$", "Dotations Amortissements": "2 000 M$", "Charges Financières / Intérêts": "550 M$", "Impôts sur Sociétés": "1 800 M$", "Actifs Circulants": "18 000 M$", "Stocks": "6 500 M$", "Créances Clients": "5 000 M$", "Trésorerie & Équivalents": "4 500 M$", "Passifs Circulants": "20 000 M$", "Dettes Fournisseurs": "9 500 M$", "Dette Totale": "25 000 M$", "Capitaux Propres": "20 000 M$", "Total Actifs": "75 000 M$", "Flux de Trésorerie d'Exploitation": "8 500 M$", "CAPEX": "2 200 M$" } },
-      { id: "M10", company: "Inditex", code: "BME: ITX", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "35 000 M$", "Coût des Ventes (COGS)": "15 000 M$", "Dépenses d'Exploitation": "10 000 M$", "Dotations Amortissements": "1 800 M$", "Charges Financières / Intérêts": "80 M$", "Impôts sur Sociétés": "1 500 M$", "Actifs Circulants": "12 000 M$", "Stocks": "4 000 M$", "Créances Clients": "2 000 M$", "Trésorerie & Équivalents": "5 500 M$", "Passifs Circulants": "8 000 M$", "Dettes Fournisseurs": "5 000 M$", "Dette Totale": "2 500 M$", "Capitaux Propres": "18 000 M$", "Total Actifs": "32 000 M$", "Flux de Trésorerie d'Exploitation": "7 000 M$", "CAPEX": "1 500 M$" } }
+      { id: "M1", company: "LVMH Moët Hennessy", code: "EPA: MC", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "86 153 M$", "Coût des Ventes (COGS)": "26 430 M$", "Dépenses d'Exploitation": "38 120 M$", "Dotations Amortissements": "5 432 M$", "Charges Financières / Intérêts": "890 M$", "Impôts sur Sociétés": "3 210 M$", "Actifs Circulants": "43 150 M$", "Stocks": "22 430 M$", "Créances Clients": "4 320 M$", "Trésorerie & Équivalents": "11 250 M$", "Passifs Circulants": "35 120 M$", "Dettes Fournisseurs": "12 430 M$", "Dette Totale": "38 540 M$", "Capitaux Propres": "56 890 M$", "Total Actifs": "135 670 M$", "Flux de Trésorerie d'Exploitation": "18 450 M$", "CAPEX": "7 540 M$" } },
+      { id: "M2", company: "ASML Holding", code: "AMS: ASML", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "27 559 M$", "Coût des Ventes (COGS)": "13 420 M$", "Dépenses d'Exploitation": "4 560 M$", "Dotations Amortissements": "1 120 M$", "Charges Financières / Intérêts": "150 M$", "Impôts sur Sociétés": "1 890 M$", "Actifs Circulants": "18 450 M$", "Stocks": "7 340 M$", "Créances Clients": "5 120 M$", "Trésorerie & Équivalents": "4 500 M$", "Passifs Circulants": "12 340 M$", "Dettes Fournisseurs": "4 560 M$", "Dette Totale": "8 900 M$", "Capitaux Propres": "15 670 M$", "Total Actifs": "42 350 M$", "Flux de Trésorerie d'Exploitation": "8 940 M$", "CAPEX": "2 150 M$" } },
+      { id: "M3", company: "SAP SE", code: "ETR: SAP", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "31 205 M$", "Coût des Ventes (COGS)": "8 740 M$", "Dépenses d'Exploitation": "14 320 M$", "Dotations Amortissements": "1 890 M$", "Charges Financières / Intérêts": "210 M$", "Impôts sur Sociétés": "1 540 M$", "Actifs Circulants": "15 670 M$", "Stocks": "120 M$", "Créances Clients": "6 540 M$", "Trésorerie & Équivalents": "8 120 M$", "Passifs Circulants": "11 450 M$", "Dettes Fournisseurs": "2 340 M$", "Dette Totale": "10 560 M$", "Capitaux Propres": "22 450 M$", "Total Actifs": "51 230 M$", "Flux de Trésorerie d'Exploitation": "7 850 M$", "CAPEX": "1 230 M$" } },
+      { id: "M4", company: "Siemens AG", code: "ETR: SIE", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "77 769 M$", "Coût des Ventes (COGS)": "48 950 M$", "Dépenses d'Exploitation": "18 430 M$", "Dotations Amortissements": "3 450 M$", "Charges Financières / Intérêts": "980 M$", "Impôts sur Sociétés": "2 150 M$", "Actifs Circulants": "52 340 M$", "Stocks": "18 560 M$", "Créances Clients": "16 430 M$", "Trésorerie & Équivalents": "12 150 M$", "Passifs Circulants": "41 230 M$", "Dettes Fournisseurs": "15 670 M$", "Dette Totale": "35 450 M$", "Capitaux Propres": "45 670 M$", "Total Actifs": "144 200 M$", "Flux de Trésorerie d'Exploitation": "11 240 M$", "CAPEX": "4 560 M$" } },
+      { id: "M5", company: "Sanofi", code: "EPA: SAN", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "43 070 M$", "Coût des Ventes (COGS)": "12 540 M$", "Dépenses d'Exploitation": "19 870 M$", "Dotations Amortissements": "3 120 M$", "Charges Financières / Intérêts": "450 M$", "Impôts sur Sociétés": "1 890 M$", "Actifs Circulants": "25 430 M$", "Stocks": "8 120 M$", "Créances Clients": "7 450 M$", "Trésorerie & Équivalents": "6 780 M$", "Passifs Circulants": "18 560 M$", "Dettes Fournisseurs": "5 430 M$", "Dette Totale": "21 340 M$", "Capitaux Propres": "34 560 M$", "Total Actifs": "98 750 M$", "Flux de Trésorerie d'Exploitation": "10 450 M$", "CAPEX": "2 890 M$" } },
+      { id: "M6", company: "TotalEnergies", code: "EPA: TTE", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "237 150 M$", "Coût des Ventes (COGS)": "168 450 M$", "Dépenses d'Exploitation": "22 150 M$", "Dotations Amortissements": "14 560 M$", "Charges Financières / Intérêts": "2 340 M$", "Impôts sur Sociétés": "8 950 M$", "Actifs Circulants": "85 430 M$", "Stocks": "24 560 M$", "Créances Clients": "31 240 M$", "Trésorerie & Équivalents": "25 450 M$", "Passifs Circulants": "75 670 M$", "Dettes Fournisseurs": "32 150 M$", "Dette Totale": "65 430 M$", "Capitaux Propres": "115 670 M$", "Total Actifs": "285 450 M$", "Flux de Trésorerie d'Exploitation": "38 560 M$", "CAPEX": "16 450 M$" } },
+      { id: "M7", company: "L'Oréal", code: "EPA: OR", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "41 180 M$", "Coût des Ventes (COGS)": "10 850 M$", "Dépenses d'Exploitation": "20 430 M$", "Dotations Amortissements": "1 850 M$", "Charges Financières / Intérêts": "120 M$", "Impôts sur Sociétés": "2 140 M$", "Actifs Circulants": "14 560 M$", "Stocks": "5 430 M$", "Créances Clients": "4 150 M$", "Trésorerie & Équivalents": "3 560 M$", "Passifs Circulants": "11 240 M$", "Dettes Fournisseurs": "4 850 M$", "Dette Totale": "6 750 M$", "Capitaux Propres": "28 450 M$", "Total Actifs": "52 340 M$", "Flux de Trésorerie d'Exploitation": "8 150 M$", "CAPEX": "1 850 M$" } },
+      { id: "M8", company: "Allianz SE", code: "ETR: ALV", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "161 700 M$", "Coût des Ventes (COGS)": "98 450 M$", "Dépenses d'Exploitation": "45 120 M$", "Dotations Amortissements": "2 340 M$", "Charges Financières / Intérêts": "1 850 M$", "Impôts sur Sociétés": "3 450 M$", "Actifs Circulants": "450 120 M$", "Stocks": "0 M$", "Créances Clients": "125 450 M$", "Trésorerie & Équivalents": "65 120 M$", "Passifs Circulants": "385 450 M$", "Dettes Fournisseurs": "15 450 M$", "Dette Totale": "85 120 M$", "Capitaux Propres": "88 450 M$", "Total Actifs": "1085 450 M$", "Flux de Trésorerie d'Exploitation": "22 150 M$", "CAPEX": "2 140 M$" } },
+      { id: "M9", company: "BMW Group", code: "ETR: BMW", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "155 498 M$", "Coût des Ventes (COGS)": "118 750 M$", "Dépenses d'Exploitation": "15 430 M$", "Dotations Amortissements": "8 150 M$", "Charges Financières / Intérêts": "650 M$", "Impôts sur Sociétés": "3 120 M$", "Actifs Circulants": "75 430 M$", "Stocks": "21 450 M$", "Créances Clients": "18 560 M$", "Trésorerie & Équivalents": "15 430 M$", "Passifs Circulants": "65 120 M$", "Dettes Fournisseurs": "25 430 M$", "Dette Totale": "95 450 M$", "Capitaux Propres": "85 120 M$", "Total Actifs": "255 450 M$", "Flux de Trésorerie d'Exploitation": "18 450 M$", "CAPEX": "7 850 M$" } },
+      { id: "M10", company: "Airbus SE", code: "EPA: AIR", reward: 55, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 446 M$", "Coût des Ventes (COGS)": "51 240 M$", "Dépenses d'Exploitation": "7 850 M$", "Dotations Amortissements": "2 450 M$", "Charges Financières / Intérêts": "340 M$", "Impôts sur Sociétés": "1 120 M$", "Actifs Circulants": "55 430 M$", "Stocks": "32 150 M$", "Créances Clients": "8 450 M$", "Trésorerie & Équivalents": "12 430 M$", "Passifs Circulants": "48 560 M$", "Dettes Fournisseurs": "22 150 M$", "Dette Totale": "18 450 M$", "Capitaux Propres": "15 670 M$", "Total Actifs": "125 450 M$", "Flux de Trésorerie d'Exploitation": "6 540 M$", "CAPEX": "2 850 M$" } }
     ];
 
     const defaultSpecialMissions = [
-      { id: "SM1", company: "Enel SpA", code: "ESG: ENEL-IT", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "18 200 ktCO2", "Chiffre d'Affaires": "90 000 M$", "Investissements Verts": "15 400 M$" } },
-      { id: "SM2", company: "Revolut Ltd", code: "FIN: REV-UK", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients": "4 500 000", "Dossiers KYC Conformes": "4 450 000" } },
-      { id: "SM3", company: "Kuehne + Nagel", code: "LOG: KNIN-CH", reward: 75, completed: false, locked: false, answers: {}, financials: { "Séjour Conteneurs": "1.8 Jours", "Coûts Logistiques": "1 250 M$" } },
-      { id: "SM4", company: "Adyen N.V.", code: "WAVE: ADYEN-NL", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Cantonnement": "22 100 M$", "Actifs Couverture": "23 500 M$" } },
-      { id: "SM5", company: "Iberdrola", code: "ESG: IBE-ES", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2": "145 kg/t", "Chiffre d'Affaires": "55 000 M$" } }
+      { id: "SM1", company: "Ørsted A/S", code: "ESG: ORSTED-DK", reward: 85, completed: false, locked: false, answers: {}, financials: { "Émissions Totales": "2 145 ktCO2", "Chiffre d'Affaires": "14 560 M$", "Investissements Verts": "8 450 M$" } },
+      { id: "SM2", company: "Stripe Europe", code: "FIN: STRIPE-IE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Dossiers Clients": "12 450 800", "Dossiers KYC Conformes": "12 150 400" } },
+      { id: "SM3", company: "Maersk", code: "LOG: MAERSK-DK", reward: 75, completed: false, locked: false, answers: {}, financials: { "Séjour Conteneurs": "2.1 Jours", "Coûts Logistiques": "3 850 M$" } },
+      { id: "SM4", company: "Klarna Bank", code: "WAVE: KLARNA-SE", reward: 65, completed: false, locked: false, answers: {}, financials: { "Fonds Cantonnement": "18 450 M$", "Actifs Couverture": "19 800 M$" } },
+      { id: "SM5", company: "Danone SA", code: "ESG: BN-FR", reward: 45, completed: false, locked: false, answers: {}, financials: { "Émissions CO2": "95 kg/t", "Chiffre d'Affaires": "27 619 M$" } }
     ];
 
     const defaultAdvancedMissions = [
-      { id: "AM1", company: "Thales Group", code: "CYBER: HO-FR", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "22 500", "Vulnérabilités": "1" } },
-      { id: "AM2", company: "Zalando SE", code: "CX: ZAL-DE", reward: 90, completed: false, locked: false, answers: {}, financials: { "Agences Visités": "120", "Score NPS": "78 / 100" } },
-      { id: "AM3", company: "Delivery Hero", code: "MA: DHER-DE", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix Cible": "950 M$", "Goodwill Calculé": "280 M$" } },
-      { id: "AM4", company: "Philips", code: "IP: PHIA-NL", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Actifs": "35 200", "Dépenses R&D": "4 100 M$" } }
+      { id: "AM1", company: "Capgemini SE", code: "CYBER: CAP-FR", reward: 110, completed: false, locked: false, answers: {}, financials: { "Serveurs Audités": "54 800", "Vulnérabilités": "2" } },
+      { id: "AM2", company: "Spotify Tech", code: "CX: SPOT-SE", reward: 90, completed: false, locked: false, answers: {}, financials: { "Sessions Utilisateurs": "145 000 000", "Score NPS": "72 / 100" } },
+      { id: "AM3", company: "Dassault Systèmes", code: "MA: DSY-FR", reward: 120, completed: false, locked: false, answers: {}, financials: { "Prix Cible": "1 450 M$", "Goodwill Calculé": "340 M$" } },
+      { id: "AM4", company: "Ericsson", code: "IP: ERIC-B-SE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Brevets Actifs": "60 000", "Dépenses R&D": "4 850 M$" } }
     ];
 
     let missions = defaultMissions;
@@ -1192,9 +1254,9 @@
     let advancedMissions = defaultAdvancedMissions;
 
     try {
-      missions = JSON.parse(localStorage.getItem('audit_missions_eu_v11')) || defaultMissions;
-      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions_eu_v11')) || defaultSpecialMissions;
-      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions_eu_v11')) || defaultAdvancedMissions;
+      missions = JSON.parse(localStorage.getItem('audit_missions_eu_v13')) || defaultMissions;
+      specialMissions = JSON.parse(localStorage.getItem('audit_special_missions_eu_v13')) || defaultSpecialMissions;
+      advancedMissions = JSON.parse(localStorage.getItem('audit_advanced_missions_eu_v13')) || defaultAdvancedMissions;
     } catch(e) {}
 
     function getCleanNum(strVal) {
@@ -1256,11 +1318,11 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions_eu_v11', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu_v11', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_advanced_missions_eu_v11', JSON.stringify(advancedMissions));
-      localStorage.setItem('audit_withdrawals_v11', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_v11', soldeValideUSD.toString());
+      localStorage.setItem('audit_missions_eu_v13', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v13', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_advanced_missions_eu_v13', JSON.stringify(advancedMissions));
+      localStorage.setItem('audit_withdrawals_v13', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v13', soldeValideUSD.toString());
       updateGlobalProgress();
       renderEvaluationView();
     }
@@ -1351,17 +1413,16 @@
       const savedTheme = localStorage.getItem('audit_theme') || 'dark';
       document.documentElement.classList.toggle('dark', savedTheme === 'dark');
 
-      if (!localStorage.getItem('popup_advanced_seen_v11')) {
+      if (!localStorage.getItem('popup_advanced_seen_v13')) {
         setTimeout(() => { document.getElementById('newMissionPopupModal').classList.remove('hidden'); }, 800);
       }
       
-      // Assurer que le menu mobile reflète le bon onglet actif au démarrage
       switchTab('dashboard');
     }
 
     function goToAdvancedMissions() {
       closeModal('newMissionPopupModal');
-      localStorage.setItem('popup_advanced_seen_v11', 'true');
+      localStorage.setItem('popup_advanced_seen_v13', 'true');
       switchTab('advanced');
     }
 
@@ -1719,10 +1780,13 @@
         badge.textContent = "Virement Bancaire (SWIFT/SEPA)";
         badge.className = "text-[10px] font-black uppercase text-emerald-400";
         dynamicFields.innerHTML = `
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs">
-            <span class="text-slate-400 block">Compte Récepteur :</span>
-            <span class="text-white font-bold block">Attijariwafa Bank - RIB: ****8206</span>
-            <span class="text-slate-400 block mt-1">Bénéficiaire : Aballagh Abderrahim</span>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1">
+            <span class="text-slate-400 block mb-1 border-b border-slate-800 pb-1">Compte Récepteur :</span>
+            <span class="text-white font-bold block">Banque : Attijariwafa bank Maroc</span>
+            <span class="text-slate-300 font-mono block">IBAN : MA64 007 450 0007133300402782 06</span>
+            <span class="text-slate-300 font-mono block">SWIFT : BCMAMAMC</span>
+            <span class="text-slate-400 block mt-2">Bénéficiaire : Aballagh Abderrahim</span>
+            <span class="text-slate-500 block text-[10px]">Dom. : MARRAKECH SAADA LOTISS.CHARAF Q.SAADA. MARRAKECH</span>
           </div>
         `;
       }
@@ -1757,7 +1821,8 @@
       const searchVal = document.getElementById('txSearchInput')?.value.toLowerCase().trim() || '';
 
       let filtered = withdrawals.filter(w => {
-        const matchFilter = filterVal === 'all' ? true : (filterVal === 'pending' ? (w.statut.includes('attente') || w.statut.includes('cours')) : !w.statut.includes('attente'));
+        const isPendingOrCancelled = w.statut.includes("attente") || w.statut.includes("cours") || w.statut.toLowerCase().includes("annul");
+        const matchFilter = filterVal === 'all' ? true : (filterVal === 'pending' ? isPendingOrCancelled : !isPendingOrCancelled);
         const matchSearch = !searchVal || (w.details.toLowerCase().includes(searchVal) || (w.ref && w.ref.toLowerCase().includes(searchVal)) || w.moyen.toLowerCase().includes(searchVal));
         return matchFilter && matchSearch;
       });
@@ -1768,6 +1833,11 @@
 
       filtered.forEach(w => {
         const isPending = w.statut.includes("attente") || w.statut.includes("cours");
+        const isCancelled = w.statut.toLowerCase().includes("annul");
+        
+        let badgeStyle = isPending ? 'bg-amber-500/10 text-amber-300 border-amber-500/30' : (isCancelled ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30');
+        let amountStyle = isPending ? 'text-amber-300' : (isCancelled ? 'text-slate-500 line-through' : 'text-emerald-400');
+        
         const card = document.createElement('div');
         card.onclick = () => openReceiptModal(w.id);
         card.className = "bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm hover:border-emerald-500/60 cursor-pointer transition active:scale-[0.99] group shadow-sm";
@@ -1777,14 +1847,14 @@
               <span class="text-xs text-slate-400 font-bold font-mono">${w.date}</span>
               <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">Avis certifié</span>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black ${isPending ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'}">${w.statut}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${badgeStyle}">${w.statut}</span>
           </div>
           <div class="flex justify-between items-center pt-1 border-t border-slate-900">
             <div>
               <p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p>
               <p class="text-xs text-slate-400 font-mono">${w.details}</p>
             </div>
-            <span class="font-black text-sm sm:text-base ${isPending ? 'text-amber-300' : 'text-emerald-400'} font-mono">${formatMoney(w.montant)}</span>
+            <span class="font-black text-sm sm:text-base ${amountStyle} font-mono">${formatMoney(w.montant)}</span>
           </div>
         `;
         container.appendChild(card);
@@ -1809,6 +1879,9 @@
         if (w.statut === "Effectué") {
           statusBadge.textContent = "Exécuté avec succès";
           statusBadge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
+        } else if (w.statut.toLowerCase().includes("annul")) {
+          statusBadge.textContent = "Annulé et Remboursé";
+          statusBadge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-rose-500/10 text-rose-400 border border-rose-500/30";
         } else {
           statusBadge.textContent = w.statut;
           statusBadge.className = "inline-block px-3 py-1 rounded-full text-xs font-black bg-amber-500/10 text-amber-300 border border-amber-500/30";
@@ -1839,6 +1912,14 @@
     function confirmBankWithdraw(e) {
       e.preventDefault();
       const amt = parseFloat(document.getElementById('bankAmount').value);
+      const pin = document.getElementById('withdrawPin').value;
+      
+      // AJOUT : Vérification du PIN
+      if (pin !== "2260") {
+        showToast("Code PIN incorrect. Veuillez vérifier votre messagerie interne.", "error", "Erreur de sécurité");
+        return;
+      }
+
       if (!amt || amt <= 0) return;
       if (amt > soldeValideUSD) {
         showToast("Le montant demandé dépasse votre solde validé disponible.", "error", "Solde Insuffisant");
@@ -1852,7 +1933,7 @@
       const refGen = `TXN-MTE-${now.getFullYear()}${String(now.getMonth()+1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
       
       let moyenLabel = "Compte Bancaire (SWIFT/SEPA)";
-      let detailsLabel = "Attijariwafa Bank - RIB: ****8206";
+      let detailsLabel = "Attijariwafa bank Maroc - IBAN: MA64 007 450 0007133300402782 06";
       
       if (currentSelectedMethod === 'crypto') {
         moyenLabel = "Crypto USDT (TRC20)";
@@ -1876,6 +1957,10 @@
       saveState();
       updateHeader();
       renderWithdrawHistory();
+      
+      // Réinitialiser le PIN après usage
+      document.getElementById('withdrawPin').value = '';
+      
       closeModal('bankModal');
       showToast(`Demande de retrait de ${formatMoney(amt)} soumise avec succès.`, "success");
     }
