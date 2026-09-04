@@ -789,6 +789,11 @@
     }
 
     let soldeValideUSD = 1821.34;
+    try {
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v21');
+      if (savedSolde !== null) soldeValideUSD = parseFloat(savedSolde);
+    } catch(e) {}
+
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
     let currentCurrency = 'USD';
@@ -851,7 +856,7 @@
     }
 
     const defaultWithdrawals = [{ id: 1723118400000, ref: "TXN-MTE-20260808-8206", date: "08/08/2026 à 14:30", beneficiaire: "Aballagh Abderrahim", montant: 100.00, moyen: "Compte Bancaire", details: "Attijariwafa bank Maroc - IBAN: MA64...", statut: "Annulé et remboursé" }];
-    let withdrawals = defaultWithdrawals;
+    let withdrawals = JSON.parse(JSON.stringify(defaultWithdrawals));
 
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
@@ -899,7 +904,7 @@
       { id: 'st12', label: "12. Synthèse Extra-Financière", formula: "Avis d'expert" }
     ];
 
-    let missions = [
+    const defaultMissions = [
       { id: "M1", company: "Volkswagen Group", code: "ETR: VOW3", reward: 110, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "322 000 M$", "Coût des Ventes (COGS)": "250 000 M$", "Dépenses d'Exploitation": "35 000 M$", "Frais de Recherche & Développement": "18 000 M$", "Dotations Amortissements": "15 000 M$", "Charges Financières / Intérêts": "2 000 M$", "Impôts sur Sociétés": "5 000 M$", "Actifs Circulants": "150 000 M$", "Stocks": "45 000 M$", "Créances Clients": "20 000 M$", "Trésorerie & Équivalents": "30 000 M$", "Passifs Circulants": "120 000 M$", "Dettes à Court Terme": "65 000 M$", "Dettes Fournisseurs": "40 000 M$", "Dette Totale": "180 000 M$", "Capitaux Propres": "150 000 M$", "Total Actifs": "550 000 M$", "Flux de Trésorerie d'Exploitation": "25 000 M$", "CAPEX": "15 000 M$", "Actions en Circulation (Millions)": "500", "Dividendes Versés": "4 500 M$" } },
       { id: "M2", company: "Nestlé S.A.", code: "SWX: NESN", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "94 400 M$", "Coût des Ventes (COGS)": "48 000 M$", "Dépenses d'Exploitation": "21 000 M$", "Frais de Recherche & Développement": "1 700 M$", "Dotations Amortissements": "4 200 M$", "Charges Financières / Intérêts": "900 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "32 000 M$", "Stocks": "11 000 M$", "Créances Clients": "8 500 M$", "Trésorerie & Équivalents": "6 000 M$", "Passifs Circulants": "35 000 M$", "Dettes à Court Terme": "18 000 M$", "Dettes Fournisseurs": "12 000 M$", "Dette Totale": "45 000 M$", "Capitaux Propres": "42 000 M$", "Total Actifs": "135 000 M$", "Flux de Trésorerie d'Exploitation": "12 500 M$", "CAPEX": "4 800 M$", "Actions en Circulation (Millions)": "2 650", "Dividendes Versés": "7 800 M$" } },
       { id: "M3", company: "Novartis AG", code: "SWX: NOVN", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "50 500 M$", "Coût des Ventes (COGS)": "14 000 M$", "Dépenses d'Exploitation": "18 000 M$", "Frais de Recherche & Développement": "9 100 M$", "Dotations Amortissements": "5 100 M$", "Charges Financières / Intérêts": "800 M$", "Impôts sur Sociétés": "1 600 M$", "Actifs Circulants": "24 000 M$", "Stocks": "6 200 M$", "Créances Clients": "7 100 M$", "Trésorerie & Équivalents": "8 000 M$", "Passifs Circulants": "22 000 M$", "Dettes à Court Terme": "9 000 M$", "Dettes Fournisseurs": "4 500 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "58 000 M$", "Total Actifs": "120 000 M$", "Flux de Trésorerie d'Exploitation": "14 200 M$", "CAPEX": "2 300 M$", "Actions en Circulation (Millions)": "2 050", "Dividendes Versés": "7 200 M$" } },
@@ -912,13 +917,28 @@
       { id: "M10", company: "Ferrari N.V.", code: "BIT: RACE", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "5 900 M$", "Coût des Ventes (COGS)": "2 800 M$", "Dépenses d'Exploitation": "950 M$", "Frais de Recherche & Développement": "800 M$", "Dotations Amortissements": "450 M$", "Charges Financières / Intérêts": "45 M$", "Impôts sur Sociétés": "300 M$", "Actifs Circulants": "3 200 M$", "Stocks": "600 M$", "Créances Clients": "400 M$", "Trésorerie & Équivalents": "1 800 M$", "Passifs Circulants": "2 100 M$", "Dettes à Court Terme": "700 M$", "Dettes Fournisseurs": "950 M$", "Dette Totale": "2 500 M$", "Capitaux Propres": "3 100 M$", "Total Actifs": "8 500 M$", "Flux de Trésorerie d'Exploitation": "1 700 M$", "CAPEX": "850 M$", "Actions en Circulation (Millions)": "180", "Dividendes Versés": "350 M$" } }
     ];
 
-    let specialMissions = [
+    const defaultSpecialMissions = [
       { id: "SM1", company: "Revolut", code: "FIN: RVLT-UK", reward: 105, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "72", "Score Social": "89", "Évaluation Conseil": "81", "Émissions Totales": "15 ktCO2", "Chiffre d'Affaires": "2 200 M$", "Investissements Verts": "50 M$", "CAPEX": "120 M$", "Dossiers Conformes": "28 500 000", "Total": "29 000 000", "Comptage anomalies": "15 200", "Flux Système": "125 000 M$", "Flux Bancaire": "124 990 M$", "Moyenne stockage": "0 Jours", "Coûts": "18 M$", "HQLA": "8 500 M$", "Sorties nettes": "5 200 M$", "Actifs": "30 000 000", "Inscrits": "35 000 000" } },
       { id: "SM2", company: "Spotify", code: "TECH: SPOT-SE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "85", "Score Social": "92", "Évaluation Conseil": "88", "Émissions Totales": "350 ktCO2", "Chiffre d'Affaires": "13 200 M$", "Investissements Verts": "15 M$", "CAPEX": "60 M$", "Dossiers Conformes": "600 000", "Total": "605 000", "Comptage anomalies": "150", "Flux Système": "4 500 M$", "Flux Bancaire": "4 500 M$", "Moyenne stockage": "0 Jours", "Coûts": "0 M$", "HQLA": "4 200 M$", "Sorties nettes": "1 100 M$", "Actifs": "226 000 000", "Inscrits": "551 000 000" } },
       { id: "SM3", company: "Adyen", code: "FIN: ADYEN-NL", reward: 85, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "78", "Score Social": "85", "Évaluation Conseil": "91", "Émissions Totales": "25 ktCO2", "Chiffre d'Affaires": "1 600 M$", "Investissements Verts": "10 M$", "CAPEX": "40 M$", "Dossiers Conformes": "1 500 000", "Total": "1 505 000", "Comptage anomalies": "2 100", "Flux Système": "900 000 M$", "Flux Bancaire": "900 005 M$", "Moyenne stockage": "0 Jours", "Coûts": "12 M$", "HQLA": "8 900 M$", "Sorties nettes": "4 500 M$", "Actifs": "4 000 000", "Inscrits": "4 500 000" } },
       { id: "SM4", company: "Northvolt", code: "ESG: NVOLT-SE", reward: 90, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "95", "Score Social": "82", "Évaluation Conseil": "79", "Émissions Totales": "8 200 ktCO2", "Chiffre d'Affaires": "1 100 M$", "Investissements Verts": "1 500 M$", "CAPEX": "2 100 M$", "Dossiers Conformes": "12 000", "Total": "12 100", "Comptage anomalies": "45", "Flux Système": "1 100 M$", "Flux Bancaire": "1 100 M$", "Moyenne stockage": "14.5 Jours", "Coûts": "320 M$", "HQLA": "1 500 M$", "Sorties nettes": "1 800 M$", "Actifs": "1 200", "Inscrits": "1 500" } },
       { id: "SM5", company: "BioNTech", code: "BIO: BNTX-DE", reward: 75, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "88", "Score Social": "90", "Évaluation Conseil": "84", "Émissions Totales": "420 ktCO2", "Chiffre d'Affaires": "3 800 M$", "Investissements Verts": "120 M$", "CAPEX": "850 M$", "Dossiers Conformes": "5 000", "Total": "5 000", "Comptage anomalies": "2", "Flux Système": "3 800 M$", "Flux Bancaire": "3 800 M$", "Moyenne stockage": "8 Jours", "Coûts": "180 M$", "HQLA": "16 500 M$", "Sorties nettes": "2 100 M$", "Actifs": "0", "Inscrits": "0" } }
     ];
+
+    let missions = JSON.parse(JSON.stringify(defaultMissions));
+    let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
+
+    // CHARGEMENT DES SAUVEGARDES DU NAVIGATEUR (CACHE v21)
+    try {
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v21');
+      if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
+
+      const savedMissions = localStorage.getItem('audit_missions_eu_v21');
+      if (savedMissions) missions = JSON.parse(savedMissions);
+
+      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v21');
+      if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
+    } catch(e) {}
 
     function getCleanNum(strVal) {
       if (!strVal) return 0;
@@ -982,6 +1002,12 @@
     }
 
     function saveState() {
+      // SAUVEGARDE PERMANENTE DANS LE NAVIGATEUR
+      localStorage.setItem('audit_missions_eu_v21', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v21', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_withdrawals_v21', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v21', soldeValideUSD.toString());
+      
       updateGlobalProgress();
       renderEvaluationView();
     }
