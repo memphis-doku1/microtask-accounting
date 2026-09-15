@@ -886,6 +886,21 @@
       { id: 't26', label: "28. Observations Générales", formula: "Synthèse analytique et recommandations" }
     ];
 
+    const specialTaskDefs = [
+      { id: 'st1', label: "01. Indice ESG", formula: "Score Environnemental + Social" },
+      { id: 'st2', label: "02. Intensité Carbone", formula: "Émissions Totales / CA" },
+      { id: 'st3', label: "03. CAPEX Vert (%)", formula: "(Investissements Verts / CAPEX) × 100" },
+      { id: 'st4', label: "04. Taux KYC Conforme (%)", formula: "(Dossiers Conformes / Total) × 100" },
+      { id: 'st5', label: "05. Alertes AML", formula: "Comptage anomalies" },
+      { id: 'st6', label: "06. Écart API", formula: "Flux Système vs Bancaire" },
+      { id: 'st7', label: "07. Séjour Conteneurs", formula: "Moyenne stockage" },
+      { id: 'st8', label: "08. Coût Logistique / CA", formula: "(Coûts / CA) × 100" },
+      { id: 'st9', label: "09. Couverture Liquidité", formula: "HQLA / Sorties nettes" },
+      { id: 'st10', label: "10. Score Gouvernance", formula: "Évaluation Conseil" },
+      { id: 'st11', label: "11. Rétention Utilisateurs", formula: "Actifs / Inscrits" },
+      { id: 'st12', label: "12. Synthèse Extra-Financière", formula: "Avis d'expert" }
+    ];
+
     const defaultMissions = [
       { id: "M1", company: "BMW Group", code: "ETR: BMW", reward: 120, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "155 000 M$", "Coût des Ventes (COGS)": "125 000 M$", "Dépenses d'Exploitation": "15 000 M$", "Frais de Recherche & Développement": "7 500 M$", "Dotations Amortissements": "6 000 M$", "Charges Financières / Intérêts": "1 200 M$", "Impôts sur Sociétés": "2 500 M$", "Actifs Circulants": "65 000 M$", "Stocks": "18 000 M$", "Créances Clients": "14 000 M$", "Trésorerie & Équivalents": "15 000 M$", "Passifs Circulants": "55 000 M$", "Dettes à Court Terme": "25 000 M$", "Dettes Fournisseurs": "15 000 M$", "Dette Totale": "65 000 M$", "Capitaux Propres": "80 000 M$", "Total Actifs": "180 000 M$", "Flux de Trésorerie d'Exploitation": "19 000 M$", "CAPEX": "7 000 M$", "Actions en Circulation (Millions)": "650", "Dividendes Versés": "2 000 M$" } },
       { id: "M2", company: "Michelin", code: "EPA: ML", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "28 500 M$", "Coût des Ventes (COGS)": "19 500 M$", "Dépenses d'Exploitation": "4 500 M$", "Frais de Recherche & Développement": "1 200 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "400 M$", "Impôts sur Sociétés": "600 M$", "Actifs Circulants": "12 000 M$", "Stocks": "5 500 M$", "Créances Clients": "3 500 M$", "Trésorerie & Équivalents": "2 000 M$", "Passifs Circulants": "9 500 M$", "Dettes à Court Terme": "3 000 M$", "Dettes Fournisseurs": "4 000 M$", "Dette Totale": "8 500 M$", "Capitaux Propres": "15 000 M$", "Total Actifs": "35 000 M$", "Flux de Trésorerie d'Exploitation": "4 000 M$", "CAPEX": "1 500 M$", "Actions en Circulation (Millions)": "715", "Dividendes Versés": "850 M$" } },
@@ -911,18 +926,18 @@
     let missions = JSON.parse(JSON.stringify(defaultMissions));
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
 
-    // CHARGEMENT DES SAUVEGARDES DU NAVIGATEUR (Nouvelle Version v24)
+    // CHARGEMENT DES SAUVEGARDES DU NAVIGATEUR (Nouvelle Version v25)
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v24');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v25');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
 
-      const savedMissions = localStorage.getItem('audit_missions_eu_v24');
+      const savedMissions = localStorage.getItem('audit_missions_eu_v25');
       if (savedMissions) missions = JSON.parse(savedMissions);
 
-      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v24');
+      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v25');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
       
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v24');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v25');
       if (savedSolde !== null) soldeValideUSD = parseFloat(savedSolde);
     } catch(e) {}
 
@@ -988,11 +1003,11 @@
     }
 
     function saveState() {
-      // SAUVEGARDE PERMANENTE DANS LE NAVIGATEUR (Nouvelle Version v24)
-      localStorage.setItem('audit_missions_eu_v24', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu_v24', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_withdrawals_v24', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_v24', soldeValideUSD.toString());
+      // SAUVEGARDE PERMANENTE DANS LE NAVIGATEUR (Nouvelle Version v25)
+      localStorage.setItem('audit_missions_eu_v25', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v25', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_withdrawals_v25', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v25', soldeValideUSD.toString());
       
       updateGlobalProgress();
       renderEvaluationView();
