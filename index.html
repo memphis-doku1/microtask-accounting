@@ -126,10 +126,11 @@
         </div>
 
         <div class="flex items-center gap-1.5 sm:gap-2">
-          <!-- Messagerie (Inbox) -->
+          <!-- Messagerie (Inbox) - Desktop -->
           <button type="button" onclick="switchTab('inbox')" aria-label="Messagerie" class="hidden sm:flex relative bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-indigo-500/30 p-2 rounded-xl text-xs font-black items-center transition active:scale-95" title="Messagerie Interne">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <span id="unreadBadge" class="absolute -top-1 -right-1 flex h-3 w-3 hidden">
+            <!-- Badge de notification -->
+            <span id="unreadBadge" class="absolute -top-1 -right-1 flex h-3 w-3">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-indigo-500 text-[8px] text-white items-center justify-center">!</span>
             </span>
@@ -187,16 +188,6 @@
       <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10"></div>
       
       <div class="whitespace-nowrap animate-ticker text-[10px] sm:text-xs font-mono font-bold text-slate-300 flex w-max hover:[animation-play-state:paused]">
-        <div class="flex gap-8 px-4">
-          <span><span class="text-rose-500 font-black">⚠️ KRACH BOURSIER: VOW3</span> chute de -9.15% suite à la révision de ses objectifs Q3. Audit express exigé.</span>
-          <span><span class="text-emerald-400">▲ SWX: NESN</span> +1.24% (98.40 CHF)</span>
-          <span><span class="text-amber-400">⚠️ FLASH:</span> La BCE maintient ses taux directeurs à 3.50%</span>
-          <span><span class="text-emerald-400">▲ SWX: NOVN</span> +0.42% (88.20 CHF)</span>
-          <span><span class="text-rose-400">▼ BME: ITX</span> -1.10% (34.10€)</span>
-          <span><span class="text-indigo-400">ℹ️ ESG:</span> Nouvelle régulation carbone actée au Parlement Européen</span>
-          <span><span class="text-emerald-400">▲ LSE: SHEL</span> +2.10%</span>
-          <span><span class="text-emerald-400">▲ BIT: RACE</span> +0.65%</span>
-        </div>
         <div class="flex gap-8 px-4">
           <span><span class="text-rose-500 font-black">⚠️ KRACH BOURSIER: VOW3</span> chute de -9.15% suite à la révision de ses objectifs Q3. Audit express exigé.</span>
           <span><span class="text-emerald-400">▲ SWX: NESN</span> +1.24% (98.40 CHF)</span>
@@ -480,7 +471,7 @@
     </div>
   </main>
 
-  <!-- MODALE : CERTIFICAT D'AUDIT OFFICIEL -->
+  <!-- MODALES... (Certificat, Contrat, Reçu, etc.) ... gardées identiques -->
   <div id="certificateModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-emerald-500/30 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto max-h-[92vh] flex flex-col">
       <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center shrink-0">
@@ -538,7 +529,6 @@
     </div>
   </div>
 
-  <!-- MODALE : CONTRAT OFFICIEL -->
   <div id="contractModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-[#fdfbf7] border border-slate-300 w-full max-w-3xl rounded-sm shadow-2xl overflow-hidden animate-modal-pop my-auto max-h-[95vh] flex flex-col text-slate-900 relative">
       <div class="bg-slate-900 px-6 py-4 border-b border-slate-800 flex justify-between items-center shrink-0 print-hidden">
@@ -567,7 +557,6 @@
     </div>
   </div>
 
-  <!-- MODALE : AVIS D'OPÉRATION DE VIREMENT -->
   <div id="receiptModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto max-h-[90vh] overflow-y-auto">
       <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
@@ -665,7 +654,6 @@
     </div>
   </div>
 
-  <!-- MODALE CHOIX MÉTHODE DE RETRAIT -->
   <div id="withdrawChoiceModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[60] flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -688,7 +676,6 @@
     </div>
   </div>
 
-  <!-- MODALE FORMULAIRE DE RETRAIT -->
   <div id="bankModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[60] flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl sm:rounded-3xl p-5 space-y-4 shadow-2xl animate-modal-pop max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -722,6 +709,7 @@
     </div>
   </div>
 
+  <!-- NAVIGATION MOBILE -->
   <div class="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 py-3 flex justify-around items-center shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
     <button id="mobNavDashboardBtn" onclick="switchTab('dashboard')" class="flex flex-col items-center gap-1 text-emerald-400 transition active:scale-95">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -731,8 +719,15 @@
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2h0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
       <span class="text-[10px] font-bold">Spéciales</span>
     </button>
-    <button id="mobNavInboxBtn" onclick="switchTab('inbox')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95 relative">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    <!-- Bouton Inbox Mobile avec Badge de notification dynamique -->
+    <button id="mobNavInboxBtn" onclick="switchTab('inbox')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
+      <div class="relative">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <span id="mobUnreadBadge" class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+        </span>
+      </div>
       <span class="text-[10px] font-bold">Inbox</span>
     </button>
     <button id="mobNavTransactionsBtn" onclick="switchTab('transactions')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
@@ -831,14 +826,31 @@
       const listContainer = document.getElementById('inboxList');
       if (!listContainer) return;
       listContainer.innerHTML = '';
+      
+      let unreadCount = 0;
+      
       inboxMessages.forEach(msg => {
+        if (!msg.read) unreadCount++;
         const div = document.createElement('div');
         div.onclick = () => openEmail(msg.id);
         div.className = `p-3.5 rounded-xl border cursor-pointer transition active:scale-[0.99] flex gap-3 ${msg.read ? 'bg-slate-950/50 border-slate-800 opacity-75' : 'bg-slate-900 border-indigo-500/40 shadow-md hover:border-indigo-400'}`;
         div.innerHTML = `<div class="mt-1"><div class="w-2 h-2 rounded-full ${msg.read ? 'bg-transparent' : 'bg-indigo-400 animate-pulse'}"></div></div><div class="flex-1 min-w-0"><div class="flex justify-between items-baseline mb-0.5"><h4 class="text-xs font-bold ${msg.read ? 'text-slate-400' : 'text-indigo-300'} truncate pr-2">${msg.sender}</h4></div><p class="text-sm font-black text-white truncate">${msg.subject}</p></div>`;
         listContainer.appendChild(div);
       });
+      
       document.getElementById('inboxCount').textContent = inboxMessages.length;
+
+      // Gestion dynamique de la pastille de notification sur les icônes
+      const deskBadge = document.getElementById('unreadBadge');
+      const mobBadge = document.getElementById('mobUnreadBadge');
+      
+      if (unreadCount > 0) {
+        if (deskBadge) deskBadge.classList.remove('hidden');
+        if (mobBadge) mobBadge.classList.remove('hidden');
+      } else {
+        if (deskBadge) deskBadge.classList.add('hidden');
+        if (mobBadge) mobBadge.classList.add('hidden');
+      }
     }
 
     function openEmail(id) {
@@ -847,8 +859,8 @@
       document.getElementById('emailSubject').textContent = msg.subject;
       document.getElementById('emailSender').textContent = msg.sender;
       document.getElementById('emailBody').innerHTML = msg.body;
-      msg.read = true;
-      renderInbox();
+      msg.read = true; // Marque comme lu
+      renderInbox(); // Rafraîchit la liste et les notifications
       document.getElementById('emailModal').classList.remove('hidden');
     }
 
@@ -927,7 +939,6 @@
     let missions = JSON.parse(JSON.stringify(defaultMissions));
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
 
-    // CHARGEMENT DES SAUVEGARDES DU NAVIGATEUR (Nouvelle Version v26 pour forcer la mise à jour)
     try {
       const savedWithdrawals = localStorage.getItem('audit_withdrawals_v26');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
@@ -1004,7 +1015,6 @@
     }
 
     function saveState() {
-      // SAUVEGARDE PERMANENTE DANS LE NAVIGATEUR (Nouvelle Version v26)
       localStorage.setItem('audit_missions_eu_v26', JSON.stringify(missions));
       localStorage.setItem('audit_special_missions_eu_v26', JSON.stringify(specialMissions));
       localStorage.setItem('audit_withdrawals_v26', JSON.stringify(withdrawals));
