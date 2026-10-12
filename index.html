@@ -161,11 +161,11 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">2 311,30 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">2 211,30 $</span>
           </div>
           <div class="border-l border-slate-800 pl-3 rtl:border-l-0 rtl:border-r rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">100,00 $</span>
           </div>
         </div>
       </div>
@@ -254,9 +254,9 @@
                   <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
                   </div>
-                  <div>
+                  <div class="w-full overflow-hidden">
                     <span class="text-sm font-black text-white block">Attijariwafa bank Maroc</span>
-                    <span class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider">Compte Par Défaut</span>
+                    <span class="text-[10px] text-slate-400 font-mono block mt-0.5 break-all">Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>
                   </div>
                 </div>
                 <div class="space-y-2 text-xs">
@@ -431,11 +431,12 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
         </div>
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 overflow-hidden">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Principale</span>
           <span id="txLastBank" class="text-sm sm:text-base font-black text-emerald-400 block mt-1">Attijariwafa bank Maroc</span>
+          <span class="text-[10px] text-slate-400 font-mono block mt-0.5 break-all">Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txBeneficiaryLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Bénéficiaire Principal</span>
@@ -592,7 +593,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div><span class="text-slate-400 block">Titulaire :</span><span id="recBeneficiary" class="font-bold text-white"></span></div>
             <div><span class="text-slate-400 block">Méthode :</span><span id="recMethod" class="font-bold text-emerald-400"></span></div>
-            <div class="sm:col-span-2"><span class="text-slate-400 block">Coordonnées :</span><span id="recDetails" class="font-mono text-slate-300"></span></div>
+            <div class="sm:col-span-2"><span class="text-slate-400 block">Coordonnées :</span><span id="recDetails" class="font-mono text-slate-300 break-all leading-tight"></span></div>
           </div>
         </div>
       </div>
@@ -661,9 +662,10 @@
             <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
             </div>
-            <div>
-              <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 block">Virement Bancaire (SWIFT)</span>
-              <span class="text-[11px] text-slate-400">Attijariwafa bank Maroc</span>
+            <div class="w-[calc(100%-3rem)]">
+              <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 block">Virement Bancaire / Crypto</span>
+              <span class="text-[11px] text-slate-400 block">Attijariwafa bank Maroc</span>
+              <span class="text-[9px] text-slate-500 font-mono block truncate mt-0.5">Binance W: bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>
             </div>
           </div>
         </button>
@@ -781,16 +783,15 @@
       }
     }
 
-    // Purge de l'ancienne version (v27) pour vider le cache
     try {
-      localStorage.removeItem('audit_missions_eu_v27');
-      localStorage.removeItem('audit_special_missions_eu_v27');
-      localStorage.removeItem('audit_maroc_missions_v27');
-      localStorage.removeItem('audit_withdrawals_v27');
-      localStorage.removeItem('audit_solde_valide_usd_v27');
+      localStorage.removeItem('audit_missions_eu_v29');
+      localStorage.removeItem('audit_special_missions_eu_v29');
+      localStorage.removeItem('audit_maroc_missions_v29');
+      localStorage.removeItem('audit_withdrawals_v29');
+      localStorage.removeItem('audit_solde_valide_usd_v29');
     } catch(e) {}
 
-    let soldeValideUSD = 2311.30;
+    let soldeValideUSD = 2211.30;
     
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
@@ -870,8 +871,19 @@
       document.getElementById('emailModal').classList.remove('hidden');
     }
 
-    // On vide l'historique des retraits pour garantir un solde en attente à 0.
-    const defaultWithdrawals = [];
+    // RETRAIT DE 100 USD DATÉ AU 12/10/2026
+    const defaultWithdrawals = [
+      {
+        id: 1728748800000,
+        ref: "TXN-MTE-20261012-9981",
+        date: "12/10/2026 à 10:45",
+        beneficiaire: "Aballagh Abderrahim",
+        montant: 100.00,
+        moyen: "Virement Bancaire / Crypto",
+        details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>",
+        statut: "En attente bancaire"
+      }
+    ];
     
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
@@ -919,7 +931,6 @@
       { id: 'st12', label: "12. Synthèse Extra-Financière", formula: "Avis d'expert" }
     ];
 
-    // Nouvelles entreprises et données
     const defaultMissions = [
       { id: "M1", company: "NexaCorp", code: "ETR: NXCP", reward: 135, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "94 500 M$", "Coût des Ventes (COGS)": "58 000 M$", "Dépenses d'Exploitation": "14 500 M$", "Frais de Recherche & Développement": "7 200 M$", "Dotations Amortissements": "3 500 M$", "Charges Financières / Intérêts": "950 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "48 000 M$", "Stocks": "14 000 M$", "Créances Clients": "17 000 M$", "Trésorerie & Équivalents": "11 000 M$", "Passifs Circulants": "38 000 M$", "Dettes à Court Terme": "14 000 M$", "Dettes Fournisseurs": "11 000 M$", "Dette Totale": "42 000 M$", "Capitaux Propres": "62 000 M$", "Total Actifs": "158 000 M$", "Flux de Trésorerie d'Exploitation": "12 500 M$", "CAPEX": "5 100 M$", "Actions en Circulation (Millions)": "850", "Dividendes Versés": "3 800 M$" } },
       { id: "M2", company: "Aura Cosmetics", code: "EPA: AURA", reward: 115, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "45 000 M$", "Coût des Ventes (COGS)": "12 500 M$", "Dépenses d'Exploitation": "21 000 M$", "Frais de Recherche & Développement": "1 500 M$", "Dotations Amortissements": "1 800 M$", "Charges Financières / Intérêts": "350 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "14 000 M$", "Stocks": "4 200 M$", "Créances Clients": "4 800 M$", "Trésorerie & Équivalents": "3 500 M$", "Passifs Circulants": "12 500 M$", "Dettes à Court Terme": "4 000 M$", "Dettes Fournisseurs": "5 100 M$", "Dette Totale": "9 500 M$", "Capitaux Propres": "34 000 M$", "Total Actifs": "52 000 M$", "Flux de Trésorerie d'Exploitation": "8 200 M$", "CAPEX": "1 500 M$", "Actions en Circulation (Millions)": "620", "Dividendes Versés": "3 500 M$" } },
@@ -954,25 +965,24 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
-    // Utilisation de la version v28 pour vider efficacement les données locales
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v28');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v29');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
 
-      const savedMissions = localStorage.getItem('audit_missions_eu_v28');
+      const savedMissions = localStorage.getItem('audit_missions_eu_v29');
       if (savedMissions) missions = JSON.parse(savedMissions);
 
-      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v28');
+      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v29');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
       
-      const savedMaroc = localStorage.getItem('audit_maroc_missions_v28');
+      const savedMaroc = localStorage.getItem('audit_maroc_missions_v29');
       if (savedMaroc) marocMissions = JSON.parse(savedMaroc);
 
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v28');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v29');
       if (savedSolde !== null) {
         soldeValideUSD = parseFloat(savedSolde);
       } else {
-        soldeValideUSD = 2311.30;
+        soldeValideUSD = 2211.30;
       }
     } catch(e) {}
 
@@ -1038,11 +1048,11 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions_eu_v28', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu_v28', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_maroc_missions_v28', JSON.stringify(marocMissions));
-      localStorage.setItem('audit_withdrawals_v28', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_v28', soldeValideUSD.toString());
+      localStorage.setItem('audit_missions_eu_v29', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v29', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_maroc_missions_v29', JSON.stringify(marocMissions));
+      localStorage.setItem('audit_withdrawals_v29', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v29', soldeValideUSD.toString());
       
       updateGlobalProgress();
       renderEvaluationView();
@@ -1493,9 +1503,9 @@
       closeModal('withdrawChoiceModal');
       const badge = document.getElementById('withdrawModalBadge');
       const dynamicFields = document.getElementById('dynamicMethodFields');
-      badge.textContent = "Virement Bancaire (SWIFT/SEPA)";
+      badge.textContent = "Virement Bancaire / Crypto";
       badge.className = "text-[10px] font-black uppercase text-emerald-400";
-      dynamicFields.innerHTML = `<div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1"><span class="text-white font-bold block">Banque : Attijariwafa bank Maroc</span></div>`;
+      dynamicFields.innerHTML = `<div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1"><span class="text-white font-bold block">Banque : Attijariwafa bank Maroc</span><span class="text-slate-400 font-mono block text-[10px] break-all">Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span></div>`;
       setBankAmountMax();
       document.getElementById('bankModal').classList.remove('hidden');
     }
@@ -1560,7 +1570,7 @@
         const card = document.createElement('div');
         card.onclick = () => openReceiptModal(w.id);
         card.className = "bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm hover:border-emerald-500/60 cursor-pointer transition active:scale-[0.99] group shadow-sm";
-        card.innerHTML = `<div class="flex justify-between items-center"><div class="flex items-center gap-2"><span class="text-xs text-slate-400 font-bold font-mono">${w.date}</span></div><span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${badgeStyle}">${w.statut}</span></div><div class="flex justify-between items-center pt-1 border-t border-slate-900"><div><p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p><p class="text-xs text-slate-400 font-mono">${w.details}</p></div><span class="font-black text-sm sm:text-base ${amountStyle} font-mono">${formatMoney(w.montant)}</span></div>${actionBtn}`;
+        card.innerHTML = `<div class="flex justify-between items-center"><div class="flex items-center gap-2"><span class="text-xs text-slate-400 font-bold font-mono">${w.date}</span></div><span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${badgeStyle}">${w.statut}</span></div><div class="flex justify-between items-center pt-1 border-t border-slate-900"><div class="flex-1 overflow-hidden pr-2"><p class="font-bold text-white text-xs sm:text-sm group-hover:text-emerald-400 transition">${w.moyen}</p><p class="text-[11px] text-slate-400 mt-0.5">${w.details}</p></div><span class="font-black text-sm sm:text-base ${amountStyle} font-mono shrink-0">${formatMoney(w.montant)}</span></div>${actionBtn}`;
         container.appendChild(card);
       });
 
@@ -1576,7 +1586,7 @@
       document.getElementById('recConvertedSummary').textContent = `≈ ${(w.montant * EXCHANGE_RATES.MAD.rate).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} MAD`;
       document.getElementById('recBeneficiary').textContent = w.beneficiaire;
       document.getElementById('recMethod').textContent = w.moyen;
-      document.getElementById('recDetails').textContent = w.details;
+      document.getElementById('recDetails').innerHTML = w.details;
       
       const statusBadge = document.getElementById('recStatusBadge');
       if (statusBadge) {
@@ -1596,7 +1606,7 @@
 
     function exportTransactionsCSV() {
       let csvContent = "data:text/csv;charset=utf-8,ID,Reference,Date,Beneficiaire,Montant_USD,Moyen,Details,Statut\n";
-      withdrawals.forEach(w => { csvContent += `"${w.id}","${w.ref || ''}","${w.date}","${w.beneficiaire}","${w.montant}","${w.moyen}","${w.details}","${w.statut}"\n`; });
+      withdrawals.forEach(w => { csvContent += `"${w.id}","${w.ref || ''}","${w.date}","${w.beneficiaire}","${w.montant}","${w.moyen}","${w.details.replace(/<[^>]+>/g, ' ')}","${w.statut}"\n`; });
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
       link.setAttribute("href", encodedUri);
@@ -1622,7 +1632,16 @@
       const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth()+1).padStart(2, '0')}/${now.getFullYear()} à ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       const refGen = `TXN-MTE-${now.getFullYear()}${String(now.getMonth()+1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
       
-      withdrawals.unshift({ id: Date.now(), ref: refGen, date: dateStr, beneficiaire: "Aballagh Abderrahim", montant: amt, moyen: "Compte Bancaire", details: "Attijariwafa bank Maroc", statut: "En attente bancaire" });
+      withdrawals.unshift({ 
+        id: Date.now(), 
+        ref: refGen, 
+        date: dateStr, 
+        beneficiaire: "Aballagh Abderrahim", 
+        montant: amt, 
+        moyen: "Virement Bancaire / Crypto", 
+        details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
+        statut: "En attente bancaire" 
+      });
       saveState();
       updateHeader();
       renderWithdrawHistory();
