@@ -783,14 +783,6 @@
       }
     }
 
-    try {
-      localStorage.removeItem('audit_missions_eu_v29');
-      localStorage.removeItem('audit_special_missions_eu_v29');
-      localStorage.removeItem('audit_maroc_missions_v29');
-      localStorage.removeItem('audit_withdrawals_v29');
-      localStorage.removeItem('audit_solde_valide_usd_v29');
-    } catch(e) {}
-
     let soldeValideUSD = 2211.30;
     
     let activeMissionIndex = 0;
@@ -871,7 +863,6 @@
       document.getElementById('emailModal').classList.remove('hidden');
     }
 
-    // RETRAIT DE 100 USD DATÉ AU 12/10/2026
     const defaultWithdrawals = [
       {
         id: 1728748800000,
@@ -965,24 +956,23 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
+    // CHARGEMENT DE LA PERSISTANCE LOCALSTORAGE SANS SUPPRESSION
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v29');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v30');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
 
-      const savedMissions = localStorage.getItem('audit_missions_eu_v29');
+      const savedMissions = localStorage.getItem('audit_missions_eu_v30');
       if (savedMissions) missions = JSON.parse(savedMissions);
 
-      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v29');
+      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v30');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
       
-      const savedMaroc = localStorage.getItem('audit_maroc_missions_v29');
+      const savedMaroc = localStorage.getItem('audit_maroc_missions_v30');
       if (savedMaroc) marocMissions = JSON.parse(savedMaroc);
 
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v29');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v30');
       if (savedSolde !== null) {
         soldeValideUSD = parseFloat(savedSolde);
-      } else {
-        soldeValideUSD = 2211.30;
       }
     } catch(e) {}
 
@@ -1048,11 +1038,11 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions_eu_v29', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu_v29', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_maroc_missions_v29', JSON.stringify(marocMissions));
-      localStorage.setItem('audit_withdrawals_v29', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_v29', soldeValideUSD.toString());
+      localStorage.setItem('audit_missions_eu_v30', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v30', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_maroc_missions_v30', JSON.stringify(marocMissions));
+      localStorage.setItem('audit_withdrawals_v30', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v30', soldeValideUSD.toString());
       
       updateGlobalProgress();
       renderEvaluationView();
