@@ -161,11 +161,11 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">2 211,30 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">2 451,86 $</span>
           </div>
           <div class="border-l border-slate-800 pl-3 rtl:border-l-0 rtl:border-r rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">100,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
           </div>
         </div>
       </div>
@@ -191,6 +191,23 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex-1 w-full relative z-10 space-y-6">
+
+    <!-- BANNIÈRE DE DEMANDE DE PREMIER RETRAIT -->
+    <div class="bg-gradient-to-r from-emerald-900/40 via-teal-950/50 to-slate-900/90 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex items-center gap-3.5 text-left rtl:text-right relative z-10">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 text-xl font-black shadow-inner">
+          💳
+        </div>
+        <div>
+          <h2 class="text-sm sm:text-base font-black text-white">Action requise : Premier retrait disponible</h2>
+          <p class="text-xs text-slate-300 mt-0.5">Veuillez effectuer votre **premier retrait de 50 USD** afin de valider et activer définitivement votre canal bancaire.</p>
+        </div>
+      </div>
+      <button type="button" onclick="openFirstWithdrawModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition active:scale-95 shrink-0 relative z-10">
+        Retirer 50 USD maintenant
+      </button>
+    </div>
 
     <div class="bg-slate-900/90 backdrop-blur-xl p-3.5 rounded-2xl border border-slate-800 shadow-xl space-y-2" id="globalProgressContainer">
       <div class="flex justify-between items-center text-xs font-black">
@@ -405,6 +422,22 @@
     </div>
 
     <div id="transactionsView" class="hidden space-y-4">
+      <!-- BANNIÈRE DE PREMIER RETRAIT DANS L'ONGLET RETRAITS -->
+      <div class="bg-gradient-to-r from-emerald-900/40 via-teal-950/50 to-slate-900/90 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+        <div class="flex items-center gap-3.5 text-left rtl:text-right">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 text-xl font-black shadow-inner">
+            💵
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-white">Demande de premier retrait (50 USD)</h3>
+            <p class="text-xs text-slate-300 mt-0.5">Effectuez votre premier retrait minimum de 50 USD dès à présent pour finaliser l'activation de votre terminal de paiement.</p>
+          </div>
+        </div>
+        <button type="button" onclick="openFirstWithdrawModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition active:scale-95 shrink-0">
+          Initier le retrait de 50$
+        </button>
+      </div>
+
       <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h2 class="text-sm sm:text-lg font-black text-white flex items-center gap-2">
@@ -431,7 +464,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 overflow-hidden">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Principale</span>
@@ -783,7 +816,7 @@
       }
     }
 
-    let soldeValideUSD = 2211.30;
+    let soldeValideUSD = 2451.86;
     
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
@@ -863,18 +896,7 @@
       document.getElementById('emailModal').classList.remove('hidden');
     }
 
-    const defaultWithdrawals = [
-      {
-        id: 1728748800000,
-        ref: "TXN-MTE-20261012-9981",
-        date: "12/10/2026 à 10:45",
-        beneficiaire: "Aballagh Abderrahim",
-        montant: 100.00,
-        moyen: "Virement Bancaire / Crypto",
-        details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>",
-        statut: "En attente bancaire"
-      }
-    ];
+    const defaultWithdrawals = [];
     
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
@@ -956,23 +978,24 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
-    // CHARGEMENT DE LA PERSISTANCE LOCALSTORAGE SANS SUPPRESSION
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v30');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_v29');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
 
-      const savedMissions = localStorage.getItem('audit_missions_eu_v30');
+      const savedMissions = localStorage.getItem('audit_missions_eu_v29');
       if (savedMissions) missions = JSON.parse(savedMissions);
 
-      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v30');
+      const savedSpecial = localStorage.getItem('audit_special_missions_eu_v29');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
       
-      const savedMaroc = localStorage.getItem('audit_maroc_missions_v30');
+      const savedMaroc = localStorage.getItem('audit_maroc_missions_v29');
       if (savedMaroc) marocMissions = JSON.parse(savedMaroc);
 
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v30');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_v29');
       if (savedSolde !== null) {
         soldeValideUSD = parseFloat(savedSolde);
+      } else {
+        soldeValideUSD = 2451.86;
       }
     } catch(e) {}
 
@@ -1038,11 +1061,11 @@
     }
 
     function saveState() {
-      localStorage.setItem('audit_missions_eu_v30', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_eu_v30', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_maroc_missions_v30', JSON.stringify(marocMissions));
-      localStorage.setItem('audit_withdrawals_v30', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_v30', soldeValideUSD.toString());
+      localStorage.setItem('audit_missions_eu_v29', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_eu_v29', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_maroc_missions_v29', JSON.stringify(marocMissions));
+      localStorage.setItem('audit_withdrawals_v29', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_v29', soldeValideUSD.toString());
       
       updateGlobalProgress();
       renderEvaluationView();
@@ -1498,6 +1521,15 @@
       dynamicFields.innerHTML = `<div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1"><span class="text-white font-bold block">Banque : Attijariwafa bank Maroc</span><span class="text-slate-400 font-mono block text-[10px] break-all">Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span></div>`;
       setBankAmountMax();
       document.getElementById('bankModal').classList.remove('hidden');
+    }
+
+    function openFirstWithdrawModal() {
+      selectWithdrawMethod('bank');
+      const input = document.getElementById('bankAmount');
+      if (input) {
+        input.value = "50.00";
+        updateWithdrawSummary();
+      }
     }
 
     function setBankAmountMax() {
