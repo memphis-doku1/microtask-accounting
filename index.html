@@ -851,6 +851,8 @@
     }
 
     let inboxMessages = [
+      { id: 9, sender: "Service des Paiements", subject: "Confirmation requise : Virement de 50 USD (477,43 MAD)", read: false, body: `<p>Bonjour Abderrahim,</p><p>Votre virement de <strong>50 USD</strong> (équivalent à <strong>477,43 MAD</strong>) a été envoyé sur votre compte bancaire.</p><p>Veuillez vérifier votre compte bancaire et vous rendre dans l'onglet <strong>Retraits</strong> pour confirmer la bonne réception des fonds.</p>` },
+      { id: 8, sender: "Service des Paiements", subject: "Plafond maximum par demande de retrait (100 USD)", read: false, body: `<p>Bonjour Abderrahim,</p><p>Nous vous rappelons que pour des raisons de conformité et de sécurité des opérations financières, chaque demande de retrait individuelle ne doit pas dépasser le plafond strict de <strong>100 USD</strong>.</p><p>Merci de veiller au respect de cette limite lors de vos prochaines opérations de retrait.</p>` },
       { id: 7, sender: "Cellule de Crise", subject: "Mise à jour des portefeuilles Corporate", read: false, body: `<p>Bonjour Abderrahim,</p><p>Les nouveaux portefeuilles d'audit viennent d'être déployés avec succès pour la zone Afrique. Votre historique a été préparé pour cette nouvelle session.</p>` },
       { id: 3, sender: "Supervision des Audits", subject: "Vos nouvelles missions d'audit (Afrique & MENA)", read: true, body: `<p>Bonjour Abderrahim,</p><p>Votre tableau de bord a été actualisé avec les nouveaux groupes africains et partenaires marocains. Bon audit !</p>` }
     ];
@@ -904,7 +906,7 @@
         montant: 50.00, 
         moyen: "Virement Bancaire / Crypto", 
         details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
-        statut: "En attente bancaire"
+        statut: "Validé" // <--- Ici le statut par défaut est bien "Validé"
     }];
     
     const taskDefinitions = [
@@ -987,21 +989,21 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
-    // Réactivation du cache avec de nouvelles clés pour repartir à zéro
+    // FORCER LA RÉINITIALISATION DU CACHE AVEC LA CLÉ "_v2"
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_afr_v1');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_afr_v2');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
 
-      const savedMissions = localStorage.getItem('audit_missions_afr_v1');
+      const savedMissions = localStorage.getItem('audit_missions_afr_v2');
       if (savedMissions) missions = JSON.parse(savedMissions);
 
-      const savedSpecial = localStorage.getItem('audit_special_missions_afr_v1');
+      const savedSpecial = localStorage.getItem('audit_special_missions_afr_v2');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
       
-      const savedMaroc = localStorage.getItem('audit_maroc_missions_afr_v1');
+      const savedMaroc = localStorage.getItem('audit_maroc_missions_afr_v2');
       if (savedMaroc) marocMissions = JSON.parse(savedMaroc);
 
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_afr_v1');
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_afr_v2');
       if (savedSolde !== null) {
         soldeValideUSD = parseFloat(savedSolde);
       } else {
@@ -1071,12 +1073,12 @@
     }
 
     function saveState() {
-      // Sauvegarde réactivée avec de nouvelles clés
-      localStorage.setItem('audit_missions_afr_v1', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_afr_v1', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_maroc_missions_afr_v1', JSON.stringify(marocMissions));
-      localStorage.setItem('audit_withdrawals_afr_v1', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_afr_v1', soldeValideUSD.toString());
+      // Sauvegarde réactivée avec les clés v2
+      localStorage.setItem('audit_missions_afr_v2', JSON.stringify(missions));
+      localStorage.setItem('audit_special_missions_afr_v2', JSON.stringify(specialMissions));
+      localStorage.setItem('audit_maroc_missions_afr_v2', JSON.stringify(marocMissions));
+      localStorage.setItem('audit_withdrawals_afr_v2', JSON.stringify(withdrawals));
+      localStorage.setItem('audit_solde_valide_usd_afr_v2', soldeValideUSD.toString());
       
       updateGlobalProgress();
       renderEvaluationView();
@@ -1171,7 +1173,6 @@
     }
 
     function getSoldeEnAttenteUSD() {
-      // Le solde en attente est forcé à 0 comme demandé (ne compte plus les retraits)
       let pendingMissionsRewards = missions.filter(m => m.completed).reduce((sum, m) => sum + m.reward, 0);
       let pendingSpecialRewards = specialMissions.filter(sm => sm.completed).reduce((sum, sm) => sum + sm.reward, 0);
       let pendingMarocRewards = marocMissions.filter(m => m.completed).reduce((sum, m) => sum + m.reward, 0);
@@ -1673,7 +1674,7 @@
         montant: amt, 
         moyen: "Virement Bancaire / Crypto", 
         details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
-        statut: "En attente bancaire" 
+        statut: "Validé" 
       });
       saveState();
       updateHeader();
