@@ -192,21 +192,21 @@
 
   <main class="max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex-1 w-full relative z-10 space-y-6">
 
-    <!-- BANNIÈRE DE DEMANDE DE PREMIER RETRAIT -->
-    <div class="bg-gradient-to-r from-emerald-900/40 via-teal-950/50 to-slate-900/90 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl relative overflow-hidden">
-      <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+    <!-- BANNIÈRE DE VALIDATION DE VIREMENT -->
+    <div class="bg-gradient-to-r from-indigo-900/40 via-blue-950/50 to-slate-900/90 border border-indigo-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
       <div class="flex items-center gap-3.5 text-left rtl:text-right relative z-10">
-        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 text-xl font-black shadow-inner">
-          💳
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 shrink-0 text-xl font-black shadow-inner">
+          📸
         </div>
         <div>
-          <h2 class="text-sm sm:text-base font-black text-white">Action requise : Premier retrait disponible</h2>
-          <p class="text-xs text-slate-300 mt-0.5">Veuillez effectuer votre **premier retrait de 50 USD** afin de valider et activer définitivement votre canal bancaire.</p>
+          <h2 class="text-sm sm:text-base font-black text-white">Action requise : Validation de vos retraits</h2>
+          <p class="text-xs text-slate-300 mt-0.5">Veuillez envoyer une <strong>capture d'écran du virement de 50 USD</strong> que vous avez reçu à notre adresse e-mail. Si vous avez effectué d'autres demandes de retrait sur l'application, merci de nous en faire la demande également par e-mail à : <a href="mailto:Microtasksupport@gmail.com" class="text-indigo-400 font-bold hover:underline">Microtasksupport@gmail.com</a>.</p>
         </div>
       </div>
-      <button type="button" onclick="openFirstWithdrawModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition active:scale-95 shrink-0 relative z-10">
-        Retirer 50 USD maintenant
-      </button>
+      <a href="mailto:Microtasksupport@gmail.com?subject=Validation%20de%20Retrait%20-%20Capture%20d'écran" class="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-400 hover:to-blue-400 text-white font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-indigo-500/20 transition active:scale-95 shrink-0 relative z-10 text-center">
+        Envoyer l'e-mail
+      </a>
     </div>
 
     <div class="bg-slate-900/90 backdrop-blur-xl p-3.5 rounded-2xl border border-slate-800 shadow-xl space-y-2" id="globalProgressContainer">
@@ -422,20 +422,20 @@
     </div>
 
     <div id="transactionsView" class="hidden space-y-4">
-      <!-- BANNIÈRE DE PREMIER RETRAIT DANS L'ONGLET RETRAITS -->
-      <div class="bg-gradient-to-r from-emerald-900/40 via-teal-950/50 to-slate-900/90 border border-emerald-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+      <!-- BANNIÈRE DE VALIDATION DE VIREMENT -->
+      <div class="bg-gradient-to-r from-indigo-900/40 via-blue-950/50 to-slate-900/90 border border-indigo-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl mb-4">
         <div class="flex items-center gap-3.5 text-left rtl:text-right">
-          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 text-xl font-black shadow-inner">
-            💵
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 shrink-0 text-xl font-black shadow-inner">
+            📸
           </div>
           <div>
-            <h3 class="text-sm sm:text-base font-black text-white">Demande de premier retrait (50 USD)</h3>
-            <p class="text-xs text-slate-300 mt-0.5">Effectuez votre premier retrait minimum de 50 USD dès à présent pour finaliser l'activation de votre terminal de paiement.</p>
+            <h3 class="text-sm sm:text-base font-black text-white">Validation de réception de virement</h3>
+            <p class="text-xs text-slate-300 mt-0.5">Veuillez envoyer une <strong>capture d'écran du virement de 50 USD</strong> que vous avez reçu ainsi que vos autres demandes de retrait par e-mail à : <a href="mailto:Microtasksupport@gmail.com" class="text-indigo-400 font-bold hover:underline">Microtasksupport@gmail.com</a>.</p>
           </div>
         </div>
-        <button type="button" onclick="openFirstWithdrawModal()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition active:scale-95 shrink-0">
-          Initier le retrait de 50$
-        </button>
+        <a href="mailto:Microtasksupport@gmail.com?subject=Validation%20de%20Retrait%20-%20Capture%20d'écran" class="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-400 hover:to-blue-400 text-white font-black px-4 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg shadow-indigo-500/20 transition active:scale-95 shrink-0 text-center">
+          Envoyer l'e-mail
+        </a>
       </div>
 
       <div class="bg-slate-900/90 backdrop-blur-xl p-4 rounded-2xl border border-slate-800 shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -906,7 +906,7 @@
         montant: 50.00, 
         moyen: "Virement Bancaire / Crypto", 
         details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
-        statut: "Validé" // <--- Ici le statut par défaut est bien "Validé"
+        statut: "Validé" 
     }];
     
     const taskDefinitions = [
