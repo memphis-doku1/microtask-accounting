@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MicroTask Accounting - Corporate Africa</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Animation Confettis -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <script>
     tailwind.config = {
@@ -72,6 +74,19 @@
 
     .ticker-container:hover .animate-ticker { animation-play-state: paused; }
 
+    .glitch-hover:hover {
+      text-shadow: 2px 0 #10b981, -2px 0 #6366f1;
+      animation: glitch-anim 0.3s linear infinite;
+    }
+    @keyframes glitch-anim {
+      0% { transform: translate(0) }
+      20% { transform: translate(-2px, 1px) }
+      40% { transform: translate(-1px, -1px) }
+      60% { transform: translate(2px, 1px) }
+      80% { transform: translate(1px, -1px) }
+      100% { transform: translate(0) }
+    }
+
     @media print {
       body * { visibility: hidden; }
       #certificateModal, #certificateModal *, 
@@ -113,7 +128,7 @@
           <button type="button" onclick="switchTab('profile')" title="Mon Profil" class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-slate-950 flex items-center justify-center text-emerald-400 font-black text-xl border border-emerald-500/40 shrink-0 shadow-inner hover:bg-slate-800 transition active:scale-95">M</button>
           <div>
             <h1 class="text-sm sm:text-xl font-black tracking-wide text-white leading-tight">
-              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Africa</span>
+              MicroTask <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent glitch-hover">Africa</span>
             </h1>
             <p id="t_headerSubtitle" class="text-[10px] sm:text-xs text-slate-300 font-semibold">Terminal d'Audit Sécurisé</p>
           </div>
@@ -161,11 +176,11 @@
         <div class="flex items-center justify-between w-full sm:w-auto gap-3.5 text-right rtl:text-left pr-1 rtl:pr-0 rtl:pl-1">
           <div class="text-left rtl:text-right sm:text-right rtl:sm:text-left">
             <span id="t_labelValide" class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-extrabold block leading-none">Validé</span>
-            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400">2 451,86 $</span>
+            <span id="soldeDisplay" class="text-sm sm:text-lg font-black text-emerald-400 transition-all duration-300">2 516,53 $</span>
           </div>
           <div class="border-l border-slate-800 pl-3 rtl:border-l-0 rtl:border-r rtl:pr-3">
             <span id="t_labelAttente" class="text-[10px] sm:text-xs uppercase tracking-wider text-amber-300 font-extrabold block leading-none">En Attente</span>
-            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300">0,00 $</span>
+            <span id="soldeEnAttenteDisplay" class="text-sm sm:text-lg font-black text-amber-300 transition-all duration-300">100,00 $</span>
           </div>
         </div>
       </div>
@@ -178,13 +193,13 @@
       <div class="whitespace-nowrap animate-ticker text-[10px] sm:text-xs font-mono font-bold text-slate-300 flex w-max hover:[animation-play-state:paused]">
         <div class="flex gap-8 px-4">
           <span><span class="text-emerald-400 font-black">★ INFO:</span> Nouveaux portefeuilles d'audit déployés avec succès.</span>
-          <span><span class="text-emerald-400">▲ JSE: MTN</span> +2.14%</span>
+          <span><span class="text-emerald-400">▲ JSE: SHP</span> +2.14%</span>
           <span><span class="text-amber-400">⚠️ FLASH BAM:</span> Bank Al-Maghrib confirme ses objectifs d'inflation</span>
-          <span><span class="text-emerald-400">▲ NSE: SCOM</span> +1.42%</span>
-          <span><span class="text-rose-400">▼ JSE: NPN</span> -0.90%</span>
-          <span><span class="text-emerald-400">▲ MASI: OCP</span> +2.80% suite aux résultats Q3 record</span>
-          <span><span class="text-emerald-400">▲ BRVM: SONA</span> +1.10%</span>
-          <span><span class="text-emerald-400">▲ NSE: DANGCEM</span> +0.65%</span>
+          <span><span class="text-emerald-400">▲ NSE: KCB</span> +1.42%</span>
+          <span><span class="text-rose-400">▼ JSE: SOL</span> -0.90%</span>
+          <span><span class="text-emerald-400">▲ MASI: CMA</span> +2.80% suite aux résultats Q3 record</span>
+          <span><span class="text-emerald-400">▲ EGX: FWRY</span> +1.10%</span>
+          <span><span class="text-emerald-400">▲ JSE: ABG</span> +0.65%</span>
         </div>
       </div>
     </div>
@@ -257,10 +272,10 @@
             <div class="space-y-1.5">
               <div class="flex justify-between items-center text-xs font-bold text-slate-300 mb-1">
                 <span>Plafonds de retrait mensuel</span>
-                <span class="text-emerald-400 font-mono">2 311$ / 10 000$</span>
+                <span class="text-emerald-400 font-mono">2 516$ / 10 000$</span>
               </div>
               <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
-                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 23.11%"></div>
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full" style="width: 25.16%"></div>
               </div>
             </div>
 
@@ -335,12 +350,12 @@
         <div class="bg-slate-900/90 backdrop-blur-xl p-3 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-800 shadow-xl space-y-3">
           <div class="flex justify-between items-center">
             <h2 class="text-xs sm:text-base font-black text-white flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
               <span id="t_missionsTitle">Missions d'Audit (M1 à M10 - Pan-Africa)</span>
             </h2>
-            <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full">0/10 Envoyées</span>
+            <span id="completedNewCount" class="text-xs sm:text-sm font-black text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full shadow-inner">0/10 Envoyées</span>
           </div>
-          <div id="missionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1"></div>
+          <div id="missionButtonsContainer"></div>
         </div>
         <div id="megaMissionContainer" class="touch-pan-y"></div>
       </section>
@@ -357,9 +372,9 @@
               <span class="text-lg leading-none">🇲🇦</span>
               <span id="t_marocTitle">Missions Nationales (MASI - Hub Maroc)</span>
             </h2>
-            <span id="completedMarocCount" class="text-xs sm:text-sm font-black text-red-300 bg-red-500/20 border border-red-500/30 px-3 py-1 rounded-full">0/5 Envoyées</span>
+            <span id="completedMarocCount" class="text-xs sm:text-sm font-black text-red-300 bg-red-500/20 border border-red-500/30 px-3 py-1 rounded-full shadow-inner">0/5 Envoyées</span>
           </div>
-          <div id="marocMissionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1 relative z-10"></div>
+          <div id="marocMissionButtonsContainer" class="relative z-10"></div>
         </div>
         <div id="marocMissionContainer" class="touch-pan-y"></div>
       </section>
@@ -373,9 +388,9 @@
               <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2h0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
               <span id="t_specialTitle">Missions Spéciales (ESG, Fintech & Logistique - 40$ à 100$)</span>
             </h2>
-            <span id="completedSpecialCount" class="text-xs sm:text-sm font-black text-teal-300 bg-teal-500/20 border border-teal-500/30 px-3 py-1 rounded-full">0/5 Envoyées</span>
+            <span id="completedSpecialCount" class="text-xs sm:text-sm font-black text-teal-300 bg-teal-500/20 border border-teal-500/30 px-3 py-1 rounded-full shadow-inner">0/5 Envoyées</span>
           </div>
-          <div id="specialMissionButtonsContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 -mx-1 px-1"></div>
+          <div id="specialMissionButtonsContainer"></div>
         </div>
         <div id="specialMissionContainer" class="touch-pan-y"></div>
       </section>
@@ -422,7 +437,6 @@
     </div>
 
     <div id="transactionsView" class="hidden space-y-4">
-      <!-- BANNIÈRE DE VALIDATION DE VIREMENT -->
       <div class="bg-gradient-to-r from-indigo-900/40 via-blue-950/50 to-slate-900/90 border border-indigo-500/40 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl mb-4">
         <div class="flex items-center gap-3.5 text-left rtl:text-right">
           <div class="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 shrink-0 text-xl font-black shadow-inner">
@@ -464,7 +478,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800">
           <span id="t_txPendingLabel" class="text-xs text-slate-400 font-extrabold block uppercase">En Attente</span>
-          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">0,00 $</span>
+          <span id="txTotalAmount" class="text-xl sm:text-2xl font-black text-amber-300 block mt-1">100,00 $</span>
         </div>
         <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 overflow-hidden">
           <span id="t_txBankLabel" class="text-xs text-slate-400 font-extrabold block uppercase">Banque Principale</span>
@@ -504,6 +518,7 @@
     </div>
   </main>
 
+  <!-- MODALS -->
   <div id="certificateModal" role="dialog" aria-modal="true" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[60] flex items-center justify-center p-2 sm:p-4 hidden overflow-y-auto">
     <div class="bg-slate-900 border border-emerald-500/30 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden animate-modal-pop my-auto max-h-[92vh] flex flex-col">
       <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center shrink-0">
@@ -656,7 +671,6 @@
         <button type="button" onclick="closeModal('calculatorModal')" class="text-slate-400 text-2xl font-bold p-1 hover:text-white">&times;</button>
       </div>
       <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-right space-y-1">
-        <div id="calcExpression" class="text-xs text-slate-400 font-mono h-4 overflow-hidden truncate">0</div>
         <div id="calcDisplay" class="text-2xl font-black text-emerald-400 font-mono overflow-x-auto no-scrollbar">0</div>
       </div>
       <div class="grid grid-cols-4 gap-2">
@@ -698,7 +712,6 @@
             <div class="w-[calc(100%-3rem)]">
               <span class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 block">Virement Bancaire / Crypto</span>
               <span class="text-[11px] text-slate-400 block">Attijariwafa bank Maroc</span>
-              <span class="text-[9px] text-slate-500 font-mono block truncate mt-0.5">Binance W: bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>
             </div>
           </div>
         </button>
@@ -741,7 +754,7 @@
 
   <div class="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-1 py-3 flex justify-around items-center shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
     <button id="mobNavDashboardBtn" onclick="switchTab('dashboard')" class="flex flex-col items-center gap-1 text-emerald-400 transition active:scale-95">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2M9 5a2 2 0 012 2"/></svg>
       <span class="text-[9px] font-bold">Audit</span>
     </button>
     <button id="mobNavMarocBtn" onclick="switchTab('maroc')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
@@ -755,10 +768,6 @@
     <button id="mobNavInboxBtn" onclick="switchTab('inbox')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-200 transition active:scale-95">
       <div class="relative h-5">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        <span id="mobUnreadBadge" class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
-        </span>
       </div>
       <span class="text-[9px] font-bold">Inbox</span>
     </button>
@@ -775,10 +784,12 @@
   <script>
     let currentLanguage = 'fr';
     let currentSelectedMethod = 'bank';
+    let lastSoldeValideUSD = 0;
+    let lastSoldeEnAttenteUSD = 0;
 
     const translations = {
       fr: {
-        headerSubtitle: "Terminal d'Audit Sécurisé", navAudit: "Audit", navSpecial: "Spéciales", navWithdrawals: "Retraits", navEvaluation: "Évaluation", labelValide: "Validé", labelAttente: "En Attente", btnWithdrawTop: "Retirer", missionsTitle: "Missions d'Audit (M1 à M10 - Pan-Africa)", specialTitle: "Missions Spéciales (ESG, Fintech & Logistique - 40$ à 100$)", sentCount: "{done}/10 Envoyées", specialSentCount: "{done}/5 Envoyées", marocSentCount: "{done}/5 Envoyées", globalProgressLabel: "Progression Globale des Audits", submissionDeadline: "Échéance de soumission", btnSaveLock: "Sauvegarder & Verrouiller", btnLockSubmit: "Valider & Envoyer (+{amount})", btnUnlock: "Modifier le rapport", reportLockedTitle: "Rapport Verrouillé", reportCompletedTitle: "Rapport Transmis & Verrouillé", btnGenCertificate: "Générer la Fiche d'Audit & Export PDF", txTitle: "Transactions & Retraits", txSubtitle: "Cliquez sur une opération pour afficher son avis officiel certifié", btnNewWithdraw: "Retrait", txPendingLabel: "En Attente", txBankLabel: "Banque Principale", txBeneficiaryLabel: "Bénéficiaire Principal", txJournalTitle: "Journal d'Opérations Bancaires", txNoticeBadge: "Avis certifiés avec QR Code"
+        headerSubtitle: "Terminal d'Audit Sécurisé", navAudit: "Audit", navSpecial: "Spéciales", navWithdrawals: "Retraits", navEvaluation: "Évaluation", labelValide: "Validé", labelAttente: "En Attente", btnWithdrawTop: "Retirer", missionsTitle: "Missions d'Audit (M1 à M10 - Pan-Africa)", specialTitle: "Missions Spéciales (ESG, Fintech & Logistique - 40$ à 100$)", sentCount: "{done}/10 Envoyées", specialSentCount: "{done}/5 Envoyées", marocSentCount: "{done}/5 Envoyées", globalProgressLabel: "Progression Globale des Audits", btnSaveLock: "Sauvegarder & Verrouiller", btnLockSubmit: "Valider & Envoyer (+{amount})", btnUnlock: "Modifier le rapport", reportLockedTitle: "Rapport Verrouillé", reportCompletedTitle: "Rapport Transmis & Verrouillé", btnGenCertificate: "Générer la Fiche d'Audit & Export PDF", txTitle: "Transactions & Retraits", txSubtitle: "Cliquez sur une opération pour afficher son avis officiel certifié", btnNewWithdraw: "Retrait", txPendingLabel: "En Attente", txBankLabel: "Banque Principale", txBeneficiaryLabel: "Bénéficiaire Principal", txJournalTitle: "Journal d'Opérations Bancaires", txNoticeBadge: "Avis certifiés avec QR Code"
       }
     };
 
@@ -808,7 +819,7 @@
 
     function applyStaticTranslations() {
       const map = {
-        t_headerSubtitle: 'headerSubtitle', t_navAudit: 'navAudit', t_navSpecial: 'navSpecial', t_navWithdrawals: 'navWithdrawals', t_navEvaluation: 'navEvaluation', t_labelValide: 'labelValide', t_labelAttente: 'labelAttente', t_btnWithdrawTop: 'btnWithdrawTop', t_missionsTitle: 'missionsTitle', t_specialTitle: 'specialTitle', t_globalProgressLabel: 'globalProgressLabel', t_txTitle: 'txTitle', t_txSubtitle: 'txSubtitle', t_btnNewWithdraw: 'btnNewWithdraw', t_txPendingLabel: 'txPendingLabel', t_txBankLabel: 'txBankLabel', t_txBeneficiaryLabel: 'txBeneficiaryLabel', t_txJournalTitle: 'txJournalTitle', t_txNoticeBadge: 'txNoticeBadge'
+        t_headerSubtitle: 'headerSubtitle', t_labelValide: 'labelValide', t_labelAttente: 'labelAttente', t_btnWithdrawTop: 'btnWithdrawTop', t_missionsTitle: 'missionsTitle', t_specialTitle: 'specialTitle', t_globalProgressLabel: 'globalProgressLabel', t_txTitle: 'txTitle', t_txSubtitle: 'txSubtitle', t_btnNewWithdraw: 'btnNewWithdraw', t_txPendingLabel: 'txPendingLabel', t_txBankLabel: 'txBankLabel', t_txBeneficiaryLabel: 'txBeneficiaryLabel', t_txJournalTitle: 'txJournalTitle', t_txNoticeBadge: 'txNoticeBadge'
       };
       for (const [domId, key] of Object.entries(map)) {
         const el = document.getElementById(domId);
@@ -816,8 +827,7 @@
       }
     }
 
-    let soldeValideUSD = 2451.86;
-    
+    let soldeValideUSD = 2516.53;
     let activeMissionIndex = 0;
     let activeSpecialIndex = 0;
     let activeMarocIndex = 0;
@@ -828,6 +838,24 @@
       const conf = EXCHANGE_RATES[currentCurrency] || EXCHANGE_RATES.USD;
       const converted = amountInUSD * conf.rate;
       return `${converted.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${conf.symbol}`;
+    }
+
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      if (!obj) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const currentVal = progress * (end - start) + start;
+        obj.innerHTML = formatMoney(currentVal);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          obj.innerHTML = formatMoney(end);
+        }
+      };
+      window.requestAnimationFrame(step);
     }
 
     function setCurrency(curr) {
@@ -852,18 +880,15 @@
 
     let inboxMessages = [
       { id: 9, sender: "Service des Paiements", subject: "Confirmation requise : Virement de 50 USD (477,43 MAD)", read: false, body: `<p>Bonjour Abderrahim,</p><p>Votre virement de <strong>50 USD</strong> (équivalent à <strong>477,43 MAD</strong>) a été envoyé sur votre compte bancaire.</p><p>Veuillez vérifier votre compte bancaire et vous rendre dans l'onglet <strong>Retraits</strong> pour confirmer la bonne réception des fonds.</p>` },
-      { id: 8, sender: "Service des Paiements", subject: "Plafond maximum par demande de retrait (100 USD)", read: false, body: `<p>Bonjour Abderrahim,</p><p>Nous vous rappelons que pour des raisons de conformité et de sécurité des opérations financières, chaque demande de retrait individuelle ne doit pas dépasser le plafond strict de <strong>100 USD</strong>.</p><p>Merci de veiller au respect de cette limite lors de vos prochaines opérations de retrait.</p>` },
-      { id: 7, sender: "Cellule de Crise", subject: "Mise à jour des portefeuilles Corporate", read: false, body: `<p>Bonjour Abderrahim,</p><p>Les nouveaux portefeuilles d'audit viennent d'être déployés avec succès pour la zone Afrique. Votre historique a été préparé pour cette nouvelle session.</p>` },
-      { id: 3, sender: "Supervision des Audits", subject: "Vos nouvelles missions d'audit (Afrique & MENA)", read: true, body: `<p>Bonjour Abderrahim,</p><p>Votre tableau de bord a été actualisé avec les nouveaux groupes africains et partenaires marocains. Bon audit !</p>` }
+      { id: 8, sender: "Service des Paiements", subject: "Plafond maximum par demande de retrait (100 USD)", read: false, body: `<p>Bonjour Abderrahim,</p><p>Nous vous rappelons que pour des raisons de conformité et de sécurité des opérations financières, chaque demande de retrait individuelle ne doit pas dépasser le plafond strict de <strong>100 USD</strong>.</p>` },
+      { id: 7, sender: "Cellule de Crise", subject: "Mise à jour des portefeuilles Corporate", read: false, body: `<p>Bonjour Abderrahim,</p><p>Les nouveaux portefeuilles d'audit viennent d'être déployés avec succès pour la zone Afrique.</p>` }
     ];
 
     function renderInbox() {
       const listContainer = document.getElementById('inboxList');
       if (!listContainer) return;
       listContainer.innerHTML = '';
-      
       let unreadCount = 0;
-      
       inboxMessages.forEach(msg => {
         if (!msg.read) unreadCount++;
         const div = document.createElement('div');
@@ -872,18 +897,11 @@
         div.innerHTML = `<div class="mt-1"><div class="w-2 h-2 rounded-full ${msg.read ? 'bg-transparent' : 'bg-indigo-400 animate-pulse'}"></div></div><div class="flex-1 min-w-0"><div class="flex justify-between items-baseline mb-0.5"><h4 class="text-xs font-bold ${msg.read ? 'text-slate-400' : 'text-indigo-300'} truncate pr-2">${msg.sender}</h4></div><p class="text-sm font-black text-white truncate">${msg.subject}</p></div>`;
         listContainer.appendChild(div);
       });
-      
       document.getElementById('inboxCount').textContent = inboxMessages.length;
-      
       const deskBadge = document.getElementById('unreadBadge');
-      const mobBadge = document.getElementById('mobUnreadBadge');
-      
-      if (unreadCount > 0) {
-        if (deskBadge) deskBadge.classList.remove('hidden');
-        if (mobBadge) mobBadge.classList.remove('hidden');
-      } else {
-        if (deskBadge) deskBadge.classList.add('hidden');
-        if (mobBadge) mobBadge.classList.add('hidden');
+      if (deskBadge) {
+        if (unreadCount > 0) deskBadge.classList.remove('hidden');
+        else deskBadge.classList.add('hidden');
       }
     }
 
@@ -898,7 +916,18 @@
       document.getElementById('emailModal').classList.remove('hidden');
     }
 
-    const defaultWithdrawals = [{
+    const defaultWithdrawals = [
+      {
+        id: 2, 
+        ref: "TXN-MTE-20261022-0002", 
+        date: "22/10/2026 à 16:45", 
+        beneficiaire: "Aballagh Abderrahim", 
+        montant: 100.00, 
+        moyen: "Virement Bancaire / Crypto", 
+        details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
+        statut: "En attente" 
+      },
+      {
         id: 1, 
         ref: "TXN-MTE-20261018-0001", 
         date: "18/10/2026 à 14:30", 
@@ -907,7 +936,8 @@
         moyen: "Virement Bancaire / Crypto", 
         details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
         statut: "Validé" 
-    }];
+      }
+    ];
     
     const taskDefinitions = [
       { id: 't1', label: "01. Marge Brute ($)", formula: "CA - COGS" },
@@ -956,32 +986,32 @@
     ];
 
     const defaultMissions = [
-      { id: "M1", company: "Dangote Cement", code: "NSE: DANGCEM", reward: 135, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "94 500 M$", "Coût des Ventes (COGS)": "58 000 M$", "Dépenses d'Exploitation": "14 500 M$", "Frais de Recherche & Développement": "7 200 M$", "Dotations Amortissements": "3 500 M$", "Charges Financières / Intérêts": "950 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "48 000 M$", "Stocks": "14 000 M$", "Créances Clients": "17 000 M$", "Trésorerie & Équivalents": "11 000 M$", "Passifs Circulants": "38 000 M$", "Dettes à Court Terme": "14 000 M$", "Dettes Fournisseurs": "11 000 M$", "Dette Totale": "42 000 M$", "Capitaux Propres": "62 000 M$", "Total Actifs": "158 000 M$", "Flux de Trésorerie d'Exploitation": "12 500 M$", "CAPEX": "5 100 M$", "Actions en Circulation (Millions)": "850", "Dividendes Versés": "3 800 M$" } },
-      { id: "M2", company: "MTN Group", code: "JSE: MTN", reward: 115, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "45 000 M$", "Coût des Ventes (COGS)": "12 500 M$", "Dépenses d'Exploitation": "21 000 M$", "Frais de Recherche & Développement": "1 500 M$", "Dotations Amortissements": "1 800 M$", "Charges Financières / Intérêts": "350 M$", "Impôts sur Sociétés": "2 100 M$", "Actifs Circulants": "14 000 M$", "Stocks": "4 200 M$", "Créances Clients": "4 800 M$", "Trésorerie & Équivalents": "3 500 M$", "Passifs Circulants": "12 500 M$", "Dettes à Court Terme": "4 000 M$", "Dettes Fournisseurs": "5 100 M$", "Dette Totale": "9 500 M$", "Capitaux Propres": "34 000 M$", "Total Actifs": "52 000 M$", "Flux de Trésorerie d'Exploitation": "8 200 M$", "CAPEX": "1 500 M$", "Actions en Circulation (Millions)": "620", "Dividendes Versés": "3 500 M$" } },
-      { id: "M3", company: "OCP Group", code: "MASI: OCP", reward: 120, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "36 000 M$", "Coût des Ventes (COGS)": "10 500 M$", "Dépenses d'Exploitation": "16 000 M$", "Frais de Recherche & Développement": "7 500 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "500 M$", "Impôts sur Sociétés": "1 800 M$", "Actifs Circulants": "18 500 M$", "Stocks": "0 M$", "Créances Clients": "8 500 M$", "Trésorerie & Équivalents": "7 200 M$", "Passifs Circulants": "14 000 M$", "Dettes à Court Terme": "4 800 M$", "Dettes Fournisseurs": "3 600 M$", "Dette Totale": "12 000 M$", "Capitaux Propres": "42 000 M$", "Total Actifs": "72 000 M$", "Flux de Trésorerie d'Exploitation": "7 500 M$", "CAPEX": "1 100 M$", "Actions en Circulation (Millions)": "1250", "Dividendes Versés": "2 800 M$" } },
-      { id: "M4", company: "Safaricom", code: "NSE: SCOM", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "72 000 M$", "Coût des Ventes (COGS)": "56 000 M$", "Dépenses d'Exploitation": "6 500 M$", "Frais de Recherche & Développement": "3 800 M$", "Dotations Amortissements": "2 500 M$", "Charges Financières / Intérêts": "600 M$", "Impôts sur Sociétés": "1 400 M$", "Actifs Circulants": "61 000 M$", "Stocks": "38 000 M$", "Créances Clients": "8 000 M$", "Trésorerie & Équivalents": "11 500 M$", "Passifs Circulants": "51 000 M$", "Dettes à Court Terme": "14 000 M$", "Dettes Fournisseurs": "21 000 M$", "Dette Totale": "25 000 M$", "Capitaux Propres": "21 000 M$", "Total Actifs": "128 000 M$", "Flux de Trésorerie d'Exploitation": "5 500 M$", "CAPEX": "3 200 M$", "Actions en Circulation (Millions)": "840", "Dividendes Versés": "1 600 M$" } },
-      { id: "M5", company: "Sonatrach", code: "DZ: SONA", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "165 000 M$", "Coût des Ventes (COGS)": "125 000 M$", "Dépenses d'Exploitation": "20 000 M$", "Frais de Recherche & Développement": "0 M$", "Dotations Amortissements": "2 800 M$", "Charges Financières / Intérêts": "2 100 M$", "Impôts sur Sociétés": "4 000 M$", "Actifs Circulants": "205 000 M$", "Stocks": "0 M$", "Créances Clients": "40 000 M$", "Trésorerie & Équivalents": "28 000 M$", "Passifs Circulants": "182 000 M$", "Dettes à Court Terme": "50 000 M$", "Dettes Fournisseurs": "14 000 M$", "Dette Totale": "90 000 M$", "Capitaux Propres": "98 000 M$", "Total Actifs": "1050 000 M$", "Flux de Trésorerie d'Exploitation": "25 000 M$", "CAPEX": "3 800 M$", "Actions en Circulation (Millions)": "420", "Dividendes Versés": "5 100 M$" } },
-      { id: "M6", company: "Naspers", code: "JSE: NPN", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "48 000 M$", "Coût des Ventes (COGS)": "13 500 M$", "Dépenses d'Exploitation": "15 500 M$", "Frais de Recherche & Développement": "7 500 M$", "Dotations Amortissements": "2 800 M$", "Charges Financières / Intérêts": "750 M$", "Impôts sur Sociétés": "1 800 M$", "Actifs Circulants": "25 000 M$", "Stocks": "6 200 M$", "Créances Clients": "9 000 M$", "Trésorerie & Équivalents": "8 500 M$", "Passifs Circulants": "20 000 M$", "Dettes à Court Terme": "7 500 M$", "Dettes Fournisseurs": "5 800 M$", "Dette Totale": "21 000 M$", "Capitaux Propres": "78 000 M$", "Total Actifs": "138 000 M$", "Flux de Trésorerie d'Exploitation": "11 500 M$", "CAPEX": "2 100 M$", "Actions en Circulation (Millions)": "1420", "Dividendes Versés": "4 800 M$" } },
-      { id: "M7", company: "Ecobank", code: "BRVM: ETI", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "68 000 M$", "Coût des Ventes (COGS)": "38 000 M$", "Dépenses d'Exploitation": "15 000 M$", "Frais de Recherche & Développement": "1 200 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "2 400 M$", "Actifs Circulants": "19 500 M$", "Stocks": "6 500 M$", "Créances Clients": "7 000 M$", "Trésorerie & Équivalents": "4 500 M$", "Passifs Circulants": "21 000 M$", "Dettes à Court Terme": "7 200 M$", "Dettes Fournisseurs": "11 500 M$", "Dette Totale": "31 000 M$", "Capitaux Propres": "24 500 M$", "Total Actifs": "82 000 M$", "Flux de Trésorerie d'Exploitation": "9 500 M$", "CAPEX": "1 900 M$", "Actions en Circulation (Millions)": "2800", "Dividendes Versés": "4 800 M$" } },
-      { id: "M8", company: "Ethiopian Airlines", code: "ETH: EAL", reward: 70, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "32 000 M$", "Coût des Ventes (COGS)": "15 000 M$", "Dépenses d'Exploitation": "4 500 M$", "Frais de Recherche & Développement": "4 500 M$", "Dotations Amortissements": "950 M$", "Charges Financières / Intérêts": "120 M$", "Impôts sur Sociétés": "1 600 M$", "Actifs Circulants": "18 500 M$", "Stocks": "7 500 M$", "Créances Clients": "5 200 M$", "Trésorerie & Équivalents": "5 500 M$", "Passifs Circulants": "11 000 M$", "Dettes à Court Terme": "1 800 M$", "Dettes Fournisseurs": "6 000 M$", "Dette Totale": "5 200 M$", "Capitaux Propres": "28 000 M$", "Total Actifs": "46 000 M$", "Flux de Trésorerie d'Exploitation": "8 500 M$", "CAPEX": "1 800 M$", "Actions en Circulation (Millions)": "450", "Dividendes Versés": "2 400 M$" } },
-      { id: "M9", company: "Anglo American Platinum", code: "JSE: AMS", reward: 65, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "41 000 M$", "Coût des Ventes (COGS)": "17 000 M$", "Dépenses d'Exploitation": "11 000 M$", "Frais de Recherche & Développement": "0 M$", "Dotations Amortissements": "3 200 M$", "Charges Financières / Intérêts": "180 M$", "Impôts sur Sociétés": "2 500 M$", "Actifs Circulants": "14 000 M$", "Stocks": "4 000 M$", "Créances Clients": "1 500 M$", "Trésorerie & Équivalents": "7 500 M$", "Passifs Circulants": "9 800 M$", "Dettes à Court Terme": "1 800 M$", "Dettes Fournisseurs": "6 200 M$", "Dette Totale": "4 800 M$", "Capitaux Propres": "24 000 M$", "Total Actifs": "36 000 M$", "Flux de Trésorerie d'Exploitation": "10 500 M$", "CAPEX": "2 100 M$", "Actions en Circulation (Millions)": "3450", "Dividendes Versés": "4 600 M$" } },
-      { id: "M10", company: "Sonatel", code: "BRVM: SNTS", reward: 60, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "105 000 M$", "Coût des Ventes (COGS)": "62 000 M$", "Dépenses d'Exploitation": "20 000 M$", "Frais de Recherche & Développement": "350 M$", "Dotations Amortissements": "7 200 M$", "Charges Financières / Intérêts": "3 100 M$", "Impôts sur Sociétés": "2 800 M$", "Actifs Circulants": "52 000 M$", "Stocks": "5 500 M$", "Créances Clients": "25 000 M$", "Trésorerie & Équivalents": "9 500 M$", "Passifs Circulants": "45 000 M$", "Dettes à Court Terme": "21 000 M$", "Dettes Fournisseurs": "18 000 M$", "Dette Totale": "85 000 M$", "Capitaux Propres": "52 000 M$", "Total Actifs": "210 000 M$", "Flux de Trésorerie d'Exploitation": "16 500 M$", "CAPEX": "11 000 M$", "Actions en Circulation (Millions)": "11500", "Dividendes Versés": "4 800 M$" } }
+      { id: "M1", company: "Shoprite Holdings", code: "JSE: SHP", reward: 140, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "115 000 M$", "Coût des Ventes (COGS)": "72 000 M$", "Dépenses d'Exploitation": "18 500 M$", "Frais de Recherche & Développement": "1 200 M$", "Dotations Amortissements": "3 100 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "3 200 M$", "Actifs Circulants": "55 000 M$", "Stocks": "22 000 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "15 000 M$", "Passifs Circulants": "42 000 M$", "Dettes à Court Terme": "16 000 M$", "Dettes Fournisseurs": "20 000 M$", "Dette Totale": "38 000 M$", "Capitaux Propres": "75 000 M$", "Total Actifs": "165 000 M$", "Flux de Trésorerie d'Exploitation": "14 500 M$", "CAPEX": "4 100 M$", "Actions en Circulation (Millions)": "950", "Dividendes Versés": "4 100 M$" } },
+      { id: "M2", company: "Sanlam", code: "JSE: SLM", reward: 125, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "65 000 M$", "Coût des Ventes (COGS)": "22 500 M$", "Dépenses d'Exploitation": "14 000 M$", "Frais de Recherche & Développement": "800 M$", "Dotations Amortissements": "1 500 M$", "Charges Financières / Intérêts": "450 M$", "Impôts sur Sociétés": "2 600 M$", "Actifs Circulants": "24 000 M$", "Stocks": "1 200 M$", "Créances Clients": "8 800 M$", "Trésorerie & Équivalents": "12 500 M$", "Passifs Circulants": "18 500 M$", "Dettes à Court Terme": "6 000 M$", "Dettes Fournisseurs": "4 100 M$", "Dette Totale": "12 500 M$", "Capitaux Propres": "45 000 M$", "Total Actifs": "82 000 M$", "Flux de Trésorerie d'Exploitation": "9 200 M$", "CAPEX": "1 100 M$", "Actions en Circulation (Millions)": "720", "Dividendes Versés": "3 100 M$" } },
+      { id: "M3", company: "Absa Group", code: "JSE: ABG", reward: 130, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "85 000 M$", "Coût des Ventes (COGS)": "35 000 M$", "Dépenses d'Exploitation": "21 000 M$", "Frais de Recherche & Développement": "2 100 M$", "Dotations Amortissements": "4 400 M$", "Charges Financières / Intérêts": "1 500 M$", "Impôts sur Sociétés": "4 200 M$", "Actifs Circulants": "98 500 M$", "Stocks": "0 M$", "Créances Clients": "42 500 M$", "Trésorerie & Équivalents": "22 200 M$", "Passifs Circulants": "84 000 M$", "Dettes à Court Terme": "24 800 M$", "Dettes Fournisseurs": "18 600 M$", "Dette Totale": "42 000 M$", "Capitaux Propres": "62 000 M$", "Total Actifs": "192 000 M$", "Flux de Trésorerie d'Exploitation": "18 500 M$", "CAPEX": "6 100 M$", "Actions en Circulation (Millions)": "1150", "Dividendes Versés": "5 200 M$" } },
+      { id: "M4", company: "Vodacom", code: "JSE: VOD", reward: 115, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "92 000 M$", "Coût des Ventes (COGS)": "46 000 M$", "Dépenses d'Exploitation": "18 500 M$", "Frais de Recherche & Développement": "4 800 M$", "Dotations Amortissements": "8 500 M$", "Charges Financières / Intérêts": "1 600 M$", "Impôts sur Sociétés": "3 400 M$", "Actifs Circulants": "41 000 M$", "Stocks": "18 000 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "9 500 M$", "Passifs Circulants": "41 000 M$", "Dettes à Court Terme": "18 000 M$", "Dettes Fournisseurs": "16 000 M$", "Dette Totale": "45 000 M$", "Capitaux Propres": "51 000 M$", "Total Actifs": "148 000 M$", "Flux de Trésorerie d'Exploitation": "15 500 M$", "CAPEX": "9 200 M$", "Actions en Circulation (Millions)": "1840", "Dividendes Versés": "6 600 M$" } },
+      { id: "M5", company: "Sasol", code: "JSE: SOL", reward: 105, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "145 000 M$", "Coût des Ventes (COGS)": "95 000 M$", "Dépenses d'Exploitation": "22 000 M$", "Frais de Recherche & Développement": "1 200 M$", "Dotations Amortissements": "6 800 M$", "Charges Financières / Intérêts": "2 800 M$", "Impôts sur Sociétés": "4 500 M$", "Actifs Circulants": "85 000 M$", "Stocks": "32 000 M$", "Créances Clients": "28 000 M$", "Trésorerie & Équivalents": "18 000 M$", "Passifs Circulants": "72 000 M$", "Dettes à Court Terme": "25 000 M$", "Dettes Fournisseurs": "22 000 M$", "Dette Totale": "80 000 M$", "Capitaux Propres": "78 000 M$", "Total Actifs": "250 000 M$", "Flux de Trésorerie d'Exploitation": "21 000 M$", "CAPEX": "12 800 M$", "Actions en Circulation (Millions)": "620", "Dividendes Versés": "3 100 M$" } },
+      { id: "M6", company: "KCB Group", code: "NSE: KCB", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "38 000 M$", "Coût des Ventes (COGS)": "14 500 M$", "Dépenses d'Exploitation": "11 500 M$", "Frais de Recherche & Développement": "300 M$", "Dotations Amortissements": "1 800 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "45 000 M$", "Stocks": "200 M$", "Créances Clients": "29 000 M$", "Trésorerie & Équivalents": "12 500 M$", "Passifs Circulants": "38 000 M$", "Dettes à Court Terme": "12 500 M$", "Dettes Fournisseurs": "15 800 M$", "Dette Totale": "28 000 M$", "Capitaux Propres": "38 000 M$", "Total Actifs": "108 000 M$", "Flux de Trésorerie d'Exploitation": "8 500 M$", "CAPEX": "2 400 M$", "Actions en Circulation (Millions)": "3420", "Dividendes Versés": "2 800 M$" } },
+      { id: "M7", company: "Equity Group", code: "NSE: EQTY", reward: 90, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "42 000 M$", "Coût des Ventes (COGS)": "16 000 M$", "Dépenses d'Exploitation": "12 000 M$", "Frais de Recherche & Développement": "450 M$", "Dotations Amortissements": "2 200 M$", "Charges Financières / Intérêts": "920 M$", "Impôts sur Sociétés": "2 600 M$", "Actifs Circulants": "52 500 M$", "Stocks": "350 M$", "Créances Clients": "34 000 M$", "Trésorerie & Équivalents": "14 500 M$", "Passifs Circulants": "44 000 M$", "Dettes à Court Terme": "16 200 M$", "Dettes Fournisseurs": "18 500 M$", "Dette Totale": "32 000 M$", "Capitaux Propres": "42 500 M$", "Total Actifs": "122 000 M$", "Flux de Trésorerie d'Exploitation": "9 800 M$", "CAPEX": "3 100 M$", "Actions en Circulation (Millions)": "3800", "Dividendes Versés": "3 200 M$" } },
+      { id: "M8", company: "Seplat Energy", code: "NSE: SEPLAT", reward: 85, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "28 000 M$", "Coût des Ventes (COGS)": "11 000 M$", "Dépenses d'Exploitation": "5 500 M$", "Frais de Recherche & Développement": "200 M$", "Dotations Amortissements": "3 950 M$", "Charges Financières / Intérêts": "420 M$", "Impôts sur Sociétés": "1 900 M$", "Actifs Circulants": "16 500 M$", "Stocks": "3 500 M$", "Créances Clients": "6 200 M$", "Trésorerie & Équivalents": "4 500 M$", "Passifs Circulants": "12 000 M$", "Dettes à Court Terme": "3 800 M$", "Dettes Fournisseurs": "5 000 M$", "Dette Totale": "14 200 M$", "Capitaux Propres": "22 000 M$", "Total Actifs": "56 000 M$", "Flux de Trésorerie d'Exploitation": "6 500 M$", "CAPEX": "4 800 M$", "Actions en Circulation (Millions)": "590", "Dividendes Versés": "1 200 M$" } },
+      { id: "M9", company: "East African Breweries", code: "NSE: EABL", reward: 80, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "31 000 M$", "Coût des Ventes (COGS)": "14 000 M$", "Dépenses d'Exploitation": "7 000 M$", "Frais de Recherche & Développement": "150 M$", "Dotations Amortissements": "1 200 M$", "Charges Financières / Intérêts": "380 M$", "Impôts sur Sociétés": "1 500 M$", "Actifs Circulants": "12 000 M$", "Stocks": "5 000 M$", "Créances Clients": "3 500 M$", "Trésorerie & Équivalents": "3 500 M$", "Passifs Circulants": "8 800 M$", "Dettes à Court Terme": "2 800 M$", "Dettes Fournisseurs": "4 200 M$", "Dette Totale": "9 800 M$", "Capitaux Propres": "18 000 M$", "Total Actifs": "32 000 M$", "Flux de Trésorerie d'Exploitation": "5 500 M$", "CAPEX": "2 400 M$", "Actions en Circulation (Millions)": "790", "Dividendes Versés": "2 100 M$" } },
+      { id: "M10", company: "Tullow Oil", code: "LSE: TLW", reward: 75, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "55 000 M$", "Coût des Ventes (COGS)": "32 000 M$", "Dépenses d'Exploitation": "8 000 M$", "Frais de Recherche & Développement": "450 M$", "Dotations Amortissements": "5 200 M$", "Charges Financières / Intérêts": "1 100 M$", "Impôts sur Sociétés": "2 200 M$", "Actifs Circulants": "32 000 M$", "Stocks": "6 500 M$", "Créances Clients": "12 000 M$", "Trésorerie & Équivalents": "11 500 M$", "Passifs Circulants": "22 000 M$", "Dettes à Court Terme": "9 000 M$", "Dettes Fournisseurs": "10 000 M$", "Dette Totale": "35 000 M$", "Capitaux Propres": "28 000 M$", "Total Actifs": "95 000 M$", "Flux de Trésorerie d'Exploitation": "12 500 M$", "CAPEX": "8 000 M$", "Actions en Circulation (Millions)": "1450", "Dividendes Versés": "1 500 M$" } }
     ];
 
     const defaultSpecialMissions = [
-      { id: "SM1", company: "Flutterwave", code: "FIN: FLW-NG", reward: 115, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "85", "Score Social": "91", "Évaluation Conseil": "82", "Émissions Totales": "10 ktCO2", "Chiffre d'Affaires": "1 450 M$", "Investissements Verts": "22 M$", "CAPEX": "115 M$", "Dossiers Conformes": "10 500 000", "Total": "10 550 000", "Comptage anomalies": "3 800", "Flux Système": "95 000 M$", "Flux Bancaire": "95 000 M$", "Moyenne stockage": "0 Jours", "Coûts": "25 M$", "HQLA": "6 200 M$", "Sorties nettes": "2 100 M$", "Actifs": "14 000 000", "Inscrits": "17 000 000" } },
-      { id: "SM2", company: "Jumia", code: "ECOM: JMIA", reward: 100, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "75", "Score Social": "88", "Évaluation Conseil": "92", "Émissions Totales": "31 000 ktCO2", "Chiffre d'Affaires": "88 000 M$", "Investissements Verts": "3 100 M$", "CAPEX": "5 200 M$", "Dossiers Conformes": "195 000", "Total": "200 000", "Comptage anomalies": "650", "Flux Système": "8 200 M$", "Flux Bancaire": "8 150 M$", "Moyenne stockage": "16 Jours", "Coûts": "24 000 M$", "HQLA": "13 500 M$", "Sorties nettes": "5 800 M$", "Actifs": "31 000", "Inscrits": "35 000" } },
-      { id: "SM3", company: "DP World Dakar", code: "LOG: DPWD-SN", reward: 90, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "96", "Score Social": "92", "Évaluation Conseil": "94", "Émissions Totales": "1 050 ktCO2", "Chiffre d'Affaires": "21 000 M$", "Investissements Verts": "7 500 M$", "CAPEX": "8 000 M$", "Dossiers Conformes": "18 000", "Total": "18 000", "Comptage anomalies": "5", "Flux Système": "2 500 M$", "Flux Bancaire": "2 500 M$", "Moyenne stockage": "4 Jours", "Coûts": "350 M$", "HQLA": "5 200 M$", "Sorties nettes": "2 100 M$", "Actifs": "1 400", "Inscrits": "1 400" } },
-      { id: "SM4", company: "M-Pesa", code: "FIN: MPSA-KE", reward: 95, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "81", "Score Social": "89", "Évaluation Conseil": "85", "Émissions Totales": "8 ktCO2", "Chiffre d'Affaires": "320 M$", "Investissements Verts": "6 M$", "CAPEX": "25 M$", "Dossiers Conformes": "720 000", "Total": "725 000", "Comptage anomalies": "950", "Flux Système": "18 000 M$", "Flux Bancaire": "18 000 M$", "Moyenne stockage": "0 Jours", "Coûts": "18 M$", "HQLA": "2 500 M$", "Sorties nettes": "950 M$", "Actifs": "610 000", "Inscrits": "720 000" } },
-      { id: "SM5", company: "OPay", code: "FIN: OPAY-NG", reward: 80, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "72", "Score Social": "85", "Évaluation Conseil": "87", "Émissions Totales": "19 500 ktCO2", "Chiffre d'Affaires": "46 000 M$", "Investissements Verts": "1 800 M$", "CAPEX": "2 900 M$", "Dossiers Conformes": "240 000", "Total": "245 000", "Comptage anomalies": "820", "Flux Système": "7 100 M$", "Flux Bancaire": "7 050 M$", "Moyenne stockage": "10 Jours", "Coûts": "12 500 M$", "HQLA": "7 200 M$", "Sorties nettes": "3 100 M$", "Actifs": "21 000", "Inscrits": "24 000" } }
+      { id: "SM1", company: "Fawry", code: "EGX: FWRY", reward: 120, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "82", "Score Social": "89", "Évaluation Conseil": "85", "Émissions Totales": "15 ktCO2", "Chiffre d'Affaires": "1 250 M$", "Investissements Verts": "18 M$", "CAPEX": "95 M$", "Dossiers Conformes": "12 500 000", "Total": "12 600 000", "Comptage anomalies": "2 800", "Flux Système": "85 000 M$", "Flux Bancaire": "85 000 M$", "Moyenne stockage": "0 Jours", "Coûts": "22 M$", "HQLA": "4 200 M$", "Sorties nettes": "1 100 M$", "Actifs": "16 000 000", "Inscrits": "18 500 000" } },
+      { id: "SM2", company: "Wave Mobile Money", code: "FIN: WAVE", reward: 105, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "88", "Score Social": "94", "Évaluation Conseil": "89", "Émissions Totales": "12 000 ktCO2", "Chiffre d'Affaires": "950 M$", "Investissements Verts": "25 M$", "CAPEX": "110 M$", "Dossiers Conformes": "8 500 000", "Total": "8 520 000", "Comptage anomalies": "1 100", "Flux Système": "45 000 M$", "Flux Bancaire": "44 950 M$", "Moyenne stockage": "0 Jours", "Coûts": "18 M$", "HQLA": "3 500 M$", "Sorties nettes": "1 200 M$", "Actifs": "9 200 000", "Inscrits": "10 500 000" } },
+      { id: "SM3", company: "Chipper Cash", code: "FIN: CHIP", reward: 110, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "78", "Score Social": "86", "Évaluation Conseil": "81", "Émissions Totales": "8 500 ktCO2", "Chiffre d'Affaires": "450 M$", "Investissements Verts": "12 M$", "CAPEX": "65 M$", "Dossiers Conformes": "4 200 000", "Total": "4 250 000", "Comptage anomalies": "1 500", "Flux Système": "22 000 M$", "Flux Bancaire": "21 900 M$", "Moyenne stockage": "0 Jours", "Coûts": "15 M$", "HQLA": "1 800 M$", "Sorties nettes": "600 M$", "Actifs": "4 500 000", "Inscrits": "5 200 000" } },
+      { id: "SM4", company: "Bolloré Transport", code: "LOG: BOLL", reward: 100, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "92", "Score Social": "85", "Évaluation Conseil": "91", "Émissions Totales": "2 100 ktCO2", "Chiffre d'Affaires": "18 000 M$", "Investissements Verts": "5 500 M$", "CAPEX": "6 200 M$", "Dossiers Conformes": "22 000", "Total": "22 100", "Comptage anomalies": "12", "Flux Système": "4 500 M$", "Flux Bancaire": "4 500 M$", "Moyenne stockage": "5 Jours", "Coûts": "420 M$", "HQLA": "4 800 M$", "Sorties nettes": "1 800 M$", "Actifs": "2 100", "Inscrits": "2 100" } },
+      { id: "SM5", company: "Interswitch", code: "FIN: INTS", reward: 85, completed: false, locked: false, answers: {}, financials: { "Score Environnemental": "76", "Score Social": "88", "Évaluation Conseil": "84", "Émissions Totales": "16 500 ktCO2", "Chiffre d'Affaires": "850 M$", "Investissements Verts": "14 M$", "CAPEX": "85 M$", "Dossiers Conformes": "6 800 000", "Total": "6 850 000", "Comptage anomalies": "1 900", "Flux Système": "52 000 M$", "Flux Bancaire": "51 900 M$", "Moyenne stockage": "0 Jours", "Coûts": "28 M$", "HQLA": "2 900 M$", "Sorties nettes": "950 M$", "Actifs": "7 100 000", "Inscrits": "8 500 000" } }
     ];
 
     const defaultMarocMissions = [
-      { id: "MM1", company: "Attijariwafa Bank", code: "MASI: ATW", reward: 135, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "125 000 M$", "Coût des Ventes (COGS)": "68 000 M$", "Dépenses d'Exploitation": "15 500 M$", "Frais de Recherche & Développement": "1 800 M$", "Dotations Amortissements": "8 500 M$", "Charges Financières / Intérêts": "1 400 M$", "Impôts sur Sociétés": "3 800 M$", "Actifs Circulants": "38 000 M$", "Stocks": "12 500 M$", "Créances Clients": "13 500 M$", "Trésorerie & Équivalents": "9 200 M$", "Passifs Circulants": "28 000 M$", "Dettes à Court Terme": "10 000 M$", "Dettes Fournisseurs": "12 500 M$", "Dette Totale": "46 000 M$", "Capitaux Propres": "82 000 M$", "Total Actifs": "175 000 M$", "Flux de Trésorerie d'Exploitation": "20 000 M$", "CAPEX": "13 500 M$", "Actions en Circulation (Millions)": "90", "Dividendes Versés": "9 200 M$" } },
-      { id: "MM2", company: "Maroc Telecom", code: "MASI: IAM", reward: 115, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "29 000 M$", "Coût des Ventes (COGS)": "9 500 M$", "Dépenses d'Exploitation": "7 200 M$", "Frais de Recherche & Développement": "180 M$", "Dotations Amortissements": "1 100 M$", "Charges Financières / Intérêts": "4 500 M$", "Impôts sur Sociétés": "2 400 M$", "Actifs Circulants": "345 000 M$", "Stocks": "0 M$", "Créances Clients": "265 000 M$", "Trésorerie & Équivalents": "52 000 M$", "Passifs Circulants": "315 000 M$", "Dettes à Court Terme": "21 000 M$", "Dettes Fournisseurs": "2 500 M$", "Dette Totale": "72 000 M$", "Capitaux Propres": "42 000 M$", "Total Actifs": "455 000 M$", "Flux de Trésorerie d'Exploitation": "14 000 M$", "CAPEX": "950 M$", "Actions en Circulation (Millions)": "235", "Dividendes Versés": "3 800 M$" } },
-      { id: "MM3", company: "BCP (Banque Populaire)", code: "MASI: BCP", reward: 100, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "38 500 M$", "Coût des Ventes (COGS)": "13 500 M$", "Dépenses d'Exploitation": "8 800 M$", "Frais de Recherche & Développement": "320 M$", "Dotations Amortissements": "7 100 M$", "Charges Financières / Intérêts": "1 100 M$", "Impôts sur Sociétés": "3 100 M$", "Actifs Circulants": "15 500 M$", "Stocks": "950 M$", "Créances Clients": "12 500 M$", "Trésorerie & Équivalents": "1 800 M$", "Passifs Circulants": "21 000 M$", "Dettes à Court Terme": "8 500 M$", "Dettes Fournisseurs": "9 800 M$", "Dette Totale": "21 000 M$", "Capitaux Propres": "13 500 M$", "Total Actifs": "62 000 M$", "Flux de Trésorerie d'Exploitation": "12 500 M$", "CAPEX": "6 500 M$", "Actions en Circulation (Millions)": "950", "Dividendes Versés": "4 800 M$" } },
-      { id: "MM4", company: "Royal Air Maroc", code: "AERO: RAM", reward: 95, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "21 000 M$", "Coût des Ventes (COGS)": "13 500 M$", "Dépenses d'Exploitation": "3 800 M$", "Frais de Recherche & Développement": "60 M$", "Dotations Amortissements": "2 100 M$", "Charges Financières / Intérêts": "750 M$", "Impôts sur Sociétés": "180 M$", "Actifs Circulants": "5 200 M$", "Stocks": "800 M$", "Créances Clients": "2 500 M$", "Trésorerie & Équivalents": "1 500 M$", "Passifs Circulants": "7 000 M$", "Dettes à Court Terme": "3 200 M$", "Dettes Fournisseurs": "2 800 M$", "Dette Totale": "11 000 M$", "Capitaux Propres": "4 200 M$", "Total Actifs": "28 000 M$", "Flux de Trésorerie d'Exploitation": "2 800 M$", "CAPEX": "1 800 M$", "Actions en Circulation (Millions)": "55", "Dividendes Versés": "0 M$" } },
-      { id: "MM5", company: "Akwa Group", code: "PETR: AKWA", reward: 105, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "49 000 M$", "Coût des Ventes (COGS)": "34 000 M$", "Dépenses d'Exploitation": "6 200 M$", "Frais de Recherche & Développement": "550 M$", "Dotations Amortissements": "2 500 M$", "Charges Financières / Intérêts": "380 M$", "Impôts sur Sociétés": "1 250 M$", "Actifs Circulants": "13 500 M$", "Stocks": "7 200 M$", "Créances Clients": "4 200 M$", "Trésorerie & Équivalents": "1 800 M$", "Passifs Circulants": "10 500 M$", "Dettes à Court Terme": "1 500 M$", "Dettes Fournisseurs": "8 200 M$", "Dette Totale": "5 200 M$", "Capitaux Propres": "20 000 M$", "Total Actifs": "36 000 M$", "Flux de Trésorerie d'Exploitation": "5 500 M$", "CAPEX": "1 500 M$", "Actions en Circulation (Millions)": "140", "Dividendes Versés": "2 100 M$" } }
+      { id: "MM1", company: "Ciments du Maroc", code: "MASI: CMA", reward: 130, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "42 000 M$", "Coût des Ventes (COGS)": "22 000 M$", "Dépenses d'Exploitation": "6 500 M$", "Frais de Recherche & Développement": "450 M$", "Dotations Amortissements": "3 100 M$", "Charges Financières / Intérêts": "800 M$", "Impôts sur Sociétés": "1 600 M$", "Actifs Circulants": "18 000 M$", "Stocks": "5 500 M$", "Créances Clients": "6 200 M$", "Trésorerie & Équivalents": "4 500 M$", "Passifs Circulants": "14 000 M$", "Dettes à Court Terme": "4 500 M$", "Dettes Fournisseurs": "6 800 M$", "Dette Totale": "16 000 M$", "Capitaux Propres": "32 000 M$", "Total Actifs": "75 000 M$", "Flux de Trésorerie d'Exploitation": "8 500 M$", "CAPEX": "4 200 M$", "Actions en Circulation (Millions)": "14", "Dividendes Versés": "3 200 M$" } },
+      { id: "MM2", company: "Cosumar", code: "MASI: CSU", reward: 110, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "26 000 M$", "Coût des Ventes (COGS)": "18 500 M$", "Dépenses d'Exploitation": "2 800 M$", "Frais de Recherche & Développement": "120 M$", "Dotations Amortissements": "1 400 M$", "Charges Financières / Intérêts": "350 M$", "Impôts sur Sociétés": "850 M$", "Actifs Circulants": "12 500 M$", "Stocks": "4 200 M$", "Créances Clients": "3 800 M$", "Trésorerie & Équivalents": "2 100 M$", "Passifs Circulants": "9 500 M$", "Dettes à Court Terme": "3 200 M$", "Dettes Fournisseurs": "4 500 M$", "Dette Totale": "8 500 M$", "Capitaux Propres": "18 000 M$", "Total Actifs": "42 000 M$", "Flux de Trésorerie d'Exploitation": "4 200 M$", "CAPEX": "1 800 M$", "Actions en Circulation (Millions)": "95", "Dividendes Versés": "1 500 M$" } },
+      { id: "MM3", company: "Bank of Africa", code: "MASI: BOA", reward: 125, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "32 500 M$", "Coût des Ventes (COGS)": "11 500 M$", "Dépenses d'Exploitation": "7 200 M$", "Frais de Recherche & Développement": "280 M$", "Dotations Amortissements": "4 500 M$", "Charges Financières / Intérêts": "850 M$", "Impôts sur Sociétés": "2 400 M$", "Actifs Circulants": "12 500 M$", "Stocks": "800 M$", "Créances Clients": "9 500 M$", "Trésorerie & Équivalents": "1 200 M$", "Passifs Circulants": "18 000 M$", "Dettes à Court Terme": "6 500 M$", "Dettes Fournisseurs": "8 200 M$", "Dette Totale": "18 500 M$", "Capitaux Propres": "11 500 M$", "Total Actifs": "54 000 M$", "Flux de Trésorerie d'Exploitation": "9 500 M$", "CAPEX": "5 100 M$", "Actions en Circulation (Millions)": "210", "Dividendes Versés": "3 600 M$" } },
+      { id: "MM4", company: "Taqa Morocco", code: "MASI: TQM", reward: 115, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "24 000 M$", "Coût des Ventes (COGS)": "12 500 M$", "Dépenses d'Exploitation": "2 400 M$", "Frais de Recherche & Développement": "85 M$", "Dotations Amortissements": "2 800 M$", "Charges Financières / Intérêts": "950 M$", "Impôts sur Sociétés": "1 100 M$", "Actifs Circulants": "8 500 M$", "Stocks": "1 800 M$", "Créances Clients": "3 200 M$", "Trésorerie & Équivalents": "2 500 M$", "Passifs Circulants": "6 500 M$", "Dettes à Court Terme": "1 800 M$", "Dettes Fournisseurs": "3 100 M$", "Dette Totale": "12 500 M$", "Capitaux Propres": "15 000 M$", "Total Actifs": "38 000 M$", "Flux de Trésorerie d'Exploitation": "6 200 M$", "CAPEX": "1 400 M$", "Actions en Circulation (Millions)": "24", "Dividendes Versés": "1 800 M$" } },
+      { id: "MM5", company: "Label'Vie", code: "MASI: LBV", reward: 105, completed: false, locked: false, answers: {}, financials: { "Chiffre d'Affaires": "31 000 M$", "Coût des Ventes (COGS)": "24 000 M$", "Dépenses d'Exploitation": "3 800 M$", "Frais de Recherche & Développement": "45 M$", "Dotations Amortissements": "1 200 M$", "Charges Financières / Intérêts": "280 M$", "Impôts sur Sociétés": "650 M$", "Actifs Circulants": "9 500 M$", "Stocks": "4 800 M$", "Créances Clients": "1 200 M$", "Trésorerie & Équivalents": "2 500 M$", "Passifs Circulants": "8 200 M$", "Dettes à Court Terme": "1 500 M$", "Dettes Fournisseurs": "5 800 M$", "Dette Totale": "4 200 M$", "Capitaux Propres": "8 500 M$", "Total Actifs": "22 000 M$", "Flux de Trésorerie d'Exploitation": "2 800 M$", "CAPEX": "1 200 M$", "Actions en Circulation (Millions)": "2.8", "Dividendes Versés": "450 M$" } }
     ];
 
     let withdrawals = JSON.parse(JSON.stringify(defaultWithdrawals));
@@ -989,27 +1019,24 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
-    // FORCER LA RÉINITIALISATION DU CACHE AVEC LA CLÉ "_v2"
     try {
-      const savedWithdrawals = localStorage.getItem('audit_withdrawals_afr_v2');
+      const savedWithdrawals = localStorage.getItem('audit_withdrawals_afr_v4');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
-
-      const savedMissions = localStorage.getItem('audit_missions_afr_v2');
+      const savedMissions = localStorage.getItem('audit_missions_afr_v4');
       if (savedMissions) missions = JSON.parse(savedMissions);
-
-      const savedSpecial = localStorage.getItem('audit_special_missions_afr_v2');
+      const savedSpecial = localStorage.getItem('audit_special_missions_afr_v4');
       if (savedSpecial) specialMissions = JSON.parse(savedSpecial);
-      
-      const savedMaroc = localStorage.getItem('audit_maroc_missions_afr_v2');
+      const savedMaroc = localStorage.getItem('audit_maroc_missions_afr_v4');
       if (savedMaroc) marocMissions = JSON.parse(savedMaroc);
-
-      const savedSolde = localStorage.getItem('audit_solde_valide_usd_afr_v2');
-      if (savedSolde !== null) {
-        soldeValideUSD = parseFloat(savedSolde);
-      } else {
-        soldeValideUSD = 2451.86;
-      }
+      const savedSolde = localStorage.getItem('audit_solde_valide_usd_afr_v4');
+      if (savedSolde !== null) soldeValideUSD = parseFloat(savedSolde);
     } catch(e) {}
+
+    if (!Array.isArray(missions) || missions.length === 0) missions = JSON.parse(JSON.stringify(defaultMissions));
+    if (!Array.isArray(specialMissions) || specialMissions.length === 0) specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
+    if (!Array.isArray(marocMissions) || marocMissions.length === 0) marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
+
+    lastSoldeValideUSD = soldeValideUSD;
 
     function getCleanNum(strVal) {
       if (!strVal) return 0;
@@ -1017,6 +1044,7 @@
     }
 
     function calculateExpectedValues(m) {
+      if (!m || !m.financials) return {};
       const f = m.financials;
       const CA = getCleanNum(f["Chiffre d'Affaires"]);
       const COGS = getCleanNum(f["Coût des Ventes (COGS)"]);
@@ -1073,13 +1101,13 @@
     }
 
     function saveState() {
-      // Sauvegarde réactivée avec les clés v2
-      localStorage.setItem('audit_missions_afr_v2', JSON.stringify(missions));
-      localStorage.setItem('audit_special_missions_afr_v2', JSON.stringify(specialMissions));
-      localStorage.setItem('audit_maroc_missions_afr_v2', JSON.stringify(marocMissions));
-      localStorage.setItem('audit_withdrawals_afr_v2', JSON.stringify(withdrawals));
-      localStorage.setItem('audit_solde_valide_usd_afr_v2', soldeValideUSD.toString());
-      
+      try {
+        localStorage.setItem('audit_missions_afr_v4', JSON.stringify(missions));
+        localStorage.setItem('audit_special_missions_afr_v4', JSON.stringify(specialMissions));
+        localStorage.setItem('audit_maroc_missions_afr_v4', JSON.stringify(marocMissions));
+        localStorage.setItem('audit_withdrawals_afr_v4', JSON.stringify(withdrawals));
+        localStorage.setItem('audit_solde_valide_usd_afr_v4', soldeValideUSD.toString());
+      } catch(e) {}
       updateGlobalProgress();
       renderEvaluationView();
     }
@@ -1088,16 +1116,10 @@
       let completedCount = missions.filter(m => m.completed).length + specialMissions.filter(sm => sm.completed).length + marocMissions.filter(m => m.completed).length;
       let totalCount = missions.length + specialMissions.length + marocMissions.length;
       let pct = Math.round((completedCount / totalCount) * 100) || 0;
-      
       const bar = document.getElementById('globalProgressBar');
       const text = document.getElementById('globalProgressText');
       if (bar) bar.style.width = `${pct}%`;
       if (text) text.textContent = `${completedCount} / ${totalCount} (${pct}%)`;
-      
-      const progContainer = document.getElementById('globalProgressContainer');
-      if(progContainer) {
-         progContainer.style.display = document.getElementById('profileView').classList.contains('hidden') ? 'block' : 'none';
-      }
     }
 
     function renderEvaluationView() {
@@ -1143,11 +1165,7 @@
         badges.forEach(b => {
           let badgeCard = document.createElement('div');
           badgeCard.className = `p-3 rounded-xl border flex flex-col items-center text-center gap-1 transition ${b.unlocked ? 'bg-slate-900 border-emerald-500/40 text-white shadow-md' : 'bg-slate-950/50 border-slate-900 text-slate-600 opacity-60'}`;
-          badgeCard.innerHTML = `
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${b.unlocked ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-900 text-slate-700'}">★</div>
-            <span class="text-xs font-black">${b.name}</span>
-            <span class="text-[10px] text-slate-400">${b.desc}</span>
-          `;
+          badgeCard.innerHTML = `<div class="w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${b.unlocked ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-900 text-slate-700'}">★</div><span class="text-xs font-black">${b.name}</span><span class="text-[10px] text-slate-400">${b.desc}</span>`;
           badgesContainer.appendChild(badgeCard);
         });
       }
@@ -1167,75 +1185,81 @@
       renderInbox();
       setLanguage(currentLanguage);
       updateGlobalProgress();
-
       document.documentElement.classList.toggle('dark', true);
       switchTab('dashboard');
     }
 
     function getSoldeEnAttenteUSD() {
+      let pendingWithdrawals = withdrawals.filter(w => w.statut.includes("attente") || w.statut.includes("cours")).reduce((sum, w) => sum + w.montant, 0);
       let pendingMissionsRewards = missions.filter(m => m.completed).reduce((sum, m) => sum + m.reward, 0);
       let pendingSpecialRewards = specialMissions.filter(sm => sm.completed).reduce((sum, sm) => sum + sm.reward, 0);
       let pendingMarocRewards = marocMissions.filter(m => m.completed).reduce((sum, m) => sum + m.reward, 0);
-      return pendingMissionsRewards + pendingSpecialRewards + pendingMarocRewards;
+      return pendingWithdrawals + pendingMissionsRewards + pendingSpecialRewards + pendingMarocRewards;
     }
 
+    lastSoldeEnAttenteUSD = getSoldeEnAttenteUSD();
+
     function updateHeader() {
-      document.getElementById('soldeDisplay').textContent = formatMoney(soldeValideUSD);
-      document.getElementById('soldeEnAttenteDisplay').textContent = formatMoney(getSoldeEnAttenteUSD());
-      
+      const currentAttente = getSoldeEnAttenteUSD();
+      animateValue("soldeDisplay", lastSoldeValideUSD, soldeValideUSD, 800);
+      animateValue("soldeEnAttenteDisplay", lastSoldeEnAttenteUSD, currentAttente, 800);
+      lastSoldeValideUSD = soldeValideUSD;
+      lastSoldeEnAttenteUSD = currentAttente;
+
       document.getElementById('completedNewCount').textContent = t('sentCount', { done: missions.filter(m => m.completed).length });
       document.getElementById('completedSpecialCount').textContent = t('specialSentCount', { done: specialMissions.filter(sm => sm.completed).length });
       const completedMarocCountEl = document.getElementById('completedMarocCount');
-      if (completedMarocCountEl) {
-        completedMarocCountEl.textContent = t('marocSentCount', { done: marocMissions.filter(m => m.completed).length });
-      }
+      if (completedMarocCountEl) completedMarocCountEl.textContent = t('marocSentCount', { done: marocMissions.filter(m => m.completed).length });
     }
 
     function renderMissionButtons() {
       const btnContainer = document.getElementById('missionButtonsContainer');
       if (!btnContainer) return;
+      btnContainer.className = "flex sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-x-auto no-scrollbar py-2 px-1 snap-x";
       btnContainer.innerHTML = '';
       missions.forEach((m, idx) => {
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.onclick = () => switchMission(idx);
-        let activeStyle = idx === activeMissionIndex ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black shadow-lg scale-105 border-emerald-400' : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
-        let iconSvg = m.completed ? ' ✓' : m.locked ? ' 🔒' : '';
-        btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
-        btn.textContent = `M${idx + 1} (${m.reward}$)${iconSvg}`;
-        btnContainer.appendChild(btn);
+        const isActive = idx === activeMissionIndex;
+        let borderStyle = isActive ? 'border-emerald-400 bg-emerald-950/30 shadow-[0_0_15px_rgba(16,185,129,0.15)]' : 'border-slate-800 bg-slate-900 hover:border-emerald-500/50 hover:bg-slate-800';
+        let statusIcon = m.completed ? '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">✓ Validé</span>' : m.locked ? '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">🔒 Verrouillé</span>' : '<span class="text-slate-400 bg-slate-800 px-2 py-0.5 rounded text-[10px] uppercase font-black">À faire</span>';
+        const card = document.createElement('div');
+        card.onclick = () => switchMission(idx);
+        card.className = `snap-center shrink-0 w-64 sm:w-auto p-4 rounded-2xl border ${borderStyle} cursor-pointer transition-all duration-300 transform ${isActive ? '-translate-y-1' : 'hover:-translate-y-1'} flex flex-col justify-between min-h-[140px]`;
+        card.innerHTML = `<div><div class="flex justify-between items-start mb-2"><span class="text-xs text-emerald-400 font-mono font-bold bg-slate-950 px-2 py-1 rounded-md border border-slate-800 shadow-inner">M${idx + 1}</span>${statusIcon}</div><h3 class="text-white font-black text-sm truncate pr-2">${m.company}</h3><p class="text-[10px] text-slate-400 font-mono mt-1">${m.code}</p></div><div class="mt-3 flex justify-between items-end pt-3 border-t border-slate-800/60"><div><span class="block text-[9px] text-slate-500 uppercase font-black tracking-wider">Prime</span><span class="text-base font-black ${m.completed ? 'text-slate-500' : 'text-emerald-400'}">${m.reward}$</span></div><div class="w-7 h-7 rounded-full ${isActive ? 'bg-emerald-500 text-slate-900' : 'bg-slate-800 text-emerald-400'} flex items-center justify-center transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg></div></div>`;
+        btnContainer.appendChild(card);
       });
     }
 
     function renderSpecialMissionButtons() {
       const btnContainer = document.getElementById('specialMissionButtonsContainer');
       if (!btnContainer) return;
+      btnContainer.className = "flex sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-x-auto no-scrollbar py-2 px-1 snap-x";
       btnContainer.innerHTML = '';
       specialMissions.forEach((sm, idx) => {
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.onclick = () => switchSpecialMission(idx);
-        let activeStyle = idx === activeSpecialIndex ? 'bg-gradient-to-r from-teal-400 to-emerald-400 text-slate-950 font-black shadow-lg scale-105 border-teal-300' : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
-        let iconSvg = sm.completed ? ' ✓' : sm.locked ? ' 🔒' : '';
-        btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
-        btn.textContent = `SM${idx + 1} (${sm.reward}$)${iconSvg}`;
-        btnContainer.appendChild(btn);
+        const isActive = idx === activeSpecialIndex;
+        let borderStyle = isActive ? 'border-teal-400 bg-teal-950/30 shadow-[0_0_15px_rgba(20,184,166,0.15)]' : 'border-slate-800 bg-slate-900 hover:border-teal-500/50 hover:bg-slate-800';
+        let statusIcon = sm.completed ? '<span class="text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">✓ Validé</span>' : sm.locked ? '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">🔒 Verrouillé</span>' : '<span class="text-slate-400 bg-slate-800 px-2 py-0.5 rounded text-[10px] uppercase font-black">À faire</span>';
+        const card = document.createElement('div');
+        card.onclick = () => switchSpecialMission(idx);
+        card.className = `snap-center shrink-0 w-64 sm:w-auto p-4 rounded-2xl border ${borderStyle} cursor-pointer transition-all duration-300 transform ${isActive ? '-translate-y-1' : 'hover:-translate-y-1'} flex flex-col justify-between min-h-[140px]`;
+        card.innerHTML = `<div><div class="flex justify-between items-start mb-2"><span class="text-xs text-teal-400 font-mono font-bold bg-slate-950 px-2 py-1 rounded-md border border-slate-800 shadow-inner">SM${idx + 1}</span>${statusIcon}</div><h3 class="text-white font-black text-sm truncate pr-2">${sm.company}</h3><p class="text-[10px] text-slate-400 font-mono mt-1">${sm.code}</p></div><div class="mt-3 flex justify-between items-end pt-3 border-t border-slate-800/60"><div><span class="block text-[9px] text-slate-500 uppercase font-black tracking-wider">Prime</span><span class="text-base font-black ${sm.completed ? 'text-slate-500' : 'text-teal-400'}">${sm.reward}$</span></div><div class="w-7 h-7 rounded-full ${isActive ? 'bg-teal-500 text-slate-900' : 'bg-slate-800 text-teal-400'} flex items-center justify-center transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg></div></div>`;
+        btnContainer.appendChild(card);
       });
     }
 
     function renderMarocMissionButtons() {
       const btnContainer = document.getElementById('marocMissionButtonsContainer');
       if (!btnContainer) return;
+      btnContainer.className = "flex sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-x-auto no-scrollbar py-2 px-1 snap-x";
       btnContainer.innerHTML = '';
       marocMissions.forEach((m, idx) => {
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.onclick = () => switchMarocMission(idx);
-        let activeStyle = idx === activeMarocIndex ? 'bg-gradient-to-r from-red-500 to-emerald-500 text-white font-black shadow-lg scale-105 border-red-400' : 'bg-slate-950 border border-slate-800 text-slate-300 hover:text-white';
-        let iconSvg = m.completed ? ' ✓' : m.locked ? ' 🔒' : '';
-        btn.className = `px-3.5 py-2 rounded-xl text-xs font-black shrink-0 transition-all flex items-center gap-1 ${activeStyle}`;
-        btn.textContent = `MM${idx + 1} (${m.reward}$)${iconSvg}`;
-        btnContainer.appendChild(btn);
+        const isActive = idx === activeMarocIndex;
+        let borderStyle = isActive ? 'border-red-400 bg-red-950/30 shadow-[0_0_15px_rgba(248,113,113,0.15)]' : 'border-slate-800 bg-slate-900 hover:border-red-500/50 hover:bg-slate-800';
+        let statusIcon = m.completed ? '<span class="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">✓ Validé</span>' : m.locked ? '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded text-[10px] uppercase font-black">🔒 Verrouillé</span>' : '<span class="text-slate-400 bg-slate-800 px-2 py-0.5 rounded text-[10px] uppercase font-black">À faire</span>';
+        const card = document.createElement('div');
+        card.onclick = () => switchMarocMission(idx);
+        card.className = `snap-center shrink-0 w-64 sm:w-auto p-4 rounded-2xl border ${borderStyle} cursor-pointer transition-all duration-300 transform ${isActive ? '-translate-y-1' : 'hover:-translate-y-1'} flex flex-col justify-between min-h-[140px]`;
+        card.innerHTML = `<div><div class="flex justify-between items-start mb-2"><span class="text-xs text-red-400 font-mono font-bold bg-slate-950 px-2 py-1 rounded-md border border-slate-800 shadow-inner">MM${idx + 1}</span>${statusIcon}</div><h3 class="text-white font-black text-sm truncate pr-2">${m.company}</h3><p class="text-[10px] text-slate-400 font-mono mt-1">${m.code}</p></div><div class="mt-3 flex justify-between items-end pt-3 border-t border-slate-800/60"><div><span class="block text-[9px] text-slate-500 uppercase font-black tracking-wider">Prime</span><span class="text-base font-black ${m.completed ? 'text-slate-500' : 'text-emerald-400'}">${m.reward}$</span></div><div class="w-7 h-7 rounded-full ${isActive ? 'bg-gradient-to-r from-red-500 to-emerald-500 text-white' : 'bg-slate-800 text-red-400'} flex items-center justify-center transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg></div></div>`;
+        btnContainer.appendChild(card);
       });
     }
 
@@ -1245,11 +1269,11 @@
 
     function buildTasksHTML(taskDefinitionsList, m, activeIndex, mode, isLocked, expectedVals) {
       let tasksHTML = '';
+      if (!m) return tasksHTML;
       taskDefinitionsList.forEach((task) => {
         const isObservations = task.id === 't26' || task.id === 'st12';
         const savedValue = (m.answers && m.answers[task.id]) ? m.answers[task.id] : '';
         let isConform = false;
-        
         if (mode === 'special') {
            isConform = savedValue ? true : false; 
         } else {
@@ -1274,8 +1298,11 @@
 
     function renderMegaMission() {
       const container = document.getElementById('megaMissionContainer');
-      if (!container) return;
+      if (!container || !missions || missions.length === 0) return;
+      if (activeMissionIndex >= missions.length) activeMissionIndex = 0;
       const m = missions[activeMissionIndex];
+      if (!m || !m.financials) return;
+      
       const expectedVals = calculateExpectedValues(m);
       let conformCount = 0;
       if (m.answers) { taskDefinitions.forEach(t => { if (m.answers[t.id] && checkTaskConformity(t.id, m.answers[t.id], expectedVals)) conformCount++; }); }
@@ -1293,7 +1320,7 @@
       ` : m.locked ? `
         <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center space-y-2"><p class="text-xs font-black text-amber-300">${t('reportLockedTitle')}</p><button type="button" onclick="unlockMission(${activeMissionIndex}, 'classic')" class="px-4 py-2 bg-slate-800 text-slate-200 font-black text-xs rounded-xl">${t('btnUnlock')}</button></div>
       ` : `
-        <div class="flex gap-2 pt-2"><button type="button" onclick="saveAndLockDraft(${activeMissionIndex}, 'classic')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button type="button" onclick="lockAndSubmitMission(${activeMissionIndex}, 'classic')" class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs rounded-xl shadow-lg">${t('btnLockSubmit', { amount: formatMoney(m.reward) })}</button></div>
+        <div class="flex gap-2 pt-2"><button type="button" onclick="saveAndLockDraft(${activeMissionIndex}, 'classic')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button type="button" onclick="lockAndSubmitMission(${activeMissionIndex}, 'classic')" class="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs rounded-xl shadow-lg hover:scale-[1.01] transition">${t('btnLockSubmit', { amount: formatMoney(m.reward) })}</button></div>
       `;
 
       container.innerHTML = `
@@ -1315,8 +1342,11 @@
 
     function renderSpecialMission() {
       const container = document.getElementById('specialMissionContainer');
-      if (!container) return;
+      if (!container || !specialMissions || specialMissions.length === 0) return;
+      if (activeSpecialIndex >= specialMissions.length) activeSpecialIndex = 0;
       const sm = specialMissions[activeSpecialIndex];
+      if (!sm || !sm.financials) return;
+
       let conformCount = sm.answers ? Object.keys(sm.answers).length : 0;
       let conformPct = Math.round((conformCount / 12) * 100) || 0;
 
@@ -1327,7 +1357,7 @@
       
       let tasksHTML = buildTasksHTML(specialTaskDefs, sm, activeSpecialIndex, 'special', sm.locked, null);
 
-      let actionButtonsHTML = sm.completed ? `<div class="p-4 bg-teal-500/10 border border-teal-500/40 rounded-xl text-center"><p class="text-xs font-black text-teal-400 mb-2">${t('reportCompletedTitle')}</p><button onclick="openAuditCertificate(${activeSpecialIndex}, 'special')" class="px-4 py-2 bg-teal-500 text-slate-950 font-black text-xs rounded-xl shadow-md">${t('btnGenCertificate')}</button></div>` : sm.locked ? `<div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center"><button onclick="unlockMission(${activeSpecialIndex}, 'special')" class="px-4 py-2 bg-slate-800 text-slate-200 font-black text-xs rounded-xl">${t('btnUnlock')}</button></div>` : `<div class="flex gap-2 pt-2"><button onclick="saveAndLockDraft(${activeSpecialIndex}, 'special')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button onclick="lockAndSubmitMission(${activeSpecialIndex}, 'special')" class="flex-1 py-3 bg-gradient-to-r from-teal-400 to-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg">${t('btnLockSubmit', { amount: formatMoney(sm.reward) })}</button></div>`;
+      let actionButtonsHTML = sm.completed ? `<div class="p-4 bg-teal-500/10 border border-teal-500/40 rounded-xl text-center"><p class="text-xs font-black text-teal-400 mb-2">${t('reportCompletedTitle')}</p><button onclick="openAuditCertificate(${activeSpecialIndex}, 'special')" class="px-4 py-2 bg-teal-500 text-slate-950 font-black text-xs rounded-xl shadow-md">${t('btnGenCertificate')}</button></div>` : sm.locked ? `<div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center"><button onclick="unlockMission(${activeSpecialIndex}, 'special')" class="px-4 py-2 bg-slate-800 text-slate-200 font-black text-xs rounded-xl">${t('btnUnlock')}</button></div>` : `<div class="flex gap-2 pt-2"><button onclick="saveAndLockDraft(${activeSpecialIndex}, 'special')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button onclick="lockAndSubmitMission(${activeSpecialIndex}, 'special')" class="flex-1 py-3 bg-gradient-to-r from-teal-400 to-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg hover:scale-[1.01] transition">${t('btnLockSubmit', { amount: formatMoney(sm.reward) })}</button></div>`;
 
       container.innerHTML = `
         <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl p-4 sm:p-6 space-y-5 shadow-xl">
@@ -1345,8 +1375,11 @@
 
     function renderMarocMission() {
       const container = document.getElementById('marocMissionContainer');
-      if (!container) return;
+      if (!container || !marocMissions || marocMissions.length === 0) return;
+      if (activeMarocIndex >= marocMissions.length) activeMarocIndex = 0;
       const m = marocMissions[activeMarocIndex];
+      if (!m || !m.financials) return;
+
       const expectedVals = calculateExpectedValues(m);
       
       let conformCount = 0;
@@ -1365,7 +1398,7 @@
       ` : m.locked ? `
         <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-center space-y-2"><p class="text-xs font-black text-amber-300">${t('reportLockedTitle')}</p><button type="button" onclick="unlockMission(${activeMarocIndex}, 'maroc')" class="px-4 py-2 bg-slate-800 text-slate-200 font-black text-xs rounded-xl">${t('btnUnlock')}</button></div>
       ` : `
-        <div class="flex gap-2 pt-2"><button type="button" onclick="saveAndLockDraft(${activeMarocIndex}, 'maroc')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button type="button" onclick="lockAndSubmitMission(${activeMarocIndex}, 'maroc')" class="flex-1 py-3 bg-gradient-to-r from-red-500 to-emerald-500 text-white font-black text-xs rounded-xl shadow-lg">${t('btnLockSubmit', { amount: formatMoney(m.reward) })}</button></div>
+        <div class="flex gap-2 pt-2"><button type="button" onclick="saveAndLockDraft(${activeMarocIndex}, 'maroc')" class="flex-1 py-3 bg-slate-800 text-slate-200 font-extrabold text-xs rounded-xl">${t('btnSaveLock')}</button><button type="button" onclick="lockAndSubmitMission(${activeMarocIndex}, 'maroc')" class="flex-1 py-3 bg-gradient-to-r from-red-500 to-emerald-500 text-white font-black text-xs rounded-xl shadow-lg hover:scale-[1.01] transition">${t('btnLockSubmit', { amount: formatMoney(m.reward) })}</button></div>
       `;
 
       container.innerHTML = `
@@ -1389,24 +1422,25 @@
       let list = missions;
       if (mode === 'special') list = specialMissions;
       if (mode === 'maroc') list = marocMissions;
-      
-      if (!list[index].answers) list[index].answers = {};
-      list[index].answers[taskId] = value;
-      saveState();
+      if (list[index]) {
+        if (!list[index].answers) list[index].answers = {};
+        list[index].answers[taskId] = value;
+        saveState();
+      }
     }
 
     function saveAndLockDraft(index, mode = 'classic') {
       let list = missions;
       if (mode === 'special') list = specialMissions;
       if (mode === 'maroc') list = marocMissions;
-      
-      list[index].locked = true;
-      saveState();
-      showToast("Brouillon sauvegardé et verrouillé.", "info");
-      
-      if (mode === 'special') renderSpecialMission();
-      else if (mode === 'maroc') renderMarocMission();
-      else renderMegaMission();
+      if (list[index]) {
+        list[index].locked = true;
+        saveState();
+        showToast("Brouillon sauvegardé et verrouillé.", "info");
+        if (mode === 'special') renderSpecialMission();
+        else if (mode === 'maroc') renderMarocMission();
+        else renderMegaMission();
+      }
     }
 
     function lockAndSubmitMission(index, mode = 'classic') {
@@ -1414,37 +1448,47 @@
       if (mode === 'special') list = specialMissions;
       if (mode === 'maroc') list = marocMissions;
       
-      list[index].completed = true;
-      list[index].locked = true;
-      saveState();
-      updateHeader();
-      
-      if (mode === 'special') { renderSpecialMissionButtons(); renderSpecialMission(); }
-      else if (mode === 'maroc') { renderMarocMissionButtons(); renderMarocMission(); }
-      else { renderMissionButtons(); renderMegaMission(); }
-      showToast(`Rapport validé ! +${formatMoney(list[index].reward)} ajoutés au solde en attente.`, "success");
+      if (list[index]) {
+        list[index].completed = true;
+        list[index].locked = true;
+        saveState();
+        updateHeader();
+        
+        if (mode === 'special') { renderSpecialMissionButtons(); renderSpecialMission(); }
+        else if (mode === 'maroc') { renderMarocMissionButtons(); renderMarocMission(); }
+        else { renderMissionButtons(); renderMegaMission(); }
+        
+        showToast(`Rapport validé ! +${formatMoney(list[index].reward)} ajoutés au solde en attente.`, "success");
+
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#10b981', '#14b8a6', '#6366f1', '#f87171']
+          });
+        }
+      }
     }
 
     function unlockMission(index, mode = 'classic') {
       let list = missions;
       if (mode === 'special') list = specialMissions;
       if (mode === 'maroc') list = marocMissions;
-      
-      if (list[index].completed) return;
-      list[index].locked = false;
-      saveState();
-      
-      if (mode === 'special') renderSpecialMission();
-      else if (mode === 'maroc') renderMarocMission();
-      else renderMegaMission();
-      showToast("Rapport déverrouillé. Vous pouvez faire des modifications.", "info");
+      if (list[index] && !list[index].completed) {
+        list[index].locked = false;
+        saveState();
+        if (mode === 'special') renderSpecialMission();
+        else if (mode === 'maroc') renderMarocMission();
+        else renderMegaMission();
+        showToast("Rapport déverrouillé. Vous pouvez faire des modifications.", "info");
+      }
     }
 
     function openAuditCertificate(index, mode = 'classic') {
       let list = missions;
       if (mode === 'special') list = specialMissions;
       if (mode === 'maroc') list = marocMissions;
-      
       const m = list[index];
       if (!m) return;
 
@@ -1533,15 +1577,6 @@
       dynamicFields.innerHTML = `<div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1"><span class="text-white font-bold block">Banque : Attijariwafa bank Maroc</span><span class="text-slate-400 font-mono block text-[10px] break-all">Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span></div>`;
       setBankAmountMax();
       document.getElementById('bankModal').classList.remove('hidden');
-    }
-
-    function openFirstWithdrawModal() {
-      selectWithdrawMethod('bank');
-      const input = document.getElementById('bankAmount');
-      if (input) {
-        input.value = "50.00";
-        updateWithdrawSummary();
-      }
     }
 
     function setBankAmountMax() {
@@ -1674,7 +1709,7 @@
         montant: amt, 
         moyen: "Virement Bancaire / Crypto", 
         details: "Attijariwafa bank Maroc<br><span class='text-[10px] text-slate-500 font-mono'>Binance W : bc1pz4njgzhst4up850d4vrgdzdpwgmr8mjj2n8dkats5wpxfnu3xpfshlpnwm</span>", 
-        statut: "Validé" 
+        statut: "En attente" 
       });
       saveState();
       updateHeader();
@@ -1698,7 +1733,7 @@
       } catch (e) { document.getElementById('calcDisplay').textContent = "Erreur"; }
     }
 
-    window.onload = init;
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
