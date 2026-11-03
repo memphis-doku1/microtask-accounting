@@ -1009,6 +1009,7 @@
     let specialMissions = JSON.parse(JSON.stringify(defaultSpecialMissions));
     let marocMissions = JSON.parse(JSON.stringify(defaultMarocMissions));
 
+    // Utilisation de la version v4 pour charger/sauvegarder l'état mis à jour
     try {
       const savedWithdrawals = localStorage.getItem('audit_withdrawals_afr_v4');
       if (savedWithdrawals) withdrawals = JSON.parse(savedWithdrawals);
